@@ -1,0 +1,711 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Background} \label{chap:background}
+
+\section{Social Human-Robot Interaction}
+
+\subsection{Fields on application}
+
+As Human-Robot Interaction covers a large spectrum of different interactions between humans and robots, we used the following criteria on the interactions to select the fields used in this overview:
+\begin{itemize}
+\item Interaction between a robot (possibly virtual) and a human: both the human and the robot are influencing each other's behaviour.
+\item Socially interactive robots as defined in \citep{Fong2003}: the social
+    side of the interaction is key (unlike physical HRI, such as exoskeleton or
+    pure teleoperation as in robotic assisted surgery)
+\end{itemize}
+
+\subsubsection{Home and Companion}
+	%TODO: Replace website by references
+
+    With the ageing of the population observed today and the even more important
+    ageing predicted \footnote{The number of persons over 65 years is expected
+    to increase by more than 30\% in the next 20 years, source: UN, World
+    Population Prospects, 2010 \citep{rodrigues2012facts}.}, the society will
+    have to find a way to manage this increase of population needing to be taken
+    care of. This is especially concerning as this field is already lacking
+    workforce and a robot could make the difference between having to send the
+    elderly in a care home or allowing them to stay independent in their
+    personal home \citep{di2014web}. For this reason, robots for the elderly is
+    one of the major robotic market for now and for the next decades as it is
+    shown by the number of projects all around the globe targeting this problem:
+    Robot-Era \citep{bevilacqua2012robot}, Accompany project
+    \citep{amirabdollahian2013accompany}, Socially Assistive Robotics (NSF
+    Expedition in computing) \footnote{http://robotshelpingkids.yale.edu/},
+    Companionable \footnote{http://www.companionable.net/} and the Robear
+    project in Japan
+    \footnote{\url{http://www.riken.jp/en/pr/press/2015/20150223_2/}} to cite
+    only a small subset of them.	
+	
+    However, the acceptance of these robots in elderly care facilities or at
+    their homes, is still a complex task. Multiple studies report a good
+    acceptance of robot and positive effects on stress in home cares both for
+    the elderly and the nursing staff \citep{wada2004effects}, but as mentioned
+    in \citep{broadbent2009acceptance}, this acceptance could be increased by
+    matching more closely the behaviour of the robots to the actual needs of the
+    patients.	
+		
+\subsubsection{Robot Assisted Therapy}
+	
+    Another medical field where robots have been applied is in Robot Assisted
+    Therapy (RAT). Robots have first been used as physical platform to help
+    patient to recover physically from strokes or cerebral palsy for example
+    \citep{sivan2011systematic}. They were primally used as mecatronic machine
+    helping humans to accomplish repetitive task. But around twenty years ago,
+    they have started to be used for their social capabilities. For example the
+    AuRoRA Project
+    \footnote{\url{http://homepages.herts.ac.uk/~comqbr/aurora/index.php?option=com_content&view=category&id=2&Itemid=102}}
+    which started in 1998 explored the use of robot as therapeutic tools for
+    children with Autism Spectrum Disorder (ASD) \citep{dautenhahn1999robots}.
+    Since AuRoRA, many projects have started all around the world to use robot
+    to help patient with ASD, as shown by the review presented in
+    \citep{diehl2012clinical}. RAT is not limited to ASD only, the use of robots
+    is also explored in hospitals, for example to support children with diabetes
+    \citep{belpaeme2012multimodal} or to support elderly with dementia
+    \citep{wada2005psychological}.	
+	
+\subsubsection{Education} 
+
+    Another field taking advantage of technology, but where robots are not yet
+    used in an extensive way, is education. Studies reported that individualised
+    feedbacks can increase the performance of students \citep{bloom19842}, but
+    due to the large number of students supervised by a single teacher this
+    approach is often not possible. Robotic tutors could provide this one to one
+    interaction not available in current classroom without requesting to
+    dramatically increase the number of teachers. For example, in Co-Writer
+    \citep{hood2015children}, a robot is used in a dyadic interaction to help a
+    child to improve his handwriting. Studies have also shown that adding robot
+    in a classroom can improve the child learning outcomes
+    \citep{kanda2004interactive}. Additionally, robots can be used at home to
+    elicit advantages over web or paper based instructions
+    \citep{han2005educational}. However as pointed by \citet{kennedy2015robot},
+    social behaviours have to be carefully managed as a robot too social could
+    decrease the learning for the children compared to a less social robot. 
+	
+\subsubsection{Search and rescue, and military} 
+	
+    A field already using robots is search and rescue. After a natural or
+    artificial catastrophe, swarms of robots could be sent to analyse the damage
+    area and report or rescue the surviving victims of the incident
+    \citep{liu2013robotic}. These robots will have to interact socially with two
+    kinds of humans partners. For survivors, robots could be the only link they
+    received with the external world after the accident and victims have also
+    high chances to be in a shocked state. In this case, a social response is
+    expected from the robot and it has to be carefully controlled. On the other
+    side, the rescue team controlling the robots is often in a highly stressed
+    state too, and with more interactions with the robot, they might also
+    develop some feeling toward the robots they are using during these tense
+    moments as shown by \citet{fincannon2004evidence}.
+	
+    Similar human behaviours (emotional bonding with a robot) have been observed
+    in the army. Soldiers developed feelings toward the robot they use in a
+    daily basis: taking pictures with it, introducing it to their friends and so
+    on. This relation can go as far as soldier risking their life to try to save
+    the robot used by their squad \citep{singer2009wired}. In that case, the
+    social side of the robot have to be carefully managed to prevent it to have
+    an opposite effect that the one desired: preventing the waste of human
+    lives.
+	
+    So robots have to adapt carefully their social behaviour to promote or
+    demote social attachment from the persons they are interacting with.
+	
+\subsubsection{Hospitality and Entertainment} 
+	
+    Robots are also expected to interact with humans in the hospitality and
+    entertainment domains. For example, \citet{gockley2005designing} present the
+    Roboceptionist, a robot acting as a receptionist in a hall of Carnegie Melon
+    University. They discuss in particular different features that help to
+    maintain long-term engagement for hospitality robots. Similarly, robots have
+    also been used as museum guide: \citet{karreman2012contextual} describe the
+    use of non verbal behaviour inspired from humans observation to guide
+    visitors in a museum. And recently, the robot Pepper from Aldebaran
+    \footnote{https://www.aldebaran.com/en/cool-robots/pepper} is used to
+    welcome clients in Softbank and Nestl\'{e} in Japan and in train stations
+    and Carrefour supermarkets in France
+    \footnote{https://www.aldebaran.com/en/solutions/business}. 
+	
+    Robots have also been in families for a long time now. Almost twenty years
+    ago, Sony created Aibo, a robotic dog to be used as pet in Japanese
+    families. An analysis of online discussion of owners published 6 year after
+    their introduction gives interesting insights on the relationship that
+    owners created with their robots \citep{friedman2003hardware}. For example
+    42\% of the members assigned intentionality to the robot, like preferences,
+    emotions or even feelings. So humans have already started to have feelings
+    toward robots, and so as researcher we have the duty to carefully manage the
+    robots' behaviour to orient these feelings toward ethically acceptable
+    directions.
+
+\subsubsection{Cooperative Robotic: industry or home}
+	
+    Social robots are also entering the factory world. There is a wish to move
+    away from dangerous bulky robots in factory lines to replace them with
+    robots that can interact safely with humans, share the same environment and
+    collaborate. This is the goal for example of the Baxter and Sawyer robots
+    \footnote{http://www.rethinkrobotics.com/}, two robots designed to interact
+    with humans in factory lines, being easily reprogrammable by non-robotic
+    experts and using social features such as eye gaze to inform their partners
+    of their intentions. In a similar direction, legibility of robots motion is
+    also important when humans and robots are collaborating, in
+    \citet{dragan2013legibility} and successive work, authors present ways to
+    improve clarity of intentions and so improve the collaboration between
+    humans and robots.
+
+    Additionally to legibility, an important topic in human-robot collaboration
+    is task assignment: if a goal has to be achieved by a human-robot team, the
+    repartition of task should be carefully managed to both optimise the end
+    result in term of task performance, but also to ensure safety and mental
+    comfort for the human. Multiple sets of implicit rules have to be taken into
+    account in a human-robot collaboration context, and so the task repartition
+    system should be aware of them and follow them as proposed in
+    \citet{montreuil2007planning}.
+	
+%\Todo{add 3rd hand and other paper}
+
+\subsection{Constraints}
+
+    As we have seen in the previous section, robots are already working with
+    sensitive populations: young children, the elderly, persons with handicap,
+    persons in a stressful situations (victims of catastrophes, soldier or
+    persons requiring healthcare for example). As pointed previously in the case
+    of robots for the elderly, this number is likely to rise for the other
+    categories too. In this context, the robot control should be carefully
+    managed so that it does not result in undesired behaviour which could either
+    harm the interaction or the people interacting with them. By harming, we do
+    not only relate to physical harm, but to psychological distress too, as with
+    these types of population, undesired actions can have a negative affect on
+    their psychological health and comfort.
+
+    These potential undesired behaviours can have many different causes: lack of
+    sensory capabilities to identify necessary environmental features,
+    impossibility to execute the required action or incorrect action policy.
+    From these three causes, the first two are out of the scope for this
+    research project as the failure is not due to an imperfect action selection
+    mechanism but to external factors preventing it to solve a problem. This
+    research is focused on the third point: preventing these undesired
+    behaviours by having an action policy only selecting appropriate actions.
+    Appropriate actions are highly dependent on the interaction context: they
+    could be matching users' expectations of a robot behaviour, or executing
+    actions for completing a specific task. Nonetheless, the intention behind
+    being `appropriate' here is that actions executed should be guaranteed not
+    to present risk for the humans involved in the interaction; for example,
+    preventing physical harm or mental distress.
+
+    Additionally, these interaction environments are not well defined or rigid
+    laboratory setups: in the real world, robots will have to interact in
+    different environments, with a large number of different persons, during
+    extended periods of time or with initial incomplete or incorrect knowledge:
+    as such the action policy needs to be adaptable to the context, to the users
+    and over time. The robot needs to be adaptive, both to be able to react to
+    different and changing environments, and to refine its action policy over
+    time.
+
+    Lastly, in many cases today, interactive robots are not autonomous but
+    partially controlled by a human operator. We argue that to have a real
+    Human-Robot Interaction, the robot needs to be as autonomous as possible. As
+    pointed out in  \citet{baxter2016characterising}, by relying too much on a
+    human to control a robot, we are shifting from a human-robot to a
+    human-human interaction using a robot as proxy. 
+
+    For this literature review, we will analyse the current state of the art in
+    action selection for social human-robot interactions following the three
+    axes introduced in the previous paragraphs:
+
+    \begin{itemize}
+        \item Appropriateness of actions
+        \item Adaptivity
+        \item Autonomy
+    \end{itemize}
+
+    HRI being a large field, other research axes are equally important such as
+    the complexity of the interaction, the depth of the interaction, the
+    constraints put on the environment, the ability of the robot to set its own
+    goals or the dependence on social rules. However, these axes are more
+    influenced by the goal and the context of the specific human-robot
+    interaction taking place rather than the action selection mechanism itself,
+    so for this literature review, the focus is be on the three axis mentioned
+    previously.
+
+    We argue that to be able to sustain meaningful long term HRI, robots should
+    score highly in the three axes presented before, following these three
+    principles:
+
+    \begin{enumerate}
+        \item Only execute appropriate actions.
+        \item Have a high level of adaptivity.
+        \item Have a high level of autonomy.
+    \end{enumerate}
+
+\subsubsection{Appropriateness of Actions} \label{ssec:appropriateness}
+        
+    As argued previously, much of social human-robot interaction takes place in
+    stressful or sensitive environments where humans have particular
+    expectations about the robot's behaviour. Additionally, even in less
+    critical situations, human-human interaction are subject to a large set of
+    social norms and conventions resulting from precise expectations of the
+    interacting partners \citep{sherif1936psychology}. Some of these
+    expectations are also in place when interacting with robots
+    \citep{bartneck2004design}.
+	
+    Failing to produce appropriate actions, for example by not matching the
+    users' expectations, can have a negative impact on the interaction,
+    potentially compromising future interactions. Similarly failing to behave
+    appropriately can harm the persons interacting with the robots as shown in
+    the example of the elderly user and the medication, or the therapeutic use
+    of robots for children with ASD or for persons with dementia.  We argue that
+    a robot requires a way to ensure that all the actions it is executing should
+    not present risk to the human involved in the interaction.
+	
+    %Some scholars will argue that surprise is an important element in social
+    %HRI, as it can revitalise the interaction and increase the engagement of
+    %the users \citep{lemaignan2014dynamics}. With this principle of Least
+    %Astonishment, we do not argue the robot needs to constantly produce a
+    %non-surprising behaviour, but rather that it has to be in control of the
+    %surprise its actions can produce and be able to select an action matching
+    %the users' expectations. 
+
+    Being able to behave appropriately is a real challenge: real interactions
+    involve a large sensory space, with the interactants often being
+    unpredictable. In addition, social interaction is grounded in a large number
+    of often implicit norms, with expectations being highly dependent on the
+    context of interaction.  It seems unlikely that an action policy covering
+    every possibility can be provided to the robot before the start of the
+    interaction. For this reason, social robots needs to have an action policy
+    able to generate the appropriate reactions for the anticipated states, but
+    also they have to be able to manage uncertainty: being able to select a
+    correct action even when facing a sensory state with no explicit predefined
+    action to do. 
+
+    In this literature review, the appropriateness of actions axis is a
+    continuous spectrum characterising how much the system controlling the robot
+    is in control of the interaction and can act in a safe way for the users at
+    any moment of the interaction. For example, a robot selecting its action
+    randomly would have a low appropriateness as no mechanism prevent the
+    execution of unexpected or undesired action. On the other hand, a robot
+    continuously selecting the action that an expert would have selected would
+    have a high value as domain experts should have the knowledge of which
+    action is the correct one in this interaction domain.
+
+
+\subsubsection{Adaptivity}	\label{ssec:adap}
+
+    For reasons similar to the ones stated in subsection
+    \ref{ssec:appropriateness} and as pointed by other research groups
+    \citep{argall2009survey, hoffman2016openwoz}, an optimal behaviour is
+    unlikely to be programmable by hand. Additionally, the end user can be from
+    a different population intended by the designers of the robot controller,
+    the environment where the robot will be used might not be perfectly defined
+    or the desired behaviour might need to be customisable by or for the end
+    user. For these reasons, the  robot needs to be able to update its action
+    policy to improve its behaviour. We use the term \emph{adaptivity} to
+    represent this ability to change the action policy. This adaptivity has
+    three components: the adaptivity in space (being able to change an action
+    policy according to the environment), the adaptivity in users (being able to
+    change an action policy according to the user) and the adaptivity in time
+    (being able to change an action policy over time). 
+
+    The same robot might be expected to interact in different environments. For
+    example a robot used as an assistant for elderly people will have to
+    interact in the home of the owner, but can also have to follow the owner in
+    the street or in a supermarket. In these different environments, different
+    behaviour will be expected from the robot, so to be able to behave
+    accordingly, the robot has to be adaptive in space.
+
+    Additionally, in most of the application field presented earlier, robots
+    have to interact with a large number of users, and often, these interaction
+    partners are not know in advance: in education the name and specificities of
+    every child can hardly be specified in advance. In entertainment or search
+    and rescue, none of the user is known beforehand. Adaptivity can be a way to
+    discriminate the different users and adopt the action policy the more suited
+    to the current user and update it according to this user's behaviour.
+
+    Similarly, seeing the different fields where robots have to be social, there
+    is an expectation to interact over an extensive period with the same user,
+    e.g. companion robots for the elderly, military robots for a squad or robots
+    used in therapeutic settings. With these long interactions, adaptivity in
+    time allows the robot to tailor its behaviour to the user it is interacting
+    with and makes it able to track the changes of preferences that could occur
+    over long period of interaction. Adaptivity in time can also allow the robot
+    to learn from its errors and be able to manage uncertainty better as it is
+    interacting.
+
+    For this review, adaptivity will be a continuous scale ranging from no
+    adaptivity at all (the robot has a single action policy that it will use in
+    all the interactions), to high adaptivity (the robot is able to change its
+    action policy during an interaction and adapt it to the persons and context
+    of the interaction). As this adaptivity is over three axes, some robots can
+    have a high adaptivity in users (by adapting their behaviour to the actions
+    of their interactants), but not in time (if the same inputs always trigger
+    the same output), and not in space (if only one specific context of
+    interaction is taken into account). In that case, the action selection
+    mechanism will receive a relatively low adaptivity rating.
+
+\subsection{Autonomy}
+	
+    We will show in subsection \ref{subsec:WoZ}, that as of today, many
+    experiments are conducted using a robot tele-operated by a human. Whilst
+    having a human controlling the robot presents many advantages, e.g. the
+    human can provide the knowledge and the adaptivity required or has sensing
+    and reasoning capabilities not yet implemented on the robot, multiple
+    reasons push us away from this type of interaction as stated by
+    \citet{Thill2013}. It is not a scalable method to interact for a long time
+    or on large scale, the human-robot interaction tends to become a human-human
+    interaction \citep{baxter2016characterising} and it might introduce multiple
+    biases in the robot behaviour \citep{howley2014effects}. For these reasons
+    among many, we argue that a robot used in social HRI should be as autonomous
+    as possible.
+	
+    The third axis we will use in this literature review is the autonomy. As
+    stated by 	 \citet{beer2014toward}, autonomy is organised following a
+    spectrum from no autonomy at all: a human is totally controlling the robot
+    (doing sensory perception, analysis and action selection) to a full
+    autonomy: the robot is capable to sense and act in it's environment without
+    relying at all on a human. Some systems use a hybrid combination of human
+    control and autonomy. In these shared autonomy system, the boundary between
+    the autonomous control and the human can happen on several levels: from
+    labelling of sensory inputs \citep{depalma2016nimbus} to assign reward to
+    action to teach the robot an action policy \citep{thomaz2008teachable}.
+    Similarly, this help can be triggered by the robot or the human, at specific
+    stages of the interaction or at any time or can be a simple guidance or a
+    command. 
+
+\section{Current robot behaviours in HRI}
+
+    This section will present diverse approaches currently used in HRI to allow
+    a robot to select an action. As the number of individual techniques is too
+    large for an exhaustive review, we organised the literature into broader
+    categories. For each category, we will present the corresponding approach,
+    indicate leading works done in this direction and qualitatively rate it on
+    the three axes defined in the previous section.
+
+\subsection{Wizard of Oz}
+
+    Wizard of Oz is a specific case of tele-operation where the robot is not
+    autonomous but at least partially controlled by an external operator to
+    create the illusion of autonomy in an interaction with a user. It outsources
+    the difficulty of action selection or sensory interpretation to a human
+    controller. This technique has emerged from the Human Computer Interaction
+    field in 1983 \citep{kelley1983empirical} and is today common practice in
+    HRI \citep{Riek2012}. It is even so widely used that researchers are
+    promoting the use of a single framework shared by the community
+    \citep{hoffman2016openwoz}.
+	
+    Wizard of Oz in itself is a large field and there exist two variations of
+    this method as shown in \citep{baxter2016characterising} where the authors
+    discriminate Wizard of Oz into two categories: perceptual Wizard of Oz and
+    cognitive Wizard of Oz depending of the level of involvement of the operator
+    in the action selection process. As shown later is this review, this method
+    is also important because other approaches use it to provide data to make
+    the robot more autonomous. 
+
+    Some systems can also combine human control and predefined autonomous
+    behaviour,  \citet{shiomi2008semi} propose a semi-autonomous communication
+    robot. This robot is mainly autonomous, but has the ability to make explicit
+    request to a human supervisor in predefined cases where the sensory input is
+    not clear enough to make an action.
+
+    With Wizard of Oz, the adaptivity and the appropriateness are provided
+    almost exclusively by the human, so these characteristics are dependent of
+    the human expertise and are generally optimal. However, due to the reliance
+    on human supervision to control the robot, the autonomy is low. For
+    semi-autonomous robots, the picture is more blurry, as the takeover from the
+    human could be triggered by the robot or by the human and the information
+    shared and the quantity of human control on the robot will have an important
+    impact on the three axes. For example, in the system proposed in
+    \citep{shiomi2008semi} the robot explicit makes request to the human, but
+    the human cannot take the initiative to step in the interaction limiting the
+    adaptivity (no learning mechanism is added) and as no mechanism prevents the
+    robot to make undesired decision, it can still create more surprised on the
+    users compared to Wizard of Oz.
+	
+\subsection{Fixed preprogrammed behaviour}
+
+    One of the simplest ways to have a robot interacting with a human is to have
+    an explicit fixed behaviour. The robot is fully autonomous and follows a
+    script or a finite state machine for action selection. This approach is
+    dependent on having a well defined and predictable environment to have the
+    interaction running smoothly. If the interaction modalities are limited and
+    the interaction's goal precise enough or if a mediator is used for the
+    interaction and limits the possible actions from the human and the robot, a
+    optimal behaviour for the robot can be predefined for all (sensible) human
+    actions.
+
+    This is the approach followed in a large number of study in HRI, from the
+    use of robot in schools for robotic tutors teaching a second language to
+    children \citep{kennedy2016social} to studies investigating psychological
+    traits in HRI such as trust for example \citep{kahn2015will}.
+
+    In essence, this type of controller has a no adaptivity over time, as all
+    the possible behaviour and conditions are predefined in advance and the
+    robot has a single action policy. However this method is well suited for
+    many human-centred studies where the adaptivity in time of the robot is not
+    required. Additionally, a robot could be programmed with different
+    behaviours, and then select the one corresponding to the current interaction
+    following rules given prior the experiment. For example, in
+    \citet{leyzberg2014personalizing} the robot can deliver some predefined
+    content according to the current performance of the participant, presenting
+    personalised behaviour as long as the participants is behaving as expected.
+    In that case, the system would have a low adaptivity: the different types of
+    users are already predefined and there is no adaptivity in space (a single
+    interaction context is preprogrammed) and no adaptivity in time.
+
+    This method scores highly on autonomy as no external human is required to
+    control the robot. The robot behaves appropriately, as the environment is
+    generally constrained enough to limit the robot's and the human's actions.
+    However, as everything is specified in advance, the adaptivity is low.
+
+
+\subsection{Fixed taught behaviour}
+
+    Restricted perception WoZ
+
+    Machine  learning is a promising method to provide a robot with an adequate
+    action policy without having to implement in advance all the features used
+    by the action selection mechanism. Offline learning is a technique allowing
+    the robot to change its action policy over time by updating the action
+    policy outside of the interaction. Between interactions, a learning
+    algorithm is used to create a new action policy derived from the previous
+    experiences.
+
+    As when interacting it might be complicated and time consuming to acquire
+    data points for learning, offline learning methods are mainly inspired from
+    the Learning from Demonstration framework (LfD) \citep{argall2009survey}.
+    With LfD, the idea is to take inspiration from human demonstrations to
+    accelerate the learning for an agent or to teach tasks that could not be
+    preprogrammed manually \citep{billard2013robot}. The classical approach
+    starts with observing a human completing the task and then deriving a
+    corresponding robot behaviour to match the human one. In most of the cases,
+    the learning only occurs once: data is accumulated first and then batch
+    learning is applied to derive a static action policy. 
+
+    For example, \citet{liu2014train} presents a data driven approach taking
+    demonstration from human-human interactions to gather the relevant features
+    defining human social behaviour. Motion and speech are recorded from about
+    180 interactions in a simulated shopping scenario and behaviours are
+    clustered into \emph{behaviour elements}. Finally, during the interaction,
+    the robot uses a variable-length Markov model predictor to estimate the
+    selection probability of each actions by the human demonstrator, and then
+    selects the one with the highest. According to the authors, the current
+    performance of the robot is not perfect, but if this approach was scaled
+    using a larger dataset gathered from normal human-human interactions in the
+    real world, the performance is expected to improve.
+
+    Alternatively, Knox et al. propose the \emph{Learning from Wizard} approach
+    in \citep{knox2014learning}. The first phase also consists on data
+    collection, the robot is first tele-operated by an expert in a Wizard of Oz
+    setting. Once enough data has been gathered, a learning algorithm is applied
+    to derive an action policy. However this paper presents no description of
+    which algorithm could be use or how, and gives no evaluation of the
+    approach, but instead only offers a reflection on the application of this
+    idea.
+
+    \citet{sequeira2016discovering} presents a complete approach to obtain a
+    fully autonomous robot tutor. This method is composed of multiple steps
+    starting with the observation of a human teacher performing the task. Then,
+    the different features used by the human demonstrator to select his actions
+    as well as the actions themselves are encoded and implemented in a robot.
+    The next step is setting up a Wizard of Oz experiment where the operator has
+    access to the same features than the robot to make his decisions and
+    controls the robot's action. Then, a combination manually derived rules and
+    machine learning is applied on the data from the restricted-perception
+    experiment and finally the robot is tested autonomously. Additional offline
+    refinement steps are possible if the behaviour is not exactly the one
+    desired. 
+
+    Both \citet{knox2014learning} and \citet{sequeira2016discovering} stress the
+    importance of using similar features for the Wizard of Oz part than the ones
+    available to the robot during the autonomous part: whilst decreasing the
+    performance in the first interaction, it allows more accurate learning due
+    to the similarity of inputs for the robot and the human controlling it.
+
+    As these methods are based on real interactions either between humans, or
+    between humans and robots controlled by humans, with enough demonstrations
+    the robot should be able to select the appropriate actions. However, as no
+    intrinsic mechanism is present to prevent the execution of undesired actions
+    which could happen if the robot ends up in an unseen state, the
+    appropriateness of actions cannot be maximal. Additionally, the adaptivity
+    in time is limited, as for most of the techniques the learning happens only
+    once and then the behaviour is fixed and the learning is only used in a
+    specific context. However, the framework proposed by restricted-perception
+    Wizard of Oz should allow asynchronous adaptivity in time using the
+    refinement phase. And finally, all these methods require the presence of
+    humans in a first phase but the robots are fully autonomous later in the
+    interaction, so the autonomy is high during the main part of the
+    interaction.
+
+\subsection{Adaptive behaviour}
+
+\subsubsection{Planning} \label{subsec:planning}
+
+    An alternative way to interact in more complex environment is to use
+    planning. The robot has access to a set of actions with preconditions and
+    postconditions and has to achieve a defined goal. To do so, it follows the
+    three planning steps: sense, plan and act. The first step, sense, is to
+    acquire information about the current state of the environment. Then,  based
+    on the set of actions available and the goal, a plan (i.e. a succession of
+    actions) is created which should result in reaching the goal, while
+    respcting pre- and post conditions when selecting actions. Finally, the last
+    step is to execute the plan. If the resulting state of the new environment
+    is not the one desired, the robot replans to find a solution suitable for
+    the new state.
+
+    %This approach is often used in motion planning, but can integrate some
+    %social aspect as presented in the work of Dragan and colleagues
+    %\citep{dragan2013legibility}, where motion planning is adapted to be more
+    %legible by human. Planning can also be used at a higher level for action
+    %selection.
+
+    In the literature, planning has not been used to generate an action policy
+    to interact social with a human, however it has been used to assign tasks to
+    both members of a human-robot team to achieve a defined task. One example of
+    this is the Human Aware Task Planner \citep{alili2009task}. One property of
+    this planner is the ability to take into account predefined social rules,
+    such as reducing human idle time, when creating a plan specifying what the
+    human and robot should do.
+
+    Planning performance depends heavily on the model of the environment the
+    robot has access to. A detailed model can ensure that the robot will select
+    the appropriate action whilst being totally autonomous. Similarly, the
+    adaptivity depends on the model the robot has access to and whether it can
+    update it in real time. However, in many cases when interacting with humans,
+    the model is static, only covering a subset of the different tasks that the
+    robot can be required to achieve and the different contexts it can face.
+
+    %As long as the model is correct enough, it is ensured to keep the
+    %``astonishment'' low and to maintain a high level of autonomy. The
+    %adaptivity is also highly dependent on the model the robot has access to.
+    %If the planning domain is large enough, the adaptivity can be high,
+    %multiple users can be also predefined to increase the user adaptability,
+    %and if the domain knowledge can be updated dynamically.
+
+    %\marginpar{The previous paragraph is a bit unclear to me, but you can leave
+    %it in the RDC2. If you use it anywhere else, it would need to be
+    %rewritten.}
+
+    Planning can also be extended with learning, which then allows for adaptive
+    action policies. This has been done in motion planning, to obtain a better
+    trajectory \citep{jain2013learning,beetz2004rpllearn} and action selection
+    planning \citep{kirsch2009robot}. But to our knowledge, no planner used in
+    social HRI includes a module allowing it to change its model by increasing
+    the number of actions, adding new rules or changing the pre- and
+    postcondition of actions at runtime.
+
+\subsubsection{Reactive behaviour}
+
+    Reactive controllers are systems reacting directly to input data without
+    trying to reach specific goals. %For example, the subsumption architecture
+    presented by Brooks in \citep{brooks1986robust}. The main idea is not to
+    have an explicit behaviour to react to each situation, but to have a set of
+    possible behaviours competing for the control of the robot.  For example,
+    robotic control have been inspired by homeostasis, the tendency to keep
+    multiple elements at equilibrium. This property is observed in many
+    physiological systems, and approaches following a similar direction and have
+    been utilised in social HRI. For example, \citet{breazeal1998motivational}
+    use a set of drives (social, stimulation, security and fatigue) which are
+    represented by a variable each and have to be kept within a predefined
+    range. If these values are outside the desired homeostatic range, the robot
+    is either over or under-stimulated and this will affect its emotion status
+    and it will display an emotion accordingly. Homeostasis approaches have also
+    been extended in diverse directions. \citet{cao2014robee} present a system
+    based on a homeostasis subsystem to generate drives, which are equivalent to
+    temporary goals, which then use planning techniques (cf. sub-section
+    \ref{subsec:planning}) already predefined to satiate this particular drive.  
+
+    Due to the implicit description of behaviours these methods are more robust
+    in unconstrained environments than a purely scripted controller, while
+    remaining totally autonomous. However the action policy is not adaptive and
+    as the behaviours are not totally defined and controlled, there is no
+    guarantee against the robot acting in inconsistent way in some specific
+    cases limiting the appropriateness of actions.
+
+    Efforts have been made to extend the homeostasis approaches beyond purely
+    reactive systems with the use of hormone models  for example
+    \citep{Lones2014}. This method allows the previous experiences of the robot
+    to impact the behaviour expressed providing limited adaptivity in time to
+    the robot. However this approach was only applied to a robot interacting in
+    a non-social environment.
+
+\subsection{Learnt behaviour}
+
+DIARC?
+
+\section{Interactive Machine Learning}
+
+\subsection{Goal}
+
+\subsection{In Artificial Intelligence}
+
+\subsection{In Human-Robot Interaction}
+
+    As explained before, due to the large number of interactions needed and due
+    to the risk presented by blind exploration, pure RL has not been used in
+    HRI. However, variants have been proposed to use human expertise to
+    bootstrap the learning of RL based algorithm to learn non social tasks
+    \citep{kober2013reinforcement}. \citet{thomaz2008teachable} present the
+    Interactive Reinforcement Learning, a method combining feedback from the
+    environment and feedback from a human supervisor to learn a task in a
+    non-social context. Similarly, \citet{knox2009interactively} propose to use
+    RL in an environment where the feedback is not given by the environment
+    itself, but by a human only. In these two cases, human feedback is used to
+    scaffold the learning: it makes it faster and safer and can allow the use of
+    RL in environments without explicit reward. However as the feedback is
+    always given after the execution of the action, there is no guaranty that
+    only expected actions will be executed. This might be a reason why these two
+    approaches have not been used to learn an action policy for social
+    human-robot interactions. But they are nevertheless relevant as they are
+    using the interaction with a human to help an agent to learn an action
+    policy faster and safer than pure RL.
+
+    As stated in \citet{garcia2015comprehensive}, two ways exist to make the RL
+    safer: either a mechanism is present to prevent the execution of non-safe
+    actions or enough initial knowledge is provided to ensure that the robot is
+    staying in a safe zone. These two methods can also be used with other
+    machine learning techniques. 
+
+    An example of the first method is presented in \citet{chernova2009}, where
+    the authors used a confidence-based autonomy approach to control a robot. It
+    combines learning from demonstration and active learning
+    \citep{johnson1991active} to limit the risks of the exploration and increase
+    the learning speed. Initially the robot is provided with demonstrations of
+    the task by a human and then has to try on its own. However, as it is
+    expected from a human, the demonstrations are not fully consistent so the
+    robot might find states where there is no obvious action to select. A human
+    expert is also present and the robot can ask a demonstration for the points
+    where the uncertainty is high. 
+
+    Using human guidance in high uncertainty states can help the robot to select
+    appropriate actions even when some knowledge is missing at the robot's side.
+    However this approach, similarly to \citet{shiomi2008semi}, is limited to
+    the cases where the robot can estimate the confidence in its sensors and its
+    action selection mechanism. One of the differences between the approach
+    presented in \citet{shiomi2008semi} and in \citet{chernova2009} is that in
+    the latter this information is used for learning to improve the action
+    policy. One of the key points of these method is the uncertainty estimation,
+    if the estimation is not precise enough, the robot can fail to detect
+    ambiguous states and act in an undesired manner.
+
+    The second way to have a safer learning (exploring only around a known safe
+    action policy) is followed by \citet{Abbeel2004}. In this paper, the authors
+    used inverse reinforcement learning to teach a flying behaviour to a robotic
+    helicopter. In this case, the robot is provided with demonstration of a safe
+    policy, and then derives from these examples the reward function supposed to
+    defined the expected optimal behaviour. Finally classical RL is applied
+    around the provided policy to explore and to optimise the policy according
+    to the estimated reward function.
+
+    Similarly to autonomous online learning, these approaches score high in
+    adaptivity in time and depending of the learning mechanism, sensory inputs
+    and actions, they also do well in being adaptive in the search space and to
+    changing user behaviour. The reliance on human input decreases the autonomy,
+    but increases the appropriateness of actions as this guidance can help to
+    reduce the use of random exploration. However, as the human has often only a
+    partial control, the robot is not ensured to act correctly at every stage of
+    the interaction preventing the appropriateness to be maximal. 
+
+    It should be noted that these approaches have not been used to learn
+    behaviours for social human-robot interaction, probably due again to the
+    complexity of the interaction and due to the probability to execute
+    non-desired actions for the current online learning methods.
+	
+
+%Add litt reviews from AIHRI and R4L
+
+
+\section{Summary}
