@@ -1,0 +1,14 @@
+*.bbl
+*.acn
+*.dvi
+*.glo
+*.ist
+*.lof
+*.lot
+*.log
+*.toc
+*.aux
+*.out
+*.blg
+*.synctex.gz
+paper.pdf

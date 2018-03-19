@@ -1,24 +1,46 @@
-\chapter{Materials and Methods}\label{chap:method}
+\chapter{Supervised Progressive Autonomous Robot Competencies}\label{chap:sparc}
 
-\section{Nao Robot}
-
-\section{The Sandtray Touchscreen}
-
-\section{Applications Developed}
-
-\subsection{Supervising a robot in a sorting game}
-
-\subsection{Sophie's kitchen}
-
-\subsection{Food web game}
-
-\section{Algorithms}
-
-\subsection{Feedforward Neural Networks}
-
-\subsection{Interactive Reinforcement Learning}
-
-\subsection{Restricted-Dimensions Nearest Neighbours}
+\section{Principle}
 
 \cite{senft2015sparc}
+
+Keeping a human teacher in the loop and in control of the robot's actions,
+equivalent to level 6 on the Sheridan scale of autonomy: "A computer selects
+action, informs human in plenty of time to stop it" \cite{sheridan1978human}.
+
+Learning in the background aims to improve the correctness of suggested actions
+to decrease the chance of being corrected.
+
+Human can provide additional information to the algorithm to speed up the
+learning
+
+\section{Goal}
+
+Reach quickly an appropriate action policy using teacher's demonstration,
+feedback and highligh of features
+
+Reduce workload over time as the suggestions become accurate
+
+Maintain a correct action policy throughout the learning
+
+\section{Frame}
+
+Requires a human supervisor: dyadic interaction (Supervisor-Robot-Supervisor or
+Supervisor-Robot-Environment) or triadic interaction (Supervisor-Robot-Human
+partner)
+
+Timescale (Limite to human rate of action selection/correction - can be dealt
+with using higher level actions or goals)
+
+\section{Interaction with Machine Learning Algorithms}
+
+Supervised Learning
+
+Reinforcement learning 
+
+Other type of learning (ex: instance based learning)
+
+\section{Summary}
+    
+    
 
