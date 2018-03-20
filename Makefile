@@ -1,8 +1,8 @@
 
 TARGET=00_Thesis.tex
 
-DOT=$(wildcard figs/*.dot)
-SVG=$(wildcard figs/*.svg)
+DOT=$(wildcard images/*.dot)
+SVG=$(wildcard images/*.svg)
 
 all: paper
 	make bib

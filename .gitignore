@@ -10,5 +10,9 @@
 *.aux
 *.out
 *.blg
+*.acr
+*.alg
+*.glg
+*.gls
 *.synctex.gz
 paper.pdf
