@@ -1,39 +1,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Background} \label{chap:background}
 
+This chapter describes the application of robot interacting with humans and related research in agent and robot control. In the first section the different fields of application of social \gls{hri} and then draws from them requirements for controlling a robot interacting with humans.  The second section provides the current state of the art in robot control for \gls{hri} and analyse it through the constraints presented in subsection \ref{ssec:back_const}. And finally the third section describe the state of the field of \acrlong{iml} and how it has been used to \gls{hri}.
+
 \section{Social Human-Robot Interaction}
 
-\subsection{Fields on application}
+\subsection{Fields of application}
 
-As Human-Robot Interaction covers a large spectrum of different interactions between humans and robots, we used the following criteria on the interactions to select the fields used in this overview:
+\acrlong{hri} covers the full spectrum of interactions between humans and robots. However, as this thesis is focused on teaching robots to interact with humans, we used the following criteria on the interactions to select the subfields of \gls{hri} relevant to our research:
 \begin{itemize}
-\item Interaction between a robot (possibly virtual) and a human: both the human and the robot are influencing each other's behaviour.
-\item Socially interactive robots as defined in \citep{Fong2003}: the social
-    side of the interaction is key (unlike physical HRI, such as exoskeleton or
-    pure teleoperation as in robotic assisted surgery)
+\item interaction between a robot and a human: both the human and the robot are influencing each other's behaviour
+\item Socially Interactive Robots as defined in \citep{Fong2003}: the social
+    side of the interaction is key (unlike physical human-robot interaction, such as an exoskeleton, physical rehabilitation or pure teleoperation as in robotic assisted surgery).
 \end{itemize}
 
-\subsubsection{Home and Companion}
-	%TODO: Replace website by references
+\subsubsection{Socially Assistive Robotics}
 
-    With the ageing of the population observed today and the even more important
-%    ageing predicted \footnote{The number of persons over 65 years is expected
-%    to increase by more than 30\% in the next 20 years, source: UN, World
-%    Population Prospects, 2010 \citep{rodrigues2012facts}.}, the society will
-    have to find a way to manage this increase of population needing to be taken
-    care of. This is especially concerning as this field is already lacking
-    workforce and a robot could make the difference between having to send the
-    elderly in a care home or allowing them to stay independent in their
-    personal home \citep{di2014web}. For this reason, robots for the elderly is
-    one of the major robotic market for now and for the next decades as it is
-    shown by the number of projects all around the globe targeting this problem:
-    Robot-Era \citep{bevilacqua2012robot}, Accompany project
-    \citep{amirabdollahian2013accompany}, Socially Assistive Robotics (NSF
-%    Expedition in computing) \footnote{http://robotshelpingkids.yale.edu/},
-%    Companionable \footnote{http://www.companionable.net/} and the Robear
-    project in Japan
-%    \footnote{\url{http://www.riken.jp/en/pr/press/2015/20150223_2/}} to cite
-    only a small subset of them.	
+	\gls{sar} is a term coined in \cite{feil2005defining} and refers to robot providing assistance to human user through social interaction and has been defined by \cite{tapus2007socially} as one of the grand challenges of robotics.
+	
+	\paragraph{One of the principal application of \gls{sar} is care for the elderlies}
+	Ageing of population is a known challenge for today and the near future: the \cite{united2017world} reports than \emph{population aged 60 or over is growing faster than all younger age groups}. This will decrease the support ratio (number of worker per retiree) forcing society to find ways to provide care to an increasing number of persons using a decreasing workforce. Robots represent a unique opportunity to provide for this lacking workforce and support elderlies potentially allowing them to stay at home rather than joining elderly care centres \citep{di2014web} or supporting the nursing home staff \citep{wada2004effects}.
+	
+	%For this reason, robots for the elderlies is one of the major robotic market today and for the next decades as demonstrated by the number of projects all around the globe targeting this issue: Robot-Era \citep{bevilacqua2012robot}, Accompany project \citep{amirabdollahian2013accompany}, CompanionAble \citep{badii2009companionable}  and the Robear project in Japan    \footnote{\url{http://www.riken.jp/en/pr/press/2015/20150223_2/}} to cite     only a small subset of them.	
 	
     However, the acceptance of these robots in elderly care facilities or at
     their homes, is still a complex task. Multiple studies report a good
@@ -43,72 +31,45 @@ As Human-Robot Interaction covers a large spectrum of different interactions bet
     matching more closely the behaviour of the robots to the actual needs of the
     patients.	
 		
-\subsubsection{Robot Assisted Therapy}
-	
-    Another medical field where robots have been applied is in Robot Assisted
-    Therapy (RAT). Robots have first been used as physical platform to help
+	\paragraph{The second main application of SAR is Robot Assisted Therapy}
+    In addition of providing social support, robot can also be used in the process of therapies, following a patient during their rehabilitation to improve their health, their acceptance in society or recover from accident.
+    In therapies, robots have first been used as physical platform to help
     patient to recover physically from strokes or cerebral palsy for example
-    \citep{sivan2011systematic}. They were primally used as mecatronic machine
-    helping humans to accomplish repetitive task. But around twenty years ago,
-    they have started to be used for their social capabilities. For example the
-    AuRoRA Project
-%    \footnote{\url{http://homepages.herts.ac.uk/~comqbr/aurora/index.php?option=com_content&view=category&id=2&Itemid=102}}
-    which started in 1998 explored the use of robot as therapeutic tools for
-    children with Autism Spectrum Disorder (ASD) \citep{dautenhahn1999robots}.
+    \citep{sivan2011systematic}. They were primally used as mechatronic tools
+    helping humans to accomplish repetitive task. But in the late 90s,
+    robots have started to be used for their social capabilities. For example the
+    AuRoRA Project \citep{dautenhahn1999robots}
+    started in 1998 to explore the use of robot as therapeutic tools for
+    children with \gls{asd}.
     Since AuRoRA, many projects have started all around the world to use robot
     to help patient with ASD, as shown by the review presented in
-    \citep{diehl2012clinical}. RAT is not limited to ASD only, the use of robots
+    \citep{diehl2012clinical} or more recently the \gls{dream} \citep{esteban2017build}. \gls{rat} is not limited to \gls{asd} only, the use of robots
     is also explored in hospitals, for example to support children with diabetes
-    \citep{belpaeme2012multimodal} or to support elderly with dementia
-    \citep{wada2005psychological}.	
+    \citep{belpaeme2012multimodal}, to support elderly with dementia
+    \citep{wada2005psychological} or to provide encouragement and monitor cardiac rehabilitation \citep{lara2017human}.	
 	
 \subsubsection{Education} 
-
-    Another field taking advantage of technology, but where robots are not yet
-    used in an extensive way, is education. Studies reported that individualised
-    feedbacks can increase the performance of students \citep{bloom19842}, but
-    due to the large number of students supervised by a single teacher this
-    approach is often not possible. Robotic tutors could provide this one to one
-    interaction not available in current classroom without requesting to
-    dramatically increase the number of teachers. For example, in Co-Writer
-    \citep{hood2015children}, a robot is used in a dyadic interaction to help a
-    child to improve his handwriting. Studies have also shown that adding robot
-    in a classroom can improve the child learning outcomes
-    \citep{kanda2004interactive}. Additionally, robots can be used at home to
-    elicit advantages over web or paper based instructions
-    \citep{han2005educational}. However as pointed by \citet{kennedy2015robot},
-    social behaviours have to be carefully managed as a robot too social could
-    decrease the learning for the children compared to a less social robot. 
+	Social robots are also being used in education, supporting teachers to provide learning content to children. As presented in \cite{mubin2013review}, the robot can take multiple roles (the \emph{tool} role has bee excluded for this overview due to its non-social interaction).
+	
+	\paragraph{Robotic teachers providing class lessons.} 
+	One of the most obvious role robots could have in a classroom is replacing the teacher to provide the content to the children in an lesson as presented in \cite{verner2016science}. However this approach is seldom used in robots for education. The aim is not to replace teachers but to support them with new tools to improve the teaching process both for the teachers and the children, the review by \cite{mubin2013review} do not even mention robot teachers as a possible role for robots in educations. 
+	
+	\paragraph{Robotics tutors aim to provide tailored teaching content to the child(ren) they are interacting with.} 
+	Studies reported that individualised   feedbacks can increase the performance of students \citep{bloom19842}, but    due to the large number of students supervised by a single teacher in classes today, tutoring is complex to apply. Robotic tutors could provide this powerful one to one tailored interaction not available in current classroom without increasing the number of teachers. Studies have also shown that adding robot in a classroom can improve the children learning outcomes     \citep{kanda2004interactive}. Additionally, robots can be used at home to     elicit advantages over web or paper based instructions     \citep{han2005educational}. However as pointed by \citet{kennedy2015robot}, social behaviours have to be carefully managed as a robot too social could    decrease the learning for the children compared to a less social robot. 
+	
+	\paragraph{Peer robots learning alongside the children.}
+	A peer robot will not mentor the child to learn certain concepts, but will learn with or from the child. Unlike other roles of robots in education, peer robots can fit new roles still vacant in education today. For example, in Co-Writer \citep{hood2015children}, the child has to teach a robot how to write, and as the child demonstrate correct handwriting, they improves their own. Peer robots can leverage the ``prot\'eg\'e effect'': learning by teaching an agent. The robot can take the role of a less knowledgeable agent with endless patience and encourage the student to perform repetitive tasks such as handwriting and improve.
 	
 \subsubsection{Search and rescue, and military} 
 	
-    A field already using robots is search and rescue. After a natural or
-    artificial catastrophe, swarms of robots could be sent to analyse the damage
-    area and report or rescue the surviving victims of the incident
-    \citep{liu2013robotic}. These robots will have to interact socially with two
-    kinds of humans partners. For survivors, robots could be the only link they
-    received with the external world after the accident and victims have also
-    high chances to be in a shocked state. In this case, a social response is
-    expected from the robot and it has to be carefully controlled. On the other
-    side, the rescue team controlling the robots is often in a highly stressed
-    state too, and with more interactions with the robot, they might also
-    develop some feeling toward the robots they are using during these tense
-    moments as shown by \citet{fincannon2004evidence}.
+    Robots are already used during search and rescue missions. After a natural or artificial catastrophe, robots can be sent to analyse the damage area and report or rescue the surviving victims of the incident \citep{murphy2008search}. These robots have to interact socially with two kinds of humans partners: the survivors and the rescue team. In both cases the social component of the interaction is key: the survivor can be in a shocked state and the robot could be the only link they received with the external world after the accident. In this case, a social response is expected from the robot and it has to be carefully controlled. On the other side, the rescue team monitoring the robots is under pressure to act quickly and can be stressed too. Even if the robot does not display social behaviour, rescuers interacting with it migh develop some feeling toward the robots they are using during these tense moments and this has to be taken into account when designing the robot and its behaviour \citep{fincannon2004evidence}.
 	
-    Similar human behaviours (emotional bonding with a robot) have been observed
-    in the army. Soldiers developed feelings toward the robot they use in a
-    daily basis: taking pictures with it, introducing it to their friends and so
-    on. This relation can go as far as soldier risking their life to try to save
-    the robot used by their squad \citep{singer2009wired}. In that case, the
-    social side of the robot have to be carefully managed to prevent it to have
-    an opposite effect that the one desired: preventing the waste of human
-    lives.
-	
-    So robots have to adapt carefully their social behaviour to promote or
-    demote social attachment from the persons they are interacting with.
-	
+    Similar human behaviours (emotional bonding with a robot) have also been observed in the army. Soldiers developed feelings toward the robot they use in a daily basis: taking pictures with it, introducing it to their friends and so on. This relation can go as far as soldier risking their life to try to save the robot used by their squad \citep{singer2009wired}. In that case, the social side of the robot have to be carefully managed to prevent it to have an opposite effect that the one desired: preventing the waste of human lives.
+		
 \subsubsection{Hospitality and Entertainment} 
 	
+	Robots are already deployed in hotel around the world. The Relay robot (Savioke\footnote{\url{http://www.savioke.com/}}) deliver commands from the guests of hotels from the reception to their room. Whilst the social interaction is still minimal today, these robots interact everyday with humans and provoke social reactions from them. On the research side, scientists have introduced robots in museums and exhibitions since the late 90s \citep{thrun1999minerva,burgard1999experiences} and since explore how to improve the social interaction with guide robots.
+	%, delivery robot hotel  shopping mall \citep{kanda2009affective}, or more recently peper, receptionist - entertainment (aibo), 
     Robots are also expected to interact with humans in the hospitality and
     entertainment domains. For example, \citet{gockley2005designing} present the
     Roboceptionist, a robot acting as a receptionist in a hall of Carnegie Melon
@@ -121,6 +82,7 @@ As Human-Robot Interaction covers a large spectrum of different interactions bet
     welcome clients in Softbank and Nestl\'{e} in Japan and in train stations
     and Carrefour supermarkets in France
 %    \footnote{https://www.aldebaran.com/en/solutions/business}. 
+	ref to robbie
 	
     Robots have also been in families for a long time now. Almost twenty years
     ago, Sony created Aibo, a robotic dog to be used as pet in Japanese
@@ -159,7 +121,7 @@ As Human-Robot Interaction covers a large spectrum of different interactions bet
 	
 %\Todo{add 3rd hand and other paper}
 
-\subsection{Constraints}
+\subsection{Constraints} \label{ssec:back_const}
 
     As we have seen in the previous section, robots are already working with
     sensitive populations: young children, the elderly, persons with handicap,
