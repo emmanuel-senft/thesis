@@ -68,58 +68,20 @@ This chapter describes the application of robot interacting with humans and rela
 		
 \subsubsection{Hospitality and Entertainment} 
 	
-	Robots are already deployed in hotel around the world. The Relay robot (Savioke\footnote{\url{http://www.savioke.com/}}) deliver commands from the guests of hotels from the reception to their room. Whilst the social interaction is still minimal today, these robots interact everyday with humans and provoke social reactions from them. On the research side, scientists have introduced robots in museums and exhibitions since the late 90s \citep{thrun1999minerva,burgard1999experiences} and since explore how to improve the social interaction with guide robots.
-	%, delivery robot hotel  shopping mall \citep{kanda2009affective}, or more recently peper, receptionist - entertainment (aibo), 
-    Robots are also expected to interact with humans in the hospitality and
-    entertainment domains. For example, \citet{gockley2005designing} present the
-    Roboceptionist, a robot acting as a receptionist in a hall of Carnegie Melon
-    University. They discuss in particular different features that help to
-    maintain long-term engagement for hospitality robots. Similarly, robots have
-    also been used as museum guide: \citet{karreman2012contextual} describe the
-    use of non verbal behaviour inspired from humans observation to guide
-    visitors in a museum. And recently, the robot Pepper from Aldebaran
-%    \footnote{https://www.aldebaran.com/en/cool-robots/pepper} is used to
-    welcome clients in Softbank and Nestl\'{e} in Japan and in train stations
-    and Carrefour supermarkets in France
-%    \footnote{https://www.aldebaran.com/en/solutions/business}. 
-	ref to robbie
+	Robots are also interacting with humans in hotels around the world. The Relay robot (Savioke\footnote{\url{http://www.savioke.com/}}) deliver commands from the guests of hotels from the reception to their room. Whilst the social interaction is still minimal today, these robots interact everyday with humans and provoke social reactions from them. On the research side, scientists have explored robots as receptionist in a hall at Carnegie Melon University \citep{gockley2005designing} and robots as museums and exhibitions guide since the late 90s \citep{thrun1999minerva,burgard1999experiences} and since explore how to improve the social interaction for guide robots.
 	
-    Robots have also been in families for a long time now. Almost twenty years
-    ago, Sony created Aibo, a robotic dog to be used as pet in Japanese
-    families. An analysis of online discussion of owners published 6 year after
-    their introduction gives interesting insights on the relationship that
-    owners created with their robots \citep{friedman2003hardware}. For example
-    42\% of the members assigned intentionality to the robot, like preferences,
-    emotions or even feelings. So humans have already started to have feelings
-    toward robots, and so as researcher we have the duty to carefully manage the
-    robots' behaviour to orient these feelings toward ethically acceptable
-    directions.
+	Similarly, robots guide and advices humans in shops and shopping mall. Long term studies explored how humans perceive and interact with robots in this environment \cite{kanda2009affective} and how robots should behave with clients \cite{kanda2008will}.
 
-\subsubsection{Cooperative Robotic: industry or home}
-	
-    Social robots are also entering the factory world. There is a wish to move
-    away from dangerous bulky robots in factory lines to replace them with
-    robots that can interact safely with humans, share the same environment and
-    collaborate. This is the goal for example of the Baxter and Sawyer robots
-%    \footnote{http://www.rethinkrobotics.com/}, two robots designed to interact
-    with humans in factory lines, being easily reprogrammable by non-robotic
-    experts and using social features such as eye gaze to inform their partners
-    of their intentions. In a similar direction, legibility of robots motion is
-    also important when humans and robots are collaborating, in
-    \citet{dragan2013legibility} and successive work, authors present ways to
-    improve clarity of intentions and so improve the collaboration between
-    humans and robots.
+    Robots have also entered homes and family circles. Twenty years ago, Sony created Aibo, a robotic dog to be used as pet in Japanese families. An analysis of online discussion of owners published 6 year after their introduction gives interesting insights on the relationship that owners created with their robots \citep{friedman2003hardware}. For example 42\% of the members assigned intentionality to the robot, like preferences, emotions or even feelings. Similar behaviours can also be observed when the robot is not presented as a pet, but just a tool. In \cite{fink2013living}, authors reported that a participant was worried that their Roomba would feel lonely when they would be in holidays. More recently, the Pepper robot has been sold to family in Japan, however, as of March 2018 no english study has reported results of the interaction with family members or long term use.
 
-    Additionally to legibility, an important topic in human-robot collaboration
-    is task assignment: if a goal has to be achieved by a human-robot team, the
-    repartition of task should be carefully managed to both optimise the end
-    result in term of task performance, but also to ensure safety and mental
-    comfort for the human. Multiple sets of implicit rules have to be taken into
-    account in a human-robot collaboration context, and so the task repartition
-    system should be aware of them and follow them as proposed in
-    \citet{montreuil2007planning}.
+\subsubsection{Collaborative Robots in industry}
+	%TODO: check citations
+	Robots in industry used to be locked behind cage to prevent humans to interact with them and getting hurt. However recently, social robots such as Baxter \citep{guizzo2012rethink} have been designed to collaborate with humans and share the same workspace interacting physically and socially with factory workers. These robots need to be usable and reprogrammable by non-robotic experts and need to convey and understand intentions from motions and eye gaze \citep{bauer2008human}. The topic of motion legibility: how to convey intention using only motion trajectory is being covered extensively by the literature: in \citet{dragan2013legibility} and successive work, authors present ways to improve clarity of intentions and so improve the collaboration between humans and robots.
+
+	%TODO: rework
+    In addition to legibility, an other important topic in human-robot collaboration is task assignment: if a goal has to be achieved by a human-robot team, the repartition of tasks should be carefully managed to  optimise the end result in term of task performance, but also to ensure comfort for the human. Multiple sets of implicit rules have to be taken into account in a human-robot collaboration context, and so the task repartition system should be aware of them and follow them as proposed in \cite{montreuil2007planning}.
 	
-%\Todo{add 3rd hand and other paper}
+	%TODO: expand by using 3rd hand project and other
 
 \subsection{Constraints} \label{ssec:back_const}
 
