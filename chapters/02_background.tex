@@ -83,54 +83,19 @@ This chapter describes the application of robot interacting with humans and rela
 	
 	%TODO: expand by using 3rd hand project and other
 
-\subsection{Constraints} \label{ssec:back_const}
+\subsection{Constraints} \label{ssec:back_constraints}
 
-    As we have seen in the previous section, robots are already working with
-    sensitive populations: young children, the elderly, persons with handicap,
-    persons in a stressful situations (victims of catastrophes, soldier or
-    persons requiring healthcare for example). As pointed previously in the case
-    of robots for the elderly, this number is likely to rise for the other
-    categories too. In this context, the robot control should be carefully
-    managed so that it does not result in undesired behaviour which could either
-    harm the interaction or the people interacting with them. By harming, we do
-    not only relate to physical harm, but to psychological distress too, as with
-    these types of population, undesired actions can have a negative affect on
-    their psychological health and comfort.
+    The previous section demonstrated that robots are already interacting with sensitive populations: young children, elderlies, persons with handicap or in a stressful situations (victims of catastrophes, soldier or persons requiring healthcare for example). As pointed previously in the case of robots for the elderlies, this number is likely to rise for the other categories too. In this context, failure to meet expectations or lack of social norms or awareness can physically hurt humans around it or lead to offence, anger, frustration or boredom. As such, the behaviour of robots interacting with humans need to be carefully managed to meet expectations and behave socially.
+    
+    These undesired behaviours can have many different origins: lack of sensory capabilities to identify necessary environmental features, lack of knowledge to interpret human behaviours appropriately, failure to convey intentions, impossibility to execute the required action or incorrect action policy. Due to the wide range of origin, this research focuses only on the last point: obtaining a correct action policy. The other issues are either orthogonal and would lead to failure even with an ``optimal'' action policy as external factors prevent the robot to solve a problem or can be handled by having an appropriate action policy selecting suboptimal actions when the optimal ones cannot be used, or reacting correctly to human behaviours without having to interpret them on a higher level. 
+    
+    Appropriate actions are highly dependent on the interaction context: they could aim to match users' expectations of a robot behaviour, or complete a specific task. Nonetheless, the intention behind being \textit{appropriate} here is that actions executed should be guaranteed not to present risk for the humans involved in the interaction; for example, preventing physical harm or mental distress while achieving the robot assigned objectives.
 
-    These potential undesired behaviours can have many different causes: lack of
-    sensory capabilities to identify necessary environmental features,
-    impossibility to execute the required action or incorrect action policy.
-    From these three causes, the first two are out of the scope for this
-    research project as the failure is not due to an imperfect action selection
-    mechanism but to external factors preventing it to solve a problem. This
-    research is focused on the third point: preventing these undesired
-    behaviours by having an action policy only selecting appropriate actions.
-    Appropriate actions are highly dependent on the interaction context: they
-    could be matching users' expectations of a robot behaviour, or executing
-    actions for completing a specific task. Nonetheless, the intention behind
-    being `appropriate' here is that actions executed should be guaranteed not
-    to present risk for the humans involved in the interaction; for example,
-    preventing physical harm or mental distress.
+    Additionally, interactions with humans ``in the wild'' \cite{belpaeme2012multimodal} do not happen in well defined environments or rigid laboratory setups: in the real world, robots will have to interact in diverse environments, with a large number of different persons, during extended periods of time or with initial incomplete or incorrect knowledge: as such the action policy needs to be adaptable to the context, to the users and over time. Robots need to be adaptive, both to react to changing environments, and to improve its action policy over time.
 
-    Additionally, these interaction environments are not well defined or rigid
-    laboratory setups: in the real world, robots will have to interact in
-    different environments, with a large number of different persons, during
-    extended periods of time or with initial incomplete or incorrect knowledge:
-    as such the action policy needs to be adaptable to the context, to the users
-    and over time. The robot needs to be adaptive, both to be able to react to
-    different and changing environments, and to refine its action policy over
-    time.
-
-    Lastly, in many cases today, interactive robots are not autonomous but
-    partially controlled by a human operator. We argue that to have a real
-    Human-Robot Interaction, the robot needs to be as autonomous as possible. As
-    pointed out in  \citet{baxter2016characterising}, by relying too much on a
-    human to control a robot, we are shifting from a human-robot to a
-    human-human interaction using a robot as proxy. 
-
-    For this literature review, we will analyse the current state of the art in
-    action selection for social human-robot interactions following the three
-    axes introduced in the previous paragraphs:
+    Lastly, in many cases today, interactive robots are not autonomous but partially controlled by a human operator. We argue that to have a real Human-Robot Interaction, the robot needs to be as autonomous as possible. As pointed out in \citet{baxter2016characterising}, by relying too much on a human to control a robot, we are shifting from a human-robot to a human-human interaction using a robot as proxy. 
+    
+    Section \ref{sec:back_behaviour} analyses the current state of the art in action selection for social robots interacting with humans following these three axes introduced in the previous paragraphs:
 
     \begin{itemize}
         \item Appropriateness of actions
@@ -138,18 +103,9 @@ This chapter describes the application of robot interacting with humans and rela
         \item Autonomy
     \end{itemize}
 
-    HRI being a large field, other research axes are equally important such as
-    the complexity of the interaction, the depth of the interaction, the
-    constraints put on the environment, the ability of the robot to set its own
-    goals or the dependence on social rules. However, these axes are more
-    influenced by the goal and the context of the specific human-robot
-    interaction taking place rather than the action selection mechanism itself,
-    so for this literature review, the focus is be on the three axis mentioned
-    previously.
+    HRI being a large field, other research axes are equally important such as  the complexity of the interaction, the depth of the interaction, the constraints put on the environment, the ability of the robot to set its own goals or the dependence on social rules. However, these axes are more influenced by the goal and the context of the specific human-robot interaction taking place rather than the action policy itself, so for this literature review, the focus is be on the three axis mentioned previously.
 
-    We argue that to be able to sustain meaningful long term HRI, robots should
-    score highly in the three axes presented before, following these three
-    principles:
+    We argue that to be able to sustain meaningful HRI, robots should score highly in the three axes presented before, following these three principles:
 
     \begin{enumerate}
         \item Only execute appropriate actions.
@@ -158,24 +114,10 @@ This chapter describes the application of robot interacting with humans and rela
     \end{enumerate}
 
 \subsubsection{Appropriateness of Actions} \label{ssec:appropriateness}
-        
-    As argued previously, much of social human-robot interaction takes place in
-    stressful or sensitive environments where humans have particular
-    expectations about the robot's behaviour. Additionally, even in less
-    critical situations, human-human interaction are subject to a large set of
-    social norms and conventions resulting from precise expectations of the
-    interacting partners \citep{sherif1936psychology}. Some of these
-    expectations are also in place when interacting with robots
-    \citep{bartneck2004design}.
+%TODO: take back from  here        
+    As argued previously, much of social human-robot interaction takes place in  stressful or sensitive environments where humans have particular expectations about the robot's behaviour. Additionally, even in less critical situations, human-human interaction are subject to a large set of social norms and conventions resulting from precise expectations of the interacting partners \citep{sherif1936psychology}. Some of these expectations are also in place when interacting with robots \citep{bartneck2004design}.
 	
-    Failing to produce appropriate actions, for example by not matching the
-    users' expectations, can have a negative impact on the interaction,
-    potentially compromising future interactions. Similarly failing to behave
-    appropriately can harm the persons interacting with the robots as shown in
-    the example of the elderly user and the medication, or the therapeutic use
-    of robots for children with ASD or for persons with dementia.  We argue that
-    a robot requires a way to ensure that all the actions it is executing should
-    not present risk to the human involved in the interaction.
+    Failing to produce appropriate actions, for example by not matching the users' expectations, can have a negative impact on the interaction, potentially compromising future interactions. Similarly failing to behave appropriately can harm the persons interacting with the robots as shown in the example of the elderly user and the medication, or the therapeutic use of robots for children with ASD or for persons with dementia.  We argue that a robot requires a way to ensure that all the actions it is executing should not present risk to the human involved in the interaction.
 	
     %Some scholars will argue that surprise is an important element in social
     %HRI, as it can revitalise the interaction and increase the engagement of
@@ -185,81 +127,22 @@ This chapter describes the application of robot interacting with humans and rela
     %surprise its actions can produce and be able to select an action matching
     %the users' expectations. 
 
-    Being able to behave appropriately is a real challenge: real interactions
-    involve a large sensory space, with the interactants often being
-    unpredictable. In addition, social interaction is grounded in a large number
-    of often implicit norms, with expectations being highly dependent on the
-    context of interaction.  It seems unlikely that an action policy covering
-    every possibility can be provided to the robot before the start of the
-    interaction. For this reason, social robots needs to have an action policy
-    able to generate the appropriate reactions for the anticipated states, but
-    also they have to be able to manage uncertainty: being able to select a
-    correct action even when facing a sensory state with no explicit predefined
-    action to do. 
+    Being able to behave appropriately is a real challenge: real interactions involve a large sensory space, with the interactants often being unpredictable. In addition, social interaction is grounded in a large number of often implicit norms, with expectations being highly dependent on the context of interaction.  It seems unlikely that an action policy covering every possibility can be provided to the robot before the start of the interaction. For this reason, social robots needs to have an action policy able to generate the appropriate reactions for the anticipated states, but also they have to be able to manage uncertainty: being able to select a correct action even when facing a sensory state with no explicit predefined action to do. 
 
-    In this literature review, the appropriateness of actions axis is a
-    continuous spectrum characterising how much the system controlling the robot
-    is in control of the interaction and can act in a safe way for the users at
-    any moment of the interaction. For example, a robot selecting its action
-    randomly would have a low appropriateness as no mechanism prevent the
-    execution of unexpected or undesired action. On the other hand, a robot
-    continuously selecting the action that an expert would have selected would
-    have a high value as domain experts should have the knowledge of which
-    action is the correct one in this interaction domain.
+    In this literature review, the appropriateness of actions axis is a continuous spectrum characterising how much the system controlling the robotis in control of the interaction and can act in a safe way for the users at any moment of the interaction. For example, a robot selecting its action randomly would have a low appropriateness as no mechanism prevent the execution of unexpected or undesired action. On the other hand, a robot continuously selecting the action that an expert would have selected would have a high value as domain experts should have the knowledge of which action is the correct one in this interaction domain.
 
 
 \subsubsection{Adaptivity}	\label{ssec:adap}
 
-    For reasons similar to the ones stated in subsection
-    \ref{ssec:appropriateness} and as pointed by other research groups
-    \citep{argall2009survey, hoffman2016openwoz}, an optimal behaviour is
-    unlikely to be programmable by hand. Additionally, the end user can be from
-    a different population intended by the designers of the robot controller,
-    the environment where the robot will be used might not be perfectly defined
-    or the desired behaviour might need to be customisable by or for the end
-    user. For these reasons, the  robot needs to be able to update its action
-    policy to improve its behaviour. We use the term \emph{adaptivity} to
-    represent this ability to change the action policy. This adaptivity has
-    three components: the adaptivity in space (being able to change an action
-    policy according to the environment), the adaptivity in users (being able to
-    change an action policy according to the user) and the adaptivity in time
-    (being able to change an action policy over time). 
+    For reasons similar to the ones stated in subsection \ref{ssec:appropriateness} and as pointed by other research groups \citep{argall2009survey, hoffman2016openwoz}, an optimal behaviour is unlikely to be programmable by hand. Additionally, the end user can be from a different population intended by the designers of the robot controller, the environment where the robot will be used might not be perfectly defined or the desired behaviour might need to be customisable by or for the end user. For these reasons, the  robot needs to be able to update its action policy to improve its behaviour. We use the term \emph{adaptivity} to represent this ability to change the action policy. This adaptivity has three components: the adaptivity in space (being able to change an action policy according to the environment), the adaptivity in users (being able to change an action policy according to the user) and the adaptivity in time (being able to change an action policy over time). 
 
-    The same robot might be expected to interact in different environments. For
-    example a robot used as an assistant for elderly people will have to
-    interact in the home of the owner, but can also have to follow the owner in
-    the street or in a supermarket. In these different environments, different
-    behaviour will be expected from the robot, so to be able to behave
-    accordingly, the robot has to be adaptive in space.
+    The same robot might be expected to interact in different environments. For example a robot used as an assistant for elderly people will have to interact in the home of the owner, but can also have to follow the owner in the street or in a supermarket. In these different environments, different behaviour will be expected from the robot, so to be able to behave accordingly, the robot has to be adaptive in space.
 
-    Additionally, in most of the application field presented earlier, robots
-    have to interact with a large number of users, and often, these interaction
-    partners are not know in advance: in education the name and specificities of
-    every child can hardly be specified in advance. In entertainment or search
-    and rescue, none of the user is known beforehand. Adaptivity can be a way to
-    discriminate the different users and adopt the action policy the more suited
-    to the current user and update it according to this user's behaviour.
+    Additionally, in most of the application field presented earlier, robots have to interact with a large number of users, and often, these interaction partners are not know in advance: in education the name and specificities of every child can hardly be specified in advance. In entertainment or search and rescue, none of the user is known beforehand. Adaptivity can be a way to discriminate the different users and adopt the action policy the more suited to the current user and update it according to this user's behaviour.
 
-    Similarly, seeing the different fields where robots have to be social, there
-    is an expectation to interact over an extensive period with the same user,
-    e.g. companion robots for the elderly, military robots for a squad or robots
-    used in therapeutic settings. With these long interactions, adaptivity in
-    time allows the robot to tailor its behaviour to the user it is interacting
-    with and makes it able to track the changes of preferences that could occur
-    over long period of interaction. Adaptivity in time can also allow the robot
-    to learn from its errors and be able to manage uncertainty better as it is
-    interacting.
+    Similarly, seeing the different fields where robots have to be social, there is an expectation to interact over an extensive period with the same user, e.g. companion robots for the elderly, military robots for a squad or robots used in therapeutic settings. With these long interactions, adaptivity in time allows the robot to tailor its behaviour to the user it is interacting with and makes it able to track the changes of preferences that could occur over long period of interaction. Adaptivity in time can also allow the robot to learn from its errors and be able to manage uncertainty better as it is interacting.
 
-    For this review, adaptivity will be a continuous scale ranging from no
-    adaptivity at all (the robot has a single action policy that it will use in
-    all the interactions), to high adaptivity (the robot is able to change its
-    action policy during an interaction and adapt it to the persons and context
-    of the interaction). As this adaptivity is over three axes, some robots can
-    have a high adaptivity in users (by adapting their behaviour to the actions
-    of their interactants), but not in time (if the same inputs always trigger
-    the same output), and not in space (if only one specific context of
-    interaction is taken into account). In that case, the action selection
-    mechanism will receive a relatively low adaptivity rating.
+    For this review, adaptivity will be a continuous scale ranging from no adaptivity at all (the robot has a single action policy that it will use in all the interactions), to high adaptivity (the robot is able to change its action policy during an interaction and adapt it to the persons and context of the interaction). As this adaptivity is over three axes, some robots can  have a high adaptivity in users (by adapting their behaviour to the actions of their interactants), but not in time (if the same inputs always trigger the same output), and not in space (if only one specific context of interaction is taken into account). In that case, the action selection mechanism will receive a relatively low adaptivity rating.
 
 \subsubsection{Autonomy}
 	
@@ -290,7 +173,7 @@ This chapter describes the application of robot interacting with humans and rela
     stages of the interaction or at any time or can be a simple guidance or a
     command. 
 
-\section{Current robot behaviours in HRI}
+\section{Current robot behaviours in HRI} \label{sec:back_behaviour}
 
     This section will present diverse approaches currently used in HRI to allow
     a robot to select an action. As the number of individual techniques is too
@@ -375,10 +258,44 @@ This chapter describes the application of robot interacting with humans and rela
     generally constrained enough to limit the robot's and the human's actions.
     However, as everything is specified in advance, the adaptivity is low.
 
+\subsection{Reactive behaviour}
 
-\subsection{Fixed taught behaviour}
+Reactive controllers are systems reacting directly to input data without
+trying to reach specific goals. %For example, the subsumption architecture
+presented by Brooks in \citep{brooks1986robust}. The main idea is not to
+have an explicit behaviour to react to each situation, but to have a set of
+possible behaviours competing for the control of the robot.  For example,
+robotic control have been inspired by homeostasis, the tendency to keep
+multiple elements at equilibrium. This property is observed in many
+physiological systems, and approaches following a similar direction and have
+been utilised in social HRI. For example, \citet{breazeal1998motivational}
+use a set of drives (social, stimulation, security and fatigue) which are
+represented by a variable each and have to be kept within a predefined
+range. If these values are outside the desired homeostatic range, the robot
+is either over or under-stimulated and this will affect its emotion status
+and it will display an emotion accordingly. Homeostasis approaches have also
+been extended in diverse directions. \citet{cao2014robee} present a system
+based on a homeostasis subsystem to generate drives, which are equivalent to
+temporary goals, which then use planning techniques (cf. sub-section
+\ref{subsec:planning}) already predefined to satiate this particular drive.  
 
-    Restricted perception WoZ
+Due to the implicit description of behaviours these methods are more robust
+in unconstrained environments than a purely scripted controller, while
+remaining totally autonomous. However the action policy is not adaptive and
+as the behaviours are not totally defined and controlled, there is no
+guarantee against the robot acting in inconsistent way in some specific
+cases limiting the appropriateness of actions.
+
+Efforts have been made to extend the homeostasis approaches beyond purely
+reactive systems with the use of hormone models  for example
+\citep{Lones2014}. This method allows the previous experiences of the robot
+to impact the behaviour expressed providing limited adaptivity in time to
+the robot. However this approach was only applied to a robot interacting in
+a non-social environment.
+
+\subsection{Learning from Demonstration}
+	% HRI is in the teaching, not in the application - often manipulation
+	% Except Liu (learning from data) and restricted WoZ
 
     Machine  learning is a promising method to provide a robot with an adequate
     action policy without having to implement in advance all the features used
@@ -454,9 +371,7 @@ This chapter describes the application of robot interacting with humans and rela
     interaction, so the autonomy is high during the main part of the
     interaction.
 
-\subsection{Adaptive behaviour}
-
-\subsubsection{Planning} \label{subsec:planning}
+\subsection{Planning} \label{subsec:planning}
 
     An alternative way to interact in more complex environment is to use
     planning. The robot has access to a set of actions with preconditions and
@@ -511,52 +426,52 @@ This chapter describes the application of robot interacting with humans and rela
     the number of actions, adding new rules or changing the pre- and
     postcondition of actions at runtime.
 
-\subsubsection{Reactive behaviour}
+\subsection{Learning from Interaction}
 
-    Reactive controllers are systems reacting directly to input data without
-    trying to reach specific goals. %For example, the subsumption architecture
-    presented by Brooks in \citep{brooks1986robust}. The main idea is not to
-    have an explicit behaviour to react to each situation, but to have a set of
-    possible behaviours competing for the control of the robot.  For example,
-    robotic control have been inspired by homeostasis, the tendency to keep
-    multiple elements at equilibrium. This property is observed in many
-    physiological systems, and approaches following a similar direction and have
-    been utilised in social HRI. For example, \citet{breazeal1998motivational}
-    use a set of drives (social, stimulation, security and fatigue) which are
-    represented by a variable each and have to be kept within a predefined
-    range. If these values are outside the desired homeostatic range, the robot
-    is either over or under-stimulated and this will affect its emotion status
-    and it will display an emotion accordingly. Homeostasis approaches have also
-    been extended in diverse directions. \citet{cao2014robee} present a system
-    based on a homeostasis subsystem to generate drives, which are equivalent to
-    temporary goals, which then use planning techniques (cf. sub-section
-    \ref{subsec:planning}) already predefined to satiate this particular drive.  
 
-    Due to the implicit description of behaviours these methods are more robust
-    in unconstrained environments than a purely scripted controller, while
-    remaining totally autonomous. However the action policy is not adaptive and
-    as the behaviours are not totally defined and controlled, there is no
-    guarantee against the robot acting in inconsistent way in some specific
-    cases limiting the appropriateness of actions.
+Diarc
 
-    Efforts have been made to extend the homeostasis approaches beyond purely
-    reactive systems with the use of hormone models  for example
-    \citep{Lones2014}. This method allows the previous experiences of the robot
-    to impact the behaviour expressed providing limited adaptivity in time to
-    the robot. However this approach was only applied to a robot interacting in
-    a non-social environment.
+That's where we sit, but not often applied for HRI - next parts describe the options
 
-\subsection{Learnt behaviour}
+\section{Reinforcement Learning} %Not
+ applied to learn to interact
 
-DIARC?
+\subsection{Concept}
+
+\subsection{Limitations}
+
+\subsection{Opportunities}
 
 \section{Interactive Machine Learning}
 
+\acrfull{iml}, as coined by \cite{fails2003interactive}, differs from \acrfull{cml} by integrating an expert end-user in the learning process. In classical supervised learning, such as deep leanrning \cite{lecun2015deep} , the learning phase happens offline once to obtain a classifier for later use. On the other hand, \acrshort{iml} is an iterative online process using a human to correct the errors made by the algorithm as they appear.
+
 \subsection{Goal}
 
-\subsection{In Artificial Intelligence}
+The main goal behind \gls{iml} is to leverage the human knowledge during the learning process to speed it up. As explained in \cite{fails2003interactive}, algorithms gain to be fast rather than highly inductive. \cite{amershi2014power} present a review %Read and continue user modify behaviour based on learner output
+%amershi provide an introduction to IML
+simultaneous development and usage
 
-\subsection{In Human-Robot Interaction}
+\subsection{Active learning}
+%More supervised - learner driven - reduce workload on user
+
+User are human and want to be considered as such, not oracle (want more control) not willing to be simple oracle \cite{cakmak2010designing} %Read paper
+
+\subsection{Human as a source of feedback on actions}
+%More reinforcement, loftin, Crayon... (cf AI-HRI)
+\cite{isbell2006cobot}
+
+When given choice, human will never teach only using rewards \cite{kaochar2011towards} %See if citation makes sense
+%Human don't want to provide only label, they want to explain \cite{stumpf2007toward} + importance on transparency: help to achieve better results and improve user experience
+
+%Need to careful not to just rewrite power to people + need to add new material - with deep learning and stuff
+\subsection{Importance of control}
+
+\cite{amershi2014power} emphasise throughout their paper the desire of user to have more control over the learning progress (through timing, suggestions, corrections, decisions...).
+
+\subsection{Challenges}
+
+DIARC?
 
     As explained before, due to the large number of interactions needed and due
     to the risk presented by blind exploration, pure RL has not been used in
