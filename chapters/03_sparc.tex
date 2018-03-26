@@ -4,11 +4,11 @@
 	\textbf{Key points:}
 	
 	\begin{itemize}
-		\item Novel interaction framework to teach robots how to interact while interacting
-		\item Provide the human teacher control on the robot actions and the robot learns from the supervision
+		\item Novel interaction framework to teach robots an action policy while interacting
+		\item Provides the human teacher control on the robot actions whilst the robot learns from the supervision
 		\item Teacher provide feedback on intention rather than action
 		\item The robot behaviour (under supervision) can be assumed to be optimal
-		\item Reduce workload on the teacher over time as the robot learns
+		\item Reduces workload on the teacher over time as the robot learns
 	\end{itemize}
 \end{framed}
 
@@ -16,33 +16,41 @@ Parts of the work presented in this chapter have been published in \cite{senft20
 
 \newpage
 
-\section{Principles}
 
 As presented in Chapter \ref{chap:background}, robots would profit from being able to learn from humans how to interact with other humans. Using \gls{iml} to achieve this transfer of social and task knowledge from the human domain-expert to the robot would result in a faster approach than slow iterative update of behaviour by engineering an action policy or learning by trials and errors as with \gls{rl}.
 
-However, as stated in that chapter, no current system provide the teacher with enough control over the robot action to ensure that the first principle presented in subsection \ref{ssec:back_constraints} (``Only execute appropriate actions.'') is validated. Techniques relying solely on feedback cannot prevent the robot to execute an incorrect action, but only reward negatively incorrect actions after their execution \citep{senft2017supervised}
+However, as stated in that chapter, \gls{iml} is seldom applied to learning to interact with humans and no current system provide the teacher with enough control over the robot action to ensure that the first principle presented in Section \ref{ssec:back_constraints} (``Only execute appropriate actions'') is validated. Techniques relying solely on feedback cannot prevent the robot to execute an incorrect action, but only reward negatively incorrect actions after their execution \citep{senft2017supervised} and techniques based on \gls{lfd} do not learn an action policy online providing the desired adaptivity of teaching.
 
-In order to provide a robot with an appropriate action policy, adaptable to different users and requiring a low workload on the teacher or supervisor, we introduce the \acrfull{sparc} framework of interaction to allow end-users to safely teach a robot an action policy in \cite{senft2015sparc}.
+In order to provide a robot with an appropriate action policy, adaptive to different context or behaviours and requiring a low workload on the teacher or supervisor, we introduce in \cite{senft2015sparc} the \acrfull{sparc} framework of interaction to allow end-users to safely teach a robot an action policy.
+
+\section{Principles}
 
 \gls{sparc} defines an interaction between a learner and a teacher following these principles:
 \begin{itemize}
 	\item The learner has access to a representation of the state and a set of actions
 	\item The teacher can select actions for the robot to do.
 	\item The learner can propose actions to the teacher
-	\item The teacher can enforce or cancel actions proposed by the learner, an actions non evaluate will be executed after a small delay
+	\item The teacher can enforce or cancel actions proposed by the learner and actions non evaluate will be executed after a small delay
 	\item The learner improves its action policy using the teacher's commands and feedback on propositions
 \end{itemize} 
+
+This way of keeping a human in the loop and in control of the robot's actions is equivalent to level 6 on the Sheridan scale of autonomy: "A computer selects action, informs human in plenty of time to stop it" \citep{sheridan1978human}. In addition, a learning algorithm improve the correctness of suggested actions decreasing the probability of requiring the teacher to correct actions or having to select new actions. Additionally, keeping the human in the loop allows them to provide additional information to the algorithm to speed up the learning.
+
+This approach is similar to predictive texting as seen on phone nowadays. The user can select the words proposed by the algorithms, or write their own, and the algorithm learns the user's preferences and habits and aims to suggest words more and more appropriate to the user. However, \gls{sparc} enables a more complex interaction between learner and teacher and it directed to interactive environments, reacting to the teacher's decisions and to the world surrounding the agent.
     
-This way of keeping a human in the loop and in control of the robot's actions is equivalent to level 6 on the Sheridan scale of autonomy: "A computer selects action, informs human in plenty of time to stop it" \citep{sheridan1978human}. In addition, a learning algorithm improve the correctness of suggested actions decreasing the probability of requiring the teacher to correct actions or having to select new actions. Additionally, keeping the human in the loop allows them to provide additional information to the algorithm to speed up the learning and the control of the human over the robot actions ensures that every action executed by the robot is appropriate to the current state and simplify the learning algorithm too.
+\section{Implications}
 
-This approach is similar to predictive texting as seen on phone nowadays. The user can select the words proposed by the algorithms, or write their own, and the algorithm learns the user's preferences and habits and aims to suggest word more and more appropriate to the user. However, \gls{sparc} is aimed to be used is more complex, interactive environments, reacting to the user's selection and to the world surrounding the agent.
+The principles described in the previous section have also implication on the interactions between the teacher and the agent and between the agent and the environment.
 
-%TODO: add difference with active learning, the agent cannot decide which sample it will evaluate and these are provided by the environment
+As the teacher can evaluate the actions proposed by the agent before their executions, it evaluates the intentions of the agent rather than its behaviour, and this difference is key as traditional \gls{iml} approaches only evaluate the actions or their effects, but not the intentions. This implication is fundamental in \gls{hri} as we cannot accept to have a robot executing non appropriate actions when interacting with humans (cf. first principle in Section \ref{ssec:back_constraints}).
+
+Most importantly, the control given to the teacher on the agent's actions ensures that every action executed by the in the world has been either actively or passively validated by the teacher. This implies that each action executed can be assumed to be appropriate to the current state, potentially simplifying the learning algorithm.
+
 \section{Goal}
 
-The goal of \gls{sparc} is to achieve quickly an autonomous appropriate action policy by interacting, without requiring constant action from a human whilst ensuring that the action policy is appropriate. 
+The goal of \gls{sparc} is to achieve quickly an autonomous appropriate action policy during an interaction in an environment, without requiring constant input from a human whilst ensuring that the action policy is appropriate. 
 
-Figure \ref{fig:concept} presents an idealist comparison of the expected workload, performance and autonomy of three methods: autonomous learning (such as \gls{rl} \cite{sutton1998reinforcement}), feedback based teaching (such as TAMER \cite{knox2009interactively}) and \gls{sparc}. Unlike other methods, by following the principles presented in the previous section, \gls{sparc} is expected to maintain a constant high performance even during early stages of learning, and to see a decrease of workload on human supervisor as the agent improve its action policy using machine learning and the suggestions become more accurate.
+Figure \ref{fig:concept} presents an idealist comparison of the expected workload, performance and autonomy of three methods: autonomous learning (such as \gls{rl} - \citealt{sutton1998reinforcement}), feedback based teaching (such as TAMER - \citealt{knox2009interactively}) and \gls{sparc}. Unlike other methods, by following the principles presented in the previous section, \gls{sparc} is expected to maintain a constant high performance even during early stages of learning, and to see a decrease of workload on human supervisor as the agent improve its action policy using machine learning and the suggestions become more accurate.
 
 %TODO: could add woz
 \begin{figure}[ht]
@@ -52,25 +60,27 @@ Figure \ref{fig:concept} presents an idealist comparison of the expected workloa
 	\label{fig:concept}
 \end{figure}
 
-Once the behaviour is deemed appropriate enough by the teacher, the agent can be deployed to interact autonomously in the real world if this is the desired output. Alternatively, in context where a human expert cannot be removed from the control loop, such as \acrlong{rat}, the supervisor can stay in control of the robot actions in a supervised autonomous way (level 6 of Sheridan) and only intervene when the agent is about to do an error. This approach is similar to safety drivers behind autonomous vehicles but with more information about what the car would be about to do. 
+Once the behaviour is deemed appropriate enough by the teacher, the agent can be deployed to interact autonomously in the real world if this output is desired. Alternatively, in context where a human expert cannot be removed from the control loop, such as \acrlong{rat}, the supervisor can stay in control of the robot actions in a supervised autonomous way (level 6 of Sheridan) and only intervene when the agent is about to do an error. This approach is similar to safety drivers behind autonomous vehicles but with information about the car's intentions rather than solely the car's actions. 
 
 \section{Frame}
 
-Similar to other application of \gls{iml}, SPARC requires the presence of a teacher. As such, the type of interaction possible would be either: dyadic interaction (Supervisor-Robot-Supervisor or Supervisor-Robot-Environment), such as  robot at home learning from its user how to support them better or triadic interaction (Supervisor-Robot-Human partner), such as a teacher teaching a robot tutor how to support child learning (as implemented in Chapter \ref{chap:education})
+Similarly to other application of \gls{iml}, SPARC requires the presence of a teacher. As such, the type of interaction possible would be either: dyadic interaction (Teacher-Robot-Teacher or Teacher-Robot-Environment), such as  robot at home learning from its user how to support them better or triadic interaction (Teacher-Robot-Human partner), such as a teacher teaching a robot tutor how to support child learning (as implemented in Chapter \ref{chap:education})
 
-However, unlike other \gls{iml} approaches, the requirement of a human in the action selection loop limits the timescale of interaction. As the human has to be provided with few seconds to react to the proposition, the rate of actions has to be .5Hz or below. However, this can be mitigated by using higher level actions and this has the advantage to ensure that only correct actions will be executed without requiring the human to select them all.
+However, unlike some other \gls{iml} approaches, the requirement of a human in the action selection loop limits the timescale of interaction. As the human has to be provided with few seconds to react to the proposition, the rate of actions has to be 0.5 Hz or below. However, this can be mitigated by using higher level actions and this has the advantage to ensure that only correct actions will be executed without requiring the human to select them all.
 
-\gls{sparc} presents many similarities with \acrlong{lfd} as it uses human demonstration of action to learn. However, most of the applications of \gls{lfd} \citep{argall2009survey,billard2008robot} are focused on learning a manipulation skill in a mostly deterministic environment. \gls{lfd} has seldom been used to teach an action policy to interact with humans \cite{liu2014train,sequeira2016discovering} and never in an online fashion.
+\gls{sparc} presents many similarities with \acrlong{lfd} (cf. Section \ref{ssec:back_lfd}) as it uses human demonstration of policies to learn. However, most of the applications of \gls{lfd} \citep{argall2009survey,billard2008robot} are focused on learning a manipulation skill in a mostly deterministic environment. \gls{lfd} has seldom been used to teach an action policy to interact with humans \citep{liu2014train,sequeira2016discovering} and never in an online fashion.
+
+Additionally, \gls{sparc} differs from Active Leaning (cf. Section \ref{ssec:back_active}) by the fact that the agent cannot decide which sample will be evaluated by the supervisor. As the robot interacts with humans, the datapoints provided to the teacher for \textit{labelling} will emerge from the interaction, and cannot be selected at will. 
 
 \section{Interaction with Machine Learning Algorithms}
 
-Supervised Learning
+The principles of \gls{sparc} define it at the crossing between \acrlong{sl} and \acrlong{rl}. The  goal of the algorithm could be either to reproduce the teacher's policy, in a supervised way or to explore using the teacher's commands and control the environment and infer an action policy in a reinforced way.
 
-Reinforcement learning 
+As such, \gls{sparc} only defines an interaction framework between a teacher and a learner, and it is agnostic to the algorithms: it can be combined with any algorithm used in \acrlong{sl} or \acrlong{rl}. This research explored a combination with three types of algorithms: supervised learning using feed-forward neural networks in Chapter \ref{chap:woz}, reinforcement learning in Chapter \ref{chap:control} and supervised learning using instance based algorithm in Chapter \ref{chap:education}. However \gls{sparc} could be combined with a wide range of other algorithms.
 
-Other type of learning (ex: instance based learning)
+In theory, if using a reinforcement learning approach and other types of algorithms, \gls{sparc} could even go beyond the demonstrated action policy and achieve a performance higher than the demonstration as it has been demonstrated for other approaches in Section \ref{sec:back_iml}. But this has not been evaluated in this work.
 
 \section{Summary}
     
-    
+This chapter introduced \acrfull{sparc}, a novel interaction framework to teach agent an action policy. This approach is suitable to teach a robot to interact with humans as it validates the principles defined in Section \ref{ssec:back_constraints}. \gls{sparc} starts in a similar fashion than \gls{woz}: the teacher can select which action the robot should do, then using a learning algorithm, the learner proposes actions to the teacher who can let them be executed after a short time or cancel the action and select another one if appropriate. This suggestions/corrections mechanism provides the appropriateness of actions as a human could have cancel any inappropriate action in the learning phase, provides the adaptivity as the teacher can extend the behaviour beyond the current action policy. The learning algorithm with the auto-executions ensure that once the robot has learnt the human workload is low and the robot could even be deployed to interact autonomously if this is desired.
 
