@@ -34,15 +34,15 @@ In order to provide a robot with an appropriate action policy, adaptive to diffe
 	\item The learner improves its action policy using the teacher's commands and feedback on propositions
 \end{itemize} 
 
-This way of keeping a human in the loop and in control of the robot's actions is equivalent to level 6 on the Sheridan scale of autonomy: "A computer selects action, informs human in plenty of time to stop it" \citep{sheridan1978human}. In addition, a learning algorithm improve the correctness of suggested actions decreasing the probability of requiring the teacher to correct actions or having to select new actions. Additionally, keeping the human in the loop allows them to provide additional information to the algorithm to speed up the learning.
+This way of keeping a human in the loop and in control of the robot's actions is equivalent to the level 6 on the Sheridan scale of autonomy: "A computer selects action, informs human in plenty of time to stop it" \citep{sheridan1978human}. In addition, a learning algorithm improve the correctness of suggested actions decreasing the probability of requiring the teacher to correct actions or having to select new actions. Additionally, keeping the human in the loop allows them to provide additional information to the algorithm to speed up the learning.
 
 This approach is similar to predictive texting as seen on phone nowadays. The user can select the words proposed by the algorithms, or write their own, and the algorithm learns the user's preferences and habits and aims to suggest words more and more appropriate to the user. However, \gls{sparc} enables a more complex interaction between learner and teacher and it directed to interactive environments, reacting to the teacher's decisions and to the world surrounding the agent.
     
 \section{Implications}
 
-The principles described in the previous section have also implication on the interactions between the teacher and the agent and between the agent and the environment.
+The principles described in the previous section have also implications on the interactions between the teacher and the agent and between the agent and the environment.
 
-As the teacher can evaluate the actions proposed by the agent before their executions, it evaluates the intentions of the agent rather than its behaviour, and this difference is key as traditional \gls{iml} approaches only evaluate the actions or their effects, but not the intentions. This implication is fundamental in \gls{hri} as we cannot accept to have a robot executing non appropriate actions when interacting with humans (cf. first principle in Section \ref{ssec:back_constraints}).
+As the teacher can evaluate the actions proposed by the agent before their executions, it actually evaluates the intentions of the agent rather than its behaviour, and this difference is key as traditional \gls{iml} approaches only evaluate the actions or their effects, but not the intentions. This implication is fundamental in \gls{hri} as we cannot accept to have a robot executing non appropriate actions when interacting with humans (cf. first principle in Section \ref{ssec:back_constraints}) and correctly evaluating intentions and not actions gives the opportunity to the teacher to pre-empt incorrect actions preventing the execution of undesired behaviours.
 
 Most importantly, the control given to the teacher on the agent's actions ensures that every action executed by the in the world has been either actively or passively validated by the teacher. This implies that each action executed can be assumed to be appropriate to the current state, potentially simplifying the learning algorithm.
 
