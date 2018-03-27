@@ -223,105 +223,101 @@ This chapter describes the application of robot interacting with humans and rela
 
 \subsection{Summary}
 
-Table X presents a summary of the different approaches currently used in \gls{hri} with their rating on each of the categories and how widely their are applied. As shown in the paper, the most promising type of control is \textit{Learning from the interaction}, but it is seldom used to learn how to interact with humans. However, other fields (\acrlong{rl} and \gls{hci}) have explored ways of controlling agents included in this larger approach and we will present them in the next sections.
+	Table X presents a summary of the different approaches currently used in \gls{hri} with their rating on each of the categories and how widely their are applied. As shown in the paper, the most promising type of control is \textit{Learning from the interaction}, but it is seldom used to learn how to interact with humans. However, other fields (\acrlong{rl} and \gls{hci}) have explored ways of controlling agents included in this larger approach and we will present them in the next sections.
 
-\section{Reinforcement Learning} %Not
- applied to learn to interact
-
+\section{Reinforcement Learning} 	
 \subsection{Concept}
+	%TODO: maybe highlight why it would be intersting for HRI: life long learning and improving, learning from errors -> interesting to have a RL component in robots deployed - explain that normally the robot starts without initial knowledge
+	Young infants and adults learn by interacting with their environment, by producing actions, analysing how the environment reacts and measure progress toward a goal. Similarly, the field of \acrfull{rl} aims to empower agents by making them learn by interacting, using results from trials and errors and potentially delayed rewards to reach an optimal, or at least efficient, action policy \cite{sutton1998reinforcement}.
 
+	%Discrete time - life as a sequence!
+	The simplest version of \glossary{rl} is modelled as a finite \acrfull{mdp}, a 5-tuples $(S, A, P_a(s,s'), R_a(s,s'), \gamma)$, with:
+	\begin{itemize}
+		\item $S$: a finite set of states defining the agent and environment states
+		\item $A$: a finite set of actions available to the agent
+		\item $P_a(s,s')$: the probability of transition from state $s$ to $s'$ following action $a$
+		\item $R_a(s,s')$: the immediate reward following transition $s$ to $s'$ due to action $a$
+		\item $\gamma$: a discount factor applied to future rewards
+	\end{itemize}
+
+	The goal of the \gls{rl} agent is to find the optimal policy $\pi_*$ maximising the discounted sum of future rewards. The agent is not aware of all the parameters of the model, and only observes the transitions between states and the rewards provided by the environment and has to update its policy to maximising this cumulated reward. Different algorithms exist to reach this policy, but the main features present in all of them is the concepts of exploration and exploitation.
+	
+	Exploration reflects the idea to try out new actions to learn more on the environment and potential gain knowledge improving the policy whilst exploitation is the execution of the current best policy to maximise the current gain of rewards. All the algorithms have to balance these two features to reach an optimal action policy. One way to deal with this trade off is to start with high probably of exploration to collect knowledge on the environment and then decrease this probably to converge toward a policy using this knowledge to make better choice of actions.
+	
+	The more complex the environment is, the longer the agent has to explore before converging to a good action policy, it is not uncommon to reach numbers such as millions of iterations before reaching an appropriate action policy. And during this exploration phase, the agent's behaviour might seem erratic as the agent tries actions often randomly to observe how the environment is reacting.
+	
+	%Challenges - tradeoff exploration/itation - uniqueness of data (fleeing nature of time and data) - non statioanrity - sequential delayed consequences ...
+	%success: backgammon, helicopter, advertisements, jeopardy, atari -> better perf than any other methods - and "without using human instructions"
+	
+	%concept of action value function of a policy: value of doing action in state
+	%optimal value function = value function of the optimal policy (include delayed consequences)
+	%q-learning works for any type of MDP
+	%off policy: learning without doing the target policy + behaviour policy
+	%policy iteration: evaluate policy - obtain q - greedify to new policy - evalute - obtain new q..
+	%in tabular, converge in few iterations, robust
+	%bootstrapping: updating an estimate from an estimate: bellman equation
+	%Need approximation for generalisation and learning faster - approximate the action value function (linear weighting of features)
+	%the function approx subsume much of the problem of hidden state
+	%it works often with q-learning, but loses the guaranty of converging! -> still need theoretical work
+	%update parameter vector at each time step according to error
+	%better with sarsa on policy algo -> often epsilon greedy
 \subsection{Limitations}
-    As explained before, due to the large number of interactions needed and due
-    to the risk presented by blind exploration, pure RL has not been used in
-    HRI. However, variants have been proposed to use human expertise to
-    bootstrap the learning of RL based algorithm to learn non social tasks
-    \citep{kober2013reinforcement}. \citet{thomaz2008teachable} present the
-    Interactive Reinforcement Learning, a method combining feedback from the
-    environment and feedback from a human supervisor to learn a task in a
-    non-social context. Similarly, \citet{knox2009interactively} propose to use
-    RL in an environment where the feedback is not given by the environment
-    itself, but by a human only. In these two cases, human feedback is used to
-    scaffold the learning: it makes it faster and safer and can allow the use of
-    RL in environments without explicit reward. However as the feedback is
-    always given after the execution of the action, there is no guaranty that
-    only expected actions will be executed. This might be a reason why these two
-    approaches have not been used to learn an action policy for social
-    human-robot interactions. But they are nevertheless relevant as they are
-    using the interaction with a human to help an agent to learn an action
-    policy faster and safer than pure RL.
 
-\subsection{Opportunities}    
-    As stated in \citet{garcia2015comprehensive}, two ways exist to make the RL
-    safer: either a mechanism is present to prevent the execution of non-safe
-    actions or enough initial knowledge is provided to ensure that the robot is
-    staying in a safe zone. These two methods can also be used with other
-    machine learning techniques. 
-    
-    An example of the first method is presented in \citet{chernova2009}, where
-    the authors used a confidence-based autonomy approach to control a robot. It
-    combines learning from demonstration and active learning
-    \citep{johnson1991active} to limit the risks of the exploration and increase
-    the learning speed. Initially the robot is provided with demonstrations of
-    the task by a human and then has to try on its own. However, as it is
-    expected from a human, the demonstrations are not fully consistent so the
-    robot might find states where there is no obvious action to select. A human
-    expert is also present and the robot can ask a demonstration for the points
-    where the uncertainty is high. 
-    
-    Using human guidance in high uncertainty states can help the robot to select
-    appropriate actions even when some knowledge is missing at the robot's side.
-    However this approach, similarly to \citet{shiomi2008semi}, is limited to
-    the cases where the robot can estimate the confidence in its sensors and its
-    action selection mechanism. One of the differences between the approach
-    presented in \citet{shiomi2008semi} and in \citet{chernova2009} is that in
-    the latter this information is used for learning to improve the action
-    policy. One of the key points of these method is the uncertainty estimation,
-    if the estimation is not precise enough, the robot can fail to detect
-    ambiguous states and act in an undesired manner.
-    
-    The second way to have a safer learning (exploring only around a known safe
-    action policy) is followed by \citet{Abbeel2004}. In this paper, the authors
-    used inverse reinforcement learning to teach a flying behaviour to a robotic
-    helicopter. In this case, the robot is provided with demonstration of a safe
-    policy, and then derives from these examples the reward function supposed to
-    defined the expected optimal behaviour. Finally classical RL is applied
-    around the provided policy to explore and to optimise the policy according
-    to the estimated reward function.
-    
-    Similarly to autonomous online learning, these approaches score high in
-    adaptivity in time and depending of the learning mechanism, sensory inputs
-    and actions, they also do well in being adaptive in the search space and to
-    changing user behaviour. The reliance on human input decreases the autonomy,
-    but increases the appropriateness of actions as this guidance can help to
-    reduce the use of random exploration. However, as the human has often only a
-    partial control, the robot is not ensured to act correctly at every stage of
-    the interaction preventing the appropriateness to be maximal. 
-    
-    It should be noted that these approaches have not been used to learn
-    behaviours for social human-robot interaction, probably due again to the
-    complexity of the interaction and due to the probability to execute
-    non-desired actions for the current online learning methods.
+	As explained in the previous section, traditional \gls{rl} has two main issues: requirement of exploration to gather knowledge about the environment and large number of iteration before converging. Generally, \gls{rl} copes with these issues by using a simulator to test the agent, which allows the agent to explore safely in an environment where its actions have no impact on the real world and where the speed of the interaction can be highly increase to gather the required datapoints in a more reasonable amount of time. However, no simulator of human beings exists today which would be accurate enough to learn an action policy applicable in the real world. Learning to interact with humans by interacting with them would have to take place in the physical world, with real humans, and this implies that these issues would have direct impacts. 
+	
+	To gather informations about the environment, the agent needs to explore, trying out random actions to learn how the humans respond to them and if the agent should repeat them later. When interacting with humans, executing random actions can have dramatic effect on the users, presenting risk of physical harm as robot are often stiff and strong. This reliance on random exploration presents a clear violation of the first principle to interact with humans presented earlier (all actions need to be appropriate).
+	
+	Even if random behaviour were acceptable, humans are complex creatures, behaving stochastically, with personal preferences and desires. And as such, learning to interact with them from scratch would would require large number of datapoints and as interactions with humans are slow (not many actions per minutes). 
+	
+	\gls{rl} has been used in robotics despite these limitations\citep{kober2013reinforcement}, but similarly to \gls{lfd} mostly to manipulation, locomotion or navigation tasks but not to learn social behaviours for \gls{hri}. 
+	
+	
+\subsection{Opportunities}  
+	Despite the limitations presented in the previous section, some changes can be made to \gls{rl} to increase its application to \gls{hri}.
+	  
+	\cite{garcia2015comprehensive}, insist on \textit{safe} \gls{rl}, ways to ensure that even in the early stages of the interaction, when the agent is still learning about the world, its action policy still achieve a minimal acceptable performance. Authors present two ways to achieve this safety: either use a mechanism to prevent the execution of non-safe actions or provide the agent with enough initial knowledge to ensure that it is staying in a safe interaction zone. These two methods are not limited to \gls{rl} but can also be used with other machine learning techniques. 
+	
+	The first method (preventing the agent to execute undesired actions) can be implemented by explicitly preventing the agent to execute specific actions in predefined states, however it seems unlikely that every case could be specified in advance. As such, the easiest way in to include a human in the action selection loop, as a way to be sure that undesired actions are pre-empted before being executed. Learning by interacting with humans is called \acrlong{iml} and is described more in depth in Section \ref{sec:back_iml}.
+	
+	The second method (providing enough initial knowledge) can be achieved by carefully engineering the features used by the algorithm or starting from a initial action policy to build upon. \cite{Abbeel2004} propose to use humans demonstrations in a fashion similar to \gls{lfd} but to learn a reward function and an initial working action policy. This method, Inverse Reinforcement Learning has been applied successfully to teach a flying behaviour to a robotic helicopter. Once the initial policy and the reward function are estimated, \gls{rl} is applied around the provided policy to explore and optimise the policy. That way, authors can ensure that only small variation of the policy will happen around the demonstrated one. This small variations can ensure that policies leading to incorrect behaviours can be negatively reinforced and avoided before creating issues (such as crashing in the case of the robotic helicopter).
+	
+	%Similarly to autonomous online learning, these approaches score high in adaptivity in time and depending of the learning mechanism, sensory inputs and actions, they also do well in being adaptive in the search space and to changing user behaviour. The reliance on human input decreases the autonomy, but increases the appropriateness of actions as this guidance can help to reduce the use of random exploration. However, as the human has often only a partial control, the robot is not ensured to act correctly at every stage of the interaction preventing the appropriateness to be maximal.
+	
+	Whilst being promising and having been applied for agents in human environments (such as for personalised advertisement - \citealt{theocharous2015personalized})	these approaches have not been used social behaviour or to have robot interacting with humans.
 
 \section{Interactive Machine Learning} \label{sec:back_iml}
+%Mostly for supervised learning 
+
 Machine learning is a promising method to provide a robot with an adequate action policy without having to implement in advance all the features used by the action selection mechanism. Offline learning is a technique allowing the robot to change its action policy over time by updating the action policy outside of the interaction. Between interactions, a learning algorithm is used to create a new action policy derived from the previous experiences.
 
-\acrfull{iml}, as coined by \cite{fails2003interactive}, differs from \acrfull{cml} by integrating an expert end-user in the learning process. In classical supervised learning, such as deep leanrning \cite{lecun2015deep} , the learning phase happens offline once to obtain a classifier for later use. On the other hand, \acrshort{iml} is an iterative online process using a human to correct the errors made by the algorithm as they appear.
+However online learning (such as \gls{rl}) have the advantage of benefiting from multiple updates, constantly refining the agent behaviour, rather than a single monolithic definition of a behaviour. As mentioned in the previous section for the case of \gls{rl}, including humans in the action selection loop can provide tremendous advantages compared to fully autonomous learning.
+
+\acrfull{iml}, as coined by \cite{fails2003interactive}, differs from \acrfull{cml} by integrating an expert end-user in the learning process. In classical supervised learning, such as deep learning \cite{lecun2015deep}, the learning phase happens offline once to obtain a classifier for later use. On the other hand, \acrshort{iml} is an iterative online process using a human to correct the errors made by the algorithm as they appear.
+
+\cite{amershi2014power} presents an introduction to \gls{iml} by reviewing the work done and presenting classical approaches and challenges faced when using humans to support machine learning.
 
 \subsection{Goal}
 
-The main goal behind \gls{iml} is to leverage the human knowledge during the learning process to speed it up. As explained in \cite{fails2003interactive}, algorithms gain to be fast rather than highly inductive. \cite{amershi2014power} present a review %Read and continue user modify behaviour based on learner output
-%amershi provide an introduction to IML
-simultaneous development and usage
+The main goal behind \gls{iml} is to leverage the human knowledge during the learning process to speed it up. To extend the use of classifiers from static algorithms trained only once, to evolving agents learning from humans and refining their policies over time. \gls{iml} can be applied in a \gls{rl} approach or \gls{sl} but tries to combine advantages from both worlds. As explained in \cite{fails2003interactive}, classifiers gain to be fast rather than highly inductive and \gls{rl} can gain from using humans to provide rewards \cite{knox2009interactively}.
 
-%using human intuition to make the system achieve a better performance faster
-%requirement to test it with end users
+By allowing a human user to see the output of an algorithms and provide additional inputs, the learning can be faster and tailored to this human desires. Using human expert knowledge and intuition, the system can achieve a better performance faster.
 
 \subsection{Active learning} \label{ssec:back_active}
-%More supervised - learner driven - reduce workload on user
-%learning from a human in a supervised learning fashion, but not applicable to learn HRI as the sample cannot be generated at will
+
+Active learning is a form of teaching used in education aiming to increase student achievement by giving them a more active role in the teaching process \citep{johnson1991active}. This approach has been transferred to machine learning, and especially classifiers as allowing the learner to ask questions, query labels from an oracle for specific datapoints with high uncertainty \citep{settles2012active}. The typical application case is when unlabelled data are plentiful, but labels can be limited in number or costly to obtained. As such a trade-off arises between the performance of the classifier and the quantity of queries made by the algorithm. Often this oracle would be a human annotator with the ability to provide a correct label to any datapoint.
+%improve accuracy and speed of learning
+%question of initiative
+
+Researchers have explored what is the optimal strategies for the learner to query the human, and this research has been especially active in \gls{hri} with robots directly asking questions to human participants \citep{chao2010transparent}. \cite{cakmak2010designing}
+
 
 User are human and want to be considered as such, not oracle (want more control) not willing to be simple oracle \cite{cakmak2010designing} %Read paper
 human preferred being in control of the rate and timing of question, rather than being simply a labeller.
+An example of the first method is presented in \citet{chernova2009}, where the authors used a confidence-based autonomy approach to control a robot. It combines learning from demonstration and active learning \citep{johnson1991active} to limit the risks of the exploration and increase the learning speed. Initially the robot is provided with demonstrations of the task by a human and then has to try on its own. However, as it is expected from a human, the demonstrations are not fully consistent so the robot might find states where there is no obvious action to select. A human expert is also present and the robot can ask a demonstration for the points where the uncertainty is high.
+
+%SHiomi not relevant anymore
+
+Using human guidance in high uncertainty states can help the robot to select appropriate actions even when some knowledge is missing at the robot's side. However this approach, similarly to \citet{shiomi2008semi}, is limited to the cases where the robot can estimate the confidence in its sensors and its action selection mechanism. One of the differences between the approach presented in \citet{shiomi2008semi} and in \citet{chernova2009} is that in the latter this information is used for learning to improve the action policy. One of the key points of these method is the uncertainty estimation, if the estimation is not precise enough, the robot can fail to detect ambiguous states and act in an undesired manner. 
 
 \subsection{Human as a source of feedback on actions}
 %More reinforcement, loftin, Crayon... (cf AI-HRI)
@@ -333,6 +329,13 @@ When given choice, human will never teach only using rewards \cite{kaochar2011to
 %Need to careful not to just rewrite power to people + need to add new material - with deep learning and stuff
 
 %More recent stuff with deep comparison and things - still requires simulation and so on
+
+As explained before, due to the large number of iterations required and due to the risk presented by blind exploration, pure \gls{rl} has not been used in \gls{hri}. However, variants have been proposed to use human expertise to bootstrap the learning of RL based algorithm to learn non social tasks \citep{kober2013reinforcement}. \citet{thomaz2008teachable} present the Interactive Reinforcement Learning, a method combining feedback from the environment and feedback from a human supervisor to learn a task in a non-social context. Similarly, \citet{knox2009interactively} propose to use RL in an environment where the feedback is not given by the environment itself, but by a human only. In these two cases, human feedback is used to scaffold the learning: it makes it faster and safer and can allow the use of RL in environments without explicit reward. However as the feedback is always given after the execution of the action, there is no guaranty that only expected actions will be executed. This might be a reason why these two approaches have not been used to learn an action policy for social human-robot interactions. But they are nevertheless relevant as they are using the interaction with a human to help an agent to learn an action policy faster and safer than pure RL.
+
+
+conclusion of subpart
+feedback not enough
+
 \subsection{Importance of control}
 
 \cite{amershi2014power} emphasise throughout their paper the desire of user to have more control over the learning progress (through timing, suggestions, corrections, decisions...).
@@ -340,8 +343,7 @@ When given choice, human will never teach only using rewards \cite{kaochar2011to
 
 \subsection{Challenges}
 
-	
-
+%Humans are bad teachers, not consistent, making errors...
 %Add litt reviews from AIHRI and R4L
 
 
