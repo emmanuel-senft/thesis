@@ -177,23 +177,34 @@ This chapter describes the application of robot interacting with humans and rela
 	Both predefined adaptation and homeostasis-based methods score highly in autonomy and relatively highly appropriateness, but fairly low in adaptation as they can only adapt within predefined and anticipated boundaries.
 
 \subsection{Learning from Demonstration} \label{ssec:back_lfd}
-
-	A way to extend robot's behaviours is to teach them beyond predefined boundaries and increase its potential use. One approach, is to use humans to demonstrate a correct behaviour to the robot. This approach, \acrfull{lfd}, is currently under important research \citep{argall2009survey,billard2008robot}, however the interaction between the robot and the human is in the teaching, and generally the object of the teaching is manipulation and not social interaction.
+%mention that its applicable to end users and allow designers to have to implement the behaviour and all the specific cases
+	%motivation for lfd
+	%behaviour too complex to be coded or requirement of end user knowledge
+	%MIght require ref
+	As stated by numerous researchers, explicitly defining a robot behaviour and manually implementing it on a robot can take a prohibitive amount of time or not be possible at all. This statement applies both to manipulation tasks and social interaction. However in both cases, humans have some knowledge or expertise that should be transferred to the robot. And in many case for social robots experts of the field do not have the technical knowledge to implement this behaviour on a robot. 
 	
-	The classical approach is to use humans to generate demonstrations following different control means \citep{argall2009survey}, and then apply offline batch learning or complement the demonstrations with reinforcement learning approaches to reach a successful action policy \citep{billard2008robot}.
+	%As when interacting it might be complicated and time consuming to acquire data points for learning, offline learning methods are mainly inspired from the Learning from Demonstration framework (LfD) \citep{argall2009survey}. With LfD, the idea is to take inspiration from human demonstrations to accelerate the learning for an agent or to teach tasks that could not be preprogrammed manually \citep{billard2013robot}. The classical approach starts with observing a human completing the task and then deriving a corresponding robot behaviour to match the human one. In most of the cases, the learning only occurs once: data is accumulated first and then batch learning is applied to derive a static action policy. 
+	    
+	The field of \acrfull{lfd} aims to tackle these two challenges: implementing behaviours too complex to be specified in term of code and empowering end-users with limited technical knowledge to transfer an action policy to a robot. Humans demonstrate a correct behaviour through different control means \citep{argall2009survey}, and then offline batch learning is applied to obtain an action policy for the robot and if requirement reinforcement learning can complement the demonstrations to reach a successful action policy \citep{billard2008robot}.
+	
+	%importance of hri - but in teaching, often not object
+	In \gls{lfd} the interaction between the robot and the human teacher is key, however in most of the cases the object of the learning is not social interaction with humans, but manipulation or locomotion tasks. For example, \cite{Abbeel2004} used telecontroled helicopters experts to demonstrate flying acrobatics, and extracted from these demonstrations a reward function used to train a controller to reproduce these acrobatics at a super-human level through Inverse Reinforcement Learning.
+	
+	%examples with hri as target (liu, sequeria and clark) - but examples limited	
 	% Except Liu (learning from data) and restricted WoZ
-
-
-    As when interacting it might be complicated and time consuming to acquire data points for learning, offline learning methods are mainly inspired from the Learning from Demonstration framework (LfD) \citep{argall2009survey}. With LfD, the idea is to take inspiration from human demonstrations to accelerate the learning for an agent or to teach tasks that could not be preprogrammed manually \citep{billard2013robot}. The classical approach starts with observing a human completing the task and then deriving a corresponding robot behaviour to match the human one. In most of the cases, the learning only occurs once: data is accumulated first and then batch learning is applied to derive a static action policy. 
+	Two approaches have explored using \gls{lfd} to teach robots a social policy to interact with humans.
+	
+	The first one is using human-human interactions to collect data about human behaviours and transfer them to a robot. \citet{liu2014train} present a data driven approach taking demonstration from human-human interactions to gather relevant features defining human social behaviour. Authors recorded motion and speech from about 180 interactions in a simulated shopping scenario, then behaviours have been clustered into \emph{behaviour elements}. Finally, during the interaction, the robot uses a variable-length Markov model predictor to estimate the selection probability of each actions by the human demonstrator, and then selects the one with the highest probability. According to the authors, the fianl performance of the robot was not perfect, but if this approach was scaled using a larger dataset gathered from normal human-human interactions in the real world, the performance should improve and become closer to natural human behaviours.
     
-    For example, \citet{liu2014train} presents a data driven approach taking demonstration from human-human interactions to gather the relevant features defining human social behaviour. Motion and speech are recorded from about 180 interactions in a simulated shopping scenario and behaviours are clustered into \emph{behaviour elements}. Finally, during the interaction, the robot uses a variable-length Markov model predictor to estimate the selection probability of each actions by the human demonstrator, and then selects the one with the highest. According to the authors, the current performance of the robot is not perfect, but if this approach was scaled using a larger dataset gathered from normal human-human interactions in the real world, the performance is expected to improve.
+    Alternatively, the data can be collected from a \acrlong{woz} setup. \citep{knox2014learning} coined this approach \emph{Learning from Wizard}: starting for a purely \gls{woz} control to gather data, and then apply machine learning to derive an action policy. But this paper presents no description of which algorithm could be use or how, and gives no evaluation of the approach, but instead only offers a reflection on the application of this idea.
     
-    Alternatively, Knox et al. propose the \emph{Learning from Wizard} approach in \citep{knox2014learning}. The first phase also consists on data collection, the robot is first tele-operated by an expert in a Wizard of Oz setting. Once enough data has been gathered, a learning algorithm is applied to derive an action policy. However this paper presents no description of which algorithm could be use or how, and gives no evaluation of the approach, but instead only offers a reflection on the application of this idea.
-    
-    \citet{sequeira2016discovering} presents a complete approach to obtain a fully autonomous robot tutor. This method is composed of multiple steps starting with the observation of a human teacher performing the task. Then, the different features used by the human demonstrator to select his actions as well as the actions themselves are encoded and implemented in a robot. The next step is setting up a Wizard of Oz experiment where the operator has access to the same features than the robot to make his decisions and controls the robot's action. Then, a combination manually derived rules and machine learning is applied on the data from the restricted-perception experiment and finally the robot is tested autonomously. Additional offline refinement steps are possible if the behaviour is not exactly the one desired. 
+    This Learning from Wizard have been implement by two groups of researchers. \citet{sequeira2016discovering} extended the idea to a full methodology to obtain a fully autonomous robot tutor. This method is composed of multiple steps starting with the observation of a human teacher performing the task. Then, the different features used by the teacher to select their actions as well as the actions themselves are encoded and implemented in a robot. The next step is setting up a \gls{woz} experiment where the operator has access to the same features than the robot to make his decisions and controls the robot's action. Then, a combination manually derived rules and machine learning is applied on the data from the restricted-perception experiment and finally the robot is tested autonomously. Additional offline refinement steps are possible if the behaviour is not exactly the one desired. 
     
     Both \citet{knox2014learning} and \citet{sequeira2016discovering} stress the importance of using similar features for the Wizard of Oz part than the ones available to the robot during the autonomous part: whilst decreasing the performance in the first interaction, it allows more accurate learning due to the similarity of inputs for the robot and the human controlling it.
-    
+        
+    \cite{clark2018deep} decided to bypass these limitations by using a deep Q network \citep{mnih2015human} to learn a ABA behaviour for \gsl{rat}. They recorded videos, microphone inputs and actions selected in a \gls{woz} interaction with participants. Then, the network learns from the raw inputs and the actions selected an action policy to control the robot and deliver the therapy. However in their study, the performance of the system was low (less than 70\%) which means that the robot would provided inconsistent feedback at some point and they required limited human inputs to reach that level. 
+     
+    %TODO: see if required, and if yes how to make it better   
     As these methods are based on real interactions either between humans, or between humans and robots controlled by humans, with enough demonstrations the robot should be able to select the appropriate actions. However, as no intrinsic mechanism is present to prevent the execution of undesired actions which could happen if the robot ends up in an unseen state, the appropriateness of actions cannot be maximal. Additionally, the adaptivity in time is limited, as for most of the techniques the learning happens only once and then the behaviour is fixed and the learning is only used in a specific context. However, the framework proposed by restricted-perception Wizard of Oz should allow asynchronous adaptivity in time using the refinement phase. And finally, all these methods require the presence of humans in a first phase but the robots are fully autonomous later in the interaction, so the autonomy is high during the main part of the interaction.
     
 \subsection{Planning} \label{ssec:planning}
@@ -221,6 +232,8 @@ This chapter describes the application of robot interacting with humans and rela
 
 	This approach is the one with the most potential as the humans could provide only the required supervision or guidance and let the robot be autonomous most of the time, the learning provide potentially open-ended adaptivity and finally, the with enough data points and the presence of a human in the action selection loop if required, the appropriateness of actions could be guaranteed.
 
+	%Relatively common in HRI, but the hri is the teaching process, not the object of the teaching
+	
 \subsection{Summary}
 
 	Table X presents a summary of the different approaches currently used in \gls{hri} with their rating on each of the categories and how widely their are applied. As shown in the paper, the most promising type of control is \textit{Learning from the interaction}, but it is seldom used to learn how to interact with humans. However, other fields (\acrlong{rl} and \gls{hci}) have explored ways of controlling agents included in this larger approach and we will present them in the next sections.
@@ -296,6 +309,8 @@ However online learning (such as \gls{rl}) have the advantage of benefiting from
 
 \cite{amershi2014power} presents an introduction to \gls{iml} by reviewing the work done and presenting classical approaches and challenges faced when using humans to support machine learning.
 
+%Need to careful not to just rewrite power to people + need to add new material 
+
 \subsection{Goal}
 
 The main goal behind \gls{iml} is to leverage the human knowledge during the learning process to speed it up. To extend the use of classifiers from static algorithms trained only once, to evolving agents learning from humans and refining their policies over time. \gls{iml} can be applied in a \gls{rl} approach or \gls{sl} but tries to combine advantages from both worlds. As explained in \cite{fails2003interactive}, classifiers gain to be fast rather than highly inductive and \gls{rl} can gain from using humans to provide rewards \cite{knox2009interactively}.
@@ -304,47 +319,68 @@ By allowing a human user to see the output of an algorithms and provide addition
 
 \subsection{Active learning} \label{ssec:back_active}
 
-Active learning is a form of teaching used in education aiming to increase student achievement by giving them a more active role in the teaching process \citep{johnson1991active}. This approach has been transferred to machine learning, and especially classifiers as allowing the learner to ask questions, query labels from an oracle for specific datapoints with high uncertainty \citep{settles2012active}. The typical application case is when unlabelled data are plentiful, but labels can be limited in number or costly to obtained. As such a trade-off arises between the performance of the classifier and the quantity of queries made by the algorithm. Often this oracle would be a human annotator with the ability to provide a correct label to any datapoint.
-%improve accuracy and speed of learning
-%question of initiative
+Active learning is a form of teaching used in education aiming to increase student achievement by giving them a more active role in the teaching process \citep{johnson1991active}. This approach has been transferred to machine learning, and especially classifiers by allowing the learner to ask questions, query labels from an oracle for specific datapoints with high uncertainty \citep{settles2012active}. The typical application case is when unlabelled data are plentiful, but labels can be limited in number or costly to obtained. As such a trade-off arises between the performance of the classifier and the quantity of queries made by the algorithm. Often this oracle would be a human annotator with the ability to provide a correct label to any datapoint.
 
-Researchers have explored what is the optimal strategies for the learner to query the human, and this research has been especially active in \gls{hri} with robots directly asking questions to human participants \citep{chao2010transparent}. \cite{cakmak2010designing}
+%different challenges for classic active learning and robot teaching (inter)active learning
+Using an oracle to provide the label of specific points aims to both improve accuracy and speed up the learning as obtaining label of point with high uncertainty increase the precision of the algorithm and should highlight missing features in the current classifier. However, this relation between the learner and the human teacher poses questions such as: 
+\begin{itemize}
+	\item Which points should be selected for the query?
+	\item How often the human should be queried?
+	\item Who controls the interaction? (i.e. who has the initiative to trigger a query?)
+\end{itemize}
 
+Researchers have explored optimal strategies for dealing with the relation between the learner and the oracle, and this research has been especially active in \gls{hri} with robots directly asking questions to human participants and how the robot's queries could inform the teacher about the knowledge of the learning \citep{chao2010transparent}. In a follow up study, \cite{cakmak2010designing} showed that most users preferred the robot to be proactive and involved in the learning process but they also wanted to be in control of the interaction, deciding when the robot could ask questions even if it imposed a higher workload on the teacher. Authors proposed that when teaching a complex task requiring a high workload on the teacher, the robot would probably be expected or should be encouraged to take a more pro-active stance requesting samples to take over some workload from the teacher.
+%User are human and want to be considered as such, not oracle (want more control) not willing to be simple oracle - human preferred being in control of the rate and timing of question, rather than being simply a labeller.
 
-User are human and want to be considered as such, not oracle (want more control) not willing to be simple oracle \cite{cakmak2010designing} %Read paper
-human preferred being in control of the rate and timing of question, rather than being simply a labeller.
-An example of the first method is presented in \citet{chernova2009}, where the authors used a confidence-based autonomy approach to control a robot. It combines learning from demonstration and active learning \citep{johnson1991active} to limit the risks of the exploration and increase the learning speed. Initially the robot is provided with demonstrations of the task by a human and then has to try on its own. However, as it is expected from a human, the demonstrations are not fully consistent so the robot might find states where there is no obvious action to select. A human expert is also present and the robot can ask a demonstration for the points where the uncertainty is high.
+Active learning, being able to select a specific sample for labelling, can dramatically improve the performance of the learning algorithm. However, in interaction, the learner is not in control of which sample to submit to an oracle to obtain a label. Datapoints are provide by the interaction and are influenced by the learner actions and the environment reaction. To tackle this issue: not being able to decide which sample to evaluate but still profiting from an active stance of the learner,  \cite{chernova2009} presented the Confidence Based Algorithm. The robot initially provided with demonstrations of a correct action policy and then has to interact in the world under supervision from an human user. Authors propose that the teacher should still be able to provide corrective demonstrations in case of incorrect behaviour, but the learner should also be able to request a demonstration if the confidence of which action to select is below a threshold. That way, the learner can mitigate autonomous behaviour and human support. However, the effectiveness of this approach is bounded by the capacity of the learner to estimate this confidence in the desired policy, to request demonstrations only to prevent incorrect behaviour without relying excessively on the human oracle.
+%limit the risks of the exploration and increase the learning speed - demonstrations are not fully consistent so the robot might find states where there is no obvious action to select. 
 
-%SHiomi not relevant anymore
-
-Using human guidance in high uncertainty states can help the robot to select appropriate actions even when some knowledge is missing at the robot's side. However this approach, similarly to \citet{shiomi2008semi}, is limited to the cases where the robot can estimate the confidence in its sensors and its action selection mechanism. One of the differences between the approach presented in \citet{shiomi2008semi} and in \citet{chernova2009} is that in the latter this information is used for learning to improve the action policy. One of the key points of these method is the uncertainty estimation, if the estimation is not precise enough, the robot can fail to detect ambiguous states and act in an undesired manner. 
-
+%LImited application to learn hri as the robot cannot select its samples itself
 \subsection{Human as a source of feedback on actions}
-%More reinforcement, loftin, Crayon... (cf AI-HRI)
-\cite{isbell2006cobot}
 
-When given choice, human will never teach only using rewards \cite{kaochar2011towards} %See if citation makes sense
+When the learner is agent learning an action policy (rather than a classifier) and the learner is expected to improve its behaviour by interacting with the environment, a intuitive way to steer the behaviour in the desired direction is to use human rewards. This approach is an adaptation of ``shaping'': tuning a animal's behaviour by providing rewards. In \gls{ml}, using rewards from a human teacher is a \textit{simple} way to bias the learning in the desired direction: the interface is easy, the teacher just need a way to provide a scalar or a binary evaluation of an action to steer the learning. Additionally, these approaches can profit from the research done in \gls{rl}. These human rewards can be used in a different ways: they can complement environmental ones \citep{knox2010combining} or be used on their own. 
+
+When used on their own, human rewards enable an agent to learn an action policy even in the absence of any environmental rewards, which is specially interesting to robots as it can be complex to define a clear reward function applicable to \gls{hri}. Early work in that field came from \cite{isbell2006cobot} who designed an agent to interact with a community in the LambdaMOO text based environment. Cobot, the agent had a statistical graph of users and their interactions and could execute some actions in the environment. Users of LambdaMOO could either reinforce positively or negatively Cobot's action by providing rewards. Isbell et al. presented the first agent to learn social interactions in a complex human online social environment. 
+
+While the goal of Cobot was to create an entity interacting with humans, \cite{knox2009interactively} explored how a human can teach an agent an action policy with TAMER (Training an Agent Manually via Evaluative Reinforcement). The agent uses a supervised learner to model the human reward function and then takes the action that would receive the highest reward from the supervisor. Other work explored how an agent can infer more knowledge from a reward than only its value. Advice \citep{griffith2013policy} models the confidence a learner can have in its teacher to make better use of rewards. \citep{loftin2016learning} explore the strategy used by the teacher in the reward delivery: the meaning of not rewarding an action can vary from teacher, from a tacit acknowledgement of the action to the active refusal to provide a positive reward (indicating the incorrectness of an action). \cite{macglashan2017interactive} proposed COACH (Convergent Actor-Critic by Humans) to adapt the interpretation of feedback to the current policy, for example, a suboptimal policy could receive positive feedback early on when it compare positively to the average behaviour, while receiving negative feedback later on the teaching when the average agent performance is better.
+
+%Could read more about this
+Other approaches combine traditional \gls{rl} with critique from humans. A human is requested to evaluate specific behaviours \citep{judah2010reinforcement} or compare to policies to select the most appropriate one \citep{christiano2017deep}.
+
 %Human don't want to provide only label, they want to explain \cite{stumpf2007toward} + importance on transparency: help to achieve better results and improve user experience
 
-%Need to careful not to just rewrite power to people + need to add new material - with deep learning and stuff
+\cite{thomaz2008teachable} aimed to explore how humans would use feedback to teach a robot how to solve a task,  here baking a cake. They used Interactive Reinforcement Learning as a way to directly combine environment rewards and human ones. However, during early studies, Thomaz et al. discovered that participants tried to use rewards to convey intention, informing the robot which part of the environment it should interact with. The next study involved to communication channels, a reward one to provide feedback on the actions and a guidance one to provide information about which part of the environment the robot should interact with. This guidance has been actively decided to be ambiguous, participants could not explicitly control the robot, but just reduce the exploration. Adding this second channel improved the performance of participants.
 
-%More recent stuff with deep comparison and things - still requires simulation and so on
-
-As explained before, due to the large number of iterations required and due to the risk presented by blind exploration, pure \gls{rl} has not been used in \gls{hri}. However, variants have been proposed to use human expertise to bootstrap the learning of RL based algorithm to learn non social tasks \citep{kober2013reinforcement}. \citet{thomaz2008teachable} present the Interactive Reinforcement Learning, a method combining feedback from the environment and feedback from a human supervisor to learn a task in a non-social context. Similarly, \citet{knox2009interactively} propose to use RL in an environment where the feedback is not given by the environment itself, but by a human only. In these two cases, human feedback is used to scaffold the learning: it makes it faster and safer and can allow the use of RL in environments without explicit reward. However as the feedback is always given after the execution of the action, there is no guaranty that only expected actions will be executed. This might be a reason why these two approaches have not been used to learn an action policy for social human-robot interactions. But they are nevertheless relevant as they are using the interaction with a human to help an agent to learn an action policy faster and safer than pure RL.
+%present the , a method combining feedback from the environment and feedback from a human supervisor to learn a task in a non-social context. Similarly, \citet{knox2009interactively} propose to use RL in an environment where the feedback is not given by the environment itself, but by a human only. In these two cases, human feedback is used to scaffold the learning: it makes it faster and safer and can allow the use of RL in environments without explicit reward. However as the feedback is always given after the execution of the action, there is no guaranty that only expected actions will be executed. This might be a reason why these two approaches have not been used to learn an action policy for social human-robot interactions. But they are nevertheless relevant as they are using the interaction with a human to help an agent to learn an action policy faster and safer than pure RL.
 
 
-conclusion of subpart
-feedback not enough
 
+conclusion of subpart??
+%feedback not enough
+%When given choice, human will never teach only using rewards  %See if %More recent stuff with deep comparison and things - still requires simulation and so on
+%citation makes sense
 \subsection{Importance of control}
 
-\cite{amershi2014power} emphasise throughout their paper the desire of user to have more control over the learning progress (through timing, suggestions, corrections, decisions...).
+Results from both active learning and research using human to provide feedback have shown that human teacher desire control \citep{amershi2014power}. Humans are not oracle, enjoying providing labels and evaluating an agent's actions they desire to be in control of the learning and provide richer information to the agent. \cite{kaochar2011towards} have shown than when given choice between different teaching methods, humans will never choose to limit themselves to only feedback, but they want to teach using more modalities.
+
+In addition to improve the teacher's experience in the teaching, providing the teacher with more control can improve the learning. By allowing the teacher to demonstrate online an action policy or pre-empt undesired actions the robot is about to execute, the learner can interact mostly in useful states of the environment, learn faster and improve its performance in early stages of the learning.
+
+However providing the teacher with this control presents challenges for designing the interaction. Unlike a simple scalar for reward, being able to control the robot requires the teacher to be able to ask the robot to execute any actions,  which can be complex when the action space is bigger than ten actions. Similarly, to give the opportunity to the teacher to pre-empt undesired actions, the learner needs to communicate its intentions to the teacher. %This control also impacts the algorithm itself
+
+%\cite{amershi2014power} emphasise throughout their paper the desire of user to have more control over the learning progress (through timing, suggestions, corrections, decisions...).
 
 
-\subsection{Challenges}
+%\subsection{Challenges}
 
 %Humans are bad teachers, not consistent, making errors...
-%Add litt reviews from AIHRI and R4L
-
 
 \section{Summary}
+
+This chapter presented first a overview of fields where robots interact socially with humans. From these case of application, three principle have been defined that a robot controller should follow to interact efficiently with humans, the robot should:
+\begin{enumerate}
+   	\item Only execute appropriate actions.
+   	\item Have a high level of adaptivity.
+   	\item Have a high level of autonomy.
+\end{enumerate}
+
+A review of current controller for robots in \gls{hri} reported that no approach applied today in the field validates these principles. The review was extended to more general methods in \acrlong{ml} with potential to satisfy these principles. \acrlong{iml} show promises for enabling a robot to learn how to interact with humans, however while humans have been used to teach robot behaviours or concept, teaching them to interact with human in an interactive, online fashion has not been demonstrated in the field so far and could satisfy all these requirements.
