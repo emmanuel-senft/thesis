@@ -47,24 +47,34 @@ As mentioned previously, to focus the study on the control interaction: the rela
 	\centering
 	\includegraphics[width=0.65\textwidth]{woz_setup_annotated.png}
 	\caption{Setup used for the user study from the perspective of the human supervisor. The \textit{child-robot} (left) stands across the touchscreen (centre-left) from the \textit{wizarded-robot} (centre-right). The supervisor can oversee the actions of the \textit{wizarded-robot} through the GUI and intervene if necessary (right).}
-	\label{fig:setup}
+	\label{fig:woz_setup}
 \end{figure}
 		
-\subsection{Child model}
+\subsection{Child model} \label{ssec:woz_child}
 
-The purpose of the child model is not to realistically model a child (with or without autism), but to provide a means of expressing some of the behaviours we observed in our interactions with children in a repeatable manner.
-The child-robot possesses an internal model encompassing an \emph{engagement} level and a \emph{motivation} level, together forming the \textit{state} of the child. 
-The engagement represents how often the child-robot will make categorisation moves and the motivation gives the probability of success of the categorisation moves. Bound to the range $[-1, 1]$, these states are influenced by the behaviour of the wizarded-robot, and will asymptotically decay to zero without any actions from the wizarded-robot.
-These two states are not directly accessed by either the supervisor or the wizarded-robot, but can be observed through behaviour expressed by the child-robot: low engagement will make the robot look away from the touchscreen, and the speed of the categorisation moves is related to the motivation (to which gaussian noise was added). There is thus incomplete/unreliable information available to both the wizarded-robot and the supervisor, making the task non-trivial.
+The purpose of the child model is not to realistically model a child (with or without autism), but to provide a means of expressing some characteristics of the behaviours we observed in our interactions with children in a repeatable manner. The child-robot possesses an internal model encompassing an \emph{engagement} level and a \emph{motivation} level, together forming the \textit{state} of the child. The engagement represents how often the child-robot will make categorisation moves and the motivation gives the probability of success of the categorisation moves. Bound to the range $[-1, 1]$, these states are influenced by the behaviour of the wizarded-robot, and will asymptotically decay to zero without any actions from the wizarded-robot. These two states are not directly accessed by either the supervisor or the wizarded-robot, but can be observed through behaviour expressed by the child-robot: low engagement will make the robot look away from the touchscreen, and the speed of the categorisation moves is related to the motivation (to which gaussian noise was added). There is thus incomplete/unreliable information available to both the wizarded-robot and the supervisor, making the task non-trivial.
 
-The influence of the wizarded-robot behaviour on the levels of engagement and motivation are described below (section \ref{sec:wizarded-robot}). In addition to this, if a state is already high and an action from the wizarded-robot further increases it, then there is a chance that this level will sharply decrease, as an analogue of child-robot \textit{frustration}.
-When this happens, the child-robot will indicate this frustration verbally (uttering one of eight predefined strings).
-The reason this mechanism is required is that it prevents a straightforward engagement and motivation maximisation strategy, thus better approximating the real situation, and requiring a more complex strategy to be employed by the supervisor.
+The influence of the wizarded-robot behaviour on the levels of engagement and motivation are described below (Section \ref{ssec:woz_wizarded_robot}). In addition to this, if a state is already high and an action from the wizarded-robot should increase it further, then there is a chance that this level will sharply decrease, as an analogue of \textit{frustration}. When this happens, the child-robot will indicate this frustration verbally (uttering one of eight predefined strings). This mechanism prevent the optimal strategy to be straightforward: always making actions aiming to increase motivation or engagement. The optimal strategy includes these actions but also waiting times to prevent the state values to overshoot. This non-trivial optimal strategy approximates better a real human-robot interaction scenario requiring a more complex strategy to be employed by the supervisor.
 
 \subsection{Wizarded-robot control}
-\label{sec:wizarded-robot}
-The wizarded-robot is controlled through a Graphical User Interface (GUI) and has access to multiple variables characterising the state of the interaction. 
-The wizarded-robot has a set of four actions, which each have a button in the GUI: 
+\label{ssec:woz_wizarded_robot}
+The wizarded-robot is controlled through a Graphical User Interface (GUI) and has access to multiple variables characterising the state of the interaction as used by the learning algorithm:
+\begin{itemize}
+	\item Observed engagement
+	\item Observed motivation
+	\item Type of last move made by the child-robot (good/bad/done)
+\end{itemize}
+Additionally, other metrics are displayed to the supervisor but not used in the algorithm:
+\begin{itemize}
+	\item Number of categorisations made by the child-robot
+	\item Time since last teacher's action
+	\item Time since last child's action
+	\item Child's performance
+	\item Total time elapsed
+\end{itemize}
+
+
+The wizarded-robot has a set of four actions, with one button each on the GUI: 
 \begin{itemize}
 	\item Prompt an Action: Encourage the child-robot to do an action.
 	\item Positive Feedback: Congratulate the child-robot on making a good classification.
@@ -72,52 +82,136 @@ The wizarded-robot has a set of four actions, which each have a button in the GU
 	\item Wait: Do nothing for this action opportunity, wait for the next one.
 \end{itemize}
 
-The impact of the action on the child-robot depends on the internal state and the type of the last child-robot move: good, bad, or done (meaning that feedback has already been given for the last move and supplementary feedback is not necessary). 
-A prompt always increases the engagement, a wait has no effect on the child-robot's state, and the impact of positive and negative feedback depends on the previous child-robot move.
-Congruous feedback (positive feedback for correct moves; negative feedback for incorrect moves) results in an increase in motivation, but incongruous feedback can decrease both the motivation and the engagement of the child-robot.
-The supervisor therefore has to use congruous feedback and prompts, whilst being careful not to use them too often, to prevent the child-robot becoming frustrated.
-A `good' strategy would keep the engagement and motivation high, leading to an increase in performance of the child-robot in the categorisation task.
+The impact of actions on the child-robot depends on the internal state and the type of the last child-robot move: good, bad, or done (meaning that feedback has already been given for the last move and supplementary feedback is not necessary). A \textit{prompt} increases the engagement, a \textit{wait} has no effect on the child-robot's state, and the impact of positive and negative feedback depends on the previous child-robot move. Congruous feedback (positive feedback for correct moves; negative feedback for incorrect moves) results in an increase in motivation, but incongruous feedback can decrease both the motivation and the engagement of the child-robot. The supervisor therefore has to use congruous feedback and prompts.
 
-Through the GUI, the supervisor has access to \textit{observed states} (noisy estimations of the child-robot state), and information about the interaction history: number of moves, child-robot performance, time since last child-robot and wizarded-robot actions, type of the last child-robot move, and elapsed time.
-However the supervisor can not control the wizarded-robot directly, actions can only be executed only at specific times triggered by the wizarded-robot. 
-Two seconds after each child-robot action, or if nothing happens in the interaction for five seconds, the wizarded-robot proposes an action to the supervisor by displaying the action's name and a countdown before execution. 
-Only after this proposition has been done can the supervisor provide feedback to the wizarded-robot.
-If the supervisor does nothing in the following three seconds, the action proposed by the wizarded-robot is executed.
-This mechanism allows the supervisor to passively accept a suggestion made by the wizarded-robot or actively make an \emph{intervention} by selecting a different action and forcing the wizarded-robot to execute it.
+However, as mentioned in Section \ref{ssec:woz_child}, if engagement or motivation cross a threshold, their value can decrease abruptly to simulate the child-robot being frustrated. This implies that the optimal actions policy provides congruous feedback and prompts, but also requires wait actions to prevent the child-robot becoming frustrated and keep its state-values close to the threshold without crossing it. A `good' strategy keeping the engagement and motivation high, leads to an increase in performance of the child-robot in the categorisation task.
+
+To simplify the algorithm part, the interaction has been discretised: the supervisor can not selects actions for the wizarded-robot at any time, actions can only be executed at specific times triggered by the wizarded-robot: two seconds after each child-robot action, or if nothing happens in the interaction for five seconds. When these selection windows are hit, the wizarded-robot proposes an action to the supervisor by displaying the action's name and a countdown before execution. Only after this proposition has been done can the supervisor select a different action for the wizarded-robot or let the proposed one be executed: if the supervisor does nothing in the following three seconds, the action proposed by the wizarded-robot is executed. This mechanism allows the supervisor to passively accept a suggestion made by the wizarded-robot or actively make an \emph{intervention} by selecting a different action and forcing the wizarded-robot to execute it.
 
 \subsection{Learning algorithm}
 
-The two robot controllers used for the study were a learning controller and a non-learning random action selection controller.
-The learning algorithm used was a Multi-Layer Perceptron, 
-%a reviewer asked for more informations about the learning algorithm, should this be added? But it is quite irrelevant for the purpose of the paper...
-% with five input nodes: one for the observed motivation, one for the observed engagement and three binary (+1/-1) inputs for the type of the previous move: good, bad, or done. The hidden layer had six nodes and four for the output layer: one for each action. The suggested action was selected applying a Winner-Take-All strategy on the value of the output node and then displayed on the GUI before execution. The network was 
-trained with back propagation (five input, six hidden and four output nodes): after each new decision from the supervisor, the network was fully retrained with all the previous state-action pairs and the new one.
+This study compared two conditions: random action selection controller and a learning controller using selections from the supervisor and the observed state to propose an actions more appropriate. In this study, the robot learns using a Multi-Layer Perceptron: with five input nodes: one for the observed motivation, one for the observed engagement and three binary (+1/-1) inputs for the type of the previous move: good, bad, or done. The hidden layer had six nodes and the output layer four: one for each action. The suggested action was selected applying a Winner-Take-All strategy on the value of the output node and then displayed on the GUI before execution. The network was trained with back propagation: after each new decision from the supervisor a new training point was added with the selected action node having +1 while the others -1. The network was fully retrained with all the previous state-action pairs and the new one at each selection step. 
+%The network was using sigmoid activation function and a learning rate of 0.6 (probably).
+
+This learning algorithm is not optimal for a real time interaction as the online learning should happens quickly between learning iteration. However as the length of interaction (and so the number of datapoints) was limited and the desired learning behaviour was purely supervised learning, this type of algorithm was selected for this study.
 %On the other side, the random controller proposed random actions to the supervisor.
 
 \subsection{Participants}
 
-In WoZ scenarios, the wizard is typically a technically competent person with previous experience controlling robots.
-As such, to maintain consistency with the target user group, the participants for this study (assuming the role of the supervisor) are taken from a robotics research group.
-Ten participants were used (7M/3F, age \textit{M}=29.3, 21 to 44, \textit{SD}=4.8 years).
+In \gls{rat} scenarios using \gls{woz} to control the robot, the wizard is typically a technically competent person with previous experience controlling robots or at least significant training controlling this robot for the therapy. As such, to maintain consistency with the target user group, the participants of this study (assuming the role of the supervisor) have been taken from a robotics research group. Ten participants were used (7M/3F, age \textit{M}=29.3, 21 to 44, \textit{SD}=4.8 years).
 
 \subsection{Interaction Protocol}
 
-Each participant experienced both robot controllers, with the order changed between participants to control for any ordering effects.
-In \textit{Condition LN} the participants first interact with the learning wizarded-robot, and then with the non-learning one; in \textit{Condition NL} the participants first interact with the non-learning wizarded-robot, and then the learning robot. 
-Participants were randomly assigned to one of the two conditions.
+The study compared two conditions: a learning robot adapting its propositions to its user and a non-learning robot constantly proposing random actions. The child-robot controller was kept constant in both conditions, while the state is reset between interactions. The design was a within subjects comparison with balancing of order: each participant interacted with both conditions, with the order balanced between participants to control for any ordering effects. In \textit{Order LN} the participants first interact with the learning wizarded-robot, and then with the non-learning one; in \textit{Order NL} the participants first interact with the non-learning wizarded-robot, and then the learning one. Participants were randomly assigned to one of the two orders.
 
-The interactions took place on a university campus in a dedicated experiment room.
-Two Aldebaran Nao robots were used; one robot had a label indicating that it was the \emph{Child-Robot}. 
-The robots face each other with a touchscreen between them, and participants assuming the role of the supervisor sit at a desk to the side of the wizarded-robot, with a screen and a mouse to interact with the wizarded-robot (fig. \ref{fig:setup}).
-The participants were able to see the screen and the child-robot.
+The interactions took place on a university campus in a dedicated experiment room. Both robots were Aldebaran Nao, one of which had a label indicating that it was the \emph{Child-Robot}. The robots faced each other with a touchscreen between them, and participants assuming the role of the supervisor sat at a desk to the side of the wizarded-robot, with a screen and a mouse to interact with the wizarded-robot (fig. \ref{fig:woz_setup}). The participants were able to see the screen and the child-robot.
 
-A document explaining the interaction scenario was provided to participants. After the information had been read, a 30s video presenting the GUI in use was shown to familiarise them with it, without biasing them towards any particular intervention strategy.
-The participant then clicked a button to start the first interaction which lasted for 10 minutes.
-The experimenter was sat in the room outside of the participants' field of view.
-After the end of the first interaction, a post-interaction questionnaire was administered. 
-The same protocol was applied in the second part of the experiment with another post-interaction questionnaire following. Finally, a questionnaire asking the participants to explicitly compare the two conditions was administered.
+A document explaining the interaction scenario was provided to participants with a demographic questionnaire. After the information had been read, a 30s video presenting the GUI in use was shown to familiarise the participants with it, without biasing them towards any particular intervention strategy. Then participants clicked a button to start the first interaction which lasted for 10 minutes. The experimenter was sat in the room outside of the participants' field of view. After the end of the first interaction, a post-interaction questionnaire was administered. The same protocol was applied in the second part of the experiment with another post-interaction questionnaire following. Finally, a post-experiment questionnaire asking participants to explicitly compare the two conditions was administered.
+
+\subsection{Measures}
+
+Two types of measures have been recorded for this study: interaction data representing objective behaviours and performance of the participants and subjective data through questionnaires.
+
+\paragraph{Interaction data}
+
+The state of the child-robot and the interaction values were logged at each step of the interaction (at 5Hz). All of the human actions were recorded: acceptance of the wizarded-robot's suggestion, selection of another action (intervention), and the states of the child-robot (motivation, engagement and performance) at this step. 
+
+The first metric is the performance achieved in each interaction measured by the number of correct categorisations made by the child-robot minus the number of incorrect ones. This represents how correct was the action policy executed by the wizarded-robot when controlled by a participant.
+
+The second important metric is the intervention ratio: the number of times a user chooses a different action than the one proposed by the wizarded-robot, divided by the total number of executed actions. This metric represents how often in average a user had to correct the robot and could be related to the workload the user had to face to control the robot.
+
+\paragraph{Questionnaire data}
+ 
+Participants answered to 3 types of questionnaires: a demographic one, before the interaction, a post-interaction ones where they were asked to describe the last interaction with the robots and post-experiment where they had to compare the two conditions and select the one fitting the most to the questions. Seven items Likert scale have been used for all the rating questionnaires.
+
+\paragraph{Post-Interaction}
+\begin{itemize}
+	\item The child-robot learned during the interaction
+	\item The performance of the child-robot improved in response to the teacher-robot actions
+	\item The teacher-robot is capable of making appropriate action decisions in future interactions without supervision
+	\item The teacher-robot always suggested an incorrect or inappropriate actions
+	\item By the end of the interaction, my workload was very light
+	\item What did you pay most attention during the interaction? (child-robot, touchscreen, GUI, other)
+\end{itemize}
+
+\paragraph{Post-experiment}
+\begin{itemize}
+	\item There was a clear difference in behaviour between the two teacher-robots
+	\item There was a clear difference in behaviour between the two child-robots
+	\item Which teacher-robot was better able to perform the task? (first, second)
+	\item Which teacher-robot did you prefer supervising?
+\end{itemize}
 
 \section{Results}
+
+\subsection{Interaction data}
+
+Figure \ref{fig:woz_comp} presents the average evolution of the performance and interaction ratio for both conditions (with results collapsed between orders).
+
+\begin{figure}[t!]
+	\centering
+	\includegraphics[width=1.0\textwidth]{./images/woz_comp.pdf}
+	\caption{Questionnaire responses (\textit{mean and 95\% CI}): increased confidence in the learning wizarded-robot over the non-learning version is apparent, as is a lower perceived workload.}
+	\label{fig:questionnaires}
+\end{figure}
+
+
+On average, after a first exploration phase, where the participant discovers the system, 
+%PEB: is this first phase best described as exploration, or something else?
+%ES: for me it's a mix of exploration and discovery / getting used to the system
+the learning robot robot has an intervention ratio lower than the non learning one (fig. \ref{fig:graphs}, left)
+
+
+A strong positive correlation (Pearson's \textit{r}=0.79) was found between the average child-robot motivation and engagement and its performance. 
+
+In both conditions, the average performance in the second interaction (\textit{M$_{LN-2}$} =38, 95\% CI [36.2, 39.8], \textit{M$_{NL-2}$}=34.8, 95\% CI [30.8, 38.8]) was higher than in the first one (\textit{M$_{LN-1}$}=29.4, 95\% CI [25.3, 33.5], \textit{M$_{NL-1}$}=24.3, 95\% CI [19.4, 29.4]; Fig. \ref{fig:graphs} \textit{left}). The 95\% \textit{Confidence Interval of the Difference of the Mean} (CIDM) for the L-NL condition is [4.1, 13.1] and for the NL-L condition is [4.0, 16.8].
+However, the performance is similar when only the interaction order (first or second) is considered. 
+The participants performed slightly better in the LN condition, but the CIDM includes zero in both cases (95\% CIDM$_{1}$ [-1.5, 11.5], 95\% CIDM$_{2}$ [-1.2, 7.6]). 
+In the condition L-NL, the intervention ratio increased between the learning and non learning condition (\textit{M$_{LN-1}$}=0.31, 95\% CI [0.20, 0.42] to \textit{M$_{LN-2}$}=0.68, 95\% CI [0.66, 0.70], CIDM$_{LN}$=[0.26, 0.48]). 
+But in the NL condition, the intervention ratio is almost identical between the two interactions but slightly lower for the learning case (\textit{M$_{NL-1}$}=0.50, 95\% CI [0.44, 0.57] to \textit{M$_{NL-2}$}=0.46, 95\% CI [0.40, 0.51], CIDM$_{NL}$ [-0.03, 0.13]).
+This shows that when the wizarded-robot learned, a similar performance is attained as without learning, but the number of interventions required to achieve this is lower.
+
+\begin{figure}[t!]
+	\centering
+	\includegraphics[width=1.\textwidth]{./images/woz_graph_data.png}
+	\caption{(Left) evolution of intervention ratio over time for the learning and non learning cases. Intervention ratio (centre) and final performance (right) for the two conditions and the two interactions (\textit{errors bars show 95\% CI}). In condition LN participants started wizarding a robot which learns their interaction style, followed by a non-learning robot; in condition NL participants started with a non-learning robot, followed by a learning robot. Results show that a learning robot reduces the workload of the wizard, but performs equally well as a non-learning robot that needs wizarding at all times.}
+	\label{fig:graphs}
+\end{figure}
+
+\subsection{Questionnaire data}
+
+The post-interaction questionnaires evaluated the participant's perception of the child-robot's learning and performance, the quality of suggestions made by the wizarded-robot, and the experienced workload. All responses used seven point Likert scales.
+
+\begin{figure}[t!]
+	\centering
+	\includegraphics[width=1.0\textwidth]{./images/woz_graph_quest.png}
+	\caption{Questionnaire responses (\textit{mean and 95\% CI}): increased confidence in the learning wizarded-robot over the non-learning version is apparent, as is a lower perceived workload.}
+	\label{fig:questionnaires}
+\end{figure}
+
+Across the four possible interactions, the rating of the child-robot's learning was similar (\textit{M}=5.25, 95\% CI [4.8, 5.7]).
+The same effect was observed for the evaluation of the child performance (\textit{M}=4.75, 95\% CI [4.3, 5.2]). As the child-robot was using the same interaction model in all four conditions, this result is expected.
+
+Participants report the wizarded-robot as more suited to operate unsupervised in the learning than in the non learning condition (
+\textit{M$_{LN-1}$}=4.8, %95\% CI [4.0, 5.6],
+\textit{M$_{LN-2}$}=3.6, %95\% CI [2.5, 4.7], 
+\textit{M$_{NL-1}$}=3, %95\% CI [2.4, 3.6], 
+\textit{M$_{NL-2}$}=5.2 %95\% CI [5.0, 5.4]
+; CIDM for LN condition [-0.2, 2.6], CIDM for the NL condition [1.6, 2.8]).
+
+Similarly, a trend was found showing that learning wizarded-robot is perceived as making fewer errors than the non-learning robot (\textit{M$_{LN-1}$}=1.6, %95\% CI [0.5, 2.1], 
+\textit{M$_{LN-2}$}=4.0, %95\% CI [3.1, 4.7], 
+\textit{M$_{NL-1}$}=2.6, %95\% CI [2.1, 3.1], 
+\textit{M$_{NL-2}$}=2 %95\% CI [2, 2]
+; CIDM for LN condition [1.3, 3.4], CIDM for the NL condition [0.1, 1.1]). 
+
+The participants tended to rate the workload as lighter when interacting with the learning robot, and this effect is much more prominent when the participants interacted with the non-learning robot first (
+\textit{M$_{LN-1}$}=4.6, %95\% CI [3.8, 5.4], 
+\textit{M$_{LN-2}$}=3.6, %95\% CI [2.2, 5], 
+\textit{M$_{NL-1}$}=3.8, %95\% CI [3.3, 4.3], 
+\textit{M$_{NL-2}$}=5.4 %95\% CI [4.7, 6.1]
+; CIDM for LN condition [-0.6, 2.6], CIDM for the NL condition [0.7, 2.5]).
+
 
 \section{Discussion}
 
