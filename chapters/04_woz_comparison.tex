@@ -156,14 +156,30 @@ Participants answered to four questionnaires: a demographic one, before the inte
 
 \subsection{Interaction data}
 
-Figure \ref{fig:woz_comp} presents the average evolution of the performance and interaction ratio for both conditions (with results collapsed between orders).
+Figure \ref{fig:woz_comp} presents the aggregated (results collapsed between orders) performance and intervention ratio for both conditions. While the number of participants are not sufficient to perform statistical comparison, overall interaction results seem to show that both conditions lead to similar performance (\gls{sparc}: 32.6 (95\% CI [27.89,37.31]) - \gls{woz}: 31.4 (95\% CI [25.9,36.9])) while the \gls{sparc} condition required less intervention (\gls{sparc}: 0.38 (95\% CI [0.29,0.47]) - \gls{woz}: 0.59 (95\% CI [0.52,0.67])).
 
-\begin{figure}[t!]
+\begin{figure*}[t!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{./images/woz_comp.pdf}
-	\caption{Questionnaire responses (\textit{mean and 95\% CI}): increased confidence in the learning wizarded-robot over the non-learning version is apparent, as is a lower perceived workload.}
-	\label{fig:questionnaires}
-\end{figure}
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=1.0\textwidth]{./images/woz_perf.pdf}
+%		\caption{Comparison of end performance for both conditions.}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=1.0\textwidth]{./images/woz_ratio.pdf}
+%		\caption{Comparison of intervention ratio for both conditions.}
+	\end{subfigure}
+	\caption{Aggregated comparison of performance and intervention ratio for both conditions}
+	\label{fig:woz_comp}
+\end{figure*}
+%\begin{figure}[t!]
+%	\centering
+%	\includegraphics[width=1.0\textwidth]{./images/woz_comp.pdf}
+%	\caption{Questionnaire responses (\textit{mean and 95\% CI}): increased confidence in the learning wizarded-robot over the non-learning version is apparent, as is a lower perceived workload.}
+%	\label{fig:questionnaires}
+%\end{figure}
 
 
 On average, after a first exploration phase, where the participant discovers the system, 
