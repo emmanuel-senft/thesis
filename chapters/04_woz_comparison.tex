@@ -156,9 +156,9 @@ Participants answered to four questionnaires: a demographic one, before the inte
 
 \subsection{Interaction data}
 
-Figure \ref{fig:woz_comp} presents the aggregated (results collapsed between orders) performance and intervention ratio for both conditions. While the number of participants are not sufficient to perform statistical comparison, overall interaction results seem to show that both conditions lead to similar performance (\gls{sparc}: 32.6 (95\% CI [27.89,37.31]) - \gls{woz}: 31.4 (95\% CI [25.9,36.9])) while the \gls{sparc} condition required less intervention (\gls{sparc}: 0.38 (95\% CI [0.29,0.47]) - \gls{woz}: 0.59 (95\% CI [0.52,0.67])).
+Figure \ref{fig:woz_comp} presents the aggregated (results collapsed between orders) performance and intervention ratio for both conditions. While the number of participants are not sufficient to perform statistical comparison, overall interaction results seem to show that both conditions lead to similar performance (\gls{sparc}: 32.6 (95\% CI [27.89,37.31]) - \gls{woz}: 31.4 (95\% CI [25.9,36.9])) while the \gls{sparc} condition required less intervention (\gls{sparc}: 0.38 (95\% CI [0.29,0.47]) - \gls{woz}: 0.59 (95\% CI [0.52,0.67])). 
 
-\begin{figure*}[t!]
+\begin{figure*}[ht]
 	\centering
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
@@ -174,70 +174,111 @@ Figure \ref{fig:woz_comp} presents the aggregated (results collapsed between ord
 	\caption{Aggregated comparison of performance and intervention ratio for both conditions}
 	\label{fig:woz_comp}
 \end{figure*}
-%\begin{figure}[t!]
-%	\centering
-%	\includegraphics[width=1.0\textwidth]{./images/woz_comp.pdf}
-%	\caption{Questionnaire responses (\textit{mean and 95\% CI}): increased confidence in the learning wizarded-robot over the non-learning version is apparent, as is a lower perceived workload.}
-%	\label{fig:questionnaires}
-%\end{figure}
 
+Figure \ref{fig:woz_ratio_time} presents the evolution of intervention ratio for each condition and orders. During the first interaction, participants discover the interface and how to interact with it, which results in a high variation intervention ratio in the first 20 steps (each time the wizarded-robot proposes an action). However in the second phase of the interaction,  when participants develop their teaching policy, there is a tendency of \gls{sparc} requiring a lower number of intervention than \gls{woz}. This effect is higher in the second interaction, where as soon as 5 steps, the two conditions differentiate without overlap of the 95\% CI of the mean, which would indicate that the two conditions differ in term of required interventions.
 
-On average, after a first exploration phase, where the participant discovers the system, 
-%PEB: is this first phase best described as exploration, or something else?
-%ES: for me it's a mix of exploration and discovery / getting used to the system
-the learning robot robot has an intervention ratio lower than the non learning one (fig. \ref{fig:graphs}, left)
-
-
-A strong positive correlation (Pearson's \textit{r}=0.79) was found between the average child-robot motivation and engagement and its performance. 
-
-In both conditions, the average performance in the second interaction (\textit{M$_{LN-2}$} =38, 95\% CI [36.2, 39.8], \textit{M$_{NL-2}$}=34.8, 95\% CI [30.8, 38.8]) was higher than in the first one (\textit{M$_{LN-1}$}=29.4, 95\% CI [25.3, 33.5], \textit{M$_{NL-1}$}=24.3, 95\% CI [19.4, 29.4]; Fig. \ref{fig:graphs} \textit{left}). The 95\% \textit{Confidence Interval of the Difference of the Mean} (CIDM) for the L-NL condition is [4.1, 13.1] and for the NL-L condition is [4.0, 16.8].
-However, the performance is similar when only the interaction order (first or second) is considered. 
-The participants performed slightly better in the LN condition, but the CIDM includes zero in both cases (95\% CIDM$_{1}$ [-1.5, 11.5], 95\% CIDM$_{2}$ [-1.2, 7.6]). 
-In the condition L-NL, the intervention ratio increased between the learning and non learning condition (\textit{M$_{LN-1}$}=0.31, 95\% CI [0.20, 0.42] to \textit{M$_{LN-2}$}=0.68, 95\% CI [0.66, 0.70], CIDM$_{LN}$=[0.26, 0.48]). 
-But in the NL condition, the intervention ratio is almost identical between the two interactions but slightly lower for the learning case (\textit{M$_{NL-1}$}=0.50, 95\% CI [0.44, 0.57] to \textit{M$_{NL-2}$}=0.46, 95\% CI [0.40, 0.51], CIDM$_{NL}$ [-0.03, 0.13]).
-This shows that when the wizarded-robot learned, a similar performance is attained as without learning, but the number of interventions required to achieve this is lower.
-
-\begin{figure}[t!]
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=1.\textwidth]{./images/woz_graph_data.png}
-	\caption{(Left) evolution of intervention ratio over time for the learning and non learning cases. Intervention ratio (centre) and final performance (right) for the two conditions and the two interactions (\textit{errors bars show 95\% CI}). In condition LN participants started wizarding a robot which learns their interaction style, followed by a non-learning robot; in condition NL participants started with a non-learning robot, followed by a learning robot. Results show that a learning robot reduces the workload of the wizard, but performs equally well as a non-learning robot that needs wizarding at all times.}
-	\label{fig:graphs}
+	\includegraphics[width=1.\textwidth]{./images/woz_ratio_time.pdf}
+	\caption{Evolution of intervention ratio over time for both conditions and both orders. Shaded area represents the 95\% CI.}
+	\label{fig:woz_ratio_time}
 \end{figure}
+
+Both for the performance and the intervention ratio, a strong ordering effect have been observed. Figure \ref{fig:woz_separated} and Table \ref{tab:woz_comp_means} present the performance and intervention ratio separated by condition and order. In both orders, the second interaction had higher performance as the participants were used to the system and understood how to develop an efficient interaction policy. And the performance between condition is similar. However, regardless of the order, when only the interaction number is considered, the intervention ratio is lower when using \gls{sparc} compared to \gls{woz}. This indicates that when the wizarded-robot learned using \gls{sparc}, a similar performance is attained as with \gls{woz}, but the number of interventions required to achieve this performance is lower.
+
+%COuld use the CIDM if desired or not
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=1.\textwidth]{./images/woz_perf_divided.pdf}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=1.\textwidth]{./images/woz_ratio_divided.pdf}
+	\end{subfigure}
+	\caption{Performance achieved and intervention ratio separated by order and condition. For each order, the left part presents the performance in the first interaction (with one condition) and the right part the performance in the second interaction (with the other condition).}
+	\label{fig:woz_separated}
+\end{figure}
+
+
+\begin{table}[t]
+	\caption{Average performance and intervention ratio separated by condition and order.}
+	\centering
+\begin{tabulary}{1.0\textwidth}{L"C"C"C|C}
+	& \multicolumn{2}{c"}{Order LN} & \multicolumn{2}{c}{Order NL} \\
+	& SPARC (int 1) & WoZ (int 2) & WoZ (int 1) & SPARC (int 2) \\
+	\hline			
+Performance M \linebreak 95\% CI & 29.6 [23.61,35.59] & 38.2 [35.46,40.94] & 24.6 [18.1,31.1] & 35.6 [29.34,41.86]\\
+Intervention Ratio M 95\% CI & 0.31 [0.17,0.45] & 0.68 [0.65,0.71] & 0.5 [0.4,0.61] & 0.46 [0.38,0.53]\\
+\end{tabulary}
+\label{tab:woz_comp_means}
+\end{table}
+
+
+
+%In both conditions, the average performance in the second interaction (\textit{M$_{LN-2}$} =38, 95\% CI [36.2, 39.8], \textit{M$_{NL-2}$}=34.8, 95\% CI [30.8, 38.8]) was higher than in the first one (\textit{M$_{LN-1}$}=29.4, 95\% CI [25.3, 33.5], \textit{M$_{NL-1}$}=24.3, 95\% CI [19.4, 29.4]; Fig. \ref{fig:graphs} \textit{left}). The 95\% \textit{Confidence Interval of the Difference of the Mean} (CIDM) for the L-NL condition is [4.1, 13.1] and for the NL-L condition is [4.0, 16.8].
+%However, the performance is similar when only the interaction order (first or second) is considered. 
+%The participants performed slightly better in the LN condition, but the CIDM includes zero in both cases (95\% CIDM$_{1}$ [-1.5, 11.5], 95\% CIDM$_{2}$ [-1.2, 7.6]). 
+%In the condition L-NL, the intervention ratio increased between the learning and non learning condition (\textit{M$_{LN-1}$}=0.31, 95\% CI [0.20, 0.42] to \textit{M$_{LN-2}$}=0.68, 95\% CI [0.66, 0.70], CIDM$_{LN}$=[0.26, 0.48]). 
+%But in the NL condition, the intervention ratio is almost identical between the two interactions but slightly lower for the learning case (\textit{M$_{NL-1}$}=0.50, 95\% CI [0.44, 0.57] to \textit{M$_{NL-2}$}=0.46, 95\% CI [0.40, 0.51], CIDM$_{NL}$ [-0.03, 0.13]).
+
+Additionally, a strong positive correlation (Pearson's \textit{r}=0.79) was found between the average child-robot motivation and engagement and its performance which shows that the performance achieved by the child-robot represents the capacity of the teacher to keep both engagement and motivation high.
 
 \subsection{Questionnaire data}
 
 The post-interaction questionnaires evaluated the participant's perception of the child-robot's learning and performance, the quality of suggestions made by the wizarded-robot, and the experienced workload. All responses used seven point Likert scales.
 
-\begin{figure}[t!]
+Table \ref{tab:woz_quest_means} presents separated results for the questions asked in the post-interaction questionnaires, with more details for the questions exhibiting differences in Figure \ref{woz_quest}.
+
+Across the four possible interactions, the rating of the child-robot's learning was similar (\textit{M}=5.25, 95\% CI [4.8, 5.7]). As the child-robot was using the same interaction model in all four conditions, this result is expected. There is a slight tendency to rate the child's performance as being higher but the error margin is too high to conclude anything. This could indicate that the teachers were more aware of the child's behaviour as the workload was lighter to control the wizarded-robot.
+
+\begin{table}[t]
+	\caption{Average reporting on questionnaires separated by condition and order.}
 	\centering
-	\includegraphics[width=1.0\textwidth]{./images/woz_graph_quest.png}
-	\caption{Questionnaire responses (\textit{mean and 95\% CI}): increased confidence in the learning wizarded-robot over the non-learning version is apparent, as is a lower perceived workload.}
-	\label{fig:questionnaires}
+	\begin{tabulary}{1.0\textwidth}{L"C|C"C|C}
+		& \multicolumn{2}{c"}{Order LN} & \multicolumn{2}{c}{Order NL} \\
+		& SPARC (int 1) & WoZ \linebreak (int 2) & WoZ \linebreak (int 1) & SPARC (int 2) \\
+		\hline			
+		Child learns M \linebreak 95\% CI & 5.2 [3.69,6.71] & 5.2 [3.8,6.6] & 5.2 [4.18,6.22] & 5.4 [4.7,6.1]\\
+		Child's performance M \linebreak 95\% CI & 4.6 [3.41,5.79] & 5.0 [3.25,6.75] & 5.0 [4.04,5.96] & 4.4 [3.7,5.1]\\
+		Wizarded-robot makes errors \linebreak M 95\% CI & 1.6 [0.9,2.3] & 4.0 [2.76,5.24] & 2.6 [1.9,3.3] & 2.0 [2.0,2.0]\\
+		Wizarded-robot makes appropriate decisions M 95\% CI & 4.8 [3.4,6.2] & 3.6 [2.18,5.02] & 3.0 [2.04,3.96] & 5.2 [4.85,5.55]\\
+		Lightness of workload M \linebreak 95\% CI & 4.6 [3.41,5.79] & 3.6 [1.8,5.4] & 3.8 [2.94,4.66] & 5.4 [4.35,6.45]\\
+	\end{tabulary}
+	\label{tab:woz_quest_means}
+\end{table}
+
+
+Participants rated the wizarded-robot as more suited to operate unsupervised in the learning than in the non learning condition (confidence interval of the difference of the mean (CIDM) for LN ordering [-0.2, 2.6], CIDM for the NL ordering [1.6, 2.8]).
+
+Similarly, a trend was found showing that learning wizarded-robot is perceived as making fewer errors than the non-learning robot (CIDM for LN ordering [1.3, 3.4], CIDM for the NL ordering [0.1, 1.1]). 
+
+The participants tended to rate the workload as lighter when interacting with the learning robot, and this effect is much more prominent when the participants interacted with the non-learning robot first (CIDM for LN ordering [-0.6, 2.6], CIDM for the NL ordering [0.7, 2.5]).
+
+Most of the difference of mean interval exclude 0 or include it marginally, which would indicate tendency of difference (due to the low number of participants, no statistical tests are applicable).
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}[t]{0.3295\textwidth}
+		\centering
+		\includegraphics[width=1.\textwidth]{./images/woz_errors.pdf}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.341\textwidth}
+		\centering
+		\includegraphics[width=1.\textwidth]{./images/woz_appropriate.pdf}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.3295\textwidth}
+		\centering
+		\includegraphics[width=1.\textwidth]{./images/woz_workload.pdf}
+	\end{subfigure}
+	\caption{Questionnaires results on robot making errors, making appropriate decisions and on lightness of workload.}
+	\label{fig:woz_quest}
 \end{figure}
-
-Across the four possible interactions, the rating of the child-robot's learning was similar (\textit{M}=5.25, 95\% CI [4.8, 5.7]).
-The same effect was observed for the evaluation of the child performance (\textit{M}=4.75, 95\% CI [4.3, 5.2]). As the child-robot was using the same interaction model in all four conditions, this result is expected.
-
-Participants report the wizarded-robot as more suited to operate unsupervised in the learning than in the non learning condition (
-\textit{M$_{LN-1}$}=4.8, %95\% CI [4.0, 5.6],
-\textit{M$_{LN-2}$}=3.6, %95\% CI [2.5, 4.7], 
-\textit{M$_{NL-1}$}=3, %95\% CI [2.4, 3.6], 
-\textit{M$_{NL-2}$}=5.2 %95\% CI [5.0, 5.4]
-; CIDM for LN condition [-0.2, 2.6], CIDM for the NL condition [1.6, 2.8]).
-
-Similarly, a trend was found showing that learning wizarded-robot is perceived as making fewer errors than the non-learning robot (\textit{M$_{LN-1}$}=1.6, %95\% CI [0.5, 2.1], 
-\textit{M$_{LN-2}$}=4.0, %95\% CI [3.1, 4.7], 
-\textit{M$_{NL-1}$}=2.6, %95\% CI [2.1, 3.1], 
-\textit{M$_{NL-2}$}=2 %95\% CI [2, 2]
-; CIDM for LN condition [1.3, 3.4], CIDM for the NL condition [0.1, 1.1]). 
-
-The participants tended to rate the workload as lighter when interacting with the learning robot, and this effect is much more prominent when the participants interacted with the non-learning robot first (
-\textit{M$_{LN-1}$}=4.6, %95\% CI [3.8, 5.4], 
-\textit{M$_{LN-2}$}=3.6, %95\% CI [2.2, 5], 
-\textit{M$_{NL-1}$}=3.8, %95\% CI [3.3, 4.3], 
-\textit{M$_{NL-2}$}=5.4 %95\% CI [4.7, 6.1]
-; CIDM for LN condition [-0.6, 2.6], CIDM for the NL condition [0.7, 2.5]).
-
 
 \section{Discussion}
 
