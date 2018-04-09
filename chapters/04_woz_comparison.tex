@@ -1,4 +1,7 @@
 \chapter{Relation with Wizard of Oz}\label{chap:woz}
+
+\graphicspath{{images/woz/}}
+
 \begin{framed}
 	\textbf{Key points:}
 	
@@ -21,6 +24,8 @@ SPARC as been designed to enable end-users non-experts in computer science to te
 In essence, SPARC, as a principle, allows to start a robotic application in a \gls{woz} fashion, and then move away from it as the robot gains autonomy. The aim of SPARC is two fold: maintaining a high level of performance while reducing the workload of the teacher over time until reaching a point where the robot is autonomous or only necessitate minimal supervision to interact successfully. As explained in Chapter \ref{chap:sparc}, SPARC involves two interactions the control interaction and the application ones. And when the goal is learning how to interact with humans, the robot is interacting simultaneously with two humans. These two dependent interactions complexify the evaluation of the approach, especially as both humans are impacting each other. The first step to evaluate SPARC was to focus on the relation between the robot and its teacher. To evaluate this aspect of the interaction, we decided to replace the target of the application by a robot running a model of a child and observe the impact of SPARC on the teacher. The setup ends up with two robots interacting together (the wizarded-robot and the child-robot) whilst the wizarded-robot is controlled by a participant. The child-robot has some inner variables (motivation and engagement) and has to keep them high to achieve a good performance.
 
 \section{Hypotheses}
+
+%SEe if needs to be here or somewhere else
 
 To evaluate the validity of SPARC and the influence of such an approach, four hypotheses were devised:
 \begin{enumerate}
@@ -54,7 +59,7 @@ The focus of the study being on the \textit{control interaction} (the relation b
 
 \begin{figure}[t!]
 	\centering
-	\includegraphics[width=0.65\textwidth]{woz_setup_annotated.png}
+	\includegraphics[width=0.65\textwidth]{setup_annotated.png}
 	\caption{Setup used for the user study from the perspective of the human teacher. The \textit{child-robot} (left) stands across the touchscreen (centre-left) from the \textit{wizarded-robot} (centre-right). The teacher can oversee the actions of the \textit{wizarded-robot} through the \gls{gui} and intervene if necessary (right).}
 	\label{fig:woz_setup}
 \end{figure}
@@ -162,13 +167,13 @@ Figure \ref{fig:woz_comp} presents the aggregated (results collapsed between ord
 	\centering
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
-		\includegraphics[width=1.0\textwidth]{./images/woz_perf.pdf}
+		\includegraphics[width=1.0\textwidth]{perf.pdf}
 %		\caption{Comparison of end performance for both conditions.}
 	\end{subfigure}%
 	~ 
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
-		\includegraphics[width=1.0\textwidth]{./images/woz_ratio.pdf}
+		\includegraphics[width=1.0\textwidth]{ratio.pdf}
 %		\caption{Comparison of intervention ratio for both conditions.}
 	\end{subfigure}
 	\caption{Aggregated comparison of performance and intervention ratio for both conditions}
@@ -179,7 +184,7 @@ Figure \ref{fig:woz_ratio_time} presents the evolution of intervention ratio for
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1.\textwidth]{./images/woz_ratio_time.pdf}
+	\includegraphics[width=1.\textwidth]{ratio_time.pdf}
 	\caption{Evolution of intervention ratio over time for both conditions and both orders. Shaded area represents the 95\% CI.}
 	\label{fig:woz_ratio_time}
 \end{figure}
@@ -192,12 +197,12 @@ Both for the performance and the intervention ratio, a strong ordering effect ha
 	\centering
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
-		\includegraphics[width=1.\textwidth]{./images/woz_perf_divided.pdf}
+		\includegraphics[width=1.\textwidth]{perf_divided.pdf}
 	\end{subfigure}%
 	~ 
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
-		\includegraphics[width=1.\textwidth]{./images/woz_ratio_divided.pdf}
+		\includegraphics[width=1.\textwidth]{ratio_divided.pdf}
 	\end{subfigure}
 	\caption{Performance achieved and intervention ratio separated by order and condition. For each order, the left part presents the performance in the first interaction (with one condition) and the right part the performance in the second interaction (with the other condition).}
 	\label{fig:woz_separated}
@@ -264,23 +269,42 @@ Most of the difference of mean interval exclude 0 or include it marginally, whic
 	\centering
 	\begin{subfigure}[t]{0.3295\textwidth}
 		\centering
-		\includegraphics[width=1.\textwidth]{./images/woz_errors.pdf}
+		\includegraphics[width=1.\textwidth]{errors.pdf}
 	\end{subfigure}%
 	~ 
 	\begin{subfigure}[t]{0.341\textwidth}
 		\centering
-		\includegraphics[width=1.\textwidth]{./images/woz_appropriate.pdf}
+		\includegraphics[width=1.\textwidth]{appropriate.pdf}
 	\end{subfigure}%
 	~ 
 	\begin{subfigure}[t]{0.3295\textwidth}
 		\centering
-		\includegraphics[width=1.\textwidth]{./images/woz_workload.pdf}
+		\includegraphics[width=1.\textwidth]{workload.pdf}
 	\end{subfigure}
 	\caption{Questionnaires results on robot making errors, making appropriate decisions and on lightness of workload.}
 	\label{fig:woz_quest}
 \end{figure}
 
+%SHould I present results from the post experiment questionnaire, and/or going more in details on the results
+
 \section{Discussion}
 
+%SUpervisor vs teacher
+
+Strong support for H1 (a good teacher leads to a better child performance) was found, a correlation between the average states (engagement and motivation) and the final performance for all of the 10 participants was observed (\textit{r}=0.79). This sanity check confirms that the performance of the child robot reflects the performance of the teacher in this task: teaching the wizarded-robot an efficient action policy maximising the inner state of the child-robot. Additionally, the model of the child robot exhibited the desired behaviour: allowing a wide range of performances without one obvious optimal action policy.
+
+The results also provide support for H2 (teachers create personal strategies): all the participants performed better in the second interaction than in the first one. This suggests that participants developed a strategy when interacting with the system in the first interaction, and were able to use it to increase their performance in the second interaction. Looking in more detail at the interaction logs, different strategies for the wizarded-robot can be observed with a varying level of waiting actions compared to other types of actions.
+
+H3 (reducing the number of interventions will reduce the perceived workload) is partially supported: the results show a trend for participants to rate the workload as lighter when interacting with the learning robot, and another trend between using a learning robot and the intervention ratio. However, when computing the correlation between the intervention ratio and the reported workload, a strong effect can only be observed in the second interaction ($\rho = -.622$). In the first interaction, the main effect of the workload is probably the discovery of the system and how to interact with it. Nevertheless, regardless of the order of the interactions, the learning robot consistently received higher ratings for lightness of workload which indicates that using \gls{sparc} could decrease workload on robot's supervisor compared to \gls{woz}.
+
+Finally, H4 (using learning keeps similar performance, but decreases interventions) is supported: interacting with a learning robot results in a similar performance than interacting with a non-learning robot, whilst requiring fewer active interventions from the supervisor. This has real world utility, it frees some time for the supervisor, to allow them to focus on other aspects of the intervention, e.g. analysing the child's behaviour rather than focusing on the robot control. 
+
+It should be noted that the actual learning algorithm used in this study is only of incidental importance, and that certain features of the supervisor's strategies may be better approximated with alternative methods -- of importance for the present work is the presence of learning at all. Other algorithm and ways to handle time have been used in the following studies.
+%I wanted to add something about the reasons why the effects are not bigger, but I struggle
+
 \section{Summary}
+
+As expected, using \gls{sparc} to teach a robot to interact under supervision did allow the robot to partially learn an interaction policy which decrease the requirement on the teacher to physically enforce each robot's actions. Additionally, \gls{sparc} decreased also the workload imposed on the robot supervisors which has real world impact as today many subfields of \gls{hri} such as \gls{rat} still rely on \gls{woz} for their robotic control.
+
+Using a suggestion/intervention system, \gls{sparc} allowed online learning for interactive scenarios, thus increasing autonomy and reducing the demands on the supervisor. Results showed that interacting with a learning robot allowed participants to achieve a similar performance as interacting with a non-learning robot, but requiring fewer interventions to attain this result. This suggests that while there is always adaptation in the interaction (leading to similar child-robot performance given the two wizarded-robot controllers), the presence of learning shifts this burden of adaptivity onto the wizarded-robot rather than on the human. This indicates that a learning robot could allow the therapist to focus more on the child than on the robot, with improved therapeutic outcomes as potential result. 
 
