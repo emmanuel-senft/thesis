@@ -72,7 +72,7 @@ The scenario is the following: a robot, Sophie, is in a kitchen with three diffe
 
 The environment is a deterministic Markov Decision Process, defined by a state, a set of actions (move left, move right, pick up, drop and use), a deterministic transition function and environmental reward function (+1 for success and -1 for failure and -0.04 for every other step to penalise long sequences). Different action policies can lead to success, but many actions end in a failure state, for example putting the spoon in the oven results in a failure. As argued by Thomaz and Breazeal, this environment provides a good setup to evaluate teaching methods to a robot due to the large number of possible states (more than 10,000), the presence of success and failure states and the sparse nature of the environmental reward function which increases the need for a teacher to aid the learning. More details on the environment are available in the original paper.
 
-\subsection{Task}
+\subsection{Task} \label{ssec:control_task}
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
@@ -216,13 +216,13 @@ This experimental design prevents the risk of having an ordering effect by havin
 
 A total of 40 participants have been recruited using a tool provided by the university to reach a mixed population of students and non-student members of the local community.  All participants gave written informed consent, and were told of the option to withdraw at any point. All participants received remuneration at the standard U.K. living wage rate, pro rata. Participants were distributed randomly between the groups whilst balancing gender and age (age \textit{M}=25.6, \textit{SD}=10.09; 24F/16M). Participants were mostly not knowledgeable in machine learning and robotics (average familiarity with machine learning \textit{M}=1.8, \textit{SD}=1.14; familiarity with social robots \textit{M}=1.45, \textit{SD}=0.75 - Likert scale ranging from 1 to 5).
 
-In addition to naive non-expert users, an expert user (the author) interacted five times with each system following a strictly optimal strategy in both cases. These results from the expert are used to evaluate H2 and show the optimal characteristics of each system (\gls{irl} and \gls{sparc) when used by trained experts such as therapist in a context of assistive robotics.
+In addition to naive non-expert users, an expert user (the author) interacted five times with each system following a strictly optimal strategy in both cases. These results from the expert are used to evaluate H2 and show the optimal characteristics of each system (\gls{irl} and \gls{sparc}) when used by trained experts such as therapist in a context of assistive robotics.
 
 \subsection{Metrics}
 
 \subsubsection{Interaction Metrics}
 
-We collected three metrics during the training phase: the number of times a participant reached a failure state while teaching, which can be related to the risks taken during the training and the teaching time (from 0 to 25 minutes) and the number of inputs provided during the training, which can be seen as the efforts invested in the teaching. The testing phase is a single run of the taught action policy ending as soon as the robot reaches an ending state (failure or success) or if stopped by the participants. We only use the performance achieved during this single test as evaluation of the success of training. As not all participants reached a success during the testing phase, we used the six key steps defined in subsection \ref{ssec:task} as a way to evaluate the performance ranging from 0 (no step has been completed) to 6 (the task was successfully completed) during this testing run: for example a testing where the robot puts both ingredients in the bowl but reaches a failure state before mixing them would have a performance of 3.
+We collected four metrics during the training phase: the number of times a participant reached a failure state while teaching, which can be related to the risks taken during the training and the teaching time (from 0 to 25 minutes), the training performance (how many steps participants reached in the training phase) and the number of inputs provided during the training, which can be seen as the efforts invested in the teaching. The testing phase is a single run of the taught action policy ending as soon as the robot reaches an ending state (failure or success) or if stopped by the participants. We only use the performance achieved during this single test as evaluation of the success of training. As not all participants reached a success during the testing phase, we used the six key steps defined in Section \ref{ssec:control_task} as a way to evaluate the performance ranging from 0 (no step has been completed) to 6 (the task was successfully completed) during this testing run: for example a testing where the robot puts both ingredients in the bowl but reaches a failure state before mixing them would have a performance of 3.
 
 \subsubsection{Questionnaires}
 
@@ -234,7 +234,155 @@ Finally, the perception of the robot has been evaluated in the post-interaction 
 
 \section{Results}
 
-\section{Discussion}
+Most of the results are non-normally distributed. Both ceiling and floor effects can be observed depending on the conditions and the metrics. For the teaching time, some participants preferred to interact much longer than others, resulting in skewed data. Likewise for the performance: often participants either reached a successful end state or did not hit any of the sub-goals of the task in the testing phase ending often in two clusters of participants: one at a performance of 6 and one at 0.  Similarly, some participants who interacted a long time with the system did not complete any step, while others could achieve good results in a limited time. Due to the data being not normally distributed, Bayesian statistics have been used from the JASP software \citep{jasp2018}. Each test: mixed Anova for omnibus comparison between condition for each interaction (first or second), independent t-test for post-hoc comparison between participants and dependent t-test for post-hoc comparison within participants have been performed using their Bayesian counterpart, which also remove the need of doing a correction on pairwise test such as Bonferroni. As such, no p-value is reported, but a B factor representing how much a parameter impact of a parameter on the metric (if B < 1/3 there is no impact, if B > 3 the impact is strong) \citep{dienes2011bayesian,jeffreys1998theory}.
+
+%Additionally, as each interaction consists of three sessions, a Bonferroni correction has been applied to pairwise comparison between sessions. A similar correction was used when comparing between systems to account of the two different groups. To apply the Bonferroni correction, we multiply the p-values by the correcting factors, which allows us to keep a global significance level at $p=.05$.
+
+Initial results of the first interaction of the participants have been reported in \cite{senft2016providing}.
+
+%\subsection{Interpreting results}
+
+\subsection{Interaction data}
+
+Five objective metrics (performance, training performance, teaching time, number of inputs used and number of failures) and one subjective metric (workload) have been used to evaluate the efficiency of \gls{irl} and \gls{sparc}. 
+
+\subsubsection{Teaching Performance}
+
+Figure \ref{fig:control_teaching_performance} presents the performance of participants during the teaching phase, i.e how far in the steps they bring the robot during the teaching. It can be seen as how much control a method provide to the teacher, and how easy it is to guide the robot to execute desired actions. It is also an upper bound for the testing as, due to the risk of failures or loop in the environment, the performance in the testing phase cannot (or has dramatically low probability to) achieve a higher performance than in the teaching phase.
+
+In the first three sessions participants interacted with either \gls{irl} or \gls{sparc}, and swapped for the remaining three sessions. The bayesian analysis shows important factor of condition on the teaching performance on the three sessions both for the first interaction and the second one ($B_1=2909$ and $B_2 = 82.1$), which, according to the means and graph shows that participants using \gls{sparc} achieved a higher teaching performance than the ones using \gls{irl}. The session number has no impact on the performance ($B_1=0.092$ and $B_2=0.103$). Table \ref{tab:control_teaching_perf} presents descriptive statistics of the performance in the different conditions.
+
+
+\begin{figure}[ht]
+	\includegraphics[width=\textwidth]{teaching_performance.pdf}
+	\centering
+	\caption{Comparison of the teaching performance for the six sessions (three with each system, IRL and SPARC, with interaction order balanced between groups). A 6 in teaching performance shows that the participant reached at least one success in the teaching phase.
+	}
+	\label{fig:control_teaching_performance}
+\end{figure}
+
+\begin{table}[ht]
+	\centering
+	\caption{Medians of the performance in the teaching phase. Lines represent the condition in which participant interacted in a the first three sessions or the last three. It must be noted that between session 3 and 4 participants change condition.}
+	\label{tab:control_teaching_perf}
+	\begin{tabular}{l"ccc|ccc}
+		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
+		\hline
+		IRL & 3.0 & 3.5 & 3.0 & 3.5 & 2.5 & 3.0\\
+		SPARC & 6.0 & 6.0 & 6.0 & 6.0 & 6.0 & 6.0\\
+	\end{tabular}
+\end{table}
+
+\subsubsection{Performance}
+
+Figure \ref{fig:control_perf} presents the performance of participants during the testing phase, how successful was the teaching. The Bayes analysis shows important factor of condition on the performance on the three sessions both for the first interaction and the second one ($B_1=8.7$x$10^5$ and $B_2 = 7368$), which, according to the means and graph shows that participants using \gls{sparc} reach a higher performance than the ones using \gls{irl}. The session number has no impact on the performance on the first interaction, but results are inconclusive for the impact of repetition on the second interaction ($B_1=0.082$ and $B_2=0.79$). Table \ref{tab:control_perf} presents descriptive statistics of the performance in the different conditions.
+
+ %There is a significant difference of performance between systems; a Friedman test shows a significant difference between systems during the first three sessions ($\chi^{2} = 50.8$, $p <.001$) and during the next three sessions ($\chi^{2} = 36$, $p <.001$). Similarly, a significant difference in performance is noted within participants (Order 1: $\chi^{2} = 37.9$, $p <.001$ - Order 2: $\chi^{2} = 55.3$, $p <.001$). 
+ %In all the cases, participants interacting with \gls{sparc} achieved a significantly higher performance than those interacting with \gls{irl}, regardless of the order in which they interacted ($p<.05$ for all pairwise comparison). No difference of performance has been observed when using Wilcoxon signed rank test on the three repetitions between participants when interacting with the same system, so interacting for a second or third session with the same system does not have a significant impact on participants' performance.
+
+It must be noted that in our study, only a limited number of participants managed to teach the robot to complete the task using IRL, this observation will be discussed in more details in section \ref{sec:control_discussion}.
+
+
+\begin{figure}[ht]
+	\includegraphics[width=\textwidth]{performance.pdf}
+	\centering
+	\caption{Comparison of the performance for the six sessions. A 6 in performance shows that the taught policy leads to a success.
+	}
+	\label{fig:control_perf}
+\end{figure}
+
+\begin{table}[ht]
+	\centering
+	\caption{Medians of the performance in the testing phase.}
+	\label{tab:control_perf}
+	\begin{tabular}{l"ccc|ccc}
+		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
+		\hline
+    IRL & 0.0 & 0.0 & 1.0 & 0.0 & 0.0 & 0.0\\
+    SPARC & 6.0 & 6.0 & 6.0 & 4.5 & 6.0 & 6.0\\
+	\end{tabular}
+\end{table}
+
+\subsubsection{Teaching time}
+
+Figure \ref{fig:control_time} presents the time participants spent teaching. They could stop whenever they decided (if they think the robot masters the task or cannot learn further), or the  session would stop after 25 minutes. The Bayes analysis shows important factor of condition ($B_1=30.8$ and $B_2 = 675$) and sessions on the time spend teaching ($B_1=8.8$x$10^9$ and $B_2 = 3221$). Additional post-hoc comparisons for sessions indicate that in the first interaction, the teaching time decrease between the first and the second session and then stabilise between the second and the third one($B_12=4.4$x$10^5$, $B_13=2.6$x$10^6$ and $B_23=0.435$). Similar results happen in the second interaction ($B_45=850$, $B_46=382$ and $B_56=0.172$).
+
+Table \ref{tab:control_time} presents descriptive statistics of the performance in the different conditions.
+
+\begin{figure}[ht]
+	\includegraphics[width=\textwidth]{time.pdf}
+	\centering
+	\caption{Comparison of the teaching time for the six sessions. At 25 minutes, the session stopped regardless of the participant stage in the teaching.
+	}
+	\label{fig:control_time}
+\end{figure}
+
+\begin{table}[ht]
+	\centering
+	\caption{Medians of the teaching time in each session.}
+	\label{tab:control_time}
+	\begin{tabular}{l"ccc|ccc}
+		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
+		\hline
+		IRL & 248.0 & 107.5 & 109.5 & 142.5 & 79.0 & 80.0\\
+		SPARC & 141.0 & 60.0 & 56.0 & 72.5 & 50.0 & 37.0\\
+	\end{tabular}
+\end{table}
+
+\subsubsection{Inputs}
+%To write
+Figure \ref{fig:control_inputs} presents the number of inputs the participants provided while teaching. The Bayes analysis shows important factor of condition ($B_1=27.2$ and $B_2 = 34.1$) and sessions on the time spend teaching ($B_1=4.2$x$10^5$ and $B_2 = 1.5$). Additional post-hoc comparisons for sessions indicate that in the first interaction, the teaching time decrease between the first and the second session and then stabilise between the second and the third one($B_12=2706$, $B_13=4.7$x$10^4$ and $B_23=0.410$). Similar results happen in the second interaction ($B_45=2.7$, $B_46=0.173$ and $B_56=2.6$).
+
+Table \ref{tab:control_inputs} presents descriptive statistics of the performance in the different conditions.
+
+
+\begin{figure}[ht]
+	\includegraphics[width=\textwidth]{inputs.pdf}
+	\centering
+	\caption{Comparison of the number of inputs provided by the participants for the six sessions. 
+	}
+	\label{fig:control_inputs}
+\end{figure}
+
+\begin{table}[ht]
+	\centering
+	\caption{Medians of the number of inputs in the testing phase.}
+	\label{tab:control_inputs}
+	\begin{tabular}{l"ccc|ccc}
+		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
+		\hline
+		IRL & 0.0 & 0.0 & 1.0 & 0.0 & 0.0 & 0.0\\
+		SPARC & 6.0 & 6.0 & 6.0 & 4.5 & 6.0 & 6.0\\
+	\end{tabular}
+\end{table}
+
+\subsubsection{Number of failures}
+
+Figure \ref{fig:control_failures} presents the number of inputs the participants provided while teaching. The Bayes analysis shows important factor of condition ($B_1=6.3$x$10^4$ and $B_2 = 76.3$) and sessions on the time spend teaching ($B_1=1.5$x$10^4$ and $B_2 = 0.1$). Additional post-hoc comparisons for sessions indicate that in the first interaction, the teaching time decrease between the first and the second session and then stabilise between the second and the third one($B_12=619$, $B_13=1.7$x$10^3$ and $B_23=0.249$). Similar results happen in the second interaction ($B_45=0.17$, $B_46=0.21$ and $B_56=0.22$).
+
+Table \ref{tab:control_failures} presents descriptive statistics of the performance in the different conditions.
+
+\begin{figure}[ht]
+	\includegraphics[width=\textwidth]{failures.pdf}
+	\centering
+	\caption{Comparison of the number of failures for the six sessions. A 6 in performance shows that the taught policy leads to a success.
+	}
+	\label{fig:control_failures}
+\end{figure}
+
+\begin{table}[ht]
+	\centering
+	\caption{Medians of the number of failures in the testing phase.}
+	\label{tab:control_failures}
+	\begin{tabular}{l"ccc|ccc}
+		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
+		\hline
+	    IRL & 9.0 & 6.0 & 5.0 & 5.5 & 3.5 & 2.5\\
+	    SPARC & 3.0 & 0.0 & 0.0 & 1.5 & 1.0 & 0.0\\
+	\end{tabular}
+\end{table}
+
+\section{Discussion} \label{sec:control_discussion}
 
 \section{Summary}
 
