@@ -382,7 +382,69 @@ Table \ref{tab:control_failures} presents descriptive statistics of the performa
 	\end{tabular}
 \end{table}
 
-\section{Discussion} \label{sec:control_discussion}
+
+\subsection{Questionnaire data}
+
+The main task of the questionnaires was to assess the workload on participants when interacting with a condition. Figure \ref{fig:control_workload} presents the workload for participants for each condition for both interactions. Bayesian analysis show a strong effect on the condition for both interactions ($B_1=462$ and $B_2=8.1$x$10^4$) between participants and for both interactions order within participants($B_{SPARC-IRL}=1.1$x$10^4$ and $B_{IRL-SPARC}=1.7$x$10^6$). Regardless of the comparison criteria, when interacting with \gls{sparc}, participants reported a lower workload than when interacting with \gls{irl}. In the first interaction, participants using \gls{irl} reported a workload of 12.9 ($SD=2.33$), whereas the ones using \gls{sparc} reported 8.94 ($SD=3.01$). In the second interaction, participants interacting with \gls{sparc} rated their workload as 7.44 ($SD=3.41$) and the ones using \gls{irl} reported 13.87 ($SD=2.84$).
+
+\begin{figure}[ht]
+	\includegraphics[width=.5\textwidth]{workload.pdf}
+	\centering
+	\caption{Workload as measured by the NASA-TLX for both conditions and both interaction order.
+	}
+	\label{fig:control_workload}
+\end{figure}
+
+\subsection{Expert} \label{ssec:control_expert}
+
+To evaluate the best case potential offered by \gls{sparc} and \gls{irl}, an expert (the author) interacted five times with each systems. In both cases, the expert followed a strictly optimal strategy. This shows the expected behaviours in optimal conditions, the best metrics achievable. Results of the interactions are presented in Table \ref{tab:control_expert}. In both cases, the expert successfully taught the robot (as indicated by a performance of 6), which indicates that both systems can be used to teach a robot an action policy. However the time required to teach the robot with \gls{irl} is higher than with \gls{sparc} ($B=7102$). 
+
+Additionally, when using \gls{irl}, even an expert cannot prevent the robot from reaching failure states during the training due to the lack of control over the robot's action. This is prevented when interacting with \gls{sparc}, due to the full control and clear communication, the teacher can ensure that only desired actions are executed. So with sufficient knowledge, an expert can teach the robot to behave safely without having to explore and reach undesired states. This has real world applications, as random exploration is often impossible or undesirable, \gls{sparc} offers a way for the teacher to stop the robot from executing actions with negative consequences.
+
+Similar results have been observed with the non-expert participants: in their last interaction with \gls{sparc}, both groups had a median of 0 failures for a performance of 6, meaning that more than half of the participants taught the robot the task without ever hitting a failure state after understanding how \gls{sparc} can be used.
+
+\begin{table}[ht]
+	\centering
+	\caption{Results of an expert interacting 5 times with each system following an optimal strategy. In case without variance, Bayes Factor cannot be computed.}
+	\label{tab:control_expert}
+	\begin{tabular}{cccc}
+	&IRL \textit{M(SD)} & SPARC \textit{M(SD)} & $B$ factor\\
+		\midrule
+		Performance & 6 (0) & 6 (0) & NA \\
+		Time (minutes) & 4.5 (0.67) & 0.60 (0.03) & 7102 \\
+		Inputs & 115.6 (8.4) & 28 (0) & NA \\
+		Number of Failures & 3.2 (0.84) & 0 (0) & NA \\
+%		\bottomrule
+	\end{tabular}
+\end{table}
+
+%\section{Discussion}
+
+\section{Validation of the hypotheses}
+
+\subsection{Effectiveness and efficiency with non-experts}
+The objective data (teaching and testing performance, teaching time, number of inputs and number of failures) show that despite spending a shorter time interacting with \gls{sparc} and using less inputs, participants reached a higher performance than with \gls{irl} whilst facing fewer failures during the teaching. Additionally, when interacting with \gls{sparc}, participants' time required to teach the robot decreased with successive sessions, without affecting the performance. This indicates that after the first session, participants understood the interaction mechanism \gls{sparc} and consistently managed to achieve a high performance whilst requiring less time to teach the robot the task. On the other hand, when interacting with \gls{irl}, participants' performance remains low over the session, and their teaching time decreases between session 1 and 2 but not between session 2 and 3. This might be due to a loss of motivation after session 1 where often participants did not succeed to teach the robot, reducing the desire to further interact in successive sessions. 
+
+The results suggest that teaching the robot using \gls{sparc} allows the robot to achieve a higher performance than with \gls{irl}, in a shorter time, without requiring more inputs, while making fewer errors when teaching. These objective results are also supported by subjective measures: the workload on the teacher is lower when using \gls{sparc} than when using \gls{irl}. For these reasons, H1 ( `Compared to \gls{irl}, \gls{sparc} can lead to higher performance, whilst being faster, requiring fewer inputs and less mental effort from the teacher and minimising the number of errors during the teaching when used by non-experts.') is supported.
+
+\subsection{Safety with experts}
+
+As presented in Section \ref{ssec:control_expert}, when interacting with \gls{sparc}, experts can reach a success easily and safely (low number of inputs, quickly and without facing failures), and this effect is also observed after some training for the naïve participants: most of them reached a success without encountering any failures.
+
+However, when interacting with \gls{irl}, even experts cannot prevent the robot to end in failures even when applying a strictly optimal action policy. This effect is typical of feedback-based \gls{iml} methods: as the teacher only rates the actions of the agent, they cannot prevent them to make errors, they can just reward negatively these errors.
+
+This shows support for H2 (`\gls{sparc} can be used by experts to teach an action policy safely, quickly and efficiently, inlike other \gls{iml} methods lacking control'). This also demonstrates how the principles presented in Chapter \ref{chap:sparc} can provide control to the teacher over the robot's actions and so improve the teaching and ensure that even in the early stages of teaching, the action policy of the robot can be appropriate, which is not the case of most other \gls{iml} methods.
+
+\subsection{Control}
+\label{sec:control}
+
+One of the main differences between the two methods is the way in which the concept of teaching is approached. With \gls{irl} an exploratory individual learning approach is followed: the robot has freedom to explore, and it can receive feedback on its actions and hints about actions to pursue next from a teacher. This is to some extent inspired by how children are taught, where the learning process can be more important than the achieved results. This is supported by the behaviours observed by Thomaz and Breazeal: their participants gave motivational rewards to the robot, just as one would to do to keep children motivated during learning, despite the absence of effect or use in classical reinforcement learning.
+
+On the other hand, \gls{sparc} promotes a more direct teaching process: the supervisor explicitly tells the robot what to do and expects it to obey and learn. The robot is not totally considered as a social agent from the supervisor's point of view, but rather as a tool having to learn an action policy. This does not mean that the robot cannot be social: the supervisor can teach in such a non-social way to the robot how to interact socially. This approach is more task oriented, and we argue that it better fits assistive robotics when the interaction with the teacher does not have to be social, and the task (such as interaction with a child with \gls{ASD}) is more important than the social relation between the robot and its supervisor (a therapist for example).
+
+The post-experiment questionnaire included the open question: `which robot did you prefer interacting with and why?'. Almost all the participants (38 out of 40) replied that they preferred interacting with \gls{sparc}. Half of all the participants used vocabulary related to the control over the robot actions (`control', `instruction', `command', `what to do' or `what I want') to justify their preferences without these words being used in the question. Furthermore, multiple participants reported being frustrated to have only partial control over the robot's actions with \gls{irl}, they would have preferred being able to control each action of the robot. 
+
+To the question `which interaction was more natural?', 10 participants rated \gls{irl} as being more natural, using justifications such as: `The robots thinks for itself', `Some confusion in the [\gls{irl}] robot was obvious making it more natural', `More like real learning', `Because it was hard to control the robot' or `People learn from their mistakes faster'. But despite acknowledging that \gls{irl} is more natural, closer to human teaching, participants still preferred teaching using \gls{sparc}. This suggests that when humans teach robots, they are focused on the results of the teaching: can the robot do the new task requested. This relates to the role of robots, they often interact in human-centred scenario where they have to complete a task for their users. And due to the absence of life-long learning for robots today, it is not worth investing time and energy to allow the robot to improve its learning process or explore on its own. These comments from the participants show support for H3 (`Teachers prefer a method providing more control over the robot's actions.').
 
 \section{Summary}
 
