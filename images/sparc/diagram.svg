@@ -327,16 +327,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1660078"
-     inkscape:cx="166.66226"
-     inkscape:cy="204.23961"
+     inkscape:zoom="1.648984"
+     inkscape:cx="309.9835"
+     inkscape:cy="216.51726"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1855"
      inkscape:window-height="1056"
      inkscape:window-x="65"
-     inkscape:window-y="24"
+     inkscape:window-y="1104"
      inkscape:window-maximized="1"
      showborder="false"
      fit-margin-top="0"
@@ -351,7 +351,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -469,7 +469,7 @@
          y="930.98932"
          id="tspan7025-4"
          style="font-size:10px">3. Propose <tspan
-   style="font-style:italic;font-size:10px"
+   style="font-style:italic;font-size:10px;font-weight:bold"
    id="tspan8330">a</tspan></tspan></text>
     <path
        style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4655)"
@@ -498,7 +498,7 @@
          y="938.29645"
          style="font-size:10px"
          id="tspan10023">on <tspan
-   style="font-style:italic"
+   style="font-style:italic;font-weight:bold"
    id="tspan12094">a</tspan></tspan></text>
     <text
        xml:space="preserve"
@@ -545,7 +545,7 @@
          style="font-size:10px;text-align:center;text-anchor:middle"
          id="tspan9350">(7. Execute <tspan
    id="tspan10905"
-   style="font-style:italic">a</tspan> if accepted)</tspan></text>
+   style="font-style:italic;font-weight:bold">a</tspan> if accepted)</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4659)"
        d="m 169.05065,959.86133 0,-78.06187"
@@ -573,7 +573,7 @@
          y="938.29645"
          style="font-size:10px;fill:#ff0000;fill-opacity:1"
          id="tspan11122">command <tspan
-   style="font-style:italic;font-size:10px;fill:#ff0000;fill-opacity:1"
+   style="font-style:italic;font-size:10px;fill:#ff0000;fill-opacity:1;font-weight:bold"
    id="tspan8330-8">a'</tspan></tspan></text>
     <text
        xml:space="preserve"
@@ -594,7 +594,11 @@
          x="365.94342"
          y="855.49542"
          style="font-size:10px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="tspan12706">a/a' if arriving</tspan></text>
+         id="tspan12706"><tspan
+   style="font-weight:bold"
+   id="tspan4367">a</tspan>/<tspan
+   style="font-weight:bold"
+   id="tspan4369">a'</tspan> if arriving</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:29.92934036px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -685,7 +689,7 @@
            x="233.52728"
            sodipodi:role="line">an action <tspan
    id="tspan8328"
-   style="font-style:italic;font-size:10px">a</tspan></tspan></text>
+   style="font-style:italic;font-size:10px;font-weight:bold">a</tspan></tspan></text>
       <rect
          y="237.23991"
          x="232.62373"
@@ -732,7 +736,7 @@
            x="189.56131"
            sodipodi:role="line"> or refuse <tspan
    id="tspan10048"
-   style="font-style:italic">a</tspan></tspan></text>
+   style="font-style:italic;font-weight:bold">a</tspan></tspan></text>
       <rect
          y="355.24442"
          x="183.20352"
@@ -758,7 +762,9 @@
            style="font-size:10px;fill:#ff0000;fill-opacity:1"
            y="375.68024"
            x="65.249825"
-           sodipodi:role="line">1'. Select an action a'</tspan></text>
+           sodipodi:role="line">1'. Select an action <tspan
+   style="font-weight:bold"
+   id="tspan4375">a'</tspan></tspan></text>
       <rect
          y="358.93787"
          x="63.526196"
@@ -794,7 +800,9 @@
            id="tspan8967-1"
            y="254.73656"
            x="94.295532"
-           sodipodi:role="line">selection of a'</tspan></text>
+           sodipodi:role="line">selection of <tspan
+   style="font-weight:bold"
+   id="tspan4373">a'</tspan></tspan></text>
       <rect
          y="208.59529"
          x="86.391624"
@@ -826,7 +834,7 @@
          style="font-size:10px;text-align:center;text-anchor:middle;fill:#ff0000;fill-opacity:1"
          id="tspan9350-1">4'. Execute <tspan
    id="tspan10905-2"
-   style="font-style:italic;fill:#ff0000;fill-opacity:1">a'</tspan></tspan></text>
+   style="font-style:italic;fill:#ff0000;fill-opacity:1;font-weight:bold">a'</tspan></tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4651)"
        d="m 206.4263,877.97943 0,78.06188"
