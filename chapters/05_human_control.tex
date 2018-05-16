@@ -24,47 +24,53 @@ Parts of the work presented in this chapter have been published verbatim in \cit
 \newpage
 \section{Motivation}
 
-Previous work in \acrfull{iml} showed that humans want to teach robots not only with feedback but also by communicating what the robot should do \citep{thomaz2008teachable}. However, in most of the research teaching agents a policy using human guidance, the teacher is given little or no control at all on the agent's actions and has to observe the agent executing an action even when knowing that this action is incorrect. This chapter explores how these \gls{iml} approaches could be pushed further by applying the principles of \gls{sparc} defined in Chapter \ref{chap:sparc}. This chapter also presents how these principles influence the learning process, the agent performance and the user experience and how these results compare to other traditional \gls{iml} approaches.
+Previous work in \acrfull{iml} showed that humans want to teach robots not only with feedback on its actions but also by communicating the robot what it should do \citep{thomaz2008teachable}. However, in most research where agents are taught policies using human guidance, the teacher is given little or no control over the agent's actions and has to observe the agent executing an action even when knowing that this action is incorrect. This chapter explores how these \gls{iml} approaches could be improved by applying the principles of \gls{sparc} defined in Chapter \ref{chap:sparc}. This chapter also presents experimental results demonstrating how these principles influence the learning process, the agent performance and the user experience and how these results compare to other traditional \gls{iml} approaches.
 
-Additionally, the study presented in Chapter \ref{chap:woz} explored how \gls{sparc} could be used with \acrlong{sl}, to replicate a teacher's action policy. However, some of the most promising features of \gls{iml} arise when combined with \acrfull{rl}. As such, this chapter proposes a way to apply the principles underlying \gls{sparc} to classical feedback based \gls{rl} and evaluates how this human control over the robot's actions impacts the learning. A study involving 40 participants compares \gls{sparc} to another interaction approach offering less control but having been validated in previous studies: the \acrfull{irl} \citep{thomaz2008teachable}. The testing environment of \acrshort{irl} has been reimplemented to stay as close as possible to the online version of the task.
+Additionally, the study presented in Chapter \ref{chap:woz} explored how \gls{sparc} could be used with \acrlong{sl}, to replicate a teacher's action policy. However, some of the most promising features of \gls{iml} arise when combined with \acrfull{rl}. As such, this chapter proposes a way to apply the principles underlying \gls{sparc} to classical feedback based \gls{rl} and evaluates how this human control over the robot's actions impacts the learning. A study involving 40 participants compares the teaching efficiency and user experience of \gls{sparc} combined with \gls{rl} to another \gls{iml} approach offering less control but having been validated in previous studies: the \acrfull{irl} \citep{thomaz2008teachable}. %The testing environment of \acrshort{irl} has been reimplemented to stay as close as possible to the online version of the task.
 
 \section{Scope of the study}
 
 \subsection{Interactive Reinforcement Learning}
 
-The \gls{irl} algorithms implements the principles presented in \cite{thomaz2008teachable}: the human teacher can provide positive or negative feedback on the last action executed by a robot. And this robot combines it with environmental feedback into a reward which is used to update a Q-table: a table with a Q-values (the expected discounted reward) assigned to every state-action pair and used to select the next action. Three additions to the standard algorithm have been proposed and implemented by Thomaz and Breazeal and are used here as well: guidance, communication by the robot and undo mechanism \citep{thomaz2008teachable}. Teachers have two way to transmit information to the robot: the reward channel (to give the numerical reward on the last action) and the guidance channel (to direct attention toward parts of the state and restrict exploration).
+The \gls{irl} algorithm implements the principles presented in \cite{thomaz2008teachable}: the human teacher can provide positive or negative feedback on the last action executed by a robot. And the robot used in this study combines this human feedback with environmental one to form a reward which is used to update a Q-table: a table with a Q-values (the expected discounted reward) assigned to every state-action pair and used to select the next action. Three additions to the standard algorithm have been proposed and implemented by Thomaz and Breazeal and are used in this study as well: guidance, communication by the robot and an undo mechanism \citep{thomaz2008teachable}. Teachers have two ways to transmit information to the robot: a reward channel (to give the numerical reward on the last action) and a guidance channel (to direct attention toward parts of the state and restrict exploration).
 
-The guidance emerged from the results of a pilot study where participants assigned rewards to objects to indicate that the robot should do something with them. With the guidance, teachers can direct the attention of the robot toward certain items in the environment, informing the robot that it should use them in its next action. This guidance behaviour offer partial control over the robot's actions and restricts the next action the robot is executing, but it cannot be used to set explicitly the robot behaviour. 
+The guidance channel emerged from the results of a pilot study where participants assigned rewards to objects to indicate that the robot should do something with them. With the guidance channel, teachers can direct the attention of the robot toward certain items in the environment, informing the robot that it should use them in its next action. This guidance behaviour offers partial control over the robot's actions restricting the executable options, but it cannot be used to explicitly set the robot's behaviour. 
 
-Additionally, the robot communicates its uncertainty by directing its gaze toward different parts of the environment with equally high probability of being used next. The aim of this communication of uncertainty is to provide transparency about the robot's internal state, for example indicating when the robot is unsure about its next action and a guidance should be provided. 
+Additionally, the robot communicates uncertainty by directing its gaze toward different parts of the environment with equally high probability of being used next. The aim of this communication of uncertainty is to provide transparency about the robot's internal state, for example indicating when the robot is unsure about its next action and that guidance should be provided. 
 
-Finally, after a negative reward, the robot tries to cancel the effect of the previous action (if possible), resulting in a undo behaviour. As shown in the original paper, these three additions improve the performance on the task.
+Finally, after a negative reward, the robot tries to cancel the effect of the previous action on the environment (if possible), resulting in an undo behaviour. As shown in \cite{thomaz2008teachable} (hereafter the `original study'), these three additions improve the robot's performance on the task and the user experience.
 
 \subsection{SPARC}
 
-\gls{sparc} uses a single type of input similar to the guidance present in \gls{irl} but without using the reward channel. However with \gls{sparc}, the guidance channel controls directly the actions of the robot. The robot communicates every of its intentions (i.e the action it plans to execute next) to its teacher by looking to a part of the environment. The teacher can either not intervene, letting the robot execute the suggested action or step in and force the robot to execute an alternative action. This combination of suggestions and corrections gives the teacher full control over the actions executed by the robot. This also makes the rewards redundant. Rather than requiring the human to explicitly provide rewards, a positive reward is directly assigned to each action executed by the robot as it has been either forced or passively approved by the teacher.
+\gls{sparc} uses a single type of input similar to the guidance in \gls{irl} but without using the reward channel. However with \gls{sparc}, the guidance channel directly controls the actions of the robot. The robot communicates all of its intentions (i.e the action it plans to execute next) to its teacher by looking at a part of the environment. The teacher can either not intervene, letting the robot execute the suggested action or step in and force the robot to execute an alternative action. This combination of suggestions and corrections gives the teacher full control over the actions executed by the robot. This also makes the rewards redundant. Rather than requiring the human to explicitly provide rewards, a positive reward is directly assigned to each action executed by the robot as it has been either forced or passively approved by the teacher.
 
-\subsection{Differences of approaches}
+\subsection{Differences between IRL and SPARC}
 
-Unlike \gls{irl}, \gls{sparc} offers full control over the actions executed by the robot. \gls{sparc} changes the learning paradigm from learning from the human evaluation of actions' impacts to learning from the human's knowledge and the expected impact of actions. An expert in the task domain evaluates the appropriateness of actions before their execution and can guide the robot to act in a safe and useful manner. This implies that the robot does rely on observing negative effects of an action to learn to avoid it, but rather what the best action is for each state. Even in a non-deterministic environment such as human-robot interactions, some actions can be expected to have a negative consequence. And the human teacher should be able to stop the robot from ever executing them, preventing the robot from causing harm to itself or its social or physical environment. 
+Unlike \gls{irl}, \gls{sparc} offers the user full control over the actions executed by the robot. \gls{sparc} changes the learning paradigm from learning from the human's evaluation of actions' impacts to learning from the human's knowledge and the \emph{expected} impact of actions. An expert in the task domain evaluates the appropriateness of actions before their execution and can guide the robot to act in a safe and useful manner. This implies that the robot does not rely on observing the negative effects of an action to learn to avoid it (as in \gls{irl}), but rather it learns what the best action is for each state. Even in a non-deterministic environment such as human-robot interactions, some actions can be expected to have a negative consequence. The human teacher should be able to stop the robot from ever executing them, preventing the robot from causing harm to itself or its social or physical environment. 
 
-Another noticeable difference is the way in which the robot communicates with the user: in \gls{irl}, the robot communicates its uncertainty about an action and with \gls{sparc} its intention to execute an action. It should also be noted that the quantity of information provided by the user to the robot is similar for both \gls{irl} and \gls{sparc}: in \gls{sparc} the user can offer the whole action space as commands to the robot, which removes the need for explicit rewards. While in \gls{irl}, the teacher can guide the robot toward a subset of the action space and has to manually provide feedbacks to evaluate the robot's decisions.
+Another noticeable difference is the type of information the robot communicates with the user: in \gls{irl}, the robot communicates its uncertainty about an action and with \gls{sparc} its intention to execute an action. Similarly, the communication from the user to the  robot differs between the two approaches. In \gls{sparc} the user can offer the whole action space as commands to the robot, which removes the need for explicit rewards, while in \gls{irl}, the teacher can guide the robot toward a subset of the action space and has to manually provide feedbacks to evaluate the robot's decisions. It should also be noted that the quantity of information provided by the user to the robot is similar for both \gls{irl} and \gls{sparc}. 
 
 \subsection{Hypotheses}
 
 Three hypotheses have been tested in the study:
 \begin{enumerate}
-	\item [H1] \textit{Effectiveness and efficiency with non-experts.} Compared to \gls{irl}, \gls{sparc} leads to higher performance, whilst being faster, requiring fewer inputs and less mental effort from the teacher and minimising the number of errors during the teaching phase when used by non-experts.
-	\item [H2] \textit{Safety with experts.} \gls{sparc} can be used by experts to teach an action policy safely, quickly and efficiently, unlike other \gls{iml} methods lacking control.
+	\item [H1] \textit{Effectiveness and efficiency with non-experts.} \gls{irl} and \gls{sparc} will have differences in performance, speed, number of inputs used, mental effort on the teacher and the number of errors during the teaching phase when used by non-experts. We predict that for each metric, \gls{sparc} will lead to better results.
+	\item [H2] \textit{Safety with experts.} \gls{sparc} can be used by expert users (knowledgeable in the interaction process) to teach an action policy safely, quickly and efficiently, achieving better results than other \gls{iml} methods lacking control.
 	\item [H3] \textit{Control.} Teachers prefer a method in which they can have more control over the robot's actions.
 \end{enumerate}
 \section{Methodology}
+\subsection{Participants}
+
+A total of 40 participants (age \textit{M}=25.6, \textit{SD}=10.09; 24F/16M) were recruited using a tool\footnote{\url{https://uopsop.sona-systems.com/Default.aspx?ReturnUrl=\%2f}} provided by the University of Plymouth to reach a mixed population of students and non-student members of the local community.  All participants gave written informed consent, and were told of the option to withdraw at any point and completed a demographic questionnaire. Participants were mostly not knowledgeable in machine learning and robotics (average familiarity with machine learning \textit{M}=1.8, \textit{SD}=1.14; familiarity with social robots \textit{M}=1.45, \textit{SD}=0.75 - Likert scale ranging from 1: not at all familiar to 5: extremely familiar). The study lasted around one hour and followed a mixed 2x2x3 design where participants interacted with both conditions three times and with the order of interaction being counterbalanced between two groups. Participants were distributed randomly between the two groups whilst balancing gender and age. All participants received remuneration at the standard U.K. living wage rate, pro rata. 
+
+In addition to naive non-expert users, an expert user (the author) interacted five times with each system following a strictly optimal strategy in both cases. These results from the expert are used to evaluate H2 and show the optimal characteristics of each system (\gls{irl} and \gls{sparc}) when used by trained experts in robot interaction such as therapists in the context of assistive robotics.
+
 
 \subsection{Task} \label{ssec:control_task}
 
-The task used in this study is the same as \cite{thomaz2008teachable}: Sophie's kitchen, a simulated environment on a computer where a virtual robot has to learn how to bake a cake in a kitchen. As the source code was not available, the task was reimplemented to stay as close as possible to the description in the paper and the online version of the task\footnote{\url{http://www.cc.gatech.edu/~athomaz/sophie/WebsiteDeployment/}}.
+The task used in this study is the same as \cite{thomaz2008teachable}: ``Sophie's kitchen'', a simulated environment presented on a computer where a virtual robot has to learn how to bake a cake in a kitchen. As the source code was not available, the task was reimplemented to stay as close as possible to the description in the paper and the online version of the task\footnote{\url{http://www.cc.gatech.edu/~athomaz/sophie/WebsiteDeployment/}}.
 
-The scenario is the following: a robot, Sophie, is in a kitchen with three different locations (shelf, table and oven) and five objects (flour, tray, eggs, spoon and bowl) as shown in Figure \ref{fig:control_initial}. Sophie has to learn how to bake a cake and the participant has to guide the robot through a sequence of steps while giving enough feedback so the robot learns a correct series of actions. As presented in Figure \ref{fig:control_states}, there are six crucial steps to achieve a successful result:
+The scenario is the following: a robot, Sophie, is in a kitchen with three different locations (shelf, table and oven) and five objects (flour, tray, eggs, spoon and bowl) (see Figure \ref{fig:control_initial}). The participant has to teach Sophie to bake a cake by guiding it through a sequence of steps while giving enough feedback so the robot learns a correct series of actions. There are six crucial steps to achieve a successful result:
 
 \begin{enumerate}
 	\item Put the bowl on the table (Figure \ref{fig:control_bowl}).
@@ -75,7 +81,7 @@ The scenario is the following: a robot, Sophie, is in a kitchen with three diffe
 	\item Put the tray in the oven (Figure \ref{fig:control_goal}).
 \end{enumerate}
 
-The environment is a deterministic \acrlong{mdp}, defined by a state, a set of actions (move left, move right, pick up, drop and use), a deterministic transition function and environmental reward function. The environment includes end states corresponding to a success or a failure which reset the simulation to the initial state and provide a reward (+1 for success and -1 for failure). All the other state have a reward of -0.04 to penalise long sequences. Different action policies can lead to success, but many actions end in a failure state, for example putting the spoon in the oven results in a failure. As argued by Thomaz and Breazeal, this environment provides a good setup to evaluate teaching methods to a robot. It includes a large number of possible states (more than 10,000), success and failure states and a sparse environmental reward function. These elements increase the value of a teacher present to support the learning. More details on the environment are available in the original paper \citep{thomaz2008teachable}.
+The environment is a deterministic \acrlong{mdp}, defined by a state, a set of actions (move left, move right, pick up, drop and use), a deterministic transition function and an environmental reward function. The environment includes end states corresponding to a success or a failure which reset the simulation to the initial state and provide a reward (+1 for success and -1 for failure). All the other states corresponding to intermediate steps have a reward of -0.04 to penalise long sequences. Different action policies can lead to success, but many actions end in a failure state, for example putting the spoon in the oven. This environment includes a large number of possible states (more than 10,000), success and failure states and a sparse environmental reward function. These elements increase the value of having a teacher present to support the learning. As argued by Thomaz and Breazeal, this environment provides a good setup to evaluate methods of teaching a robot.
 
 \begin{figure}[ht]
 	\centering
@@ -123,132 +129,138 @@ The environment is a deterministic \acrlong{mdp}, defined by a state, a set of a
 		\label{fig:control_goal}
 	\end{subfigure}
 	
-	\caption{Presentation of different steps in the environment. \ref{fig:control_initial} initial state, \ref{fig:control_bowl} step 1: bowl on the table, \ref{fig:control_ingredients} step 3: both ingredients in the bowl, \ref{fig:control_batter} step 4: ingredients mixed to obtain batter, \ref{fig:control_tray} step 5: batter poured in the tray and \ref{fig:control_goal} step 6 (success): tray with batter put in the oven. (Step 2: one ingredient in the bowl has been omitted for clarity)}
+	\caption{Presentation of different steps in the environment. (a) initial state, (b) step 1: bowl on the table, (c) step 3: both ingredients in the bowl, (d) step 4: ingredients mixed to obtain batter, (e) step 5: batter poured in the tray and (f) step 6 (success): tray with batter put in the oven. (Step 2: one ingredient in the bowl has been omitted for clarity, two different ingredient could be put in the bowl to reach this state)}
 	\label{fig:control_states}
 \end{figure}
 
 \subsection{Implementation}
 
-Two conditions are compared for this study: \gls{irl} and \gls{sparc}. The underlying learning mechanism is strictly identical for both conditions. The only differences lies in the way to interact with it (inputs to and from the algorithm) and the control over the actions. With \gls{irl} teachers have to explicitly provide rewards and have a partial control over the action selection, while with \gls{sparc} rewards are implicit and the control over actions is total. 
+Two conditions were constructed to compare the \gls{irl} and \gls{sparc} approaches to this task. The underlying learning mechanism is identical in both conditions. The only differences lie in the manner of interaction (inputs to and from the algorithm) and the amount of control over the robot's actions. With \gls{irl} teachers have to explicitly provide rewards and have a partial control over the action selection, while with \gls{sparc} rewards are implicit and the control over actions is total. 
 
-The learning algorithm (see Algorithms \ref{algo:control_sparc} and \ref{algo:control_irl}) is a variation on Q-learning, without reward propagation\footnote{In Q learning the update function is $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t+1}+\gamma (\underset{a}{max} Q(s_{t+1},a))-Q(s_{t},a_{t}))$}. This guarantees that any learning by the robot is due to the teaching by the human, and as such provides a lower bound for the robot's performance. By using Q-learning, the performance of the robot would be higher.
+The learning algorithm (see Algorithm \ref{algo:control_sparc} and \ref{algo:control_irl}) is a variation on Q-learning, without reward propagation\footnote{In Q learning the update function is $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t+1},a))-Q(s_{t},a_{t}))$}. This guarantees that any learning by the robot is due to the human's teaching, and as such provides a lower bound for the robot's performance. By using Q-learning, the robot's performance would be higher.
 
+\begin{table}
+\caption{Simplified outline of algorithms used for both condition.}
+		
 \begin{minipage}[t]{0.5\textwidth}
 	\vspace{0pt}  
 	\begin{algorithm}[H]
 		
-		\caption{Algorithm used for SPARC}
+		\caption{SPARC}
 		\label{algo:control_sparc}
-		 \While{learning}{
-		 	$a$ = action with the highest $Q[s,a]$
-		 	
-		 	look at object or location used in $a$
-		 	
-		 	\vspace{4.9pt}
-		 	
-		 	\While{waiting for correction (2 seconds)}{
-		 		\eIf{received command}{
-		 			$a$ = received command
-		 			
-		 			reward, $r = 0.5$
-		 		}{
-		 		reward, $r = 0.25$
-		 	}
-		 }
-		 \nosemic Act in the world:\;
-		  \pushline\dosemic execute $a$, and transition to $s'$
-		 
-		 \popline $r = r + r_{environment}$
-		 
-		 Learn: $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t+1}+\gamma (\underset{a}{max} Q(s_{t},a))-Q(s_{t},a_{t}))$
-		 
-		}
+		\begin{minipage}{0.9\linewidth}
+		\hspace{-20pt} 
+			\While{learning}{
+			 	$a_{t}$ = $ arg \underset{a}{max} Q[s_{t},a]$
+			 	
+			 	look at object or location used in $a_{t}$
+			 
+			 	
+			 	\While{waiting for command (2 seconds)}{
+			 		\eIf{received command}{
+			 			$a_{t}$ = received command
+			 			
+			 			$r_{t} = 0.5$
+			 		}{
+			 		$r_{t} = 0.25$
+			 	}
+			 }
+			 \vspace{30pt}
+			 \nosemic Act in the world:\;
+			 \pushline\dosemic execute $a_{t}$, transition to $s_{t+1}$
+			 
+			 \popline $r_{t} = r_{t} + r_{environment}$
+			 
+			 \nosemic Learn:
+			 
+			 \pushline\dosemic $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t},a))-Q(s_{t},a_{t}))$
+			 
+			}
+		\end{minipage}
 	\end{algorithm}
 \end{minipage}%
 \begin{minipage}[t]{0.5\textwidth}
 	\vspace{0pt}
 	\begin{algorithm}[H]
-		\caption{Algorithm used for IRL
+		\caption{IRL
 			\vspace{0.2pt}}
 		\label{algo:control_irl}
-		\While{learning}{
-			$a$ = action with the highest $Q[s,a]$
+		
+		\begin{minipage}{0.9\linewidth}
+			\hspace{-20pt} \While{learning}{
+			$A_{t+1}=[a_{1}...a_n]$, $n$ actions with high $Q[s_{t+1},a]$
+					
+%			\vspace{5.5pt}
 			
-			\If{multiple $a$ with high $Q[s,a]$}{
-				indicate confusion 
-			}
-			
-			\vspace{5.5pt}
-			
-			\While{waiting for guidance and reward on last action (2 seconds)}{
-				\If{received guidance}{
-					\If{guidance acceptable}{
-						$a$ = guidance
-					}
+			\While{waiting for guidance and reward on $a_{t+1}$ (2 seconds)}{
+				\If{$n>1$}{
+					indicate confusion 
 				}
-				\If{received reward $r'$}{
-					$r = r + r'$				
+				\If{received reward $r_{t}'$}{
+					$r_{t} = r_{t} + r_{t}'$				
+				}
+				\If{receiving guidance}{
+					\If{guidance acceptable}{
+						$a_{t+1}$ = guidance
+					}
 				}
 		}
 		
-		Learn: $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t+1}+\gamma (\underset{a}{max} Q(s_{t},a))-Q(s_{t},a_{t}))$
+		\nosemic Learn:
+		 
+		\pushline\dosemic$Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t},a))-Q(s_{t},a_{t}))$
 		
-		 Act in the world:
+		\popline \nosemic Act in the world:
 		
-		\pushline\dosemic execute $a$, and transition to $s'$
+		\pushline\dosemic execute $a_{t+1}$, transition to $s_{t+2}$
 		
-		\popline$r = r_{environment}$
-		
-		%\vspace{5.5pt}
+		\popline$r_{t+1} = r_{environment}$
 	}
+	\end{minipage}
 	\end{algorithm}
 \end{minipage}
+\label{tab:control_algo}
+\end{table}
 
-As shown in the algorithms, another minor difference between the conditions is that with \gls{sparc}, the algorithm learns just after executing an action (and only with positive rewards). While \gls{irl} learns on the last action before executing the next one based on the human evaluation of the last action.
+As shown in Table \ref{tab:control_algo}, another difference between the conditions is that with \gls{sparc}, the algorithm learns immediately after executing an action (and only with positive rewards), while \gls{irl} learns about the previous action, whilst waiting to execute the current one, based on the human evaluation of the last action.
 
 \subsubsection{Interactive Reinforcement Learning}
 
-We have implemented \gls{irl} following the principles presented in \cite{thomaz2008teachable}. The user can use the left click to display a slider providing rewards. The guidance is implemented by right-clicking on objects: it directs the robot's attention to the object if facing it (a click on objects in different locations has no effect). Following the guidance, the robot will execute the candidate action involving the object. The action space is not entirely covered by this guidance mechanism: for example, it does not cover moving from one location to another. This guidance, if used correctly, limits the exploration for the current step to the part of the environment evaluated as more interesting by the user, without preventing the robot to explore in further steps. The robot communicates its uncertainty by looking at the objects having similarly high probability of being used. 
+We have implemented \gls{irl} following the principles presented in \cite{thomaz2008teachable}. The user can use the left mouse-click to display a slider providing rewards. Guidance is implemented by right-clicking on objects to direct the robot's attention toward a specific object. Guidance can only be provided for objects the robot is facing, otherwise right-clicking has no effect. Following the guidance, the robot will execute the candidate action involving the object. The action space is not entirely covered by this guidance mechanism: for example, it does not cover moving from one location to another. This guidance gives a partial opportunity to the user to limit the exploration for the current step, without preventing the robot to explore in further steps.
 
-Some modifications were required to the original study due to the lack of implementation details in the original paper, one of them being the use of a purely greedy action selection instead of using softmax. As, the reliance on human rewards and guidance limits the importance of autonomous exploration, the greediness of the algorithm should assist the learning by preventing the robot to explore outside of the guided policy. Additionally, as the environment is deterministic and the algorithm is greedy, the concept of convergence is altered: once a trajectory has Q-Values high enough or a correct gradient of Q-Values on all state-action pairs, it will be reinforced automatically. But the teacher can manually force the robot policy to converge or diverge depending of their behaviours.
+Some modifications to the original study were required due to the lack of implementation details in the original paper, one of them being the use of a purely greedy action selection instead of using softmax. As, the reliance on human rewards and guidance limits the importance of autonomous exploration, the greediness of the algorithm should assist the learning by preventing the robot from exploring outside of the guided policy. Additionally, as the environment is deterministic and the algorithm is greedy, the concept of convergence is altered: once a trajectory has Q-Values high enough or a correct gradient of Q-Values on all state-action pairs, it will be reinforced automatically. Additionally, the teacher can manually force the robot's policy to converge or diverge depending on their behaviours.
 
 \subsubsection{SPARC}
 
-\gls{sparc} uses the gaze of the robot toward objects or locations to indicate which action the robot is suggesting to the teacher. Similarly to the guidance in \gls{irl}, the teacher can use the right click of the mouse on objects to have the robot execute the action associated to this object in the current state and this has been extended to also cover locations. With \gls{sparc}, the command covers all the action space: at every time step, the teacher can specify, if desired, the next action executed by the robot. If a suggested action is not corrected, a positive reward of 0.25 is automatically received (as it has the implicit approval from the teacher). And if the teacher selects another action, a reward of 0.5 is given to the correcting action (the corrected action is not rewarded). That way, actions actively selected are more reinforced and participants can still have give higher rewards when using \gls{irl}. This system allows for the use of reinforcement learning with implicit reward assignation, aiming to simplify the teaching interaction.
-
+\gls{sparc} uses the gaze of the robot toward objects or locations to indicate to the teacher which action the robot is suggesting. Similarly to the guidance in \gls{irl}, the teacher can use the right click of the mouse on objects to have the robot execute the action associated to this object in the current state. This has been extended in this study to also cover locations. With \gls{sparc}, the command covers the whole action space: at every time step, the teacher can specify, if desired, the next action to be executed by the robot. If a robot's suggested action is not corrected, a positive reward of 0.25 is automatically received (as it has the implicit approval from the teacher). If the teacher selects another action, a reward of 0.5 is given to the selected action (the corrected action is not rewarded). That way, actions actively selected are more reinforced and participants can still have give higher rewards when using \gls{irl}. This system allows for the use of reinforcement learning with implicit reward assignation, aiming to simplify the teaching interaction.
 
 \subsection{Interaction protocol}
 
-Participants are divided into two groups and interact first either with \gls{irl} or \gls{sparc} as shown in Figure \ref{fig:control_design}. Before interacting, participants complete a demographic questionnaire and receive an information sheet explaining the task (describing the environment and how to bake the cake) and one explaining the system they are interacting with. Then they interact for three sessions with the assigned system. Each session is composed of a teaching phase and a testing phase. The teaching phase is composed of a number of teaching episodes, each one ending when a success or failure state has been reached which returns the environment to the initial state. In the same way as in the initial experiment by Thomaz and Breazeal, participants can decide to terminate the teaching phase whenever they desire by clicking on a button labelled `Sophie is ready'. However, the session also stops after 25 minutes to impose an upper time limit to the study. After the end of a teaching phase, the robot runs a testing phase where the participant's inputs are disabled and which stops as soon as an ending state is reached or the participants decide to stop it (for example if the robot is stuck in a loop). This testing phase is used to evaluate the performance of the participants for this session. The interaction with a system consists of three repeated independent sessions with their own teaching and testing phases to observe how the interactions evolve as participants are getting used to the system.
+Participants are divided into two groups and interact with both \gls{irl} or \gls{sparc}, and the order of presentation was counterbalanced (see Figure \ref{fig:control_design}). Before interacting, participants complete a demographic questionnaire and receive an information sheet explaining the task (describing the environment and how to bake the cake) and one explaining the system they are interacting with. Then they interact for three sessions with the assigned system. Each session is composed of a teaching phase and a testing phase. The teaching phase is composed of as many episodes as the participants deemed necessary, but is automatically terminated after 25 minutes to impose an upper time-limit on the study. A teaching episode is a trajectory from the initial state to an end state (success or failure) after which the environment returns to the initial state. As in the experiment by Thomaz and Breazeal, participants can decide to terminate the teaching phase whenever they desire by clicking on a button labelled `Sophie is ready'. After the teaching phase, the robot runs a testing phase where the participant's inputs other than a force stop are disabled. The test stops as soon as an ending state is reached or the participant forces a stop (e.g. if an infinite loop occurs). This testing phase is used to evaluate the participants' performance during teaching. The interaction with each system involves three repeated independent sessions with their own teaching and testing phases to observe how the interactions evolve as participants get used to the system.
 
-After participants completed their three sessions with the first system, they are asked to interact for three more sessions with the other system. This way, every participant interacts three times with each system (\gls{irl} and \gls{sparc}) and the order of interaction is balanced. Additionally, participants have to complete post-interaction questionnaires distributed after the interaction with the first system and the second one and a final post-experiment questionnaire at the end of the experiment. All information sheets and questionnaires can be found online \footnote{\url{https://emmanuel-senft.github.io/experiment-irl.html}}.
+%After participants completed their three sessions with the first system, they are asked to interact for three more sessions with the other system. This way, every participant interacts three times with each system (\gls{irl} and \gls{sparc}) and the order of interaction is balanced. 
+Additionally, participants have to complete post-interaction questionnaires distributed after the interaction with each system and a different final post-experiment questionnaire at the end of the experiment. All information sheets and questionnaires can be found online \footnote{\url{https://emmanuel-senft.github.io/experiment-irl.html}} and the questionnaires are described in Section \ref{ssec:control_questionnaires}.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{protocol.pdf}
-	\caption{Participants are divided into two groups (one for each line). They first complete a demographic questionnaire, then interact for three independent sessions (with a teaching and a testing phase each) with a system (IRL or SPARC). After a first post-interaction questionnaire, participants interact for another three sessions with the other system before completing the second post-interaction questionnaire and a final post-experiment questionnaire.}
+	\caption{A representation of the timeline experienced by participants according to the order they were in (interacting first with \gls{sparc} or \gls{irl}.}
 	\label{fig:control_design}
 \end{figure}
-
-\subsection{Participants}
-
-A total of 40 participants have been recruited using a tool provided by the university to reach a mixed population of students and non-student members of the local community.  All participants gave written informed consent, and were told of the option to withdraw at any point. All participants received remuneration at the standard U.K. living wage rate, pro rata. Participants were distributed randomly between the groups whilst balancing gender and age (age \textit{M}=25.6, \textit{SD}=10.09; 24F/16M). Participants were mostly not knowledgeable in machine learning and robotics (average familiarity with machine learning \textit{M}=1.8, \textit{SD}=1.14; familiarity with social robots \textit{M}=1.45, \textit{SD}=0.75 - Likert scale ranging from 1 to 5).
-
-In addition to naive non-expert users, an expert user (the author) interacted five times with each system following a strictly optimal strategy in both cases. These results from the expert are used to evaluate H2 and show the optimal characteristics of each system (\gls{irl} and \gls{sparc}) when used by trained experts such as therapist in a context of assistive robotics.
 
 \subsection{Metrics}
 
 \subsubsection{Interaction Metrics}
 
-We collected four metrics during the teaching phase: the teaching performance, the teaching time, the number of failures and the number of inputs provided. The teaching performance corresponds to the highest step reached by participants in the teaching phase. The teaching time is the duration of each sessions, ranging from 0 to 25 minutes. The number of failures is the number of times a participant reached a failure state during the session teaching, which can be related to the risks taken during the teaching. And the number of inputs correspond to the number of command, guidance or feedback used in a session, which can be seen as the efforts invested in the teaching process. The testing phase is a single run of the taught action policy ending as soon as the robot reaches an ending state (failure or success) or if stopped by the participants. We use the performance achieved during this single test as evaluation of the success of the teaching. As not all participants reached a success during the testing phase, we used the six key steps defined in Section \ref{ssec:control_task} as a way to evaluate the performance ranging from 0 (no step has been completed) to 6 (the task was successfully completed) during this testing run. For example a testing where the robot puts both ingredients in the bowl but reaches a failure state before mixing them would have a performance of 3.
+We collected four metrics during the teaching phase: teaching performance, teaching time, number of failures and number of inputs provided. The teaching performance corresponds to the highest step reached by participants in the teaching phase. As not all participants reached a success during the testing phase, we used the six key steps defined in Section \ref{ssec:control_task} as a way to evaluate the performance ranging from 0 (no step has been completed) to 6 (the task was successfully completed) during this testing run. For example a testing where the robot puts both ingredients in the bowl but reaches a failure state before mixing them would have a performance of 3. The teaching time is the duration of each teaching session, ranging from 0 to 25 minutes. The number of failures is the number of times a participant reached a failure state during the teaching session, which can be related to the risks involved in the teaching process. The number of inputs correspond to the number of commands, guidances or feedback inputs used in a session, which can be seen as the quantity of efforts invested in the teaching process. We use the performance achieved during the single test phase following the teaching to evaluate the success of the teaching. 
 
-\subsubsection{Questionnaires}
+\subsubsection{Questionnaires} \label{ssec:control_questionnaires}
 
-The post-interaction and post-experiment questionnaires provide additional subjective information to compare with the objective results from the interaction data. Two principal metrics are gathered: the workload on participants and the perception of the robot. 
+The post-interaction and post-experiment questionnaires provide additional introspective information to compare with the quantitative data from the interaction. Two principal metrics are gathered: the workload on participants and the perception of the robot. 
 
-Workload is an important factor when teaching robots. As roboticists, our task is to make the teaching of robots as undemanding as possible, meaning that the workload for user should be minimal. Multiple definitions for workload exist and various measures can be found in the literature \cite{wierwille1983evaluation,moray2013mental}. Due to its widespread use in human factors research and clear definition and evaluation criteria, we used the NASA-Task Load Index (TLX) \citep{hart1988development}. We averaged the values from the 6 scales (mental, physical and temporal demand, performance, effort and frustration) to obtain a single workload value per participant for each interaction. This value ranges from 0 for a low workload, to 20 for a high one. This assessment is made during the post-interaction questionnaire, which results in two measures for each participant, one for the interaction with the first system and the second one for the other system.
+Workload is an important factor when teaching robots. As roboticists, our task is to minimise the workload for the robot's user. Multiple definitions for workload exist and various measures can be found in the literature (e.g. \citealt{wierwille1983evaluation,moray2013mental}). Due to its widespread use in human factors research \citep{hart2006nasa} and clear definition and evaluation criteria, we used the NASA-Task Load Index (TLX) \citep{hart1988development}. Following the methodology proposed to administer NASA-TLX, we averaged the values from all 6 scales (mental, physical and temporal demand, performance, effort and frustration) ranging from 0 (low workload) to 20 (high workload) to obtain a single workload value per participant for each interaction. This assessment is made during the post-interaction questionnaire, which results in two measures for each participant, one for the interaction with the first system and the second one for the other system.
 
-Finally, the perception of the robot has been evaluated in the post-interaction and post-experiment questionnaires using subjective questions (measured on a Likert scale), binary questions (which robot did you prefer interacting with) and open questions on the preference and the naturalness of the interaction. 
+Finally, the participants' perception of the robot has been evaluated in the post-interaction and post-experiment questionnaires using rating questions (measured on a 5 item Likert scale), binary questions (where participants had to select one of the two system), and open questions on the preference and the naturalness of the interaction. 
 
 \section{Results}
 
