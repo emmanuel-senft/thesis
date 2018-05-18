@@ -81,7 +81,7 @@ The scenario is the following: a robot, Sophie, is in a kitchen with three diffe
 	\item Put the tray in the oven (Figure \ref{fig:control_goal}).
 \end{enumerate}
 
-The environment is a deterministic \gls{mdp}, defined by a state, a set of actions (move left, move right, pick up, drop and use), a deterministic transition function and an environmental reward function. The environment includes end states corresponding to a success or a failure which reset the simulation to the initial state and provide a reward (+1 for success and -1 for failure). All the other states corresponding to intermediate steps have a reward of -0.04 to penalise long sequences. Different action policies can lead to success, but many actions end in a failure state, for example putting the spoon in the oven. This environment includes a large number of possible states (more than 10,000), success and failure states and a sparse environmental reward function. These elements increase the value of having a teacher present to support the learning. As argued by Thomaz and Breazeal, this environment provides a good setup to evaluate methods of teaching a robot.
+The environment is a deterministic \gls{mdp}, defined by a state, a set of actions (move left, move right, pick up, drop and use), a deterministic transition function and an environmental reward function. The environment includes end states, corresponding to a success or a failure, which reset the simulation to the initial state and provide a reward (+1 for success and -1 for failure). All the other states corresponding to intermediate steps have a reward of -0.04 to penalise long sequences. Different action policies can lead to success, but many actions end in a failure state, for example putting the spoon in the oven. This environment includes a large number of possible states (more than 10,000), success and failure states and a sparse environmental reward function. These elements increase the value of having a teacher present to support the learning. As argued by Thomaz and Breazeal, this environment provides a good setup to evaluate methods of teaching a robot.
 
 \begin{figure}[ht]
 	\centering
@@ -137,7 +137,7 @@ The environment is a deterministic \gls{mdp}, defined by a state, a set of actio
 
 Two conditions were constructed to compare the \gls{irl} and \gls{sparc} approaches to this task. The underlying learning mechanism is identical in both conditions. The only differences lie in the manner of interaction (inputs to and from the algorithm) and the amount of control over the robot's actions. With \gls{irl} teachers have to explicitly provide rewards and have a partial control over the action selection, while with \gls{sparc} rewards are implicit and the control over actions is total. 
 
-The learning algorithm (see Algorithm \ref{algo:control_sparc} and \ref{algo:control_irl}) is a variation on Q-learning, without reward propagation\footnote{In Q learning the update function is $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t+1},a))-Q(s_{t},a_{t}))$}. This guarantees that any learning by the robot is due to the human's teaching, and as such provides a lower bound for the robot's performance. By using Q-learning, the robot's performance would be higher.
+The learning algorithm (see Algorithm \ref{algo:control_sparc} and \ref{algo:control_irl}) is a variation on Q-learning, without reward propagation\footnote{In Q learning the update function is $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t+1},a))-Q(s_{t},a_{t}))$}. This guarantees that any learning by the robot is due to the human's teaching, and as such provides a lower bound for the robot's performance. By using Q-learning, the robot's testing performance would be higher.
 
 \begin{table}
 \caption{Simplified outline of algorithms used for both condition.}
@@ -222,17 +222,17 @@ The learning algorithm (see Algorithm \ref{algo:control_sparc} and \ref{algo:con
 \label{tab:control_algo}
 \end{table}
 
-As shown in Table \ref{tab:control_algo}, another difference between the conditions is that with \gls{sparc}, the algorithm learns immediately after executing an action (and only with positive rewards), while \gls{irl} learns about the previous action, whilst waiting to execute the current one, based on the human evaluation of the last action.
+As shown in Table \ref{tab:control_algo}, another difference between the conditions is that with \gls{sparc}, the algorithm learns immediately after executing an action (and only with positive rewards), while \gls{irl} learns about the previous action, whilst waiting to execute the current one, based on a positive or negative evaluation.
 
 \subsubsection{Interactive Reinforcement Learning}
 
 We have implemented \gls{irl} following the principles presented in \cite{thomaz2008teachable}. The user can use the left mouse-click to display a slider providing rewards. Guidance is implemented by right-clicking on objects to direct the robot's attention toward a specific object. Guidance can only be provided for objects the robot is facing, otherwise right-clicking has no effect. Following the guidance, the robot will execute the candidate action involving the object. The action space is not entirely covered by this guidance mechanism: for example, it does not cover moving from one location to another. This guidance gives a partial opportunity to the user to limit the exploration for the current step, without preventing the robot to explore in further steps.
 
-Some modifications to the original study were required due to the lack of implementation details in the original paper, one of them being the use of a purely greedy action selection instead of using softmax. As, the reliance on human rewards and guidance limits the importance of autonomous exploration, the greediness of the algorithm should assist the learning by preventing the robot from exploring outside of the guided policy. Additionally, as the environment is deterministic and the algorithm is greedy, the concept of convergence is altered: once a trajectory has Q-Values high enough or a correct gradient of Q-Values on all state-action pairs, it will be reinforced automatically. Additionally, the teacher can manually force the robot's policy to converge or diverge depending on their behaviours.
+Some modifications to the original study were required due to the lack of implementation details in the original paper, one of them being the use of a purely greedy policy instead of using softmax. As, the reliance on human rewards and guidance limits the importance of autonomous exploration, the greediness of the algorithm should assist the learning by preventing the robot from exploring outside of the guided policy. Additionally, as the environment is deterministic and the algorithm is greedy, the concept of convergence is altered: once a trajectory has Q-Values high enough or a correct gradient of Q-Values on all state-action pairs, it will be reinforced automatically. Additionally, the teacher can manually force the robot's policy to converge or diverge depending on their behaviours.
 
 \subsubsection{SPARC}
 
-\gls{sparc} uses the gaze of the robot toward objects or locations to indicate to the teacher which action the robot is suggesting. Similarly to the guidance in \gls{irl}, the teacher can use the right click of the mouse on objects to have the robot execute the action associated to this object in the current state. This has been extended in this study to also cover locations. With \gls{sparc}, the command covers the whole action space: at every time step, the teacher can specify, if desired, the next action to be executed by the robot. If a robot's suggested action is not corrected, a positive reward of 0.25 is automatically received (as it has the implicit approval from the teacher). If the teacher selects another action, a reward of 0.5 is given to the selected action (the corrected action is not rewarded). That way, actions actively selected are more reinforced and participants can still have give higher rewards when using \gls{irl}. This system allows for the use of reinforcement learning with implicit reward assignation, aiming to simplify the teaching interaction.
+\gls{sparc} uses the gaze of the robot toward objects or locations to indicate to the teacher which action the robot is suggesting. Similarly to the guidance in \gls{irl}, the teacher can use the right click of the mouse on objects to have the robot execute the action associated to this object in the current state. This has been extended in this study to also cover locations. With \gls{sparc}, the command covers the whole action space: at every time step, the teacher can specify, if desired, the next action to be executed by the robot. If a robot's suggested action is not corrected, a positive reward of 0.25 is automatically received (as it has the implicit approval from the teacher). If the teacher selects another action, a reward of 0.5 is given to the selected action (the corrected action is not rewarded). That way, actions actively selected are more reinforced and participants still have access to a wider range of rewards with \gls{irl}. This system allows for the use of reinforcement learning with implicit reward assignation, aiming to simplify the teaching interaction.
 
 \subsection{Interaction protocol}
 
@@ -276,7 +276,7 @@ Five objective metrics (teaching performance, testing performance, teaching time
 
 \subsubsection{Teaching Performance}
 
-Figure \ref{fig:control_teaching_performance} presents the maximum performance of participants during the teaching phase, i.e how far in the steps they brought the robot during the teaching phase. It related to the ease of a method to be used to guide a robot through the task. A method allowing the teacher to steer the robot to the desired space of the environment should achieve a high teaching performance even if the testing performance can be low. It is also an upper bound for the testing performance as, due to the risk of failures or loop in the environment, the performance in the testing phase cannot (or has dramatically low probability to) achieve a higher performance than in the teaching phase.
+Figure \ref{fig:control_teaching_performance} presents the maximum performance of participants during the teaching phase, i.e how far in the steps they brought the robot during the teaching phase. It relates to the ease of guiding the robot through the task using this method. If a method does not allow a teacher to direct the robot's behaviour, the robot will have issues reaching useful states leading to a poor teaching performance. On the other hand, methods allowing the teacher to steer the robot to the desired space in the environment should achieve a high teaching performance even if the testing performance may be low due to poor learning. It is also an upper bound for the testing performance as, due to the risk of failures or loop in the environment, the performance in the testing phase cannot (or has dramatically low probability to) achieve a higher performance than in the teaching phase.
 
 In the first three sessions participants interacted with either \gls{irl} or \gls{sparc} and swapped for the remaining three sessions. The bayesian mixed ANOVA shows difference between conditions (and between participants) when interacting with the first system (participant in group 1 interacting with \gls{irl} and those in group 2 with \gls{irl}) and this effect is also present in the second interaction (first interaction:$B_1=2881$ - second interaction $B_2 = 76.2$). According to the medians shown in Table \ref{tab:control_teaching_perf} and the graphs in Figure \ref{fig:control_teaching_performance}, participants using \gls{sparc} achieved a higher teaching performance than the ones using \gls{irl}. The session number (the repetition of additional sessions with the same system - within participants) had no impact on the teaching performance (first interaction: $B_1=0.089$ - second interaction $B_2=0.105$) which means that with additional interaction with a system participants did not reach a higher or lower teaching performance.
 
@@ -299,6 +299,8 @@ In the first three sessions participants interacted with either \gls{irl} or \gl
 		SPARC & 6.0 & 6.0 & 6.0 & 6.0 & 6.0 & 6.0\\
 	\end{tabular}
 \end{table}
+
+This higher teaching performance for \gls{sparc} provides partial support for H1 and its prediction: '\gls{sparc} will be more effective and efficient than \gls{irl} when used by non-experts'.
 
 \subsubsection{Testing Performance}
 
@@ -330,6 +332,8 @@ As shown in Table \ref{tab:control_perf} and Figure \ref{fig:control_perf}, only
 	\end{tabular}
 \end{table}
 
+This higher testing performance for \gls{sparc} provides partial support for H1 and its prediction.
+
 \subsubsection{Teaching time}
 
 Figure \ref{fig:control_time} presents the time participants spent teaching. They could stop whenever they decided or the  session would stop after 25 minutes. The bayesian mixed ANOVA shows the important role of condition ($B_1=31.4$ and $B_2 = 679$) and session number on the time spend teaching ($B_1=8.3$x$10^9$ and $B_2 = 3188$). Table \ref{tab:control_time} and additional post-hoc comparisons between the sessions in each interaction indicate that in the first interaction, the teaching time decreases between the first and the second session and then tends to stabilise between the second and the third sessions ($B_{12}=4.4$x$10^5$, $B_{13}=2.6$x$10^6$ and $B_{23}=0.435$). A similar pattern occurs in the second interaction ($B_{45}=850$, $B_{46}=382$ and $B_{56}=0.172$) with more support for a stabilisation of teaching time between session 5 and 6.
@@ -353,6 +357,8 @@ Figure \ref{fig:control_time} presents the time participants spent teaching. The
     SPARC & 8.97 & 3.56 & 2.49 & 3.96 & 2.45 & 1.53\\
 	\end{tabular}
 \end{table}
+
+Combined with the consistent high performance of \gls{sparc}, this decrease of teaching time indicates that participants learnt an efficient way to use \gls{sparc} to teach the robot a successful action policy. On the other hand, this similar decrease of teaching time and the lower performance with \gls{irl} could indicate that participants lost motivation to interact with \gls{irl}. As they did not find an efficient way to teach the robot with \gls{irl}, they dedicate less efforts to try in successive session. These interpretations provide partial support to H1 and its prediction.
 
 \subsubsection{Inputs}
 %To write
@@ -378,6 +384,8 @@ Figure \ref{fig:control_inputs} presents the number of inputs the participants p
 	\end{tabular}
 \end{table}
 
+Similarly to the teaching time, this reduction of inputs required for teaching, while maintaining a high performance for \gls{sparc} offers partial support for H1 and its prediction.
+
 \subsubsection{Number of failures}
 
 Figure \ref{fig:control_failures} presents the number of failure states participants encountered during the teaching phase. The bayesian mixed ANOVA shows that for both interactions, both the condition ($B_1=6.2$x$10^4$ and $B_2 = 2.6$x$10^4$) and session number ($B_1=1.5$x$10^4$ and $B_2 = 11$) play an important role on the number of failures. Table \ref{tab:control_failures} and additional post-hoc comparisons between sessions indicate that in the first interaction, the number of failures decreases between the first and the second session and then stabilises between the second and the third one ($B_{12}=619$, $B_{13}=1.7$x$10^3$ and $B_{23}=0.25$). Similar results can be observed in the second interaction ($B_{45}=3.3$, $B_{46}=7.5$ and $B_{56}=0.2$).
@@ -402,6 +410,7 @@ Figure \ref{fig:control_failures} presents the number of failure states particip
 	\end{tabular}
 \end{table}
 
+The fewer failures faced when using \gls{sparc} compared to \gls{irl} offers partial support to H1 and its prediction. Additionally, the low number of failures when using \gls{sparc} in the last sessions shows that participants became more efficient with \gls{sparc}, reaching successes without facing failures, which partially support H2: `SPARC can be used by expert users (knowledgeable in the interaction process) to teach an action policy safely, quickly and efficiently'.
 
 \subsection{Questionnaire data}
 
@@ -414,6 +423,8 @@ The main task of the post-interaction questionnaires was to assess the workload 
 	}
 	\label{fig:control_workload}
 \end{figure}
+
+This lower workload when using \gls{sparc} compared to \gls{irl} offers partial support for H1 and its predictions.
 
 \subsection{Expert} \label{ssec:control_expert}
 
@@ -438,6 +449,7 @@ Similar results to these were observed with our non-expert participants: in thei
 	\end{tabular}
 \end{table}
 
+The absence of failures and the lower number of inputs and shorter time required to teach with \gls{sparc} compared to \gls{irl} when used by an expert user provide support for H2.
 %\section{Discussion}
 
 \section{Validation of the hypotheses}

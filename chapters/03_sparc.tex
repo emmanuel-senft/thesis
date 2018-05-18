@@ -78,7 +78,7 @@ Alternatively, \gls{sparc} can be seen as a way to provide pro-activity to the r
 
 \gls{sparc} aims to provide an interaction framework to teach robots an action policy possessing the following characteristics:
 \begin{itemize}
-	\item Usable by non-experts in computer science.
+	\item Usable by people without expertise in computer science.
 	\item Fast policy learning from in-situ guidance.
 	\item No constant requirement of human input to act in the world.
 	\item Robot's behaviour constantly appropriate.
@@ -93,7 +93,7 @@ Figure \ref{fig:concept} presents an idealistic comparison of the expected workl
 	\label{fig:concept}
 \end{figure}
 
-Once the behaviour is deemed appropriate enough by the teacher, the agent is ready to be deployed to interact autonomously in the real world if this outcome is desired. Alternatively, in contexts where a human expert still cannot be removed from the control loop, such as \gls{rat}, a supervisor stays in control of the robot actions in a supervised autonomous way. Similarly to the teaching phase, the robot informs the supervisor of its actions and the human only has to intervene in case of incorrect propositions. While still requiring attention from the supervisor, this reduction of human actions to control the robots aims at reducing the workload on the supervisor. As the supervisor has a better knowledge of the agent's behaviour, they can be especially careful in cases when they know the agent is sometimes making errors. And as the control of the agent requires less effort from the supervisor, they can focus more closely on the application interaction than the teaching one in the other cases. 
+Once the behaviour is deemed appropriate enough by the teacher, the agent is ready to be deployed to interact autonomously in the real world if this outcome is desired. Alternatively, in contexts where a human expert still cannot be removed from the control loop, such as \gls{rat}, a supervisor stays in control of the robot actions in a \gls{sa} fashion. Similarly to the teaching phase, the robot informs the supervisor of its actions and the human only has to intervene in case of incorrect propositions. While still requiring attention from the supervisor, this reduction of human actions to control the robots aims at reducing the workload on the supervisor. As the supervisor has a better knowledge of the agent's behaviour, they can be especially careful in cases when they know the agent is prone to making errors. And as the control of the agent requires less effort from the supervisor, they can focus more closely on the application interaction than the teaching one in the other cases. 
 %This approach is similar to safety drivers behind autonomous vehicles but with information about the car's intentions rather than solely observing the car's actions. 
 %MAybe something on knowing critical parts of the interaction policy (Example DREAM only evaluation of performance)
 
