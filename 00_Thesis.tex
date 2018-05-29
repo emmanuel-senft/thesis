@@ -1,18 +1,14 @@
-\documentclass[11pt, a4paper, oneside]{book}
+\documentclass[11pt, a4paper, oneside]{uopthesis}
 
 \input{prelim/preamble}
-\setcounter{tocdepth}{2}
-\graphicspath{{images/}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-% SET THE FIRST PART TO BE SINGLE SPACED
-{\setstretch{1.0}
+\onehalfspacing
 \input{prelim/prelim}
-}
 
-\mainmatter
 
+\doublespacing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{chapters/01_intro}
 \cleartooddpage
@@ -37,6 +33,8 @@
 
 \input{chapters/08_conclusion}
 \cleartooddpage
+
+%\onehalfspacing
 
 \printglossaries
 \cleartooddpage

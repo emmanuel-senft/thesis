@@ -1,11 +1,14 @@
-\usepackage[top=20mm, bottom=20mm, inner=40mm, outer=20mm]{geometry}
-\usepackage{graphicx, natbib, fancyhdr, microtype, titlesec, pdfpages, mathptmx, bibentry, booktabs, pdflscape, afterpage, framed, tabulary,subcaption,capt-of}
+\usepackage[top=20mm, bottom=20mm, inner=40mm, outer=24mm]{geometry}
+\usepackage{graphicx,nomencl, natbib, microtype, titlesec, pdfpages, mathptmx, bibentry, booktabs, pdflscape, afterpage, framed, tabulary,subcaption,capt-of}
+\usepackage{lettrine,paralist,fancyhdr}
 \usepackage[colorlinks=false, hidelinks]{hyperref}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
 \usepackage[doublespacing]{setspace}		% double line spacing throughout
 \usepackage[toc,page]{appendix}
 \usepackage[ruled,vlined]{algorithm2e}
 \nobibliography*
-
+\graphicspath{{images/}}
 
 \makeatletter
 \newcommand{\thickhline}{%
@@ -21,14 +24,14 @@
   {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{}
 
 % make all page numbers in the right place and remove heading line
-\pagestyle{fancy}
-\lhead{}
-\chead{}
-\rhead{}
-\lfoot{}
-\cfoot{\thepage}
-\rfoot{}
-\renewcommand{\headrulewidth}{0pt}
+%\pagestyle{fancy}
+%\lhead{}
+%\chead{}
+%\rhead{}
+%\lfoot{}
+%\cfoot{\thepage}
+%\rfoot{}
+%\renewcommand{\headrulewidth}{0pt}
 
 % --- for more modern look - take these out for old fashioned look to the paragraphs
 \parindent=0pt
@@ -40,11 +43,20 @@
 %\usepackage{charter}
 %\usepackage{garamond}
 %\usepackage{MyriadPro}
-\usepackage{mathpazo}
-\usepackage{eulervm}
+%\usepackage{mathpazo}
+%\usepackage{eulervm}
 %\usepackage{venturis2}
 %\renewcommand{\familydefault}{\sfdefault}
 \usepackage[T1]{fontenc}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage[scaled=1]{helvet}
+%\usepackage[helvet]{sfmath}
+%\everymath={\sf}
 
 \newcommand\cleartooddpage{\clearpage
   \ifodd\value{page}\else\null\clearpage\fi}
+
+\usepackage{mathptmx}
+
+% --- nice typewriter alternative
+\usepackage{tgcursor}
