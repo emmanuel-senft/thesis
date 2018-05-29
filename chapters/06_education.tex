@@ -124,7 +124,137 @@ During the pre-test, the experimenter demonstrate how to connect animals by draw
 			\caption{Test screen to evaluate children's knowledge, empty starting screen (a) and fully connected and correct test (b).}
 			\label{fig:test}
 			\end{figure*}
+			
 \section{Results}
+
+
+To demonstrate the presence or the absence of effects, we used bayesian statistics on the data. As such the Bayes factor $B$ is reported and represents how much of the variance on the metric is explained by a parameter (if $B < 1/3$ there is no impact, if $B > 3$ the impact is strong, and if $1/3<B<3$ the results are inconclusive - \cite{jeffreys1998theory,dienes2011bayesian}). And the analysis is performed using the Jasp software \cite{jasp2018}.
+
+%Preliminary results (currently in progress, due to be completed before the submission of the full article) show that (1) the robot is able to effectively jointly learn action and social policies (Figure 2), (2) the learning gains of the children supported by the autonomous robot are not significantly different from the gains when the learning is supported by a robot tele-operated by the human expert, which would indicate the utility of the approach.
+
+
+\paragraph{Test performance}
+
+Figure \ref{fig:performance} shows the evolution of children's performance across the three tests. A Bayesian mixed-ANOVA show that in all conditions, children's performance increased across the tests ($B=1.5$x$10^{12}$), however the impact of the condition on the learning is inconclusive with a tendency to show no impact ($B=0.539$). This indicates that by being involved in the task, every children learned and improve their performances on the test (by gaining in average 13\% of the missing knowledge), but the robot behaviour during the game did not have an important impact on the children's learning gain (see Figure \ref{fig:learning}).
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{perf.pdf}
+	\centering
+	\caption{Children's performance for the three tests: pretest, midtest and posttest for the three conditions.}
+	\label{fig:performance}
+\end{figure}
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{learning.pdf}
+	\centering
+	\caption{Children's normalised learning gain after interacting with the robot for the three conditions.}
+	\label{fig:learning}
+\end{figure}
+
+\paragraph{Game metrics}
+
+Figure \ref{fig:d_eat} shows the evolution of the number of different eating behaviour exhibited by the children across the four game sessions. A Bayesian mixed-ANOVA shows an impact of the condition on the number of different eating behaviour produced by the children in the game ($B=6.1$). Post-hoc tests show that there is no difference between the Supervised and the Autonomous conditions ($B=0.154$), whilst differences are observed between the Supervised and the Passive condition ($B=512$) and between the Autonomous and the Passive conditions ($B=246$). This indicates that the Supervised robot provided additional knowledge to the child during the game, allowing them to create more useful interactions between animals and their food, receiving more information from the game potentially helping them to learn. The Autonomous robot managed to recreate autonomously this effect without the presence of a human providing input.
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{d_eat.pdf}
+	\centering
+	\caption{Number of different eating behaviour for the four games for the three conditions.}
+	\label{fig:d_eat}
+\end{figure}
+
+Figure \ref{fig:points} shows the evolution of the number of points achieved by the children across the four game sessions. A Bayesian mixed-ANOVA shows an impact of the condition on the number of points achieved by the children in the game ($B=10.2$). Post-hoc tests show a strong difference between the Passive and the Supervised conditions ($B=5.1$x$10^4$) and differences between the Supervised and the Autonomous conditions ($B=5.2$) and the Autonomous and the Passive condition ($B=5.9$). This indicates that when the robot was supervised, it allowed children to achieved more points than a  passive robot. And a similar effect is observed when the robot is autonomous, however the autonomous robot did not manage to reach the same efficiency as the supervised robot in helping the children to achieve a high score in the game.
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{points.pdf}
+	\centering
+	\caption{Points achieved by the children in each game session for the three conditions.}
+	\label{fig:points}
+\end{figure}
+
+Figure \ref{fig:time} shows the evolution of interaction time across the four game sessions. A Bayesian mixed-ANOVA shows is inconclusive on the impact of the condition on the interaction time in the game ($B=1.1$). However, post-hoc tests show that there is no difference between the Supervised and the Autonomous conditions ($B=0.287$), whilst differences are observed between the Supervised and the Passive condition ($B=118$) and a tendency of difference between the Autonomous and the Passive conditions ($B=2.9$). This indicates that the Supervised robot allowed children to be better at the game, allowing them to maintain animal alive longer than a Passive robot. And the autonomous robot learn a policy tending to replicate this effect and without exhibiting differences with the supervised one.
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{time.pdf}
+	\centering
+	\caption{Interaction time for the four games for the three conditions.}
+	\label{fig:time}
+\end{figure}
+
+These game metrics show that the action policy executed by the autonomous robot allows children to achieve similar results in the game than when the robot is supervised, and better results than when interacting with a passive robot. This provide support for H2 ("The robot reproduce the action policy demonstrated by the teacher enabling the child to achieve similar game metrics in autonomous and supervised condition but better than the passive condition"). However, children learned similarly in the three conditions, so these improvements in the game did not transfer to improvements in the test neither for the Supervised robot nor the Autonomous one. This does not support H1 ("The robot support child learning: learning gain in passive condition $<$ learning gain in autonomous condition $<$ learning gain in supervised condition")
+
+\paragraph{Supervision}
+
+Figure \ref{fig:supervision} presents the reaction of the teacher to the robot's suggestions across all the supervised sessions. In average the teacher accepted 22.3\% of all the proposition of the robot (by enforcing the action, let it be executed or using the `Do it' button), which represents 35\% of the actions executed by the robot. This effect tends to be stable across the sessions. The teacher interaction pattern evolved overtime, such as by using mostly the `Cancel' button in the start then the `Skip' one, but in the end, the teacher used this two buttons mostly interchangeably even if the algorithm underlying reaction is different. Another observation is the evolution from using the auto-execution function to the `Do it' button once the teacher felt more comfortable in the supervision. The teacher reported three phases in her teaching: 
+
+\begin{itemize}
+	\item First sessions: she was not paying much attention to the suggestions, mostly trying to have the robot executing a correct action policy.
+	\item Session 20 to around 65: she was paying more attention to the suggestions without giving them much credit.
+	\item Last sessions: she started to trust the robot more but without ever trusting it totally.
+\end{itemize}
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{propositions.pdf}
+	\centering
+	\caption{Teacher's reaction to the robot's propositions along the sessions.}
+	\label{fig:supervision}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{selections.pdf}
+	\centering
+	\caption{Origin of the actions executed by the robot. Re-enforced actions indicates that an action has been selected after having been cancelled or skipped by the teacher.}
+	\label{fig:supervision}
+\end{figure}
+
+Additional comments:
+\begin{itemize}
+	\item The robot proposed in average 58\% more actions than the number of actions selected by the teacher.
+	\item As the time is continue and not discrete, the concept of correct actions is shifted, and actions selected by the teacher might have been proposed by the robot a fraction of second later without being counted as good proposition.
+	\item The teacher often cancelled/skip actions directly as they arrived without taking time to analyse them (limitation of this implementation of SPARC).
+	\item Evolution of teaching policy limits the potential of learning (not one single policy applied by the teacher, but an evolving one).
+	\item Children are different, so the teacher tried to apply different action policy for each child.
+\end{itemize}
+
+
+\begin{figure}[ht]
+	\includegraphics[width=.6\linewidth]{number_actions.pdf}
+	\centering
+	\caption{Accumulation of the number of different actions used by the teacher across the  participants.}
+	\label{fig:supervision}
+\end{figure}
+
+
+\paragraph{Comparison of policy}
+
+Figures \ref{fig:supervised_actions} and \ref{fig:autonomous_actions} present the policies used by the teacher and the autonomous robot across their participants. It should be noted that participants in both conditions are different.
+
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{supervised_actions.pdf}
+	\centering
+	\caption{Repartition of actions across the participants in the supervised condition.}
+	\label{fig:supervised_actions}
+\end{figure}
+
+\begin{figure}[ht]
+	\includegraphics[width=1\linewidth]{autonomous_actions.pdf}
+	\centering
+	\caption{Repartition of actions across the participants in the autonomous condition.}
+	\label{fig:autonomous_actions}
+\end{figure}
+
+\begin{table}[ht]
+	\centering
+	\caption{Repartition of action in the policy for both conditions (in \%).}
+	\label{tab:policies}
+	\begin{tabularx}{\textwidth}{l|YYYccY}
+		& Draw \newline Attention & Move \newline close & Move \newline away & Congratulation & Encouragements & Remind \newline rules \\
+		\hline
+		Supervised & 6.6  & 22.2 & 0.1 & 43.1 & 22.7 & 5.3 \\
+		Autonomous & 8.5 & 11.8 & 0.1 & 25.4 & 35.2 & 18.9\\
+	\end{tabularx}
+\end{table}
 
 \section{Discussion}
 
