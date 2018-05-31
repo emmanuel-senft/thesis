@@ -165,7 +165,7 @@ The learning algorithm (see Algorithm \ref{algo:control_sparc} and \ref{algo:con
 			 		$r_{t} = 0.25$
 			 	}
 			 }
-			 \vspace{30pt}
+			 \vspace{28.75pt}
 			 \nosemic Act in the world:\;
 			 \pushline\dosemic execute $a_{t}$, transition to $s_{t+1}$
 			 
@@ -174,7 +174,6 @@ The learning algorithm (see Algorithm \ref{algo:control_sparc} and \ref{algo:con
 			 \nosemic Learn:
 			 
 			 \pushline\dosemic $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t},a))-Q(s_{t},a_{t}))$
-			 
 			}
 		\end{minipage}
 	\end{algorithm}
@@ -292,11 +291,12 @@ In the first three sessions participants interacted with either \gls{irl} or \gl
 	\centering
 	\caption{Median performance in the teaching phase. Noted that between session 3 and 4 participants change system.}
 	\label{tab:control_teaching_perf}
-	\begin{tabular}{l"ccc|ccc}
+	\begin{tabular}{@{}lllllll@{}}\toprule
 		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
-		\hline
+		\midrule
 		IRL & 3.0 & 3.5 & 3.0 & 3.5 & 2.5 & 3.0\\
 		SPARC & 6.0 & 6.0 & 6.0 & 6.0 & 6.0 & 6.0\\
+		\bottomrule
 	\end{tabular}
 \end{table}
 
@@ -324,11 +324,12 @@ As shown in Table \ref{tab:control_perf} and Figure \ref{fig:control_perf}, only
 	\centering
 	\caption{Medians of the performance in the testing phase.}
 	\label{tab:control_perf}
-	\begin{tabular}{l"ccc|ccc}
+	\begin{tabular}{@{}lllllll@{}}\toprule
 		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
-		\hline
+		\midrule
     IRL & 0.0 & 0.0 & 1.0 & 0.0 & 0.0 & 0.0\\
     SPARC & 6.0 & 6.0 & 6.0 & 4.5 & 6.0 & 6.0\\
+    \bottomrule
 	\end{tabular}
 \end{table}
 
@@ -350,11 +351,12 @@ Figure \ref{fig:control_time} presents the time participants spent teaching. The
 	\centering
 	\caption{Medians of the teaching time in each session (in minutes).}
 	\label{tab:control_time}
-	\begin{tabular}{l"ccc|ccc}
+	\begin{tabular}{@{}lllllll@{}}\toprule
 		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
-		\hline
+		\midrule
     IRL & 16.34 & 7.43 & 6.16 & 9.36 & 5.18 & 3.0\\
     SPARC & 8.97 & 3.56 & 2.49 & 3.96 & 2.45 & 1.53\\
+    \bottomrule
 	\end{tabular}
 \end{table}
 
@@ -376,11 +378,12 @@ Figure \ref{fig:control_inputs} presents the number of inputs the participants p
 	\centering
 	\caption{Medians of the number of inputs in the testing phase.}
 	\label{tab:control_inputs}
-	\begin{tabular}{l"ccc|ccc}
+	\begin{tabular}{@{}lllllll@{}} \toprule
 		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
-		\hline
+		\midrule
     IRL & 248.0 & 107.5 & 109.5 & 142.5 & 79.0 & 80.0\\
     SPARC & 141.0 & 60.0 & 56.0 & 72.5 & 50.0 & 37.0\\
+    \bottomrule
 	\end{tabular}
 \end{table}
 
@@ -402,11 +405,12 @@ Figure \ref{fig:control_failures} presents the number of failure states particip
 	\centering
 	\caption{Medians of the number of failures in the testing phase.}
 	\label{tab:control_failures}
-	\begin{tabular}{l"ccc|ccc}
+	\begin{tabular}{@{}lllllll@{}}\toprule
 		& $\widetilde{X}_{1}$ & $\widetilde{X}_{2}$ & $\widetilde{X}_{3}$ & $\widetilde{X}_{4}$ & $\widetilde{X}_{5}$ & $\widetilde{X}_{6}$\\ 
-		\hline
+		\midrule
 	    IRL & 9.0 & 6.0 & 5.0 & 5.5 & 3.5 & 2.5\\
 	    SPARC & 3.0 & 0.0 & 0.0 & 1.5 & 1.0 & 0.0\\
+	    \bottomrule
 	\end{tabular}
 \end{table}
 
@@ -438,14 +442,14 @@ Similar results to these were observed with our non-expert participants: in thei
 	\centering
 	\caption{Results of an expert interacting 5 times with each system following an optimal strategy. When the variance is 0, Bayes Factor cannot be computed.}
 	\label{tab:control_expert}
-	\begin{tabular}{cccc}
+	\begin{tabular}{@{}llll@{}}\toprule
 	&IRL \textit{M(SD)} & SPARC \textit{M(SD)} & $B$ factor\\
 		\midrule
 		Performance & 6 (0) & 6 (0) & NA \\
 		Time (minutes) & 4.5 (0.67) & 0.60 (0.03) & 7102 \\
 		Inputs & 115.6 (8.4) & 28 (0) & NA \\
 		Number of Failures & 3.2 (0.84) & 0 (0) & NA \\
-%		\bottomrule
+		\bottomrule
 	\end{tabular}
 \end{table}
 

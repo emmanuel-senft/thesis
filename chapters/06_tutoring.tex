@@ -1,4 +1,5 @@
 \chapter{Teaching a robot to support child learning}\label{chap:tutoring}
+\glsresetall
 \graphicspath{{images/tutoring/}}
 
 \begin{framed}
@@ -248,11 +249,12 @@ Figures \ref{fig:supervised_actions} and \ref{fig:autonomous_actions} present th
 	\centering
 	\caption{Repartition of action in the policy for both conditions (in \%).}
 	\label{tab:policies}
-	\begin{tabularx}{\textwidth}{l|YYYccY}
+	\begin{tabularx}{\textwidth}{@{}lYYYccY}\toprule
 		& Draw \newline Attention & Move \newline close & Move \newline away & Congratulation & Encouragements & Remind \newline rules \\
-		\hline
+		\midrule
 		Supervised & 6.6  & 22.2 & 0.1 & 43.1 & 22.7 & 5.3 \\
 		Autonomous & 8.5 & 11.8 & 0.1 & 25.4 & 35.2 & 18.9\\
+		\bottomrule
 	\end{tabularx}
 \end{table}
 

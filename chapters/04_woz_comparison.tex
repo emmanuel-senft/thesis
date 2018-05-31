@@ -224,13 +224,20 @@ Both for the performance and the intervention ratio, a strong ordering effect wa
 \begin{table}[t]
 	\caption{Average performance and intervention ratio separated by condition and order.}
 	\centering
-\begin{tabulary}{1.0\textwidth}{L"C|C"C|C}
-	& \multicolumn{2}{c"}{Order LN} & \multicolumn{2}{c}{Order NL} \\
-	& \gls{sparc} (int 1) & WoZ (int 2) & WoZ (int 1) & \gls{sparc} (int 2) \\
-	\hline			
-Performance M \linebreak 95\% CI & 29.6 [23.61,35.59] & 38.2 [35.46,40.94] & 24.6 [18.1,31.1] & 35.6 [29.34,41.86]\\
-Intervention Ratio M 95\% CI & 0.31 [0.17,0.45] & 0.68 [0.65,0.71] & 0.5 [0.4,0.61] & 0.46 [0.38,0.53]\\
-\end{tabulary}
+	\ra{1.2}
+\begin{tabular}{lllcll}\toprule
+	& \multicolumn{2}{c}{Order LN} & \phantom{abc} & \multicolumn{2}{c}{Order NL} \\
+	\cmidrule{2-3} \cmidrule{5-6}
+	& SPARC & WoZ && WoZ & SPARC \\
+	& (int 1) & (int 2) && (int 1) & (int 2) \\
+	\midrule			
+Performance M & 29.6 & 38.2 && 24.6 & 35.6 \\
+95\% CI & [23.61,35.59] & [35.46,40.94] && [18.1,31.1] & [29.34,41.86]\\
+\\
+Intervention Ratio M & 0.31 & 0.68 && 0.5 & 0.46 \\
+95\% CI & [0.17,0.45] & [0.65,0.71] && [0.4,0.61] & [0.38,0.53]\\
+\bottomrule
+\end{tabular}
 \label{tab:woz_comp_means}
 \end{table}
 
