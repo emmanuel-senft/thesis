@@ -119,7 +119,7 @@
        inkscape:isstock="true">
       <path
          id="path4403"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
          transform="scale(-0.6,-0.6)"
          inkscape:connector-curvature="0" />
@@ -328,7 +328,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.648984"
-     inkscape:cx="309.9835"
+     inkscape:cx="229.27068"
      inkscape:cy="216.51726"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -351,7 +351,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -442,8 +442,8 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:29.92934036px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       x="341.27985"
-       y="952.84216"
+       x="321.50006"
+       y="962.95343"
        id="text4157-7-9"
        sodipodi:linespacing="125%"
        transform="scale(1.0111327,0.98898987)"
@@ -451,8 +451,8 @@
        inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4159-8-0"
-         x="341.27985"
-         y="952.84216"
+         x="321.50006"
+         y="962.95343"
          style="font-size:10px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">Observe</tspan></text>
     <text
        xml:space="preserve"
@@ -599,36 +599,57 @@
    id="tspan4367">a</tspan>/<tspan
    style="font-weight:bold"
    id="tspan4369">a'</tspan> if arriving</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:29.92934036px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       x="461.87408"
-       y="1019.3984"
-       id="text4157-7-9-4"
-       sodipodi:linespacing="125%"
-       transform="scale(1.0111327,0.98898987)"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"><tspan
-         sodipodi:role="line"
-         id="tspan4159-8-0-1"
-         x="461.87408"
-         y="1019.3984"
-         style="font-size:10px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">Asynchronous</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:14.96467018px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="460.86041"
-       y="1044.387"
-       id="text7021-5-5"
-       sodipodi:linespacing="125%"
-       transform="scale(1.0111327,0.98898987)"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"><tspan
-         sodipodi:role="line"
-         x="460.86041"
-         y="1044.387"
-         id="tspan7025-4-08"
-         style="font-size:10px">Synchronous</tspan></text>
+    <g
+       id="g4371"
+       transform="translate(5.610082,-0.301705)">
+      <g
+         id="g4385">
+        <g
+           transform="translate(20,-40)"
+           id="g4377">
+          <text
+             inkscape:export-ydpi="90"
+             inkscape:export-xdpi="90"
+             transform="scale(1.0111327,0.98898987)"
+             sodipodi:linespacing="125%"
+             id="text4157-7-9-4"
+             y="1019.3984"
+             x="401.91901"
+             style="font-style:normal;font-weight:normal;font-size:29.92934036px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-weight:bold;font-size:10px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               y="1019.3984"
+               x="401.91901"
+               id="tspan4159-8-0-1"
+               sodipodi:role="line">Asynchronous </tspan><tspan
+               id="tspan4381"
+               style="font-weight:bold;font-size:10px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1.995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               y="1031.8984"
+               x="401.91901"
+               sodipodi:role="line">Continuous time scale</tspan></text>
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:14.96467018px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="421.02985"
+           y="1024.1643"
+           id="text7021-5-5"
+           sodipodi:linespacing="125%"
+           transform="scale(1.0111327,0.98898987)"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90"><tspan
+             sodipodi:role="line"
+             x="421.02985"
+             y="1024.1643"
+             id="tspan7025-4-08"
+             style="font-weight:bold;font-size:10px">Synchronous</tspan><tspan
+             id="tspan4383"
+             sodipodi:role="line"
+             x="421.02985"
+             y="1036.6643"
+             style="font-weight:bold;font-size:10px">Discrete time scale</tspan></text>
+      </g>
+    </g>
     <g
        id="g12680"
        transform="translate(-44.596612,609.48477)"
@@ -812,7 +833,7 @@
          style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
+       style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
        d="m 128.8747,819.89827 225.58848,0"
        id="path4186-4-0"
        inkscape:connector-curvature="0"
