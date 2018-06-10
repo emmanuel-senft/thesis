@@ -378,7 +378,7 @@ The main framework of learning applied to learning from interaction is \acrfull{
 	
 	Whilst being promising and having been applied for agents in human environments (such as for personalised advertisement - \citealt{theocharous2015personalized})	these approaches have not been used to learn social behaviours or to have robot interacting with humans.
 
-\subsection{Human as a source of feedback on actions}
+\subsection{Human as a source of feedback on actions} \label{ssec:back_feedback}
 
 When an agent is learning in a \gls{rl} fashion and improves its behaviour by receiving rewards from the environment, an intuitive way to steer the agent's behaviour in the desired direction faster is to use human rewards. This approach is an adaptation of `shaping': tuning a animal's behaviour by providing rewards \citep{bouton2007learning}. In \gls{ml}, using rewards from a human to bias and improve the learning presents advantages: the interface is simple and generalisable to any type of problem, and the teacher only needs a way to provide a scalar or a binary evaluation of an action to steer the learning. However, this simplicity of interaction is associated with a limited efficiency and a complexity of interpretation: the issues of how to interpret human rewards and how to combine them with environmental ones if existent are an active research field today \citep{knox2010combining}.
 
