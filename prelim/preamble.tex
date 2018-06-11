@@ -13,6 +13,10 @@
 \graphicspath{{images/}}
 
 \makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+
+\makeatletter
 \newcommand{\thickhline}{%
 	\noalign {\ifnum 0=`}\fi \hrule height 1pt
 	\futurelet \reserved@a \@xhline
