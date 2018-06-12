@@ -12,48 +12,53 @@ This works explores how robots could interact with humans to learn from them to 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scope}\label{sec:intro-scope}
-\gls{hri} complex, definition of the the problem
+
+Enabling a robot to interact socially with humans is complex task. The robot needs to interpret a large sensory space, relying on images camera, motor joints or high level concepts defining the state of the interaction. Then based on the interpretation of this inputs and rules defining expected behaviour or limiting the behaviour, the robot needs to select an action or a plan it will execute to fit the goal it has been assigned. The following sections will aim to refine the scope of the research conducted in this thesis.
 
 \subsection{Frame}
 
-robot not designed statically by engineers but entities which should be molded
+The focus of the research conducted here is finding a way for robots to interact safely and efficiently with humans. It has been argued by many \citep{dautenhahn2004robots,billard2008robot} that an efficient robot interacting with human would not be preprogrammed beforehand and execute a one-size-fits-all policy suited to every possible interaction partners. Robots needs to be able to learn an interactive behaviour, improving their skills as they interact and personalising their policy to the preferences of their users. The aim of this thesis is finding a interaction framework allowing humans to teach robot how to interact with other humans.  
 
-teaching robot to interact with humans
+Throughout this thesis we make the assumption that, while an engineer designing a robot behaviour might not know how the robot should behave, an expert possess this knowledge and should be able to transfer it to the robot. This human teacher's expertise is not related to theoretical knowledge in \gls{ml}, robotics or other scientific fields. It just denotes that this person possess knowledge unknown by the engineer design the robot. This could take the form of the steps of a therapy a robot should deliver to the child (known by a therapist) or more simply a senior's preferences and desires concerning a robot companion.
 
-assumption that some humans are experts in a domain that the robot have to learn
-(could it be therapists, or simply a user being expert in knowing how they desire the robot to interact)
+This thesis aims to provide a convenient and efficient way for this domain expert to inculcate this knowledge in the robot.
 
-\subsection{Environment} \label{sec:scope-social}
-Robot interacting in an environment shared with humans / directly with humans
 
-human centred environment where the robot is supposed to complete a specific task
+\subsection{Environment} 
+
+Robots considered in this thesis evolve in human-centred environment and are expected to provide some support to the surrounding humans and achieve a specific goal assigned to them. Interactions with humans are by essence social, and robots needs to take into these social norms when interacting in human environments.
+
+???
 
 \subsection{Type of interaction}
-Dyadic/Triadic interaction:
-human expert + human target of the interaction
+
+The typical interaction considered in this thesis is a triadic interaction between a human the user of the robot, the robot and an application target, potentially another human (as shown in Figure \ref{fig:intro_setup}). In this type of interaction, the user has an aim for robot, a task they would like the robot to complete. And through the teaching interaction, they can supervise the robot, demonstrating it what it should do and teaching it an efficient action policy in the application interaction with the target.
+
+The application target could be another human (such as a child receiving teaching support from the robot) or just parts of the environment if the robot has to complete a manipulation of navigation task (such as picking up a book in the library).
 
 \begin{figure}[ht]
-	\includegraphics[width=.4\linewidth]{setup.pdf}
+	\includegraphics[width=.7\linewidth]{setup.pdf}
 	\centering
-	\caption{The setup used in the study: a child interacts with the robot tutor, with a large touchscreen sitting between them displaying the learning activity; a human teacher provides guidance to the robot through a tablet and monitors the robot's learning.}
-	\label{fig:setup}
+	\caption{The typical interaction used in this research: a robot interacts with a target in an application interaction and learns from a domain expert through a teaching interaction.}
+	\label{fig:intro_setup}
 \end{figure}
 
 \subsection{Algorithms}
 
-different algo can be used to teach robot to interact:
+The aim of this thesis being exploring how humans could teach robots to interact in  human-centred environment, the robot needs to possess a learning algorithm allowing it to improve its action policy. Two main categories of learning algorithms have been used in this research: \gls{sl} and \gls{rl}.
 
-\paragraph{Supervised Learning}
+\gls{sl} aims to learn a mapping between inputs and outputs to automatically reproduce a desired behaviour. It uses a dataset of labelled example and optimise an algorithm such as its prediction error of the output for each input is minimised \citep{russell2016artificial}. Typical example used in this study are \gls{ann} and nearest neighbours methods. \gls{ann} models loosely the way brains and neurons work by having a group of `neurons' connected between each other by synapses. Each neuron updates its according value according to connections with other neurons including weights and non-linearity. The general approach have a set of input nodes, a set of output nodes and hidden nodes, and the network learns by changing the value of the weights to reproduce the desired values on the output nodes. Nearest neighbours methods compare the distance in the feature space between a point to classify to the different instances stored in a dataset and select the value of a majority of nearest neighbours in this space.
 
-\paragraph{Reinforcement Learning}
+Unlike \gls{sl} which aims at reproducing a known behaviours, \gls{rl} aims at providing an agent with the capacity to discover the world it interact in and learn from this interaction with the world \citep{sutton1998reinforcement}. The agent has access to a description of the state and actions it can do, and depending of the action selected, the state will change and the agent will receive a reward. The goal of the agent is to find an optimal policy maximising a notion of cumulated reward.
 
-Three different algorithms have been used in the progress of this research. The first study presented in Chapter \ref{chap:woz} uses feed forward neural network with a single hidden layer. the second study in Chapter \ref{chap:control} used \acrlong{rl} combining human and environmental rewards into a single reward source for the algorithm. And the last study presented in Chapter \ref{chap:tutoring} uses instance based algorithm adapted from Nearest Neighbours to enable quick and efficient learning. More details about each algorithms and their related work can be found in the associated chapters.
+Due to the relevance of both fields to this thesis research topics: enabling humans to teach robots to interact, algorithm from both categories have been used. The first study presented in Chapter \ref{chap:woz} uses a feed forward neural network learning to reproduce a teacher policy. The second study in Chapter \ref{chap:control} used \acrlong{rl} combining human and environmental rewards. The aim of this algorithm is to use the human guidance and rewards to learn an efficient interaction policy. And the last study presented in Chapter \ref{chap:tutoring} uses instance based algorithm adapted from Nearest Neighbours to enable quick and efficient learning. More details about each algorithms and their related work can be found in the associated chapters.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Thesis}\label{sec:intro-thesis}
 The main thesis that this document seeks to put forward is as below.
-
-A robot can learn how to interact meaningfully with humans by receiving supervision from a human teacher in control of the robot's behaviour, this supervision will lead to an efficient, safe and low human-workload teaching and autonomous behaviour.
+\begin{quote}
+	A robot can learn how to interact meaningfully with humans by receiving supervision from a human teacher in control of the robot's behaviour, this supervision will lead to an efficient, safe and low human-workload teaching and autonomous behaviour.	
+\end{quote}
 %One sentence to describe the take home/conclusion
 
 Additional research questions have been explored during the progress of this
@@ -91,17 +96,19 @@ how it has been tested and why that order
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Key Concepts and terminology}\label{sec:intro-concepts}
 
-Throughout this thesis, the terms `wizard', `supervisor' and `teacher' have been used interchangeably to represent the people in control of a robot's action and teaching that robot an action policy.
+Not sure if worth including
+
+Throughout this thesis, the terms `wizard', `supervisor', `user', `expert' and `teacher' have been used interchangeably to represent the people in control of a robot's action and teaching that robot an action policy.
 
 agent and robot
 
 \begin{itemize}
-	\item \textbf{Appropriateness}
+	\item \textbf{Appropriateness}:
 	\item \textbf{Adaptivity}
 	\item \textbf{Autonomy}
 	\item \textbf{Supervised Autonomy}
 	\item \textbf{Learning}
-	\item \textbf{Teacher, wizard and supervisor}
+	\item \textbf{Teacher, wizard, user, expert and supervisor}
 	\item \textbf{Robot and agent}
 \end{itemize}
 
@@ -113,6 +120,7 @@ Complexity of interactions with humans: complex world, safety, workload and so o
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Contributions}\label{sec:intro-contr}
 
+\subsection{Scientific contribution}
 \begin{itemize}
 	\item Design of a new interaction framework for teaching agents in a safe way.
 	\item Evaluation in three studies.
@@ -121,6 +129,8 @@ Complexity of interactions with humans: complex world, safety, workload and so o
 	\item Application of \gls{iml} to safely teach robots social autonomy from in situ human supervision. 
 	\item Software development for two projects: \acrshort{dream} (European FP7 project: 611391) and Human-Robot Interaction Strategies for Rehabilitation based on Socially Assistive Robotics (Royal Academy of Engineering: IAPP\textbackslash1516\textbackslash137).
 \end{itemize}
+
+\subsection{Technical contribution}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure}\label{sec:intro-struct}
