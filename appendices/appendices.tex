@@ -1,2 +1,20 @@
-\chapter{A1} \label{app:codingmanual}
+\chapter{Contribution to the DREAM project} \label{app:dream}
 
+As part of DREAM, I have been involved in various meetings, developed tools to automate tasks and contributed to a significant part of the software developed during the project.
+
+\section{Software development}
+
+WP6, composed of Plymouth and VUB, was responsible to develop the cognitive controller of the robot. I developed mostly alone the deliberative, expression and actuation and naoInterface subsystems. I also converted scripts provided by the therapist into steps the robot can follow and programmed a robot behaviour corresponding to each one of these steps.
+
+
+\section{Tools}
+
+In addition to the components developed to run the DREAM application, I created two tools to automate and simplify the use of the YARP middleware while conforming to the development standards imposed on the project.
+
+\subsection{yarpGenerator}
+
+The software development guidelines of DREAM imposed a specific structure for folders of new components developed with a number of constant part throughout the required 6 files. Additionally, adding or removing one port required changes in 5 files in more than 10 location. To ease this procedure, I proposed to add two new class: the yarpInterface and the yarpController. yarpInterface class exposes all the yarp output port required by the component to C++ function and integrates function asynchronously called when messages arrive on input ports. And the yarpController corresponds to a C++ only file where the code can be developed without reliance of YARP. This class (and others) can call functions from yarpInterface to send messages and be called by callbacks in yarpInterface to react to messages. The yarpGenerator is a tool generating automatically compilable code, complient with the development standards. Appendice B presents the techreport created to describe the tool.
+
+\subsection{scriptManager}
+
+The second tools aims at providing a graphical way to read and edit the xml files describing the scripts used in the therapies.
