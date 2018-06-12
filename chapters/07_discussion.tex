@@ -1,13 +1,59 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Discussion} \label{chap:discussion}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Experimental Limitations} \label{sec:disc_limitations}
+\glsresetall
 
-\subsection{Ecological Validity and Generalisability} \label{sec:disc_experiments}
+Chapter \ref{chap:sparc} presented \gls{sparc}, an interactive teaching framework designed to allow robots to learn a social interactive behaviour by begin supervised by humans. Then Chapters \ref{chap:woz}, \ref{chap:control} and \ref{chap:tutoring} evaluated this approach in three studies. The last study evaluated \gls{sparc} in real \gls{hri} and involved 75 children. These chapters seek support for the thesis of this research:
+
+\begin{quote}
+	A robot can learn how to interact meaningfully with humans by receiving supervision from a human teacher in control of the robot's behaviour, this supervision will lead to an efficient, safe and low human-workload teaching and autonomous behaviour.	
+\end{quote}
+
+This chapters gather results from the different studies presented in the research work to discuss the findings of this research, present the limitations of the approach presented, \gls{sparc} and the evaluation in the three studies. Ethical questions raised with teaching robots to interact with humans will be discussed in Section \ref{sec:disc_ethics}. And finally, the last section will present four axis where \gls{sparc} could be extended to increase its used and application to \gls{HRI}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Limitations} \label{sec:disc_limitations}
+
+\subsection{Limitations of SPARC}
+
+\gls{sparc}, as presented in Chapter \ref{chap:sparc} presents several limitations restricting the range of domains it could be applied to.
+
+The first of these limitations is the requirement of a human attentive to the interaction and able to correct the robot's actions before their executions. As stated earlier, \gls{sparc} aims to move away from \gls{woz} or other operation method by learning from the human commands and obtaining an efficient action policy. In its original framing, \gls{sparc} does not aim create a fully autonomous agent behaving without supervision, but to smooth the teaching phase and the use phase in one single interaction where the workload on the supervisor decreases as the robot learns. However, this type of interaction, \gls{sa}, still require a human involved in the supervision and as such presents limited applicability where robots are expected to fill gaps in human workforce to accomplish a task. However, while not being the original goal, \gls{sparc} can still be applied to create a fully autonomous behaviour, as demonstrated in Chapter \ref{chap:tutoring}. While the autonomous behaviour is different from the taught one, it still presents many similarities in the distribution of actions executed by the robot and the children's reaction to this behaviour. More training data and a better learning algorithm should even smoothen this difference of behaviour between the supervised and the autonomous robot. Furthermore, the concepts of \gls{sparc} and the \gls{sa} could still be applied for specific cases where a human supervisor needs to be included in the control process, such as when interacting with children with special needs for example.
+
+A second limitation corresponds the attention of the supervisor. Throughout this research, we assumed that even if the robot behaviour is mostly correct, the supervisor would be attentive to the robot suggestions and ready to correct them at any time. This assumpltion is similarly to autonomous car using safety driver or the `AutoPilot' of Tesla requiring constant human supervision. The agent is fully autonomous but might make mistakes and as such, a human needs to be ready to correct these errors before they impact the world. However, as demonstrated by the few crashes in 2017 and early 2018 involving these partially autonomous vehicles, this assumption is often violated. By observing seemingly correct agent's behaviour, the human supervisor might start to overtrust the agent, missing the occasion to react in time to anticipable errors potentially leading to frustration or death in the case of autonomous vehicles. Some ways exist to potentially mitigate this limitation. For example, the agent could inform more in advance the supervisor about its actions, or expected trajectory. This would provide the supervisor with more time to react and might allow the human react in time, negating this effect. Alternatively, the agent could communicate a lack of confidence in its actions, or interpretation of the environment, informing the supervisor that attention is specially requested in that specific case.
+
+Similarly, as pointed already in Section \ref{ssec:sparc_time}, with \gls{sparc}, the presence of the correction window and the auto execution of actions leads to several issues.
+problem with the correction window \ref{ssec:sparc_time} - not listening - overlap validity window and correction and so on
+
+gui
+
+\subsection{Experimental limitations} \label{sec:disc_experiments}
+
+small sample study 1
+
+annoyance, age, balance of subject... study 2
+only comparison with one approach, not perfect replication
+
+study 3 limited example, only one teacher, potential bias, only PhD student,not real teacher
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ethical Questions} \label{sec:disc_ethics}
 
+responsibility of actions
+
+risk of replacing staff
+
+learning and privacy
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Future Work}
+
+\subsection{Application domains}
+
+\subsection{Learning beyond imitation}
+
+\subsection{Correction window}
+
+\subsection{Sustained learning}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary} \label{sec:disc_summary}
