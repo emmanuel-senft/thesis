@@ -84,12 +84,18 @@ work and are introduced here.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Approach and Experimentation}\label{sec:intro-exps}
+%Should make more references to the research questions
+To explore the thesis and research questions addressed in this work, in Chapter \ref{chap:background}, we started by reviewing the fields of application of \gls{hri} where the interaction is social. From this review, we drew requirements a robot controller should follow. Then we analysed the different controllers used in robotics through these requirements and identified the absence of controller used in \gls{hri} validating this principles.
 
-introduction of structure, and especially why it is that way
+To address this lack of method providing appropriateness of actions and adaptivity to robots while requiring a low workload, we proposed a new method, \gls{sparc}, applicable to \gls{hri}. \gls{sparc} aims to provide control over the robot's action to a human and use this supervision to learn online a correct action policy. \gls{sparc} is based on principles allowing this interaction to be efficient... Once the method and the principles defining the interaction between the human teacher and the robot defined, we evaluated this approach in three study with increasing ambition. Before testing \gls{sparc} in a real world interaction, we needed to evaluate if the interaction between the teacher and the robot could lead to a learning of the robot side, a decrease of workload on the teacher side and if the control provided by \gls{sparc} improved the safety and the efficiency of the learning process.
 
-why literature review, why and conclusion
+The first study, presented in Chapter \ref{chap:woz}, aims at evaluating the interaction between the supervisor and the robot in a controlled and repeatable environment inspired by \gls{rat}. The study explores how, by decreasing the number of actions required by the supervisor, the learning component of \gls{sparc} can reduce their workload.
 
-how the results have been used to design a new interaction framework to teach robots to interact with humans
+Once \gls{sparc} demonstrated that it allowed a robot to learn and decreased the workload on the supervisor, we evaluated how the control provided by \gls{sparc} improved the learning process. To explore the impact of control, we designed a second study comparing \gls{sparc} to \gls{irl} an alternative approach used to teach robots, but providing less control over the robot's action to the teacher. Similarly to the first study, this second one only included a human as a teacher, but not in the target of the teaching. This allowed to gather information on \gls{sparc} in repeatable environments and without having to tackle the challenges of interacting in the real world.
+
+Since the two first study demonstrated the efficiency of \gls{sparc} to teach a robot to interact in virtual environments, \gls{sparc} was ready to be evaluated in a real human-robot interaction: tutoring children in the wild. This last study applied \gls{sparc} to teach a robot a social policy to interact with humans and support child learning. And this study aims at demonstrating the applicability of \gls{sparc} in teaching robots to interact socially with humans, consequently supporting the thesis of this research.
+
+ow the results have been used to design a new interaction framework to teach robots to interact with humans
 
 how it has been tested and why that order
 
@@ -127,11 +133,14 @@ Complexity of interactions with humans: complex world, safety, workload and so o
 	\item Demonstration of the importance of control over the robot's action when teaching a robot to interact.
 	\item Design of a lightweight algorithm to quickly learn from demonstration in complex environments.
 	\item Application of \gls{iml} to safely teach robots social autonomy from in situ human supervision. 
-	\item Software development for two projects: \acrshort{dream} (European FP7 project: 611391) and Human-Robot Interaction Strategies for Rehabilitation based on Socially Assistive Robotics (Royal Academy of Engineering: IAPP\textbackslash1516\textbackslash137).
 \end{itemize}
 
 \subsection{Technical Contribution}
-
+\begin{itemize}
+	\item Software development for two projects: \acrshort{dream} (European FP7 project: 611391) and Human-Robot Interaction Strategies for Rehabilitation based on Socially Assistive Robotics (Royal Academy of Engineering: IAPP\textbackslash1516\textbackslash137).
+	\item Development of a Wizard interface for the Freeplay-Sandbox\footnote{\url{https://github.com/freeplay-sandbox}}. 
+\end{itemize}
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure}\label{sec:intro-struct}
 The structure of this thesis is outlined below to provide an overview of the content and context for each chapter. A summary of key experimental findings are included at the start of each relevant chapter for ease of reference. 
