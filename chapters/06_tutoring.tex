@@ -1,4 +1,4 @@
-\chapter{Teaching a robot to support child learning}\label{chap:tutoring}
+\chapter{Teaching a Robot to Support Child Learning}\label{chap:tutoring}
 \glsresetall
 \graphicspath{{images/tutoring/}}
 
@@ -21,9 +21,9 @@ Parts of the work presented in this chapter have been published verbatim in \cit
 
 Chapters \ref{chap:woz} and \ref{chap:control} tested \gls{sparc} in interactions between robots or in a virtual world but not for human-robot interactions as it was developed for. As such a new study had to evaluate the application of \gls{sparc} to teach a robot an interactive behaviour in a real human-robot interaction. It has been decided to focus on robots in education to teach a food-web to children as it provides a constraints while rich and complex environment for the interaction. The scenario and the code is based on \cite{lemaignan2017free} but has been adapted to provide a robot controller and task goal for the children.
 
-\section{Setup of the study}
+\section{Setup of the Study}
 
-Similarly to the study presented in Chapter \ref{chap:woz}, this study is based on the Sandtray paradigm \citep{baxter2012touchscreen}: a child interacts with a robot through a large touchscreen located between them. Additionally, a teacher can use a tablet to control the robot in one of the conditions (cf. Figures \ref{fig:tutoring_setup} and Figure \ref{fig:setup} used to frame this research).
+Similarly to the study presented in Chapter \ref{chap:woz}, this study is based on the Sandtray paradigm \citep{baxter2012touchscreen}: a child interacts with a robot through a large touchscreen located between them. Additionally, a teacher can use a tablet to control the robot in one of the conditions (cf. Figures \ref{fig:tutoring_setup} and Figure  used to frame this research).
 
 \begin{figure}[ht]
 	\centering
@@ -34,7 +34,7 @@ Similarly to the study presented in Chapter \ref{chap:woz}, this study is based 
 
 
 
-\subsection{Food chain game}
+\subsection{Food Chain Game}
 To teach children a food web, they interacted with a game presented 10 animals and three types of plants. Animals have energy decreasing over time and they have to eat to stay healthy. Animals are immobile unless the child or the robot move them and eat or be eaten when entering in contact with another animal or a plant. Children have to feed animals by moving them to their food, and by feeding them can learn what food each animal eats. Figure \ref{fig:tutoring_game} presents an example of the game where after some time each animal has lost some energy
 
 \begin{figure}[ht]
@@ -45,7 +45,7 @@ To teach children a food web, they interacted with a game presented 10 animals a
 		\label{fig:tutoring_game}
 \end{figure}
 
-\subsection{Robot behaviour}
+\subsection{Robot Behaviour}
  
 During the game, the robot can execute actions to provide hints and support to the child. The robot has access to five types of actions:
 \begin{itemize}
@@ -60,7 +60,7 @@ For each utterance joining an action, multiple versions are available, and a ran
 
 These actions represent different level of support, from general motivation and informations sentences to information about which animals the child should focus on or direct information about what animals eat. This should cover a large range of supportive feedback provided for such an application. 
 
-\subsection{Wizard of Oz application}
+\subsection{Wizard of Oz Application}
 
 To allow the interaction between the teacher and the robot, a \gls{gui} has been developed representing the current state of the game exactly as the child sees it on the touchscreen \ref{fig:tutoring_gui}. Buttons for the actions (excluding movements) allow the teacher to select which action the want the robot to execute. To provide additional features for the algorithms and precise which action the teacher is executed (on which animal should the robot draw the attention), the teacher can select animals or plant and provide them to the other components. For example, if the teacher highlights the frog and then press the "Draw attention" button, the actions \textit{drawing attention to the frog} will be executed by the robot.
 
@@ -88,7 +88,7 @@ The algorithm runs at 2Hz while we would expect actions to be selected every 5 t
 
 \section{Methodology}
 
-\subsection{Study design}
+\subsection{Study Design}
 
 Sixty children aged 8 to 10 participated in the study (age: \textit{M}=8.9, \textit{SD}=0.83; 11F/15M).  Children were first introduced to the robot and the aim of the interaction, then had a first pre-test to evaluate their initial knowledge. Before starting the teaching game, children have to complete a tutorial where they are introduced to the mechanics of the game: animals have life and have to eat to survive and children can move animals to make them interact with other animals or plants. After this short tutorial, they have to complete two sessions of the game where the robot can provide feedback and advices depending which conditions they are in. After these initial sessions of the game they have to complete a mid-test before playing another 2 sessions of the game and a last post-test before concluding the study. 
 
@@ -134,7 +134,7 @@ To demonstrate the presence or the absence of effects, we used bayesian statisti
 %Preliminary results (currently in progress, due to be completed before the submission of the full article) show that (1) the robot is able to effectively jointly learn action and social policies (Figure 2), (2) the learning gains of the children supported by the autonomous robot are not significantly different from the gains when the learning is supported by a robot tele-operated by the human expert, which would indicate the utility of the approach.
 
 
-\paragraph{Test performance}
+\paragraph{Test Performance}
 
 Figure \ref{fig:performance} shows the evolution of children's performance across the three tests. A Bayesian mixed-ANOVA show that in all conditions, children's performance increased across the tests ($B=1.5$x$10^{12}$), however the impact of the condition on the learning is inconclusive with a tendency to show no impact ($B=0.539$). This indicates that by being involved in the task, every children learned and improve their performances on the test (by gaining in average 13\% of the missing knowledge), but the robot behaviour during the game did not have an important impact on the children's learning gain (see Figure \ref{fig:learning}).
 
@@ -152,7 +152,7 @@ Figure \ref{fig:performance} shows the evolution of children's performance acros
 	\label{fig:learning}
 \end{figure}
 
-\paragraph{Game metrics}
+\paragraph{Game Metrics}
 
 Figure \ref{fig:d_eat} shows the evolution of the number of different eating behaviour exhibited by the children across the four game sessions. A Bayesian mixed-ANOVA shows an impact of the condition on the number of different eating behaviour produced by the children in the game ($B=6.1$). Post-hoc tests show that there is no difference between the Supervised and the Autonomous conditions ($B=0.154$), whilst differences are observed between the Supervised and the Passive condition ($B=512$) and between the Autonomous and the Passive conditions ($B=246$). This indicates that the Supervised robot provided additional knowledge to the child during the game, allowing them to create more useful interactions between animals and their food, receiving more information from the game potentially helping them to learn. The Autonomous robot managed to recreate autonomously this effect without the presence of a human providing input.
 
@@ -185,7 +185,7 @@ These game metrics show that the action policy executed by the autonomous robot 
 
 \paragraph{Supervision}
 
-Figure \ref{fig:supervision} presents the reaction of the teacher to the robot's suggestions across all the supervised sessions. In average the teacher accepted 22.3\% of all the proposition of the robot (by enforcing the action, let it be executed or using the `Do it' button), which represents 35\% of the actions executed by the robot. This effect tends to be stable across the sessions. The teacher interaction pattern evolved overtime, such as by using mostly the `Cancel' button in the start then the `Skip' one, but in the end, the teacher used this two buttons mostly interchangeably even if the algorithm underlying reaction is different. Another observation is the evolution from using the auto-execution function to the `Do it' button once the teacher felt more comfortable in the supervision. The teacher reported three phases in her teaching: 
+Figure \ref{fig:tutoring_proposition} presents the reaction of the teacher to the robot's suggestions across all the supervised sessions. In average the teacher accepted 22.3\% of all the proposition of the robot (by enforcing the action, let it be executed or using the `Do it' button), which represents 35\% of the actions executed by the robot. This effect tends to be stable across the sessions. The teacher interaction pattern evolved overtime, such as by using mostly the `Cancel' button in the start then the `Skip' one, but in the end, the teacher used this two buttons mostly interchangeably even if the algorithm underlying reaction is different. Another observation is the evolution from using the auto-execution function to the `Do it' button once the teacher felt more comfortable in the supervision. The teacher reported three phases in her teaching: 
 
 \begin{itemize}
 	\item First sessions: she was not paying much attention to the suggestions, mostly trying to have the robot executing a correct action policy.
@@ -197,7 +197,7 @@ Figure \ref{fig:supervision} presents the reaction of the teacher to the robot's
 	\includegraphics[width=1\linewidth]{propositions.pdf}
 	\centering
 	\caption{Teacher's reaction to the robot's propositions along the sessions.}
-	\label{fig:supervision}
+	\label{fig:tutoring_proposition}
 \end{figure}
 
 
@@ -205,7 +205,7 @@ Figure \ref{fig:supervision} presents the reaction of the teacher to the robot's
 	\includegraphics[width=1\linewidth]{selections.pdf}
 	\centering
 	\caption{Origin of the actions executed by the robot. Re-enforced actions indicates that an action has been selected after having been cancelled or skipped by the teacher.}
-	\label{fig:supervision}
+	\label{fig:tutoring_selection}
 \end{figure}
 
 Additional comments:
@@ -222,33 +222,33 @@ Additional comments:
 	\includegraphics[width=.6\linewidth]{number_actions.pdf}
 	\centering
 	\caption{Accumulation of the number of different actions used by the teacher across the  participants.}
-	\label{fig:supervision}
+	\label{fig:tutoring_actions}
 \end{figure}
 
 
-\paragraph{Comparison of policy}
+\paragraph{Comparison of Policy}
 
-Figures \ref{fig:supervised_actions} and \ref{fig:autonomous_actions} present the policies used by the teacher and the autonomous robot across their participants. It should be noted that participants in both conditions are different.
+Figures \ref{fig:tutoring_supervised_actions} and \ref{fig:tutoring_autonomous_actions} present the policies used by the teacher and the autonomous robot across their participants. It should be noted that participants in both conditions are different.
 
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{supervised_actions.pdf}
 	\centering
 	\caption{Repartition of actions across the participants in the supervised condition.}
-	\label{fig:supervised_actions}
+	\label{fig:tutoring_supervised_actions}
 \end{figure}
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{autonomous_actions.pdf}
 	\centering
 	\caption{Repartition of actions across the participants in the autonomous condition.}
-	\label{fig:autonomous_actions}
+	\label{fig:tutoring_autonomous_actions}
 \end{figure}
 
 \begin{table}[ht]
 	\centering
 	\caption{Repartition of action in the policy for both conditions (in \%).}
-	\label{tab:policies}
+	\label{tab:tutoring_policies}
 	\begin{tabularx}{\textwidth}{@{}lYYYccY}\toprule
 		& Draw \newline Attention & Move \newline close & Move \newline away & Congratulation & Encouragements & Remind \newline rules \\
 		\midrule

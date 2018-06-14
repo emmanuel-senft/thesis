@@ -102,7 +102,7 @@ Once the behaviour is deemed appropriate enough by the teacher, the agent is rea
 
 \section{Implications}
 
-\subsection{Relation with time} \label{ssec:sparc_time}
+\subsection{Relation with Time} \label{ssec:sparc_time}
 Similarly to other \gls{iml} approaches, the requirement of a human in the action selection loop limits the time scale of interaction and this effect is an important consideration when applying \gls{sparc} to an interaction. With this type of \gls{iml}, three time scales are coexisting: the robot's, the teacher's and the interaction's. The robot has an internal clock running probably multiple times per second, sensing the world and deciding if an action should be proposed. The human teacher has to be able to cancel proposed actions before their executions, so they need to be provided with a `correction window' spanning more than one second to react to propositions. And finally, for some applications, actions are appropriate only during a short time, and if this amount of time is shorter than the correction window, action executed automatically would not be appropriate anymore, reducing the validity of \gls{sparc}.
 
 As mentioned previously, depending of the application, actions might have to be executed in a time critical environment (such as driving) or less critical ones (such as an assistant robot at home). While being easily applicable to slow interactions, \gls{sparc} could still be applied to these time critical ones. For instance, if applied to autonomous driving, \gls{sparc} could display to the driver the planned trajectory with augmented reality and let the driver correct this trajectory if not appropriate. However, more critical elements, such as emergency breaking, would probably have to be done with a much shorter correction window so the car can break in time. 
@@ -123,7 +123,7 @@ Finally, the rate of selection of high level actions will be much lower than the
 
 %Most importantly, the control given to the teacher on the agent's actions ensures that every action executed by the learner in the world has been either actively or passively validated by the teacher. This implies that each action executed can be assumed to be appropriate to the current state, potentially simplifying the learning algorithm.
 
-\subsection{Interaction with Machine Learning Algorithms}
+\subsection{Interaction with Learning Algorithms}
 
 The principles of \gls{sparc} define it at the crossroads between \gls{sl} and \gls{rl}. \gls{sparc} can be used in two ways: either to reproduce a teacher's policy in a supervised fashion or to discover a useful action policy using the teacher to bias the exploration, limiting errors and only interacting in desired parts of the environment.
 

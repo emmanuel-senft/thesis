@@ -6,7 +6,7 @@ This chapter describes social \gls{hri} and presents related research in agent a
 
 \section{Social Human-Robot Interaction}
 
-\subsection{Fields of application} \label{ssec:back_hri}
+\subsection{Fields of Application} \label{ssec:back_hri}
 
 \gls{hri} covers the full spectrum of interactions between humans and robots ranging from physical assistance and teleoperation to social companions. However, this thesis being focused on teaching robots to interact socially with humans, the following criteria on the interactions were used to select the subfields of \gls{hri} relevant to this research:
 \begin{itemize}
@@ -135,17 +135,17 @@ Applying these constraints on \gls{hri} resulted on five subfields involving soc
     
 %    Some systems use a hybrid combination of human control and autonomy. In these shared autonomy system, the boundary between the autonomous control and the human can happen on several levels: from labelling of sensory inputs \citep{depalma2016nimbus} to assigning reward to action to teach the robot an action policy \citep{thomaz2008teachable}. Similarly, this help can be triggered by the robot or the human, at specific stages of the interaction or at any time or can be a simple guidance or a command. 
 
-\subsubsection{Interdependence of factors}
+\subsubsection{Interdependence of Factors}
 
 	These three axes used for the review: appropriateness of action, adaptivity and autonomy are not independent. Especially, as a robot able to learn might be also able to improve its appropriateness of action and its autonomy as it refines its action policy. This impact of adaptivity on the two other axes is fundamental to increase the robot's fields of application, performance and usability. However, while a learning robot could eventually reach an optimal, perfect, and autonomous action policy, the behaviour expressed by the robot in early stages of the learning, while the action policy is not appropriate yet, is critical. Even during this learning phase, the robot's behaviour needs to be safe and useful for humans interacting with it. As such, adaptivity is a key element for a robot controller to improve and reach a correct and autonomous policy, but a mechanism must ensure that at every step of the interaction the robot's behaviour is appropriate regardless of the level of progress of the learning.
 
-\section{Current robot controllers in HRI} \label{sec:back_behaviour}
+\section{Current Robot Controllers in HRI} \label{sec:back_behaviour}
 
     The previous section presented three axes to evaluate a robot controller: the appropriateness of actions, the range of adaptivity and the level of autonomy. Based on these three axes, this section presents and analyses high level categories of robot control currently used in \gls{hri} to define a robot behaviour. 
     %As the number of individual techniques is too large for an exhaustive review, we organised the literature into broader categories. 
     For each category, we will present the corresponding approach, indicate representative works done in this direction and qualitatively rate it on the three axes.
 	
-\subsection{Scripted behaviour}
+\subsection{Scripted Behaviour}
 
     One of the simplest ways to have a robot interacting with a human is probably to have explicit fixed behaviours. In this case, the robot is fully autonomous and follows a script for action selection. Success in using this approach is dependent on having a well defined and predictable environment to have the interaction running smoothly. However, if the interaction modalities (possible range of behaviours and goals) are limited enough, a constant action policy can be sufficient to handle all (sensible) human actions. 
     
@@ -153,7 +153,7 @@ Applying these constraints on \gls{hri} resulted on five subfields involving soc
   
     By essence, this type of controller has a no adaptivity as the robot is following a preprogrammed script, but is fully autonomous as no external human is required to control the robot; and when the application domain is highly specified, the behaviour can be mostly appropriate.
 
-\subsection{Adaptive preprogrammed behaviour}
+\subsection{Adaptive Preprogrammed Behaviour}
 	
 	To go beyond a script, robot can also be programmed to react in predefined ways to expected human actions. By adaptive preprogrammed behaviour, we denote a behaviour programmed before the interaction, but explicitly (or implicitly) including ways to adjust the action policy in reaction to anticipated human behaviours. This preprogrammed adaptation takes two forms: either having a fixed number of variables impacted by the actions of the partner and guiding the action policy (for instance using homeostasis), or explicitly planning for specific behaviours to be produced if predefined conditions are met (for example using a finite state machine).
 	
@@ -298,7 +298,7 @@ Furthermore, by allowing a human user to see the output of an algorithms and pro
 
 These human inputs take three forms: labels for specific datapoints (cf. active learning - Section \ref{ssec:back_active}), feedback over actions (similarly to reward in \gls{rl}; cf. Section \ref{ssec:back_rl}) or demonstrations to reproduce (cf. \gls{lfd} - \ref{ssec:back_lfd}).
 
-\subsection{Active learning} \label{ssec:back_active}
+\subsection{Active Learning} \label{ssec:back_active}
 
 Active learning is a form of teaching used in education aiming to increase student achievement by giving them a more active role in the learning process \citep{johnson1991active}. This approach has been transferred to machine learning, especially to classifiers, by allowing the learner to ask questions and query labels from an oracle for specific datapoints with high uncertainty \citep{settles2012active}. The typical application case is when unlabelled data are plentiful, but labels can be limited in numbers or costly to obtain. As such, a trade-off arises between the performance of the classifier and the quantity of queries made by the algorithm. Often, the oracle would be a human annotator with the ability to provide a correct label to any datapoint, but their use should be minimised for reasons of cost, time or annoyance.
 
@@ -378,7 +378,7 @@ The main framework of learning applied to learning from interaction is \acrfull{
 	
 	Whilst being promising and having been applied for agents in human environments (such as for personalised advertisement - \citealt{theocharous2015personalized})	these approaches have not been used to learn social behaviours or to have robot interacting with humans.
 
-\subsection{Human as a source of feedback on actions} \label{ssec:back_feedback}
+\subsection{Human as a Source of Feedback on Actions} \label{ssec:back_feedback}
 
 When an agent is learning in a \gls{rl} fashion and improves its behaviour by receiving rewards from the environment, an intuitive way to steer the agent's behaviour in the desired direction faster is to use human rewards. This approach is an adaptation of `shaping': tuning a animal's behaviour by providing rewards \citep{bouton2007learning}. In \gls{ml}, using rewards from a human to bias and improve the learning presents advantages: the interface is simple and generalisable to any type of problem, and the teacher only needs a way to provide a scalar or a binary evaluation of an action to steer the learning. However, this simplicity of interaction is associated with a limited efficiency and a complexity of interpretation: the issues of how to interpret human rewards and how to combine them with environmental ones if existent are an active research field today \citep{knox2010combining}.
 
@@ -420,7 +420,7 @@ One approach giving teachers a total initiative on the interaction is Dogged Lea
 
 Both methods rely on the teacher being able to anticipate the robot's behaviour to provide demonstrations before an incorrect action is executed or before it impacts the agent and its environment. As such, the appropriateness of the robot controller is not at maximum as the teacher cannot ensure that no incorrect action will be executed during the learning, only that the robot would learn faster from its errors.
 
-\subsection{Importance of control}
+\subsection{Importance of Control}
 
 Results from active learning, research using human to provide feedback and \gls{lfd} have shown that human teachers take an active stance during the training of an agent and want multiple ways to influence the learner's behaviour \citep{amershi2014power}. Humans are not oracles, enjoying providing labels and evaluating an agent's actions, they desire to be in control of the learning and provide richer information to the agent. \cite{kaochar2011towards} have shown than when given choice between different teaching methods, humans will never choose to limit themselves to use only feedback, but they want to teach using more modalities.
 

@@ -30,7 +30,7 @@ As explained in Chapter \ref{chap:sparc}, \gls{sparc} involves two interactions:
 
 The first step to evaluate \gls{sparc} was to focus on the teaching interaction, the relation between the robot and its teacher. To evaluate this aspect of the interaction, we decided use the context of \gls{rat} for children with \gls{asd}. However, as the presence of two humans decrease the repeatability of the test bench, we replaced the child involved in the therapy by a robot running a model of a child. The setup ends up with two robots interacting together: the \emph{child-robot} completing a therapeutical task and the \emph{wizarded-robot}, controlled by a participant, supporting the child-robot in its task completion. Actions from the wizarded-robot impact the child-robot's behaviour and to achieve a high performance in the task, the child-robot needs to receive an efficient supporting policy from the wizarded-robot. As such, the child-robot's performance is used as a proxy to evaluate the performance of the participant in the supervision. This environment with a single human-robot interaction allows us to observe and evaluate the impact of \gls{sparc} on the teaching interaction.
 
-\section{Scope of the study}
+\section{Scope of the Study}
 
 The study presented in this chapter intends to evaluate if the learning component of \gls{sparc} allows participants to teach an efficient action policy for a robot interacting with humans. For repeatability concerns, the human-robot interaction target of the learning has been modelled by two robots interacting together. The control condition is a variation of \gls{woz}, where participant still control a robot but without the learning component. By combining learning and \gls{sa}, \gls{sparc} aims to allow the teacher to maintain a high performance during the interaction while reducing the workload on the teacher over time.
 
@@ -78,7 +78,7 @@ As mentioned earlier, the focus of the study being on the teaching interaction (
 	\label{fig:woz_setup}
 \end{figure}
 		
-\subsection{Child model} \label{ssec:woz_child}
+\subsection{Child Model} \label{ssec:woz_child}
 
 The purpose of the child model is not to realistically model a child (with or without autism), but to provide a means of expressing some characteristics of the behaviours we observed in interactions with children in a repeatable manner. The child-robot possesses an internal model encompassing an engagement level and a motivation level. Together these form the state of the child. The engagement represents the involvement of the child in the task, i.e. how often the child-robot will make categorisation moves. And the motivation relates to the seriousness of the child in solving task; in the model, the motivation gives the probability of success of each categorisation move. 
 
@@ -86,7 +86,7 @@ These states are bound to the range [-1, 1] and influenced by the behaviour of t
 
 As explained in Section \ref{ssec:woz_wizarded_robot}, the wizarded-robot's action impact the child-robot state: congruent action will tend to increase engagement and motivation. However, if repeated, actions can lead to frustration for the child-robot. If a state is already high and an action from the wizarded-robot should increase it further, there is a chance that this level will sharply decrease. When this happens, the child-robot will indicate this frustration verbally (uttering one of eight predefined strings). This mechanism prevent the optimal strategy to be straightforward: always making actions aiming to increase motivation or engagement. The optimal strategy combines feedback actions and waiting ones to maintain the state values high but prevent them from overshooting. This non-trivial optimal action policy approximates better a real human-robot interaction scenario requiring a more complex strategy to be expressed by the robot.
 
-\subsection{Wizarded-robot control}
+\subsection{Wizarded-Robot Control}
 \label{ssec:woz_wizarded_robot}
 The wizarded-robot is controlled through a \gls{gui} (shown in Figure \ref{fig:woz_gui}) and has access to the variables defining the state of the interaction used by the learning algorithm:
 \begin{itemize}
@@ -127,7 +127,7 @@ However, as mentioned in Section \ref{ssec:woz_child}, if the engagement or the 
 
 As introduced previously, to simplify the algorithm part, the interaction has been discretised, the teacher cannot select actions for the wizarded-robot at any time. Actions can only be executed at specific times triggered by the wizarded-robot: two seconds after each child-robot categorisation or if nothing happened for five seconds since the last wizarded-robot's action. When these selection windows are hit, the wizarded-robot proposes an action to the teacher by displaying the action's name and a countdown before execution. The teacher can only select an action in reaction to a proposition from the wizarded-robot; alternatively, if the teacher does nothing in the three seconds following the suggestion, the action proposed by the wizarded-robot is executed. This mechanism allows the teacher to passively accept a suggestion or actively intervene by selecting a different action and forcing the wizarded-robot to execute it.
 
-\subsection{Learning algorithm}
+\subsection{Learning Algorithm}
 
 In the \gls{sparc} condition, the robot learns to reproduce the action policy displayed by the teacher. For this study, the algorithm used for learning is a Multi-Layer Perceptron (MLP): with five input nodes: one for the observed motivation, one for the observed engagement and three binary (+1/-1) inputs for the type of the previous move: good, bad, or done. The hidden layer had six nodes and the output layer four: one for each action. The suggested action is selected applying a Winner-Take-All strategy on the value of the output node and then displayed on the \gls{gui} before execution. The network is trained with back propagation: after each new decision from the teacher a new training point is added with the selected action node having +1 while the others are set to -1. The network is fully retrained with all the previous state-action pairs and the new one between each selection step. 
 %The network was using sigmoid activation function and a learning rate of 0.6 (probably).
@@ -147,7 +147,7 @@ A document explaining the interaction scenario was provided to participants with
 
 Two types of metrics have been recorded for this study: interaction data representing objective behaviours and performance of the participants and subjective data through questionnaires.
 
-\subsubsection{Interaction data}
+\subsubsection{Interaction Data}
 
 The state of the child-robot and the interaction values were logged at each step of the interaction (at 5Hz). All of the human actions were recorded: acceptance of the wizarded-robot's suggestion, auto-execution and selection of another action (intervention). The states of the child-robot (motivation, engagement and performance) were also recorded at this step. 
 
@@ -155,7 +155,7 @@ The first metric is the performance achieved by participants in each interaction
 
 The second important metric is the intervention ratio: the number of times a user chooses a different action than the one proposed by the wizarded-robot, divided by the total number of executed actions. This metric represents how often in average a user had to correct the robot and could be related to the workload the user had to face to control the robot.
 
-\subsubsection{Questionnaire data}
+\subsubsection{Questionnaire Data}
  
 Participants answered four questionnaires: a demographic one before the interaction, two post-interaction ones where they were asked to evaluate the last interaction with the robots and a post-experiment questionnaire where they had to compare the two conditions. All the rating questionnaires used seven item Likert scale. For clarity for participants, in the questionnaires the wizarded-robot is named `teacher-robot'.
 
@@ -179,7 +179,7 @@ Post-experiment questions:
 
 \section{Results}
 
-\subsection{Interaction data}
+\subsection{Interaction Data}
 
 Figure \ref{fig:woz_comp} presents the aggregated results (collapsed between orders) for the performance and the final intervention ratio for both conditions. While the number of participants are not sufficient to perform statistical comparison, overall interaction results seem to show that both conditions lead to similar performance (\gls{sparc}: 32.6 (95\% CI [27.89,37.31]) - \gls{woz}: 31.4 (95\% CI [25.9,36.9])) while the \gls{sparc} condition required less interventions (intervention ratio: \gls{sparc}: 0.38 (95\% CI [0.29,0.47]) - \gls{woz}: 0.59 (95\% CI [0.52,0.67])). 
 
@@ -247,8 +247,6 @@ Intervention Ratio M & 0.31 & 0.68 && 0.5 & 0.46 \\
 \label{tab:woz_comp_means}
 \end{table}
 
-
-
 %In both conditions, the average performance in the second interaction (\textit{M$_{S-W-2}$} =38, 95\% CI [36.2, 39.8], \textit{M$_{W-S-2}$}=34.8, 95\% CI [30.8, 38.8]) was higher than in the first one (\textit{M$_{S-W-1}$}=29.4, 95\% CI [25.3, 33.5], \textit{M$_{W-S-1}$}=24.3, 95\% CI [19.4, 29.4]; Fig. \ref{fig:graphs} \textit{left}). The 95\% \textit{Confidence Interval of the Difference of the Mean} (CIDM) for the L-W-S condition is [4.1, 13.1] and for the W-S-L condition is [4.0, 16.8].
 %However, the performance is similar when only the interaction order (first or second) is considered. 
 %The participants performed slightly better in the S-W condition, but the CIDM includes zero in both cases (95\% CIDM$_{1}$ [-1.5, 11.5], 95\% CIDM$_{2}$ [-1.2, 7.6]). 
@@ -257,7 +255,7 @@ Intervention Ratio M & 0.31 & 0.68 && 0.5 & 0.46 \\
 
 Additionally, a strong positive correlation (Pearson's \textit{r}=0.79) was found between the average child-robot motivation and engagement and its performance which shows that the performance achieved by the child-robot represents the capacity of the teacher to keep both engagement and motivation high.
 
-\subsection{Questionnaire data}
+\subsection{Questionnaire Data}
 
 The post-interaction questionnaires evaluated the participant's perception of the child-robot's learning and performance, the quality of suggestions made by the wizarded-robot, and the experienced workload. All responses used seven point Likert scales.
 
