@@ -13,28 +13,20 @@ This works explores how robots could interact with humans to learn from them to 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scope}\label{sec:intro-scope}
 
-Enabling a robot to interact socially with humans is complex task. The robot needs to interpret a large sensory space, relying on images camera, motor joints or high level concepts defining the state of the interaction. Then based on the interpretation of this inputs and rules defining expected behaviour or limiting the behaviour, the robot needs to select an action or a plan it will execute to fit the goal it has been assigned. The following sections will aim to refine the scope of the research conducted in this thesis.
+Enabling a robot to interact socially with humans is a complex task. The robot needs to make sense a large input space, from low level sensory feedback (e.g. joint angles or camera pixels) to high level concepts (e.g. hand-coded event or learnt features). And based on the interpretation of these inputs and rules defining a behaviour, it needs to select an action or a plan to achieve an assigned goal. As this task covers most of the sub-fields of robotics, this section will precise the scope of the research conducted in this thesis.
 
 \subsection{Frame}
 
-The focus of the research conducted here is finding a way for robots to interact safely and efficiently with humans. It has been argued by many \citep{dautenhahn2004robots,billard2008robot} that an efficient robot interacting with human would not be preprogrammed beforehand and execute a one-size-fits-all policy suited to every possible interaction partners. Robots needs to be able to learn an interactive behaviour, improving their skills as they interact and personalising their policy to the preferences of their users. The aim of this thesis is finding a interaction framework allowing humans to teach robot how to interact with other humans.  
+The focus of the research conducted here is finding a way for robots to interact efficiently with humans. It has been argued by many researchers  \citep{dautenhahn2004robots,billard2008robot}, robot needs to adapt to their users and be able to learn from them. Social robots cannot apply a one-size-fits-all policy programmed in advance by engineers and suited to every possible interaction partners. Robots needs the capacity to learn an interactive behaviour, improving their skills as they interact in the world and personalising their policy to their users.
 
-Throughout this thesis we make the assumption that, while an engineer designing a robot behaviour might not know how the robot should behave, an expert possess this knowledge and should be able to transfer it to the robot. This human teacher's expertise is not related to theoretical knowledge in \gls{ml}, robotics or other scientific fields. It just denotes that this person possess knowledge unknown by the engineer design the robot. This could take the form of the steps of a therapy a robot should deliver to the child (known by a therapist) or more simply a senior's preferences and desires concerning a robot companion.
+Throughout this thesis we make the assumption that a human knows how the robot should interact. In many case, this knowledge in not in the hand of the engineers initially developing the robotic controller, but in a domain expert, often the user. And this user should be able to teach the robot, to transfer their knowledge to the robot. This human teacher's expertise is not related to theoretical knowledge in \gls{ml}, robotics or other scientific fields. It just denotes that this person possess knowledge unknown by the engineers designing the robot's controller. This expertise could take the form of the steps of a therapy a robot should deliver to the child (known by a therapist) or more simply a senior's preferences and desires concerning a robot companion's behaviour. 
 
-This thesis aims to provide a convenient and efficient way for this domain expert to inculcate this knowledge in the robot.
+Although the ultimate goal of this research is to explore how robots could interact socially and efficiently with humans; by making the assumption that this knowledge should be provided by a human, the resulting question of this thesis is: \emph{How humans could teach robot to interact?}. As such, this thesis aims to provide a convenient and efficient way for domain experts to inculcate robots with their interactive knowledge. In other words, this research explores the requirements on and impacts of the interaction frameworks allowing humans to teach robot to interact socially in human environments.
 
+%\subsection{Environment} 
+\subsection{Type of Interactions}
 
-\subsection{Environment} 
-
-Robots considered in this thesis evolve in human-centred environment and are expected to provide some support to the surrounding humans and achieve a specific goal assigned to them. Interactions with humans are by essence social, and robots needs to take into these social norms when interacting in human environments.
-
-???
-
-\subsection{Type of Interaction}
-
-The typical interaction considered in this thesis is a triadic interaction between a human the user of the robot, the robot and an application target, potentially another human (as shown in Figure \ref{fig:intro_setup}). In this type of interaction, the user has an aim for robot, a task they would like the robot to complete. And through the teaching interaction, they can supervise the robot, demonstrating it what it should do and teaching it an efficient action policy in the application interaction with the target.
-
-The application target could be another human (such as a child receiving teaching support from the robot) or just parts of the environment if the robot has to complete a manipulation of navigation task (such as picking up a book in the library).
+As mentioned in the previous section, by focusing the research on using humans to teach robots, we add a second human-robot interaction: between the robot and the teacher. This results in a typical scenario consisting on a triadic interaction between a first human (the application target), the robot and a second human (the teacher), as shown in Figure \ref{fig:intro_setup}). This results in two interactions: the teaching and the application. The end goal of teaching interaction is to achieve high standards in the application interaction. 
 
 \begin{figure}[ht]
 	\includegraphics[width=.7\linewidth]{setup.pdf}
@@ -43,21 +35,20 @@ The application target could be another human (such as a child receiving teachin
 	\label{fig:intro_setup}
 \end{figure}
 
-\subsection{Algorithms}
+While having been pursued by considering mostly \gls{hri} as an application interaction, the work presented in this thesis is applicable to teaching a robot many type of interactions, not only with humans. Indeed, interacting with a human is a high stake scenario, where misbehaving can be costly, where datapoints for learning can be tedious to acquire and with a high diversity between different partners. Other type of interaction could be less constrained, complex or with lower stakes. Consequently, by addressing a challenging task (teaching a robot to interact socially with humans), this approach is also suited to a wide range of other tasks (such as manipulation, classification or navigation). In the more general case, the teacher or user of the robot has a task they would like the robot to complete. And through the teaching interaction, they can supervise the robot, demonstrating it what it should do and teaching it an efficient action policy in the application interaction with the target. 
 
-The aim of this thesis being exploring how humans could teach robots to interact in  human-centred environment, the robot needs to possess a learning algorithm allowing it to improve its action policy. Two main categories of learning algorithms have been used in this research: \gls{sl} and \gls{rl}.
+%The application target could be another human (such as a child receiving teaching support from the robot) or just parts of the environment if the robot has to complete a manipulation of navigation task (such as picking up a book in the library).
 
-\gls{sl} aims to learn a mapping between inputs and outputs to automatically reproduce a desired behaviour. It uses a dataset of labelled example and optimise an algorithm such as its prediction error of the output for each input is minimised \citep{russell2016artificial}. Typical example used in this study are \gls{ann} and nearest neighbours methods. \gls{ann} models loosely the way brains and neurons work by having a group of `neurons' connected between each other by synapses. Each neuron updates its according value according to connections with other neurons including weights and non-linearity. The general approach have a set of input nodes, a set of output nodes and hidden nodes, and the network learns by changing the value of the weights to reproduce the desired values on the output nodes. Nearest neighbours methods compare the distance in the feature space between a point to classify to the different instances stored in a dataset and select the value of a majority of nearest neighbours in this space.
+%Mention more the social side of the interaction??
 
-Unlike \gls{sl} which aims at reproducing a known behaviours, \gls{rl} aims at providing an agent with the capacity to discover the world it interact in and learn from this interaction with the world \citep{sutton1998reinforcement}. The agent has access to a description of the state and actions it can do, and depending of the action selected, the state will change and the agent will receive a reward. The goal of the agent is to find an optimal policy maximising a notion of cumulated reward.
-
-Due to the relevance of both fields to this thesis research topics: enabling humans to teach robots to interact, algorithm from both categories have been used. The first study presented in Chapter \ref{chap:woz} uses a feed forward neural network learning to reproduce a teacher policy. The second study in Chapter \ref{chap:control} used \acrlong{rl} combining human and environmental rewards. The aim of this algorithm is to use the human guidance and rewards to learn an efficient interaction policy. And the last study presented in Chapter \ref{chap:tutoring} uses instance based algorithm adapted from Nearest Neighbours to enable quick and efficient learning. More details about each algorithms and their related work can be found in the associated chapters.
+%Robots considered in this thesis evolve in human-centred environments and are expected to provide some support to the surrounding humans and achieve a specific goal assigned to them. Human interactions and by extend human environments are in essence social, they are governed by social norms, and on the adhesion to these norms depends the success of the interaction. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Thesis}\label{sec:intro-thesis}
 The main thesis that this document seeks to put forward is as below.
 \begin{quote}
-	A robot can learn how to interact meaningfully with humans by receiving supervision from a human teacher in control of the robot's behaviour, this supervision will lead to an efficient, safe and low human-workload teaching and autonomous behaviour.	
+	A robot can learn to interact meaningfully with humans in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour. 
+	%This supervision will lead to an efficient, safe and low human-workload teaching and autonomous behaviour.	
 \end{quote}
 %One sentence to describe the take home/conclusion
 
@@ -65,25 +56,34 @@ Additional research questions have been explored during the progress of this
 work and are introduced here.
 
 \begin{itemize}
-    \item \textbf{What kind of interaction could allow a human to teach a robot to interact with other humans while ensuring an appropriate and adaptive interaction policy and a low workload on the human teacher?}
+	\item [RQ1] \textbf{What are the requirements of a robot controller to ensure a behaviour suited to \gls{hri}?} 
+	
+		By interacting with humans, robots enter the social world and have to conform to human expectations and ensure that they can reach their goal. This research question studies how the constraints interacting on the human world put on the robot's controller. %Not ideal...
+		
+    \item [RQ2] \textbf{What interaction framework would allow a human to teach a robot while validating  the requirements from RQ1?}
     
-    	Justification for \gls{sparc} 
-    \item \textbf{Does adding a learning component to a supervised robot can reduce the human-workload of the supervisor?}
+    	While RQ1 provides requirements for a robot controller, the task of designing a interaction framework allowing a human to teach remains. This research question address what principles of interaction could lead to an efficient teaching interaction while validating the requirements from RQ1. 
+    	
+    \item [RQ3] \textbf{How does a learning component in a supervised robot influences the workload of the human-supervisor and performance in the task?}
     
         \gls{woz} is an approach widely used in \gls{hri} \citep{riek2012wizard}, whereby a human teleoperates a robot to have it interact with other humans. However, this method applies a high workload on the operator and is not scalable. Using \gls{ml} to learn from this operator online might decrease the operator's workload without decreasing the quality of the robot behaviour.
     
-    \item \textbf{How control of a teacher over the robot's action impacts the robot's learning?} 
+    \item [RQ4] \textbf{What is the impacts of the teacher's control over the robot's actions and learning?} 
     
-	    In the context of \gls{iml}, a human can provide inputs to an agent to speed up the learning. Other \gls{iml} \citep{thomaz2008teachable,knox2009interactively} focus on feedback from the human with limited or no control over the agent's actions. However increase the control should speed up the learning and reduce the number of errors made by the robot.
+	    In the context of \gls{iml}, a human can provide inputs to an agent to speed up the learning. Other \gls{iml} \citep{thomaz2008teachable,knox2009interactively} focus on feedback from the human with limited or no control over the agent's actions. However, increasing the control should speed up the learning and reduce the number of errors made by the robot.
 
-    \item \textbf{After receiving supervision from a human, could a robot behave autonomously in a social context?}
+    \item [RQ5] \textbf{After receiving supervision from a human, could a robot behave autonomously in a social context?}
+%    \item [RQ5] \textbf{How can a human teach a robot to interact with other humans?} %???
 
-	 	\gls{sparc} has been designed to allow non-experts in \gls{ml} to teach agents how to interact while interacting. Human-robot interactions provide a perfect test for this approach: using a human to teach a robot how to behave in this complex and non-deterministic environment.
+	 	%\gls{sparc} has been designed to allow non-experts in \gls{ml} to teach agents how to interact during the interaction. Human-robot interactions provide a perfect test for this approach: using a human to teach a robot how to behave in this complex and non-deterministic environment.
 	 
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Approach and Experimentation}\label{sec:intro-exps}
+
+\subsection{Flow of the thesis}%Will change!
+
 %Should make more references to the research questions
 To explore the thesis and research questions addressed in this work, in Chapter \ref{chap:background}, we started by reviewing the fields of application of \gls{hri} where the interaction is social. From this review, we drew requirements a robot controller should follow. Then we analysed the different controllers used in robotics through these requirements and identified the absence of controller used in \gls{hri} validating this principles.
 
@@ -99,6 +99,15 @@ ow the results have been used to design a new interaction framework to teach rob
 
 how it has been tested and why that order
 
+\subsection{Learning Algorithms}
+
+To learn, the robot needs to use \gls{ml}, to possess a learning algorithm allowing it to learn an action policy and improve it. Two main categories of \gls{ml} have been used in this research: \gls{sl} and \gls{rl}.
+
+\gls{sl} aims to learn a mapping between inputs and outputs to automatically reproduce a desired behaviour. It uses a dataset of labelled example and optimise an algorithm minimising its prediction error \citep{russell2016artificial}. This aim, reproducing a desired behaviour, is especially connected with the work carried out in this research. By learning to reproduce the teacher's behaviour, the robot should reach an efficient behaviour in the target application. Typical example used in this study are \gls{ann} and nearest neighbours methods. \gls{ann} models loosely the way brains and neurons work by having a group of `neurons' connected between each other. By changing this connection between the neurons, the network learns to reproduce the desired values on the output nodes. On the other hand, nearest neighbours methods are instance based methods, they compare the distance in the feature space between a point to classify and the different instances stored in a dataset and select the value of a majority of nearest neighbours in this space.
+
+Unlike \gls{sl} which reproduces a known behaviours, \gls{rl} aims at providing an agent with the capacity to discover the world it interact in and learn from this interaction with the world \citep{sutton1998reinforcement}. The agent has access to a description of the state and actions it can do, and depending of the action selected, the state will change and the agent will receive a reward. The goal of the agent is to find an optimal policy maximising a notion of cumulated reward. \gls{rl} is also linked to the work presented in this thesis: by allowing robots to learn to interact in human environments, we would reach the our goals of efficient human-robot interactions.
+
+Due to the relevance of both fields to this thesis' research topics (enabling humans to teach robots to interact), algorithms from both categories have been used. The first study presented in Chapter \ref{chap:woz} used a feed forward neural network learning to reproduce a teacher policy. The second study in Chapter \ref{chap:control} used \gls{rl} combining human guidance and environmental and human rewards. And the last study presented in Chapter \ref{chap:tutoring} used instance based algorithm adapted from Nearest Neighbours to enable quick and efficient learning. More details about each algorithms and their related work can be found in the associated chapters.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Key Concepts and Terminology}\label{sec:intro-concepts}
 
