@@ -15,4 +15,10 @@
 *.glg
 *.gls
 *.synctex.gz
+.ipynb*
+*.tks
+*.txss
+*.nlo
+*.ipynb
+*.ods
 paper.pdf
