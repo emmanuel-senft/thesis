@@ -6,24 +6,38 @@
 	\textbf{Key points:}
 	
 	\begin{itemize}
-		\item An experiment was designed to test \gls{sparc} in the wild in a learning application in a school.
-		\item Between participant study involving 70 children compared 3 conditions: passive robot, supervised robot and autonomous robot.
-		\item .
-		\item .
-		\item .
+		\item Design of an experiment to test \acrshort{sparc} in an educative application with children.
+		\item Design and use of a new learning algorithm adapted from nearest neighbours to teach quickly and efficiently in an online fashion.
+		\item Between participant study involving 75 children compared 3 conditions: a passive robot, a supervised robot and an autonomous robot.
+		\item Psychology PhD student taught the supervised robot using \acrshort{sparc}.
+%		\item No significant differences of child learning between conditions.
+		\item Children interacted similarly with the autonomous and supervised robot, but differently with the passive robot.
+		\item Demonstration of the applicability of \acrshort{sparc} to teach a robot online an action policy to interact with humans.
 	\end{itemize}
 \end{framed}
 
-Parts of the work presented in this chapter have been published verbatim in \cite{senft2017toward} \footnote{Note about technical contribution in this chapter: the author reimplemented every part of the system manually in Qt.}. The final publication is available from AAAI via \url{https://aaai.org/ocs/index.php/FSS/FSS17/paper/view/16011}.
+Parts of the work presented in this chapter have been published verbatim in \cite{senft2017toward}, additional publications are under review \footnote{Note about technical contribution in this chapter: the author extended code the freeplay sandbox, see \url{https://github.com/freeplay-sandbox/} and forks.}. The final publications are available from AAAI, EPFL via:
+\begin{itemize}
+	\item \url{https://aaai.org/ocs/index.php/FSS/FSS17/paper/view/16011}.
+	\item \url{https://r4l.epfl.ch/files/content/sites/r4l/files/HRI2018/proceedings_2018/paper4.pdf}
+\end{itemize} 
 
 \newpage
+
 \section{Motivation}
 
-Chapters \ref{chap:woz} and \ref{chap:control} tested \gls{sparc} in interactions between robots or in a virtual world but not for human-robot interactions as it was developed for. As such a new study had to evaluate the application of \gls{sparc} to teach a robot an interactive behaviour in a real human-robot interaction. It has been decided to focus on robots in education to teach a food-web to children as it provides a constraints while rich and complex environment for the interaction. The scenario and the code is based on \cite{lemaignan2017free} but has been adapted to provide a robot controller and task goal for the children.
+Chapters \ref{chap:woz} and \ref{chap:control} tested the \gls{sparc} in interactions between robots or in a virtual world but not for human-robot interactions as it was intended to used for. As such, this Chapter addresses the thesis of the research work and evaluates if \gls{sparc} can efficient be used to teach a robot an interactive behaviour in a real human-robot interaction. \gls{hri} in the wild are typically constrained but underspecified environment where social behaviour play an important role. This study takes place in the framework of robot tutors for children in education. Tutoring offers a rich and complex interaction between the child and robot and as such is a good example of typical \gls{hri}. The scenario and the code is based on \cite{lemaignan2017free} but have been adapted to provide the teaching task, the testing of knowledge, the robot controller, the learning algorithm and the interface with the teacher.
 
-\section{Setup of the Study}
+This study aims to explore if \gls{sparc} can be used to teach a robot an efficient action policy. As such, three conditions have been compared: a passive robot (not providing any support), a supervised robot (learning from a human teacher and supporting the child) and an autonomous robot (applying the learned behaviour). These three conditions, with the passive robot as a control condition, allow us to study both the teaching process and the efficiency of the taught behaviour when being executed without supervision.
 
-Similarly to the study presented in Chapter \ref{chap:woz}, this study is based on the Sandtray paradigm \citep{baxter2012touchscreen}: a child interacts with a robot through a large touchscreen located between them. Additionally, a teacher can use a tablet to control the robot in one of the conditions (cf. Figures \ref{fig:tutoring_setup} and Figure  used to frame this research).
+\section{Scope of the Study}
+%Might need to go in method??
+\subsection{Setup of the study}
+
+Similarly to the study presented in Chapter \ref{chap:woz}, this study is based on the Sandtray paradigm
+\citep{baxter2012touchscreen}: a child interacts with a robot through a large touchscreen located between them.
+Additionally, a teacher can use a tablet to control the robot in one of the conditions (cf. Figure
+\ref{fig:tutoring_setup}). This type of potentially triadic interaction is typical to the interactions we considered when framing this research (cf. Figure \ref{fig:intro_setup}). We desire an efficient behaviour for the robot in the application interaction (i.e. child tutoring) and a human teacher has knowledge about how the robot should behave and can transfer it to the robot in situ by using \gls{sparc}.
 
 \begin{figure}[ht]
 	\centering
@@ -32,16 +46,17 @@ Similarly to the study presented in Chapter \ref{chap:woz}, this study is based 
 	\label{fig:tutoring_setup}
 \end{figure}
 
-
+By interacting with the robot and the sandtray, the child is expected to gain knowledge on a specific topic. For this study, the task is learning about food chains, by exploring a specific food web (interconnections between multiple food chains). To achieve this, children played a game on the sandtray where they could move animals and discover interaction between them. Learning was evaluated by test before, after and between the sessions. The robot guided the child through the study and could, depending of the condition, support the child during the game.
 
 \subsection{Food Chain Game}
-To teach children a food web, they interacted with a game presented 10 animals and three types of plants. Animals have energy decreasing over time and they have to eat to stay healthy. Animals are immobile unless the child or the robot move them and eat or be eaten when entering in contact with another animal or a plant. Children have to feed animals by moving them to their food, and by feeding them can learn what food each animal eats. Figure \ref{fig:tutoring_game} presents an example of the game where after some time each animal has lost some energy
+
+The main learning activity teaching the children the food web is a game composed of ten animals and three types of plants. Animals have energy decreasing over time and they have to eat to stay healthy. Animals are immobile unless the child or the robot moves them and eat or be eaten when entering in contact with another animal or a plant. Children have to feed animals by moving them to their food to give them more energy. By feeding the animals, children can learn what food each animal eats. Figure \ref{fig:tutoring_game} presents an example of the game screen in the middle of a session.
 
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=1\textwidth]{game.png}
 		\captionsetup{width=.9\linewidth}
-		\caption{Example of the game. Animals have energy in red and have to eat plants of other animals to survive.}
+		\caption{Example of the game. Animals have energy in green and have to eat plants of other animals to survive.}
 		\label{fig:tutoring_game}
 \end{figure}
 
@@ -49,22 +64,21 @@ To teach children a food web, they interacted with a game presented 10 animals a
  
 During the game, the robot can execute actions to provide hints and support to the child. The robot has access to five types of actions:
 \begin{itemize}
-	\item Movements: moving any animal to, toward or away from other item (animal or plant) - the robot points to an animal and moves it on the game while describing its action (e.g. "The eagle needs help getting close to the mouse").
+	\item Movements: moving any animal to, toward or away from any items (animal or plant) - the robot points to an animal and moves it on the game while describing its action (e.g. "The eagle needs help getting close to the mouse").
 	\item Drawing attention: the robot points an item and says a reminder to the child (e.g. "Don't forget the frog").
 	\item Reminding rules: the robot says one of 5 sentences on the game (e.g. "Move the animals to feed them" or "Don't feed animals with a lot of energy").
 	\item Congratulation: the robot provides congratulations (e.g. "Well done").
-	\item Encouragements: the robot provides encouragement (e.g. "You can do it").
+	\item Encouragement: the robot provides encouragement (e.g. "You can do it").
 \end{itemize}
 
-For each utterance joining an action, multiple versions are available, and a random one not used recently is selected. Considering all the possible combination, the total number of  actions adds up 655.
+For each utterance joining an action, multiple versions are available, and a random one not used recently is selected. Considering all the possible combinations of actions and items, the total number of actions adds up 655.
 
-These actions represent different level of support, from general motivation and informations sentences to information about which animals the child should focus on or direct information about what animals eat. This should cover a large range of supportive feedback provided for such an application. 
+These actions have been selected to represent different level of support, from general motivation and informations on the game to information about which animals the child should focus on or direct information about what animals eat. This selection of actions aims to cover a large range of possible tutoring behaviours humans could use. 
 
 \subsection{Wizard of Oz Application}
 
-To allow the interaction between the teacher and the robot, a \gls{gui} has been developed representing the current state of the game exactly as the child sees it on the touchscreen \ref{fig:tutoring_gui}. Buttons for the actions (excluding movements) allow the teacher to select which action the want the robot to execute. To provide additional features for the algorithms and precise which action the teacher is executed (on which animal should the robot draw the attention), the teacher can select animals or plant and provide them to the other components. For example, if the teacher highlights the frog and then press the "Draw attention" button, the actions \textit{drawing attention to the frog} will be executed by the robot.
+The main aim of the study being testing \gls{sparc} in a real \gls{hri}, the teacher needs to communicate with the robot. To allow this interaction between the teacher and the robot, a \gls{gui} has been developed representing the current state of the game exactly as the child sees it on the touchscreen (as see in Figure \ref{fig:tutoring_gui}). This \gls{gui} runs on a tablet as it would allow teacher (or other robot users) to supervise and teach the robot while monitoring the application interaction. Buttons for the actions (excluding movements) allow the teacher to select which action the want the robot to execute. The teacher can also have the robot move animals simply by dragging and releasing animals' images on the tablet. The teacher can also select animals or plants to specify which action they intend to do. For instance, by clicking on the frog and the `Draw attention' button, the robot will execute the \textit{drawing attention to the frog}. Similarly, the moving action require two items: the animal moved and the target of the motion. By selecting a target before moving an animal, the teacher can be sure that the robot interpret the action correctly. This design of \gls{gui} gives access to the teacher to the full 655 actions without requiring as many buttons. Additionally, the selection of items is used by the robot controller to identify the relevant features to transmit to the algorithm for the learning.
 
-For the movements, the teacher can drag the the image of the animals, creating a \textit{shadow} and the release of this shadow triggers the start of the motion. Depending the animal moved and the other items highlighted, the corresponding action will be inferred and sent to the robot. This gives access to the teacher to the full 655 actions without requiring as many buttons.
 
 \begin{figure}[ht]
 	\centering
@@ -74,11 +88,12 @@ For the movements, the teacher can drag the the image of the animals, creating a
 	\label{fig:tutoring_gui}
 \end{figure}
 
-Additionally, the \gls{gui} is used by the teacher to respond to the propositions of the robot. Following the proposition of an action, a bubble describing the action will appear on top of the \gls{gui} and the corresponding item will be highlighted and if the action is a motion, an arrow will show the proposed motion. The teacher can react to the proposed action by pressing the "Do it", "Skip", "Cancel" or "Remove" buttons or let the action be executed. The action will be automatically executed after 2 seconds, during which the bubble will become greener to represent the passive acceptance of the action. The "Do it" button executes the action straight-away, the "Skip" button informs the algorithm that it should wait rather than doing the action, the "Cancel" button assigns a negative reward to this action in that case and finally, the "Remove" button looks for the closest previous instantiation of action in memory and removes it, preventing it to be executed later.
+
+Finally, the \gls{gui} is also used by the teacher to respond to the propositions of the robot. Following the proposition of an action, a bubble describing the action will appear on top of the \gls{gui} and the corresponding items will be highlighted and if the action is a motion, an arrow will show the proposed motion. The teacher can react to the proposed action by pressing the "Do it", "Skip", "Cancel" or "Remove" buttons or let the action be executed. The action will be automatically executed after 2 seconds, during which the bubble will become greener to represent the passive acceptance of the action. The "Do it" button executes the action straight-away, the "Skip" button informs the algorithm that it should wait rather than doing the action, the "Cancel" button assigns a negative reward to this action in that case and finally, the "Remove" button looks for the closest previous instantiation of action in memory and removes it, preventing this instance to be executed later.
 
 \subsection{Algorithm}
 
-To learn a appropriate action policy, the algorithm has to map an action (or no action) to each possible state. The state used in this study represents the state of the game in a 210 dimensional vector, with value from 0 to 1. The dimensions include: distance between items, items' energy, time since events (child and robot touching each animal, robot's actions, interaction events: feeding an animal, death of animal...), progression in the game sessions and child face direction (toward the robot, the screen or away).
+The learning algorithm's goal is to map an action (or no action) to each possible state. The state used in this study represents the situation of the game in a 210 dimensional vector, with value from 0 to 1. The dimensions include: distance between items, items' energy, time since events (child and robot touching each animal, robot's actions, interaction events: feeding an animal, death of animal...), progression in the game sessions and child face direction (toward the robot, the screen or away).
 
 The actions and the state dimensions have been selected to be generic to many teaching task involving movable items: each item can have a value assigned to it (here energy, but this could be changed in other scenario), and some movable items (here animals) can be move toward or away from other items. Using these generic actions and this state definition, this implementation could be easily re-purposed to another teaching task.
 
@@ -90,7 +105,7 @@ The algorithm runs at 2Hz while we would expect actions to be selected every 5 t
 
 \subsection{Study Design}
 
-Sixty children aged 8 to 10 participated in the study (age: \textit{M}=8.9, \textit{SD}=0.83; 11F/15M).  Children were first introduced to the robot and the aim of the interaction, then had a first pre-test to evaluate their initial knowledge. Before starting the teaching game, children have to complete a tutorial where they are introduced to the mechanics of the game: animals have life and have to eat to survive and children can move animals to make them interact with other animals or plants. After this short tutorial, they have to complete two sessions of the game where the robot can provide feedback and advices depending which conditions they are in. After these initial sessions of the game they have to complete a mid-test before playing another 2 sessions of the game and a last post-test before concluding the study. 
+Seventy-five children aged 8 to 10 participated in the study (age: \textit{M}=8.9, \textit{SD}=0.83; 11F/15M).  Children were first introduced to the robot and the aim of the interaction, then had a first pre-test to evaluate their initial knowledge. Before starting the teaching game, children have to complete a tutorial where they are introduced to the mechanics of the game: animals have life and have to eat to survive and children can move animals to make them interact with other animals or plants. After this short tutorial, they have to complete two sessions of the game where the robot can provide feedback and advices depending which conditions they are in. After these initial sessions of the game they have to complete a mid-test before playing another 2 sessions of the game and a last post-test before concluding the study. 
 
 \begin{figure}[h]
 	\includegraphics[width=.9\linewidth]{graph.png}
