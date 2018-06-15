@@ -54,27 +54,36 @@ The main thesis that this document seeks to put forward is as below.
 
 Additional research questions have been explored during the progress of this
 work and are introduced here.
-
+%Maybe rephrase to remove constant "This research question..."
 \begin{itemize}
 	\item [RQ1] \textbf{What are the requirements of a robot controller to ensure a behaviour suited to \gls{hri}?} 
 	
-		By interacting with humans, robots enter the social world and have to conform to human expectations and ensure that they can reach their goal. This research question studies how the constraints interacting on the human world put on the robot's controller. %Not ideal...
+		By interacting with humans, robots enter the social world and have to conform to human expectations and ensure that they can reach their goal. This research question studies which are the constraints that interacting on the human world put on the robot's controller. %Not ideal...
 		
     \item [RQ2] \textbf{What interaction framework would allow a human to teach a robot while validating  the requirements from RQ1?}
     
-    	While RQ1 provides requirements for a robot controller, the task of designing a interaction framework allowing a human to teach remains. This research question address what principles of interaction could lead to an efficient teaching interaction while validating the requirements from RQ1. 
+    	While RQ1 provides requirements for a robot controller, the task of designing a interaction framework allowing a human to teach remains. This research question address what principles of interaction could lead to an efficient teaching interaction whilst validating the requirements from RQ1. 
     	
     \item [RQ3] \textbf{How does a learning component in a supervised robot influences the workload of the human-supervisor and performance in the task?}
     
-        \gls{woz} is an approach widely used in \gls{hri} \citep{riek2012wizard}, whereby a human teleoperates a robot to have it interact with other humans. However, this method applies a high workload on the operator and is not scalable. Using \gls{ml} to learn from this operator online might decrease the operator's workload without decreasing the quality of the robot behaviour.
+        Controlling a robot is a significant workload for a person. This question explores if including a learning component in the robot could alleviate the human workload by taking over some of the mental and physical requirements of robot control and if this learning impacts the performance in the task.
+%        \gls{woz} is an approach widely used in \gls{hri} \citep{riek2012wizard}, whereby a human teleoperates a robot to have it interact with other humans. However, this method applies a high workload on the operator and is not scalable. Using \gls{ml} to learn from this operator online might decrease the operator's workload without decreasing the quality of the robot behaviour.
     
     \item [RQ4] \textbf{What is the impacts of the teacher's control over the robot's actions and learning?} 
     
-	    In the context of \gls{iml}, a human can provide inputs to an agent to speed up the learning. Other \gls{iml} \citep{thomaz2008teachable,knox2009interactively} focus on feedback from the human with limited or no control over the agent's actions. However, increasing the control should speed up the learning and reduce the number of errors made by the robot.
+    	Teaching robot has a unique property compared to teaching humans in the fact that the teacher can have total control over the learner's actions. This question explores. This control over the learner's action might lead to faster, more efficient learning while being a lighter process for the teacher.
+	%    In the context of \gls{iml}, a human can provide inputs to an agent to speed up the learning. Other \gls{iml} \citep{thomaz2008teachable,knox2009interactively} focus on feedback from the human with limited or no control over the agent's actions. However, increasing the control should speed up the learning and reduce the number of errors made by the robot.
 
-    \item [RQ5] \textbf{After receiving supervision from a human, could a robot behave autonomously in a social context?}
+	\item [RQ5] \textbf{How an interaction framework validating the requirements from RQ1 impact humans interacting with a robot when it is learning?}
+	
+		RQ2 explores how a teaching framework could in theory validate the requirements from RQ1. This questions studies if such a framework validates these requirements and its potential impact on the teaching process.
+		%This research question evaluates if the framework proposed by exploring RQ2 would satisfy the requirements from RQ1 during the teaching process. 
+		%Talk about impacts on both humans?
+		
+    \item [RQ6] \textbf{After receiving supervision from a human, could a robot behave autonomously in a social context?}
 %    \item [RQ5] \textbf{How can a human teach a robot to interact with other humans?} %???
 
+	 	After being taught, a robot can be deployed to interact autonomously in the real world. While RQ5 focused on the teaching phase, this questions analyses the robot's behaviour interacting autonomously and tests if the teaching process was efficient in providing the robot an autonomous behaviour validating principles from RQ1.
 	 	%\gls{sparc} has been designed to allow non-experts in \gls{ml} to teach agents how to interact during the interaction. Human-robot interactions provide a perfect test for this approach: using a human to teach a robot how to behave in this complex and non-deterministic environment.
 	 
 \end{itemize}
@@ -82,34 +91,25 @@ work and are introduced here.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Approach and Experimentation}\label{sec:intro-exps}
 
-\subsection{Flow of the thesis}%Will change!
+%\subsection{Thesis overview}%Will change!
 
-%Should make more references to the research questions
-To explore the thesis and research questions addressed in this work, in Chapter \ref{chap:background}, we started by reviewing the fields of application of \gls{hri} where the interaction is social. From this review, we drew requirements a robot controller should follow. Then we analysed the different controllers used in robotics through these requirements and identified the absence of controller used in \gls{hri} validating this principles.
+%Big overlap with structure, but described the general flow of the thesis
+To explore the thesis and the research questions addressed in this work, the first step was to review the field of application of social \gls{hri}. From this review, we addressed RQ1 by drawing three requirements for a robot to interact efficiently in human-environments. The robot constantly needs to have an appropriate action policy, be adaptive and require a low workload from humans. Then we reviewed the current controller for robots in \gls{hri} and identified the absence of a robot controller validating these requirements (cf. Chapter \ref{chap:background}).
 
-To address this lack of method providing appropriateness of actions and adaptivity to robots while requiring a low workload, we proposed a new method, \gls{sparc}, applicable to \gls{hri}. \gls{sparc} aims to provide control over the robot's action to a human and use this supervision to learn online a correct action policy. \gls{sparc} is based on principles allowing this interaction to be efficient... Once the method and the principles defining the interaction between the human teacher and the robot defined, we evaluated this approach in three study with increasing ambition. Before testing \gls{sparc} in a real world interaction, we needed to evaluate if the interaction between the teacher and the robot could lead to a learning of the robot side, a decrease of workload on the teacher side and if the control provided by \gls{sparc} improved the safety and the efficiency of the learning process.
+In Chapter \ref{chap:sparc} we aim address this lack of method validating the requirements from Chapter \ref{chap:background}. To address RQ2, we proposed a new method, the \acrfull{sparc}, applicable to \gls{hri}. \gls{sparc} aims to provide control over the robot's action to a human and use this supervision to learn online a correct action policy. \gls{sparc} is based on a set of principles allowing this interaction to be efficient: the teacher can select actions for the robot, the robot can propose actions to the teacher, the teacher can pre-empt robot's propositions before an automatic execution and, finally, the robot learns from the teacher's selections and feedback to improve its action policy.
 
-The first study, presented in Chapter \ref{chap:woz}, aims at evaluating the interaction between the supervisor and the robot in a controlled and repeatable environment inspired by \gls{rat}. The study explores how, by decreasing the number of actions required by the supervisor, the learning component of \gls{sparc} can reduce their workload.
+Once the method and the principles defining the interaction between the human teacher and the robot were set, we evaluated this approach in three study with increasing ambition. Before testing \gls{sparc} in a real world interaction (in Chapter \ref{chap:tutoring}), we needed to evaluate if the interaction between the teacher and the robot could lead to a learning of the robot side and a decrease of workload on the teacher side (RQ3) and if the control provided by \gls{sparc} improved the safety and the efficiency of the learning process (RQ4).
 
-Once \gls{sparc} demonstrated that it allowed a robot to learn and decreased the workload on the supervisor, we evaluated how the control provided by \gls{sparc} improved the learning process. To explore the impact of control, we designed a second study comparing \gls{sparc} to \gls{irl} an alternative approach used to teach robots, but providing less control over the robot's action to the teacher. Similarly to the first study, this second one only included a human as a teacher, but not in the target of the teaching. This allowed to gather information on \gls{sparc} in repeatable environments and without having to tackle the challenges of interacting in the real world.
+The first study, presented in Chapter \ref{chap:woz}, aims at evaluating the interaction between the supervisor and the robot in a controlled and repeatable environment inspired by \gls{rat}. The study explores how, by decreasing the number of actions required by the supervisor, the learning component of \gls{sparc} can reduce their workload, addressing RQ3.
 
-Since the two first study demonstrated the efficiency of \gls{sparc} to teach a robot to interact in virtual environments, \gls{sparc} was ready to be evaluated in a real human-robot interaction: tutoring children in the wild. This last study applied \gls{sparc} to teach a robot a social policy to interact with humans and support child learning. And this study aims at demonstrating the applicability of \gls{sparc} in teaching robots to interact socially with humans, consequently supporting the thesis of this research.
+Once \gls{sparc} demonstrated that it allowed a robot to learn and decreased the workload on the supervisor, we evaluated in Chapter \ref{chap:control} how the control provided to the teacher by \gls{sparc} improved the learning process (RQ5). To explore the impact of control, we designed a second study comparing \gls{sparc} to \gls{irl} an alternative approach used to teach robots, but providing less control over the robot's action to the teacher. Similarly to the first study, this second one only included humans as teachers, but not as the target of the teaching. This allowed to gather further information on \gls{sparc} in repeatable environments and without having to tackle the challenges of interacting with humans in the real world.
 
-ow the results have been used to design a new interaction framework to teach robots to interact with humans
+Finally, since the two first study demonstrated the efficiency of \gls{sparc} to teach a robot to interact in virtual environments, \gls{sparc} was ready to be evaluated in a real human-robot interaction: tutoring children in the wild. This last study applied \gls{sparc} to teach a robot a social policy and technical policy to support child learning. This study had three main goals. First, demonstrating the applicability of \gls{sparc} in teaching robots to interact socially with humans, consequently supporting the thesis of this research. Secondly, explore the impact during the teaching phase on the two humans involved in the triadic interaction (RQ5). And finally, evaluate if, after having been taught by a human using \gls{sparc}, the robot could interact successfully with other humans in an autonomous manner, without supervision (RQ6).
 
-how it has been tested and why that order
-
-\subsection{Learning Algorithms}
-
-To learn, the robot needs to use \gls{ml}, to possess a learning algorithm allowing it to learn an action policy and improve it. Two main categories of \gls{ml} have been used in this research: \gls{sl} and \gls{rl}.
-
-\gls{sl} aims to learn a mapping between inputs and outputs to automatically reproduce a desired behaviour. It uses a dataset of labelled example and optimise an algorithm minimising its prediction error \citep{russell2016artificial}. This aim, reproducing a desired behaviour, is especially connected with the work carried out in this research. By learning to reproduce the teacher's behaviour, the robot should reach an efficient behaviour in the target application. Typical example used in this study are \gls{ann} and nearest neighbours methods. \gls{ann} models loosely the way brains and neurons work by having a group of `neurons' connected between each other. By changing this connection between the neurons, the network learns to reproduce the desired values on the output nodes. On the other hand, nearest neighbours methods are instance based methods, they compare the distance in the feature space between a point to classify and the different instances stored in a dataset and select the value of a majority of nearest neighbours in this space.
-
-Unlike \gls{sl} which reproduces a known behaviours, \gls{rl} aims at providing an agent with the capacity to discover the world it interact in and learn from this interaction with the world \citep{sutton1998reinforcement}. The agent has access to a description of the state and actions it can do, and depending of the action selected, the state will change and the agent will receive a reward. The goal of the agent is to find an optimal policy maximising a notion of cumulated reward. \gls{rl} is also linked to the work presented in this thesis: by allowing robots to learn to interact in human environments, we would reach the our goals of efficient human-robot interactions.
-
-Due to the relevance of both fields to this thesis' research topics (enabling humans to teach robots to interact), algorithms from both categories have been used. The first study presented in Chapter \ref{chap:woz} used a feed forward neural network learning to reproduce a teacher policy. The second study in Chapter \ref{chap:control} used \gls{rl} combining human guidance and environmental and human rewards. And the last study presented in Chapter \ref{chap:tutoring} used instance based algorithm adapted from Nearest Neighbours to enable quick and efficient learning. More details about each algorithms and their related work can be found in the associated chapters.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Key Concepts and Terminology}\label{sec:intro-concepts}
+
+\subsection{Terminology}
 
 Not sure if worth including
 
@@ -124,13 +124,25 @@ agent and robot
 	\item \textbf{Supervised Autonomy}
 	\item \textbf{Learning}
 	\item \textbf{Teacher, wizard, user, expert and supervisor}
-	\item \textbf{Robot and agent}
+	\item \textbf{Robot, agent and learner}
 \end{itemize}
+
+\subsection{Learning Algorithms}
+
+\gls{ml} represents a subfield of \gls{ai} dedicated to exploring how statistical techniques can be used to provide artificial agents with learning. Two main categories of \gls{ml} are relevant this research: \gls{sl} and \gls{rl}.
+
+\gls{sl} aims to learn a mapping between inputs and outputs to automatically reproduce a desired known behaviour. It uses a dataset of labelled example and optimises an algorithm to minimise the prediction error of labels \citep{russell2016artificial}. This aim, reproducing a desired behaviour, is especially connected with the work carried out in this research. By learning to reproduce the teacher's behaviour, the robot should reach an efficient behaviour in the target application. Typical example used in this study are \gls{ann} and nearest neighbours methods. \gls{ann} model loosely the way brains and neurons work by having a group of interconnected `neurons'. By changing the connections between the neurons, the network learns to reproduce the desired values on the output nodes according to the inputs provided. On the other hand, nearest neighbours methods are instance based methods, they compare the distance in the feature space between a point to classify and the different instances stored in a dataset and select the value of a majority of nearest neighbours in this space.
+
+Unlike \gls{sl} which reproduces a known behaviours, \gls{rl} aims at providing an agent with the capacity to discover the world it interact in and learn from this interaction with the world \citep{sutton1998reinforcement}. The agent has access to a description of the state and actions it can do, and depending of the action selected, the state will change and the agent will receive a reward. The goal of the agent is to find an optimal policy maximising a notion of cumulated reward. \gls{rl} is also linked to the work presented in this thesis: by allowing robots to learn to interact in human environments, we would reach our goals of efficient human-robot interactions.
+
+Due to the relevance of both fields to this thesis' research topics (enabling humans to teach robots to interact), algorithms from both categories have been used. The first study presented in Chapter \ref{chap:woz} used a feed forward neural network learning to reproduce a teacher policy. The second study in Chapter \ref{chap:control} used \gls{rl} to combine human guidance and environmental and human rewards to learn an efficient action policy. And the last study presented in Chapter \ref{chap:tutoring} used instance based algorithm adapted from Nearest Neighbours to enable online quick and efficient learning. More details about each algorithms and their related work can be found in the associated chapters.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Challenges}
 
 Complexity of interactions with humans: complex world, safety, workload and so on
+
+not sure if needed?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Contributions}\label{sec:intro-contr}
@@ -145,27 +157,32 @@ Complexity of interactions with humans: complex world, safety, workload and so o
 \end{itemize}
 
 \subsection{Technical Contribution}
+In addition to the scientifical contribution, this research project lead to software development for multiple projects.
 \begin{itemize}
-	\item Software development for two projects: \acrshort{dream} (European FP7 project: 611391) and Human-Robot Interaction Strategies for Rehabilitation based on Socially Assistive Robotics (Royal Academy of Engineering: IAPP\textbackslash1516\textbackslash137).
-	\item Development of a Wizard interface for the Freeplay-Sandbox\footnote{\url{https://github.com/freeplay-sandbox}}. 
+	\item Development of three different studies to evaluate \gls{sparc} in three different scenarios (supervised robot-robot interaction, virtual robot and real word \gls{hri}).
+	\item Partial development of a cognitive architecture and two tools for the \acrshort{dream} project (European FP7 project: 611391).
+	\item Development of an autonomous robot controller to support cardiac rehabilitation in the Human-Robot Interaction Strategies for Rehabilitation based on Socially Assistive Robotics project (Royal Academy of Engineering: IAPP\textbackslash1516\textbackslash137).
+	\item Development of a wizard interface for the Freeplay-Sandbox\footnote{\url{https://github.com/freeplay-sandbox}}. 
 \end{itemize}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure}\label{sec:intro-struct}
+%From James, could probably be updated
 The structure of this thesis is outlined below to provide an overview of the content and context for each chapter. A summary of key experimental findings are included at the start of each relevant chapter for ease of reference. 
 
 \begin{itemize}
-	\item This chapter provided an introduction to the general field of this research (robots learning to interact with humans), the research questions including the central \textit{thesis}, scope, and contributions of the work presented in later chapters.  
+	%From James, could probably be updated
+	\item This chapter provided an introduction to the general field of this research (robots learning to interact with and from humans), the research questions including the central \emph{thesis}, scope, and contributions of the work presented in later chapters.  
 
-	\item Chapter~\ref{chap:background} provides a description of the different fields of \gls{hri} and draws three requirements for robot's controllers interacting with humans. In a second part, it analyses the current controllers for robots in \gls{hri} identifying that no current controller fits these requirements. Finally, it proposes to apply \gls{iml} to \gls{hri} to validate the requirements, which is the goal of this thesis.
+	\item Chapter~\ref{chap:background} provides a description of the different fields of \gls{hri} and draws three requirements for robot's controllers interacting with humans. In a second part, it analyses the current robot controllers used in \gls{hri} identifying that no current controller fits these requirements. Finally, it introduces \gls{iml} and proposes to apply to \gls{hri} as a way to validate the requirements.
 	
-	\item Chapter~\ref{chap:sparc} proposes a new interaction framework, \gls{sparc}, aiming to provide a way to apply \gls{iml} to \gls{hri} while validating the three requirements proposed in Chapter \ref{chap:background}. Additionally, this chapter presents the expectations of \gls{sparc}.
+	\item Chapter~\ref{chap:sparc} proposes a new interaction framework, \gls{sparc}, aiming to provide a way to apply \gls{iml} to \gls{hri} while validating the three requirements proposed in Chapter \ref{chap:background}. This chapter describes the principles behind \gls{sparc} and the expectations and limit this method could have.
 	
-	\item Chapter~\ref{chap:woz} presents results from a first study evaluating if the principles of \gls{sparc} would allow to reduce the workload on a supervisor compared to \gls{woz}. Results support the hypotheses, validating some of the motivation of \gls{sparc} (a learning robot would reduce the workload on a supervisor).
+	\item Chapter~\ref{chap:woz} presents results from a first study evaluating if \gls{sparc} would allow to reduce the workload on a supervisor compared to \gls{woz}. Results support the hypotheses, validating some of the motivations of \gls{sparc} (a learning robot would reduce the workload on a supervisor).
 	
-	\item Chapter~\ref{chap:control} presents results from a second study comparing \gls{sparc} to \gls{irl}, another interaction framework from \gls{iml}. The main difference between the two approaches is the amount of control the teacher has. With \gls{sparc}, the teacher can correct any action executed by the robot, and results support that this control improves the efficiency of the learning (performance, time and inputs required to teach and risks taken during the teaching phase).
+	\item Chapter~\ref{chap:control} presents results from a second study comparing \gls{sparc} to \gls{irl}, another interaction framework from \gls{iml}. The main difference between the two approaches is the amount of control the teacher has: with \gls{sparc}, the teacher can correct any action executed by the robot. Results from a 40 participants study support that this control improves the efficiency of the learning (improving the performance, time and inputs required to teach and decreasing the risks taken during the teaching phase).
 	
-	\item Chapter~\ref{chap:tutoring} presents a study where \gls{sparc} has been applied to a real world \gls{hri}, child tutoring. And results demonstrate that while not impacting the learning gain of the session, an autonomous robot having learned using \gls{sparc} elicit similar children behaviour than a supervised robot, unlike a passive robot. This results support \gls{sparc} as a teaching method allowing to transfer a social and technical action policy from human expert to a robot in a safe way.
+	\item Chapter~\ref{chap:tutoring} presents a study where \gls{sparc} has been applied to a real world \gls{hri}, child tutoring. Results demonstrate that,	 while not impacting the learning gain of the session, a supervised robot elicit richer child behaviour. This observation was transferred to an autonomous robot having learned using \gls{sparc}: the children's reactions to the supervised robot and the autonomous one were similar. These results support \gls{sparc} as a teaching method allowing to transfer a social and technical action policy from human expert to a robot in a safe way and leading to efficient autonomous behaviour.
 	
 	\item Chapter~\ref{chap:discussion} presents a discussion from the main findings from the previous chapters and presents limitations and future directions of research for \gls{sparc}.
 	
