@@ -11,11 +11,11 @@
 	\textbf{Key points:}
 	
 	\begin{itemize}
-		\item Design of an experiment comparing \acrshort{sparc} and another interactive teaching method: \acrshort{irl}.
+		\item Design of an experiment comparing \acrshort{sparc} and another \acrshort{iml} method: \acrshort{irl}.
 		\item The application domain is a replication of the world used in early studies evaluating \acrshort{irl}.
 		\item \acrshort{irl} uses partial guidance to the robot and explicit rewarding of the robot's action to teach it a policy.
-		\item \acrshort{sparc} uses full control over the robot's action, implicit rewarding system and evaluation of intentions rather than actions.
-		\item \acrshort{sparc} was combined with \acrlong{rl}.
+		\item \acrshort{sparc} uses full control over the robot's action, implicit rewards and evaluation of intentions rather than actions.
+%		\item \acrshort{sparc} was combined with \acrlong{rl}.
 		\item Results from a mixed design study involving 40 naive participants show that \acrshort{sparc} achieves a better performance and an easier and faster teaching than \acrshort{irl}.
 	\end{itemize}
 \end{framed}
@@ -144,7 +144,7 @@ The environment is a deterministic \gls{mdp}, defined by a state, a set of actio
 
 Two conditions were constructed to compare the \gls{irl} and \gls{sparc} approaches to this task. The underlying learning mechanism is identical in both conditions. The only differences lie in the manner of interaction (inputs to and from the algorithm) and the amount of control over the robot's actions. With \gls{irl} teachers have to explicitly provide rewards and have a partial control over the action selection, while with \gls{sparc} rewards are implicit and the control over actions is total. 
 
-The learning algorithm (see Algorithm \ref{algo:control_sparc} and \ref{algo:control_irl}) is a variation on Q-learning, without reward propagation\footnote{In Q learning the update function is $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t+1},a))-Q(s_{t},a_{t}))$}. This guarantees that any learning by the robot is due to the human's teaching, and as such provides a lower bound for the robot's performance. By using Q-learning, the robot's testing performance would be higher.
+The learning algorithm (see Algorithm \ref{algo:control_sparc} and \ref{algo:control_irl}) is a variation on Q-learning, without reward propagation\footnote{In Q learning the update function is $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t+1},a))-Q(s_{t},a_{t}))$}. This guarantees that any learning by the robot is due to the human's teaching, and as such provides a lower bound for the robot's performance. By using Q-learning, the robot's testing performance would be higher. Similarly to the original study, the algorithm uses a learning rate $\alpha = 0.3$ and a discount factor $\gamma = 0.75$.
 
 \begin{table}
 \caption{Simplified outline of algorithms used for both condition.}
