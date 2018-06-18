@@ -1,7 +1,8 @@
 \usepackage[top=20mm, bottom=20mm, inner=40mm, outer=24mm]{geometry}
 \usepackage{graphicx,nomencl, natbib, microtype, titlesec, pdfpages, mathptmx, bibentry, booktabs, pdflscape, afterpage, framed, tabulary,subcaption,capt-of}
 \usepackage{lettrine,paralist,fancyhdr}
-\usepackage[colorlinks=false, hidelinks]{hyperref}
+\PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
+\usepackage[colorlinks=false, breaklinks=true, hidelinks]{hyperref}
 \usepackage{tabularx}
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \usepackage[doublespacing]{setspace}		% double line spacing throughout
@@ -13,7 +14,7 @@
 \graphicspath{{images/}}
 
 \makeatletter
-\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\g@addto@macro{\UrlBreaks}{\UrlOrds\do\r}
 \makeatother
 
 \makeatletter
