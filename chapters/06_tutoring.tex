@@ -366,17 +366,27 @@ The teacher did report a decrease of workload as she supervised the robot in mor
 %\end{figure}
 
 
-\section{Discussion}
+\section{Discussion} \label{sec:tutoring_discussion}
 
-\subsection{Absence of effect of robot behaviour on learning gain}
+\subsection{Children Behaviours and Learning Gain}
+
+The active robot's behaviours (supervised and autonomous) encouraged children to produce more `useful' behaviours during the interaction. When interacting with the active robot, children encountered more situations where learning could have happen (such as the different eating behaviours). However, this additional exposure to learning items did not transform into an increase in learning gain. In the three conditions, the children learned similarly; thereby not supporting H2. We identified two possible roots for this absence of transfer between positive game behaviour and performance in the test. The first one is that the game by itself, without the robot, encourages the children to explore. Children can learn from the game even without the robot, and as such, the robot behaviour might have distracting them from their exploration. In that case there might have been two opposite effect cancelling each other, resulting in no impact of the robot behaviour on the performance. This would imply that, while providing useful information, the active robot limited children in their exploration and as such its overall impact on performance was close to zero. The second possible origin would be in the test itself. By asking the children to connect the animals they know, we do not force them to make a choice. They have the opportunity to stop the test at any time. This might limit the efficiency of the comparison as some children might continue further than other, and we might miss some knowledge about the children. It might have been better to select randomly 20 connections between the animals and ask the children if one animal can eat the other.
 
 \begin{itemize}
 	\item Game self-exploratory, robot behaviour might distract the children
+	\item no correlation between exposure to learning items and learning gains
 	\item Limits of the knowledge test: too open-ended, might have been better to have 10 random animals selected and ask the child to say yes/no?
 	\item Limit of the performance calculation: the test was probably not able to capture the exact knowledge of children - Learning is about discovering interactions
 \end{itemize}
 
-\subsection{Absence of visible improvement of the robot}
+\subsection{Robot Learning}
+
+When designing this study, the expected impact of the online learning component was that it would allow to reduce the number of actions corrected and selected by the teacher, and increase the amount of correct propositions. This combined effect would have decreased the workload on the teacher with the number of interaction. However, this expectation (and by extend H3) was not validated by the observations: the number of action accepted, refused and selected by the teacher stay roughly identical throughout the interaction. One of the reasons identified was that the robot proposed a large number of actions (58\% more than the total number of executed action). This indicates that the adaptive threshold allowing the algorithm to propose actions was constantly too high. This high number of proposed actions partially explains the high number of actions refused by the teacher. As the robot tended to propose actions too often, the teacher reached a point in her supervision where she always constantly refused the robot's propositions even when some of them were acceptable. Another effect limiting the correctness of the proposition is the evolution of the teacher's policy. As the teacher progressed in the interactions, she started to use more and more actions. The algorithm could not predict actions not selected yet by the teacher, as such, the increase of the range of actions used by the teacher limits the maximal performance achievable by the learning algorithm. Toward the last interactions, the number of different actions used by teacher tended to converge, which could indicate that the algorithm would have achieved better results in the following interactions.
+
+Another distinction has to be highlighted between robots interacting in `real time' and robots interacting in discrete time. In discrete time, generally, an action has to be selected at each step, actions last one step, and optimal strategies can exist. However, when interaction in real time, actions take many steps, in most of the time no action should be selected and actions have validity windows, they do not have to be executed at one step but around that step. This imply that to reduce the teacher's workload, the algorithm do not have to select the same action as the teacher at each step, but needs to anticipate actions, so that the teacher does not select them first. Such a requirement for the algorithm limits the visibility of results. The algorithm might have selected a correct action in many times the teacher selected an action, but if that proposition arrived a step after the teacher's selection, it would not be considered as a selected action.
+
+\ES{limit of use of feature selection in the study}
+\ES{Multiple NN}
 
 \begin{itemize}
 	\item The robot proposed in average 58\% more actions than the number of actions executed by the robot (approved and selected by the teacher): the threshold to select actions was probably too low, leading to too many propositions and the adaptivity of the threshold not good enough
@@ -384,23 +394,46 @@ The teacher did report a decrease of workload as she supervised the robot in mor
 	\item To reduce the number of teacher selection, the robot would need to \emph{anticipate} every single teacher's action: not only knowing what action to do, but suggesting it the teacher before she started executing the action.
 	\item The teacher often cancelled/skip actions directly as they arrived without taking time to analyse them (limitation of this implementation of SPARC).
 	\item Evolution of teaching policy limits the potential of learning (not one single policy applied by the teacher, but an evolving one, including more actions as the teacher is more comfortable with the system).
+\end{itemize}
+
+\subsection{HRI is a human centred interaction}
+
+When a robot is supervised to interact with a child (or another human target), the main goal of the teacher is to ensure the experience for the child is optimal. Consequently, the teacher will be more focused on the interest of the interaction for the child than for the robot. For instance, if an action would help the child but hinder the learning for a reason (for example uncommon case), the teacher will `damage' the robot learning to improve the child experience: teaching the robot will always be only a side activity or a by product of the interaction. Furthermore as children are different, even when teaching a robot to interact with a child, the teacher will focus their attention on the best action policy for this specific child, and might present different learning policies to the robot. In such complex tasks, humans are making use of a large number of undefined \ES{ASK MADDIE} `states', especially temporal relations to select actions, and if the state definition the robot uses does not contains or cannot deal with these features, the learning will be limited.
+
+\begin{itemize}
 	\item Children are different, so the teacher tried to apply different action policy for each child.
 	\item Human centred interaction, the teacher was more focused on applying the best action policy for the child rather than teaching the robot.
 	\item Application will always be human-centered, so the teaching of the robot will always be a side activity: actions that can hinder the robot learning will be taken if the child would profit for them.
 	\item task complex
 \end{itemize}
 
-\subsection{Impact}
+\subsection{Opportunities}
+
+Despite the limitations of this implementation of \gls{sparc}, this study demonstrated the first application of \gls{sparc} to real \gls{hri}. A robot learned to interact with humans from in-situ supervision. \ES{Would that be the first time?} The autonomous robot produced an action policy similar to the one demonstrated by the teacher in the supervision, and the effect on the children were similar too. This supports H1: the autonomous has been able to interact socially with children and sustained engagement during the task (as demonstrated by the higher number of points and interaction time compared to the passive condition). This is an important contribution as the robot learned to interact in a complex task, including large state and action spaces and where errors could have an important cost on the interaction, potentially leading to a child refusing to continue the interaction.
+
+This achievement also used a teacher without knowledge in robotics or \gls{ml}. This encourages the use of \gls{sparc} by a large part of the population and by extend increase the potential of people able to teach robots complex behaviours. \ES{could add more here I guess}
+
+Even if online learning did not reduce the teacher workload much through the interactions, comparing to offline learning from \gls{woz} data using \gls{lfd} \citep{sequeira2016discovering,liu2014train}, it possesses two advantages. Firstly, the learning algorithm has access to more datapoint: the teacher's selection but also their reaction to the algorithm propositions. Secondly, by receive feedback about the algorithm knowledge, the teacher can create a mental model of the robot's knowledge and have an idea of how accurate the action policy is. Furthermore, by interacting with the learning algorithm, the teacher can start building a trust grounded by their experience with the learner, potentially knowing its strengths and weaknesses. This teacher's knowledge of the learner states can ease the decision of deploying the robot to interact autonomously as the teacher experienced the policy and knows what to expect from the algorithm.
+
 \begin{itemize}
 	\item Complexity of the task
 	\item discuss the supervision: not expert in machine learning, limited training
 	\item Way to support that the autonomous robot was also able to sustain the engagement through the learning task
+	\item Difference from offline learning from WoZ: possibility to gather more datapoints: teacher's selections and reactions to the robot's proposition => more points for learning
 \end{itemize}
 
 \subsection{Future work}
+\ES{probably irrelevant for this chapter}
+
+%The work presented in this chapter could be extended and improve in a number of ways. First all the issues identified in Section \ref{sec:tutoring_discussion} could be addressed, by using a more aggressive threshold, another way to test children's knowledge or using multiple neighbours to estimate the expected reward of an action. \ES{could extend} The learning game could also be modified to cover other teaching activities including moving images (potential application to language, maths).
+
+
 \begin{itemize}
 	\item Potential for other applications?
 	\item Ways to improve the study / How could the results have been better
 \end{itemize}
 \section{Summary}
 
+To conclude, this study proposed a new task for robot tutoring: a learning game to teach children about food webs. Most children involved in the study learned and improved their knowledge through the interaction. For the first time in this research \gls{sparc} has been applied to teach a robot to interact with humans. The robot learned to produce a behaviour similar to the teacher's one. Further this teaching was performed by a user not expert in \gls{ml} or robotics. While not leading to improvements in the children's learning gain, the active robots' behaviours did improve the performance of the child in the game. 
+
+In summary, by this study we provided support for the main thesis of this research: ``A robot can learn to interact meaningfully with humans in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour.'' And, while presenting limits in the current versions (for instance by not reducing the teacher's workload over time), \gls{sparc} succeeded in its goal to allow a user non-expert in computer science to safely teach a robot to interact with a human.
