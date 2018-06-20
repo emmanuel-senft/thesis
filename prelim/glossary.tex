@@ -1,5 +1,6 @@
 \usepackage[acronym,toc]{glossaries} 
 \makeglossaries
+\renewcommand{\glsnamefont}[1]{\makefirstuc{#1}}
 %\glsenableentrycount
 
 \newacronym{ml}{ML}{Machine Learning}
@@ -21,7 +22,7 @@
 \newacronym{ci}{CI}{Confidence Interval}
 \newacronym{dream}{DREAM}{Development of Robot-Enhanced Therapy for Children with Autism Spectrum Disorders (European FP7 project)}
 \newacronym{woz}{WoZ}{Wizard-of-Oz}
-\newacronym{sparc}{SPARC}{Supervided Progressive Autonomous Robot Competencies}
+\newacronym{sparc}{SPARC}{Supervised Progressively Autonomous Robot Competencies}
 \newacronym{mdp}{MDP}{Markov Decision Process}
 \newacronym{irl}{IRL}{Interactive Reinforcement Learning}
 \newacronym{ai}{AI}{Artificial Intelligence}
@@ -32,3 +33,5 @@
 \newacronym{ann}{ANN}{Artificial Neural Network}
 
 \newglossaryentry{sa}{name={Supervised Autonomy},description={An agent acts autonomously in the world while being monitored by a human. The agent proposes actions which will be executed to the human who has the power to pre-empt them and to select actions to be executed by the agent at any time}}
+\newglossaryentry{cw}{name={correction window},description={The correction window is the time provided to a supervisor to correct an action before its execution}}
+\newglossaryentry{vw}{name={validity window},description={The validity window is the duration of validity of an action, it represents how long an action is appropriate.}}
