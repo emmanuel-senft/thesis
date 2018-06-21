@@ -8,13 +8,13 @@ This chapter describes social \gls{hri} and presents related research in agent a
 
 \subsection{Fields of Application} \label{ssec:back_hri}
 
-\gls{hri} covers the full spectrum of interactions between humans and robots ranging from physical assistance and teleoperation to social companions. However, this thesis being focused on teaching robots to interact socially with humans, the following criteria on the interactions were used to select the subfields of \gls{hri} relevant to this research:
+Reviews of \gls{hri} and socially interactive robots have already been presented in \cite{goodrich2007human} and \cite{fong2003survey}. However, these reviews are starting to be dated, and did not have the same focus than this research. As mentioned in the introduction, this work is focused on social robots, robots perceived as social agents in a human centred environment. Depending of the context of interaction, these social robots will have been designed to interact socially with humans, or sometimes, the perception of sociality and agency will simply emerge from the interaction \citep{fincannon2004evidence}. As such, the following criteria on the interactions were used to select the subfields of \gls{hri} relevant to this research:
 \begin{itemize}
-\item Presence of an interaction between a robot and a human: both the human and the robot are influencing each other's behaviour.
-\item The robot is ``socially interactive'' \citep{Fong2003}. The \emph{social} element of the interaction between the robot and the human is  key. As such, it rules out purely physical human-robot interaction, such as exoskeleton, physical rehabilitation or pure teleoperation as in robotic assisted surgery.
+	\item Presence of an interaction between a robot and a human: both the human and the robot are influencing each other's behaviour.
+	\item The human partner consider the robot as a social agent, responding socially to the robot and potentially bonding with it.
 \end{itemize}
 
-Applying these constraints on \gls{hri} resulted on five subfields involving social interactions between robots and humans: 
+We reorganised and edited Goodrich and Schultz's categories, to fit with the criteria presented above, resulting on five subfields involving social interactions between robots and humans: 
 \begin{itemize}
 	\item \acrfull{sar}
 	\item Education
@@ -22,6 +22,7 @@ Applying these constraints on \gls{hri} resulted on five subfields involving soc
 	\item Hospitality and Entertainment
 	\item Collaborative Robots in Industry
 \end{itemize}
+We updated each category with recent research and highlighted the social component of the interaction and its impact on the controller used for the robot.
 
 \subsubsection{Socially Assistive Robotics}
 
@@ -59,7 +60,7 @@ Applying these constraints on \gls{hri} resulted on five subfields involving soc
     
     These examples in these two fields demonstrate that the sociability of the robot has to be taken into account when interacting in such stressful environments. Overlooking the importance of social relationships human will form can lead to dramatic consequences (e.g. soldiers taking risks for the robot). As such, during the interaction, the robot's behaviour needs to be constantly appropriate not to create misleading expectations and to ensure that the goal of the interaction will be met.
 		
-\subsubsection{Hospitality and Entertainment} 
+\subsubsection{Hospitality, Home and Entertainment} 
 	
 	Robots are also interacting with humans in hotels around the world; for example, the Relay robot (Savioke\footnote{\url{http://www.savioke.com/}}) delivers amenities directly to the guests' rooms in more than 70 hotels in the US, Europe and Japan\footnote{\url{https://www.spectrum.ieee.org/view-from-the-valley/robotics/industrial-robots/ces-2018-delivery-robots-are-fulltime-employees-at-a-las-vegas-hotel}}. Whilst the social interaction is still minimal today, these robots interact everyday with humans and have been seen evoking social reactions from them\footnote{\url{https://www.fastcodesign.com/3057075/how-savioke-labs-built-a-robot-personality-in-5-days}}. 
 	
@@ -129,7 +130,7 @@ Applying these constraints on \gls{hri} resulted on five subfields involving soc
 
 \subsubsection{Autonomy}
 	%TODO Reread
-	Today, many experiments in \gls{hri} are conducted using a robot tele-operated by a human \citep{riek2012wizard,baxter2016characterising}, and whilst having a human controlling the robot presents many advantages (e.g. the human provides the knowledge and the adaptivity required and has sensing and reasoning capabilities not yet implemented on the robot), multiple reasons push us away from this type of interaction \citep{Thill2013}. First, relying solely on tele-operation is not suited for deploying robots in the real world. Human control does not scale to interact for long periods of time or in many places: robots are expected to interact in fields already lacking workforce (e.g. healcare), so if robots needs to be continuously controlled, the advantage of automation is highly reduced. Second, the human-robot interaction tends to become ``a human-human interaction mediated by a `mechanical puppet' '' \citep{baxter2016characterising}, which decrease the relevance of the robot as an agent and as such limits the knowledge gain for interactions with future fully autonomous robots. And finally, human control of a robot's actions introduces multiple biases in the robot's behaviour \citep{howley2014effects}, and these biases from human operators will affect the robots' behaviour, decreasing the replicability of behaviours. For these reasons, among many, we argue that a robot used in social \gls{hri} should be as autonomous as possible. A limited human supervision could support the robot and be used to improve its behaviour, but the robot should not rely on humans for its action selection during the main parts of the interaction. 
+	Today, many experiments in \gls{hri} are conducted using a robot tele-operated by a human \citep{riek2012wizard,baxter2016characterising}, and whilst having a human controlling the robot presents many advantages (e.g. the human provides the knowledge and the adaptivity required and has sensing and reasoning capabilities not yet implemented on the robot), multiple reasons push us away from this type of interaction \citep{thill2012robot}. First, relying solely on tele-operation is not suited for deploying robots in the real world. Human control does not scale to interact for long periods of time or in many places: robots are expected to interact in fields already lacking workforce (e.g. healcare), so if robots needs to be continuously controlled, the advantage of automation is highly reduced. Second, the human-robot interaction tends to become ``a human-human interaction mediated by a `mechanical puppet' '' \citep{baxter2016characterising}, which decrease the relevance of the robot as an agent and as such limits the knowledge gain for interactions with future fully autonomous robots. And finally, human control of a robot's actions introduces multiple biases in the robot's behaviour \citep{howley2014effects}, and these biases from human operators will affect the robots' behaviour, decreasing the replicability of behaviours. For these reasons, among many, we argue that a robot used in social \gls{hri} should be as autonomous as possible. A limited human supervision could support the robot and be used to improve its behaviour, but the robot should not rely on humans for its action selection during the main parts of the interaction. 
 		
     To analyse the different robot controller's autonomy, we take inspiration from \citet{beer2014toward}. Beer et al. define three components of autonomy: sensory perception, analysis and action selection. And autonomy is organised following a spectrum of different levels from no autonomy at all: a human is totally controlling the robot (doing sensory perception, analysis and action selection) to a full autonomy: the robot senses and acts on its environment without relying on human inputs. Levels exist between these extremes where a human and a robot share perception, decision and/or action: for example the robot can request information from a supervisor or the supervisor can override the action or goal being executed \citep{sheridan1978human}.
     
