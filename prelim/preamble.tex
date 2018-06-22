@@ -13,6 +13,14 @@
 \nobibliography*
 \graphicspath{{images/}}
 
+\usepackage[markup=underlined]{changes}
+
+\definechangesauthor[color=orange]{ES}
+\newcommand{\ES}[1]{\added[id=ES]{#1}}
+\newcommand{\ESc}[2]{\added[id=ES,remark={#1}]{#2}}
+\newcommand{\ESd}[1]{\deleted[id=ES]{#1}}
+\newcommand{\ESr}[2]{\replaced[id=ES]{#2}{#1}}
+
 \makeatletter
 \g@addto@macro{\UrlBreaks}{\UrlOrds\do\r}
 \makeatother
