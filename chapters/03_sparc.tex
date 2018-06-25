@@ -23,7 +23,7 @@ Parts of the work presented in this chapter have been published in \cite{senft20
 \end{itemize}
 
 \newpage
-\ES{motivation title?}
+\section{Motivation}
 As presented in Chapter \ref{chap:background}, robots would profit from being able to learn from human teachers how to interact with other humans. We propose to use \gls{iml} to achieve this transfer of social and task knowledge from the human domain-expert to the robot. This would result in a faster and safer learning than slow iterative update of behaviours by engineering the action policy, learning from large quantities of data or learning by trials and errors as with \gls{rl}.
 
 However, as stated in this Section \ref{sec:back_iml}, \gls{iml} has never been applied to teach robots to interact with humans. No current system provides the teacher with enough control over the robot's actions to validate the first principle presented in Section \ref{ssec:back_constraints} (`Only execute appropriate actions'). Techniques relying solely on feedback from the teacher cannot prevent the robot to execute an incorrect action, but only reduce the chances of future errors by rewarding negatively incorrect actions after their execution \citep{senft2017supervised}. And, with current techniques based on \gls{lfd} the teacher relinquishes its control over the robot when not demonstrating, only reacting in hindsight after the learner makes mistakes and its erroneous actions have impacted the real world \citep{chernova2009interactive}.
