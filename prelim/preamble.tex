@@ -9,6 +9,7 @@
 \usepackage[toc,page]{appendix}
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{booktabs}
+\usepackage[all,cmtip]{xy} 
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 \nobibliography*
 \graphicspath{{images/}}
@@ -20,6 +21,8 @@
 \newcommand{\ESc}[2]{\added[id=ES,remark={#1}]{#2}}
 \newcommand{\ESd}[1]{\deleted[id=ES]{#1}}
 \newcommand{\ESr}[2]{\replaced[id=ES]{#2}{#1}}
+\newcommand{\crossarr}{\vspace{-8pt}$\xymatrix@C=2em@R=1em{ \ar[dr] &  \\ \ar[ur] & }$}
+
 
 \makeatletter
 \g@addto@macro{\UrlBreaks}{\UrlOrds\do\r}
