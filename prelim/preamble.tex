@@ -23,6 +23,20 @@
 \newcommand{\ESr}[2]{\replaced[id=ES]{#2}{#1}}
 \newcommand{\crossarr}{\vspace{-8pt}$\xymatrix@C=2em@R=1em{ \ar[dr] &  \\ \ar[ur] & }$}
 
+\makeatletter
+\newcounter{imagepage}
+\newcommand*{\foreachpage}[2]{%
+	\begingroup
+	\sbox0{\includegraphics{#1}}%
+	\xdef\foreachpage@num{\the\pdflastximagepages}%
+	\endgroup
+	\setcounter{imagepage}{0}%
+	\@whilenum\value{imagepage}<\foreachpage@num\do{%
+		\stepcounter{imagepage}%
+		#2\relax
+	}%
+}
+\makeatother
 
 \makeatletter
 \g@addto@macro{\UrlBreaks}{\UrlOrds\do\r}

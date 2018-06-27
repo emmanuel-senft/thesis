@@ -20,7 +20,7 @@ The software development guidelines of DREAM imposed a specific structure for fo
 The second tools aims at providing a graphical way to read and edit the xml files describing the scripts used in the therapies.
 
 \cleartooddpage
-\chapter{State Space Used for Tutoring Study} \label{ann:state}
+\chapter{State Space Used for Tutoring Study} \label{app:state}
 \begin{table}[ht]
 	\centering
 	\ra{1.2}
@@ -53,7 +53,7 @@ When the effect is true for accumulation, the state value is set to 0.5 and incr
 Each instance of a plant is considered as a unique element. For example, there are four instances of wheat, however each one is considered uniquely as a non-moving image. It could have been possible to group the instances by categories, but it would require some add-hoc coding, limiting the generalisation of the approach.
 
 \cleartooddpage
-\chapter{Action Space Used for Tutoring Study} \label{ann:action}
+\chapter{Action Space Used for Tutoring Study} \label{app:action}
 \begin{table}[ht]
 	\centering
 	\ra{1.2}
@@ -75,3 +75,23 @@ Each instance of a plant is considered as a unique element. For example, there a
 \end{table}
 
 The total action space available is 655 actions. It should be noted that technically 30 actions exist but cannot be selected by the teacher (moving animals to/close to/away from themselves). But this does not impact the learning as an instance based algorithm is used. Similarly to the states, each instances of a same category (such the different images of the wheat) is considered as a unique non-moving item to create actions.
+
+
+\cleartooddpage
+\chapter{Teacher's Diary} \label{app:diary}
+This appendix section present the daily report of the teacher's impressions and feeling when teaching the robot in the study in Chapter\ref{chap:tutoring}. It should be noted that among all the children supervised, many were special needs and as such have been removed from the result analysis. This also explains the difference of number between the children in the supervised condition (n=25) and in this diary (n=34).
+
+%\includepdf[pages=1-14,pagecommand={},linktodoc=true]{appendices/research-diary.pdf}
+\foreachpage{appendices/research-diary-crop.pdf}{%
+	\newpage   
+	\begingroup 
+	\centering
+	\includegraphics[
+	page=\value{imagepage},
+	width=\textwidth,  
+	height=\textheight,
+	keepaspectratio,
+	]{appendices/research-diary-crop.pdf}%
+	\newpage
+	\endgroup
+}
