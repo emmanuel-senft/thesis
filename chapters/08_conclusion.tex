@@ -40,7 +40,7 @@ The main scientific contributions of this thesis are as follows:
 	
 	\item \textbf{Design of a lightweight algorithm to quickly learn from demonstration in complex environments.} Learning to interact in complex environments, where the states can be defined by a large number of dimensions is a challenging task, especially when the number of datapoints accessible to learn is low. By using a selective reduction of dimension decided by the teacher, this new algorithm inspired from nearest-neighbours allowed a robot to learn to interact in the complex environment that is child tutoring with a few datapoints. 
 	
-	\item \textbf{Application of \gls{iml} to safely teach robots social autonomy from in situ human supervision.} Finally, the second main contribution of this research is a demonstration of online learning of interactive policy for \gls{hri} supported by human supervision. Similarly to agents using \gls{rl}, by using \gls{sparc} a robot learned an action policy by interacting with humans from scratch and applied it successfully to further autonomous interactions with humans.
+	\item \textbf{Application of \gls{iml} to safely teach robots social autonomy from in situ human supervision.} Finally, the second main contribution of this research is a demonstration of online learning of interactive policy for \gls{hri} supported by human supervision. By using \gls{sparc} a robot learned an action policy from scratch by interacting with humans and applied it successfully in further autonomous interactions with humans. This has real world implications as it shows that using \gls{sparc}, an agent can learn a precise policy from a generic perception of the world and a large set of actions. 
 	
 \ES{probably need to clean last bit and highlight why it matters}
 \end{itemize}
@@ -56,8 +56,7 @@ The main scientific contributions of this thesis are as follows:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}\label{sec:conc_conc}
 
-\ES{first motivation for human teachers}
-Providing a robot teacher with control can be a challenging task, but the rewards for doing so are consequent: the learning can be faster, more efficient and lightweight for the teacher. And most importantly, by preventing the robot's errors in early stage of the interaction, robots can be taught to interact in a wider range of situation where methods lacking control could not be applied.
+Using humans to teach robot provide significant advantages compared to having robots learning on their own. Furthermore, while being a challenging task, providing a robot teacher with control over the robot's actions improve these advantages: the learning can be faster, more efficient and lightweight for the teacher. And most importantly, by preventing the robot's errors in early stage of the interaction, robots can be taught to interact in a wider range of situation where methods lacking control could not be applied.
 
 \ES{from abstract}
 Throughout evaluating \gls{sparc}, this work contributes to extend our knowledge on how humans teach autonomous agents and the impacts of features of the teacher-robot interface on the teaching process. It is found here that a supervised robot learning from a human could reduce the workload required to learn a useful robot behaviour. Furthermore, providing the teacher with the opportunity to control the robot's behaviour improves substantially the teaching process.

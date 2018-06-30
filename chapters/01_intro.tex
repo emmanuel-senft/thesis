@@ -7,7 +7,7 @@
 
 \gls{hri} explores the challenges of developing robots to interact in human environments and studies how human beings react to such robots. While not being present in every home yet, robots are quickly propagating through society and entering people's life~\citep{friedman2003hardware,forlizzi2006service}.
 %for instance as vacuum cleaners, pets, assistants or even friends~\citep{belpaeme2012multimodal}. 
-To interact in human environments robots require a way to interpret their sensory inputs and act on the social world; in other words, they need to be sociable~\citep{breazeal2004designing}. However, interacting socially with humans is a complex task: the social interaction happens on multiple levels and combines elements from multiple fields~\citep{fong2003survey}. Furthermore, by interact with humans, robots are subjects to social norms and have to take them into account when behaving around humans~\citep{bartneck2004design}. Providing robots with such a complex action policy is a challenge, and no static controller programmed manually would cover all the possible situation they could face. To interact meaningfully with humans, robots need to learn, constantly expanding and refining their action policy. We propose using the experts in humans interactions, the humans themselves to teach robots to interact socially. By providing control over the robot's actions to a human teacher, robots could learn efficient policies for social interactions from in-situ human supervision. Interactively learning from humans presents a change of paradigm compared to traditional machine learning, as the human possesses knowledge they can transfer to the robot, improving the learning process~\citep{fails2003interactive,amershi2014power}. Furthermore, by initially framing this work in the context of \gls{hri} we added to the interaction a large set of constraints (high stakes of actions, complexity to gather datapoint and real time interaction). Consequently a method working in such a complex environment would have applications beyond \gls{hri} e.g. to \gls{ml} and \gls{ai}.
+To interact in human environments robots require a way to interpret their sensory inputs and act on the social world; in other words, they need to be sociable~\citep{breazeal2004designing}. However, interacting socially with humans is a complex task: the social interaction happens on multiple levels and combines elements from multiple fields~\citep{fong2003survey}. Furthermore, by interacting with humans, robots are subjects to social norms and have to take them into account when behaving around people~\citep{bartneck2004design}. Providing robots with such a complex action policy is a challenge, and no static controller programmed manually would cover all the possible situation they could face. To interact meaningfully with humans, robots need to learn, constantly expanding and refining their action policy. We propose using the experts in humans interactions, the humans themselves to teach robots to interact socially. By providing control over the robot's actions to a human teacher, robots could learn efficient policies for social interactions from in-situ human supervision. Interactively learning from humans presents a change of paradigm compared to traditional machine learning, as the human possesses knowledge they can transfer to the robot, improving the learning process~\citep{fails2003interactive,amershi2014power}. Furthermore, by initially framing this work in the context of \gls{hri} we added to the interaction a large set of constraints (high stakes of actions, complexity to gather datapoint and real time interaction). Consequently a method working in such a complex environment would have applications beyond \gls{hri} e.g. to general robotic, \gls{ml} and \gls{ai}.
 
 \ES{maybe the reopening is abrupt, might be worth going more in depth about what we have been doing}
 
@@ -62,14 +62,12 @@ While having been pursued by considering mostly \gls{hri} as the application int
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Thesis}\label{sec:intro_thesis}
-\ES{rephrase}
-The main thesis this document seeks to put forward is as below.
+The main thesis this document propose the following:
 \begin{quote}
 	\textbf{A robot can learn to interact meaningfully with humans in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour.}
 	%This supervision will lead to an efficient, safe and low human-workload teaching and autonomous behaviour.	
 \end{quote}
 
-\ES{rephrase}
 Additional research questions are also introduced here. These research questions are used to support and direct the experimental research conducted in pursuit of demonstrating the primary thesis.
 
 \begin{itemize}
@@ -112,22 +110,22 @@ Additional research questions are also introduced here. These research questions
 \section{Approach and Experimentation}
 
 \subsection{Review of the State of the Art in \gls{hri}}
-\ES{not great but a start}
-The first step to answer the RQ1 and identifying the requirements interacting with humans puts on robot was to review the different fields of application of social \gls{hri} and the impacts such interactions have on the robot's controller. We limited this survey to cases where humans consider the robot as a social agent as this the main feature defining social \gls{hri}. 
+%\ES{not great but a start}
+The first step toward answering the RQ1 and identifying the requirements interacting with humans puts on robot was to review the different fields of application of social \gls{hri}. In each type of interaction, the robot will be used by people with different specificities and needs, and by analysing these field, we can draw the requirements such interactions put on the robot's controller. We limited this survey to cases where humans consider the robot as a social agent as this the main feature we use to define social \gls{hri}.
 
 \subsection{New Teaching Framework}
-\ES{to improve}
-To address the requirement on a robot controller emerging by addressing RQ1, in this work, we propose the \gls{sparc}, a novel teaching framework intended to provide a way for non-experts in robotics to safely teach a robot to interact with humans. This research work describes and justifies this approach and evaluates its impact though three studies.
+%\ES{to improve}
+To address the requirements on a robot controller emerging by addressing RQ1, we propose the \gls{sparc}, a novel teaching framework intended to provide a way for non-experts in robotics to safely teach a robot to interact with humans. \gls{sparc} is the cornerstone of this thesis and this research work describes and justifies this approach and evaluates its impact though three studies of increasing complexity.
 
 \subsection{Study Design} 
 
-To address the main thesis of this work and RQ3 to RQ6, we designed and ran three studies, each of which is described in depth in a chapter. These studies evaluate the impacts of \gls{sparc} on different parts of the teaching and application interactions. The two first studies focused on the teaching interaction, i.e. the impact of \gls{sparc} on the teachers and the relation between the teacher and the robot. As a consequence, they required repeatable environments to compare humans' efficiency and experiences when teaching a robot. The last study applied \gls{sparc} on a complete real \gls{hri} and was run in a school with a single human teaching a robot to interact with children over multiple sessions and explored if \gls{sparc} could be used to teach a robot to interact with humans. All the studies used \gls{sparc} in the type of interaction presented in Figure~\ref{fig:intro_setup}, i.e. a teacher wants a robot to complete a task (included but not limited to human interaction) and can control the robot's actions through an interface. As each study focused on different features of \gls{sparc}, bespoke interaction environments and \ES{testbenches} have been developed for each study.
+To address the main thesis of this work and RQ3 to RQ6, we designed and ran three studies, each of which is described in depth in a chapter. These studies evaluate the impacts of \gls{sparc} on different parts of the teaching and application interactions. The two first studies focused on the teaching interaction, i.e. the impact of \gls{sparc} on the teachers and the relation between the teacher and the robot. As a consequence, they required repeatable environments to compare humans' efficiency and experiences when teaching a robot. The last study applied \gls{sparc} on a complete real \gls{hri} and was run in a school with a single human teaching a robot to interact with children over multiple sessions and explored if \gls{sparc} could be used to teach a robot to interact with humans. All the studies used \gls{sparc} in the type of interaction presented in Figure~\ref{fig:intro_setup}, i.e. a teacher wants a robot to complete a task (included but not limited to human interaction) and can control the robot's actions through an interface. As each study focused on different features of \gls{sparc}, bespoke interaction environments and test benches have been developed for each study.
 
 The first study (Chapter~\ref{chap:woz}) explored if \gls{sparc} could be used to provide learning to a robot in a \gls{woz} interaction and if this learning impacts the workload and performance of the teacher in the task. We took inspiration from \gls{rat} and decided to replace the child interacting with the wizarded-robot by a second robot running a model of a child and presenting typical features observed in children (such as probabilistic behaviour, partial observability of state and absence of easily definable optimal action policy). This repeatable environment allowed us to evaluate in a controlled study the impact of \gls{sparc} on the teacher and compare \gls{sparc} to \gls{woz}.
 
 The second study (Chapter~\ref{chap:control}) compared \gls{sparc} to an other \gls{iml} method: \gls{irl} in a replication of the virtual environment initially used to test \gls{irl}. The main difference between the two methods resides in the quantity of control provided to the teacher; unlike \gls{irl}, \gls{sparc} provides teachers with full control over the robot's actions. In this study, participants controlled a virtual robot on a computer and had to teach it how to solve a task in a deterministic virtual environment.
 
-Finally, the last study (Chapter~\ref{chap:tutoring}) deployed \gls{sparc} in a real interaction with humans, to teach children about food chains. This study used exactly the paradigm described in Figure~\ref{fig:intro_setup}: a child interacting with a robot and a teacher using a tablet to control the robot's actions and teaching the robot how to interact efficiently with children. \ES{Add more details: tablet game and so on}
+Finally, the last study (Chapter~\ref{chap:tutoring}) deployed \gls{sparc} in a real interaction with humans, to teach children about food chains. This study used exactly the paradigm described in Figure~\ref{fig:intro_setup}. A child is playing an educative game with a robot on a large touchscreen and the robot is remotely controlled and taught by an adult using a tablet. That way, using \gls{sparc}, the robot can learn to support the child in the educative activity and increase their engagement and performance in the task.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section{Key Concepts and Terminology}\label{sec:intro_concepts}
@@ -151,10 +149,8 @@ Finally, the last study (Chapter~\ref{chap:tutoring}) deployed \gls{sparc} in a 
 %\end{itemize}
 
 \subsection{Learning Algorithms}
-\ES{put NN in gls - fix capital letter}
 To enable robots to learn from humans, they need to be equipped with \acrfull{ml}, i.e. an algorithm statistically learning a mapping between inputs and outputs. Two main categories of \gls{ml} are relevant this research: \gls{sl} and \gls{rl}.
 
-\ES{reorganise}
 \gls{sl} aims to learn a mapping between inputs and outputs to automatically reproduce a desired known behaviour. It uses a dataset of labelled example and optimises an algorithm to minimise the prediction error of labels~\citep{russell2016artificial}. Typical examples of \gls{sl} used in this study are \gls{ann} and nearest neighbours methods. \gls{ann} model loosely the way brains and neurons work by having a group of interconnected `neurons'. By changing the connections between the neurons, the network learns to reproduce the desired values on the output nodes according to the inputs. On the other hand, nearest neighbours methods are instance based methods, they compare the distance in a feature space between a point to classify and the different instances stored in a dataset and select the value of a majority of nearest neighbours in that space. With its goal, reproducing a desired behaviour, \gls{sl} is especially connected with the work carried out in this research. By learning to reproduce the teacher's policy, the robot should reach an efficient behaviour in the target application.
 
 Unlike \gls{sl} which reproduces a known behaviours, \gls{rl} aims at providing an agent with the capacity to discover and explore the world it evolves in and learn from this interaction with the world~\citep{sutton1998reinforcement}. The agent has access to a description of the state and actions it can do, and depending of the action selected, the state will change and the agent will receive a reward. The goal of the agent is to find an optimal policy maximising a notion of cumulated reward. \gls{rl} is also linked to the work presented in this thesis: by allowing an agent (here a robot) to learn by interacting a world (here human environment), we would reach our goals of efficient human-robot interactions.
@@ -162,7 +158,7 @@ Unlike \gls{sl} which reproduces a known behaviours, \gls{rl} aims at providing 
 Due to the relevance of both fields to this research (enabling humans to teach robots to interact), algorithms from both categories have been used. The first study presented in Chapter~\ref{chap:woz} used a feed forward neural network learning to reproduce a teacher policy. The second study in Chapter~\ref{chap:control} used \gls{rl} to combine human guidance, and environmental and human rewards to learn an efficient action policy. The last study presented in Chapter~\ref{chap:tutoring} used an instance based algorithm adapted from Nearest Neighbours to enable online quick and efficient learning. More details about each algorithms and their related work can be found in the associated chapters.
 
 \subsection{Data Analysis}
-Graphs presented throughout this thesis have been generated using the seaborn package for Python and matplotlib \citep{waskom2017seaborn}. Often, we used violin plots, a graphical representation featuring the kernel density estimation of the distribution \ES{underlying} the data. Statistical analysis in Chapters~\ref{chap:control} and~\ref{chap:tutoring} have been made using the Jasp software \citep{jasp2018}. Jasp offers a Bayesian counterpart to classic statistical test, making them more robust and allowing to observe the presence or absence of effect. As such, instead of a \emph{p-value}, the Bayes factor $B$ is reported and represents how much of the variance on the metric is explained by a parameter (if $B < 1/3$ there is no impact, if $B > 3$ the impact is strong, and if $1/3<B<3$ the results are inconclusive; \citealt{jeffreys1998theory,dienes2011bayesian}). 
+Graphs presented throughout this thesis have been generated using the seaborn package for Python and matplotlib \citep{waskom2017seaborn}. Often, we used violin plots, a graphical representation featuring the probability density of the data at each value. Statistical analysis in Chapters~\ref{chap:control} and~\ref{chap:tutoring} have been made using the Jasp software \citep{jasp2018}. Jasp offers a Bayesian counterpart to classic statistical test, making them more robust and allowing to observe the presence or absence of effect. As such, instead of a \emph{p-value}, the Bayes factor $B$ is reported and represents how much of the variance on the metric is explained by a parameter (if $B < 1/3$ there is no impact, if $B > 3$ the impact is strong, and if $1/3<B<3$ the results are inconclusive; \citealt{jeffreys1998theory,dienes2011bayesian}). 
 
 \subsection{Terminology}
 
@@ -185,17 +181,16 @@ This research work contributed both scientifically (by creating and evaluating \
 	\item Evaluation of \gls{sparc} in three studies (Chapters~\ref{chap:woz},~\ref{chap:control} and~\ref{chap:tutoring}; \citealt{senft2015sparc,senft2017supervised,senft2018robots}).
 	\item Demonstration of the impact and importance of the teacher's control over the robot's action when teaching a robot to interact (Chapter~\ref{chap:control}; \citealt{senft2016sparc,senft2017supervised}).
 	\item Design of a lightweight algorithm to quickly learn from demonstration in complex environments (Chapter~\ref{chap:tutoring}; \citealt{senft2017toward}).
-	\item Application of \gls{iml} to safely teach robots social autonomy from in situ human supervision (Chapter~\ref{chap:tutoring}; \citealt{senft2018robots}).
-	\ES{more precise - show why it matters}
+	\item Application of \gls{iml} to safely teach robots social autonomy from in situ human supervision in a real human-robot interaction (Chapter~\ref{chap:tutoring}; \citealt{senft2018robots}). This contribution is the main one as allowing robot to learn to interact with human in situ presents many advantages compared to other types of learning but is seldom used in \gls{hri} due the challenge it presents.
 \end{itemize}
 
 \subsection{Technical Contributions}
 \begin{itemize}
 %	\item Development of three different studies to evaluate \gls{sparc} in three different scenarios (supervised robot-robot interaction, virtual robot and real word \gls{hri}).
-	\item Partial development of a cognitive architecture and two tools for the \acrshort{dream} project (European FP7 project: 611391) (Appendix~\ref{app:dream}; \citep{esteban2017build}).
+	\item Partial development of a cognitive architecture and two tools for the \acrshort{dream} project (European FP7 project: 611391) (Appendix~\ref{app:dream}; \citealt{esteban2017build}).
 	\item Development of an autonomous robot controller to support cardiac rehabilitation in the Human-Robot Interaction Strategies for Rehabilitation based on Socially Assistive Robotics project (Royal Academy of Engineering: IAPP\textbackslash1516\textbackslash137)~\citep{lara2017human,casas2018social}.
 	\item Development of a wizard interface for the Freeplay-Sandbox\footnote{\url{https://github.com/freeplay-sandbox}}~\citep{lemaignan2017free}.
-	\ES{mention software for studies?}
+	%\ES{mention software for studies?}
 \end{itemize}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -217,8 +212,8 @@ The structure of this thesis is outlined below to provide an overview of the con
 	
 	\item Chapter~\ref{chap:tutoring} presents the first study where \gls{sparc} has been applied to a real world \gls{hri}, child tutoring. Results demonstrate that, while not impacting the learning gain of the session, a supervised robot elicited richer child behaviour compared to a passive robot. Furthermore, by learning using \gls{sparc} an autonomous robot reached policy similar to the teacher's one and achieved the same impact on the children. These results support \gls{sparc} as a teaching method allowing to transfer a social and technical action policy from human to a robot in situ in a safe way and leading to efficient autonomous behaviour.
 	
-	\item Chapter~\ref{chap:discussion} presents a discussion of the main findings from the previous chapters in relation to the research questions introduced in this chapter, discusses the limitations and future directions of research for \gls{sparc} as well as its potential impact on \gls{hri}.
-	\ES{reread}
+	\item Chapter~\ref{chap:discussion} presents a discussion of the main findings from the previous chapters in relation to the research questions introduced in this chapter, discusses the limitations and future directions of research for \gls{sparc} as well as its potential impact on \gls{hri} and other fields.
+
 	\item Chapter~\ref{chap:conclusion} concludes the thesis and presents a summary of the main contributions.
 	
 \end{itemize}
