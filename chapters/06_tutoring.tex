@@ -241,13 +241,13 @@ Similarly to Chapter~\ref{chap:control}, we analysed the results using Bayesian 
 
 \subsection{Comparison of Policy}
 
-Figure~\ref{fig:tutoring_actions} presents the number of actions of each types executed by the teacher (in the supervised condition) and the autonomous robot. Both action policies presented similarities: the action `Move away' was almost never used, `Move to' was never used, and the supportive feedback (`Congratulation' and `Encouragement') were used more often than `Remind rules' or `Drawing attention'. However, some dissimilarities were also present, for instance, the autonomous robot used more encouragements than congratulations while the teacher did the opposite. The autonomous robot also reminded the rules more often and used the `Move close' action less than the supervisor. These differences of actions are probably linked to the type of machine learning used; with instance based learning, some datapoints will be used in the action selection much more often than others, which might explain these biases. But these results show that the robot managed to learn a social and technical action policy presenting similarities with the one displayed by the teacher providing partial support for H1.
+Figure~\ref{fig:tutoring_actions_distribution} presents the number of actions of each types executed by the teacher (in the supervised condition) and the autonomous robot. Both action policies presented similarities: the action `Move away' was almost never used, `Move to' was never used, and the supportive feedback (`Congratulation' and `Encouragement') were used more often than `Remind rules' or `Drawing attention'. However, some dissimilarities were also present, for instance, the autonomous robot used more encouragements than congratulations while the teacher did the opposite. The autonomous robot also reminded the rules more often and used the `Move close' action less than the supervisor. These differences of actions are probably linked to the type of machine learning used; with instance based learning, some datapoints will be used in the action selection much more often than others, which might explain these biases. But these results show that the robot managed to learn a social and technical action policy presenting similarities with the one displayed by the teacher providing partial support for H1.
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{actions.pdf}
 	\centering
 	\caption{Comparison of actions executed for the autonomous and supervised condition. The left graph is a violin plot of the data, while the right presents the means and the 95\% Confidence Intervals}
-	\label{fig:tutoring_actions}
+	\label{fig:tutoring_actions_distribution}
 \end{figure}
 
 
