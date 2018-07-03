@@ -12,21 +12,25 @@
 		\item Psychology PhD student teaching the supervised robot using \acrshort{sparc}.
 %		\item No significant differences of child learning between conditions.
 		\item Similar children behaviours with the autonomous and supervised robot, and different to the passive robot.
-		\item Demonstration of the applicability of \acrshort{sparc} to teach a robot online an action policy to interact with humans.
+		\item Demonstration of the applicability of \acrshort{sparc} to teach a robot online an action policy to interact with humans in a complex, indeterministic, high dimensional, multimodal and social space.
 	\end{itemize}
 \end{framed}
 
-Parts of the work presented in this chapter have been published verbatim in \cite{senft2017toward} and \cite{senft2018robots}, additional publication are under review \footnote{Note about technical contribution in this chapter: the author extended code the freeplay sandbox, see \url{https://github.com/freeplay-sandbox/} and forks.}. The final publications are available from AAAI, EPFL via:
+Parts of the work presented in this chapter have been published verbatim in \cite{senft2017toward} and \cite{senft2018robots}, an additional publication is under review. The final publications are available from AAAI, EPFL via:
 \begin{itemize}
 	\item \url{https://aaai.org/ocs/index.php/FSS/FSS17/paper/view/16011}.
 	\item \url{https://r4l.epfl.ch/files/content/sites/r4l/files/HRI2018/proceedings_2018/paper4.pdf}.
 \end{itemize} 
 
+Technical contribution in this chapter: the author extended code the freeplay sandbox, see \url{https://github.com/freeplay-sandbox/} and forks.
+
 \newpage
 
 \section{Motivation}
 
-Chapters~\ref{chap:woz} and~\ref{chap:control} tested the \gls{sparc} in interactions between robots or in a virtual world but not for \gls{hri} as it was intended to be used. As such, this Chapter addresses the thesis of this research and evaluates if \gls{sparc} can efficiently be used to teach a robot an interactive behaviour for real human-robot interactions. \gls{hri} in the wild typically occur in constrained but underspecified environments where social behaviours play an important role.  This study takes place in the context of robot tutors for children in education. Tutoring is a framework widely used in \gls{hri} and providing opportunities for a rich and complex interaction between a child and a robot~\citep{leyzberg2012physical,kennedy2015robot}. This scenario and the code are based on \cite{lemaignan2017free} but have been adapted to provide a new teaching task (teaching game and protocol), a knowledge test, a specific robot controller, a learning algorithm and an interface with the teacher supporting \gls{sparc}.
+Chapters~\ref{chap:woz} and~\ref{chap:control} tested the \gls{sparc} in interactions between robots or in a virtual world but not for \gls{hri} as it was intended to be used. As such, this Chapter addresses the thesis of this research and evaluates if \gls{sparc} can efficiently be used to teach a robot an interactive behaviour for real human-robot interactions. \gls{hri} in the wild typically occur in constrained but underspecified environments where social behaviours play an important role. Teaching a robot in such an environment is a challenge as the state and action spaces are of high dimension, the environment is not deterministic, the interaction takes place in continuous time and is multimodal; and finally, the social side is fundamental as it impacts the flow and the success of the interaction.
+
+This study takes place in the context of robot tutors for children in education. Tutoring is a framework widely used in \gls{hri} and providing opportunities for a rich and complex interaction between a child and a robot~\citep{leyzberg2012physical,kennedy2015robot}. This scenario and the code are based on \cite{lemaignan2017free} but have been adapted to provide a new teaching task (teaching game and protocol), a knowledge test, a specific robot controller, a learning algorithm and an interface with the teacher supporting \gls{sparc}.
 
 %This study aims to explore if \gls{sparc} can be used to teach a robot an efficient action policy. As such, three conditions have been compared: a passive robot (not providing any support), a supervised robot (learning from a human teacher and supporting the child) and an autonomous robot (applying the learned behaviour). These three conditions, with the passive robot as a control condition, allow us to study both the teaching process and the efficiency of the taught behaviour when being executed without supervision.
 
@@ -53,7 +57,7 @@ Similarly to the study presented in Chapter~\ref{chap:woz}, this study is based 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.5\textwidth]{setup.jpg}
+	\includegraphics[width=1\textwidth]{setup.jpg}
 	\caption{Setup used in the study: a child interacts with the robot tutor, with a large touchscreen sitting between them displaying the learning activity; a human teacher provides supervision to the robot through a tablet and monitors the robot learning.}
 	\label{fig:tutoring_setup}
 \end{figure}
@@ -106,14 +110,88 @@ This \gls{gui} design gives access to the teacher to the full 655 actions withou
 
 Finally, the \gls{gui} is also used by the teacher to respond to the robot's propositions. Following the proposition of an action, a bubble describing the action will appear on top of the \gls{gui}, the corresponding items will be highlighted and if the action is a motion, an arrow will show the proposed motion. The teacher can react to the proposed action by pressing the `Do it', `Skip', `Cancel' or `Remove' buttons or let the action be executed. The action will be automatically executed after 2 seconds, during which the bubble will become greener to represent the passive acceptance of the action. The `Do it' button executes the action straight-away, the `Skip' button informs the algorithm that it should wait rather than doing the action, the `Cancel' button assigns a negative reward to this action in that state and finally, the `Remove' button looks for the closest previous instantiation of the action in memory and removes it, preventing this instance to be used in later action selection.
 
-\subsection{Algorithm}
+\subsection{Learning and Action Selection}
 
-The learning algorithm aims to reproduce the action policy by mapping an action (or no action) to each possible state. The state used in this study represents the situation of the game in a 210 dimensional vector, with continuous values from 0 to 1. The dimensions include: distance between items, items' energy, progression in the game sessions, child face direction (toward the robot, the screen or away) and time since events (child and robot touching each animal, robot's actions, interaction events: feeding an animal, death of an animal...). As mentioned before, the action space covers moving items in relation to other items, drawing attention to items, providing encouragements, congratulations and reminding the rules. In summary, the algorithm's task is to map an action from the 655 (including a `wait' action) to each possible combination on the 210-dimension state. A more detailed definition of the state space can be found in Appendix~\ref{app:state} and Appendix~\ref{app:action} for the action space.
+To learn and act autonomously, the robot has access to a representation of the state and a set of actions it can do. An algorithm aims at finding the ideal action to each possible state based on the teacher's commands.
 
-The actions and the state dimensions have been selected to be generic to many teaching tasks involving movable items: each item has a value assigned to it (here energy, but this could be changed in other scenario), and some movable items (here animals) can be move to, toward or away from other items. Using these generic actions and this state definition, this implementation could be easily re-purposed to another teaching task.
+\subsubsection{State}
+
+Table~\ref{tab:tuto_state_space} presents the different dimensions composing the state the robot has access to.
+
+\begin{table}[ht]
+	\centering
+	\ra{1.2}
+	\caption{Definition of each category of the state space.}
+	\label{tab:tuto_state_space}
+	\begin{tabularx}{\textwidth}{@{}llX@{}}\toprule
+		Name & Number & Description \\
+		\midrule
+		Distance between items & 155 & Normalised distance between the animals and each other animal and the plants\\
+		Items' energy & 21 & Energy of the 21 items(10 animals and 11 plants)\\
+		Time since robot touches & 10 & Time since the robot touched each animal\\ %decay
+		Time since child touches & 10 & Time since the child touched each animal\\ %accumulation
+		Progress in the game & 1 & 0.25 for 1st game to 1 for the last game\\ 
+		Generic events & 3 & Time since last feeding, failed interaction and death of an animal\\ %decay
+		Last robot's actions & 5 & Time since last type of robot action\\ %decay
+		Generic last action & 2 & Time since any child touch and robot action\\ %decay\accumulation
+		Focus & 3 & Time of focus toward the robot, the screen and outside\\ %accumulation
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+All the state values were bounded by [0,1]. Distance between items were normalised with the maximum possible distance (the diagonal of the screen). To include a representation of the temporal aspect of the interaction, some dimensions represent the time since events and two methods have been used to transform the time since an event to a value bounded between 0 and 1:
+\begin{itemize}
+	\item Accumulation: for the times since child touches and focus (effect being true or false).
+	\item Decay: for robot actions and touches and generic events (discrete events).
+\end{itemize}
+
+When the effect is true for accumulation, the state value is set to 0.5 and increases each step (by $1-e^{-\frac{1}{10}}$ of the missing value). And when the condition is false, the value is set to 0.5 and decreases (by being multiplied by $e^{-\frac{1}{10}})$. Similarly for the decay, when the event happens the value is set to 1 and then exponentially decreases by being multiplied by $e^{-\frac{1}{10}}$. That way event will have a `half-life' of 7 steps, which corresponds to 3.5 seconds.
+
+Parts of the states are hardcoded, such as the the generic events, generic last actions, focus and progress in the game. However, all the state dimensions related to the items (distance, energy and time since touches) are constructed on the fly. At start up, the node responsible for computing the state receives a list of the moving items, a list of the immobile items and create the appropriate state with the corresponding dimensions. During the game, the state values are updated using events related to specific item (through their name) and the values are updated. Additionally, each instance of a plant is considered as a unique element. For example, there are four instances of wheat, however each one is considered uniquely as a non-moving image. It could have been possible to group the instances by categories, but it would require some add-hoc coding, limiting the generalisation of the approach. 
+
+The state dimensions have been selected to be generic to many teaching tasks involving movable items: each item has a value assigned to it (here energy, but this could be changed in other scenario), and some items can be moved (here animals) while other are immobile. Using these generic this state definition, this implementation could be easily re-purposed to another teaching task. New events would have to be defined and the new names for the items would have to be sent to the algorithm.
+
+\subsubsection{Actions}
+
+Table~\ref{tab:tuto_actions_space} present the list of actions used for this activity.
+
+\begin{table}[ht]
+	\centering
+	\ra{1.2}
+	\caption{Definition of each category of the action space.}
+	\label{tab:tuto_actions_space}
+	\begin{tabularx}{\textwidth}{@{}llX@{}}\toprule
+		Name & Number & Description \\
+		\midrule
+		Move close & 210 &  Action moving any animal close to any item\\
+		Move to & 210 & Action moving any animal to any item\\
+		Move away & 210 & Action moving any animal away from any item\\
+		Remind rules & 1 & \\
+		Congratulation & 1 & \\
+		Attention & 21 & Drawing attention to any item\\
+		Encouragement & 1 & \\
+		Wait & 1 & Doing nothing\\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+The total action space available is 655 actions. Each move action is composed of 210 possibilities as we have a total of 10 animals which can be moved in relation to each animal (10) and each plant (11), which resuts in 210 actions for moving close, 210 for moving to and 210 for moving away. It should be noted that technically 30 actions exist but cannot be selected by the teacher (moving animals to/close to/away from themselves). But this does not impact the learning as an instance based algorithm is used. Similarly to the states, each instances of a same category (such the different images of the wheat) is considered as a unique non-moving item to create actions.
+
+In the same way as the state definition, this action space has been selected to be general to many activities including movable and immobile images. Some actions are game related and encompass the semantic knowledge of the game (such as which animal should be moved close to which one) and other are more social, such as reminding the rules or encouraging feedback. A specific node selects the precise utterance to join to an action, and this node would have to be modified when adapting to a new activity. However, similarly to the state, the actions related to items are generated at run time, and could be adapted to another activity without having to change the code. 
+
+\ES{discuss the fact that limited semantic interpretation is used to define the action space - many not relevant actions, but even without this semantic information the robot can still learn an efficient action policy + if repurposed, no need to add additional semantic knowledge, the algo does it autonomously, and is non sensitive to the number of actions in the state}
+
+By using a generic definition of the action space, for example allowing to move close to each other two animals unrelated, the teacher has access to a large number of actions they would never use. 
+
+\subsubsection{Algorithm}
+The learning algorithm aims to reproduce the action policy by mapping an action (or no action) to each possible state. The state used in this study represents the situation of the game in a 210 dimensional vector, with continuous values from 0 to 1. The dimensions include: distance between items, items' energy, progression in the game sessions, child face direction (toward the robot, the screen or away) and time since events (child and robot touching each animal, robot's actions, interaction events: feeding an animal, death of an animal...). As mentioned before, the action space covers moving items in relation to other items, drawing attention to items, providing encouragements, congratulations and reminding the rules. In summary, the algorithm's task is to map an action from the 655 (including a `wait' action) to each possible combination on the 210-dimension state. 
 
 The algorithm used for the learning is an adaptation of the one presented in \cite{senft2017toward}. It is an instance based algorithm similar to the nearest-neighbours algorithm~\citep{cover1967nearest}. However, two differences are notable compared to the initial algorithm. %: instances are defined on a sliced part of the state and each instance instance is associated to a reward defining the interest of the agent to select this action in that state.
-Firstly, instead of being defined on the full state space, instances are defined on a sliced version of the state. The intuition is that states needed to cover complex action policies require large number of dimensions, however for each single action, large parts of the state are irrelevant. For example, if a robot needs to pick-up a cup, the colour of the cup does not impact the optimal motion. In contrast, the colour matters if the robot has to answer the question: ``which cup is on the left? The blue one or the red one?''. Consequently, the colour of the cup should be part of the state space, but should not be considered when selecting some of the actions. For this implementation, when selecting actions, the teacher can highlight features of the environment which \emph{activates} specific dimensions of the state space which are used to store the instance in memory. By default, all the generic events (death, feeding, failed interaction) and time since the last child and robot actions are \emph{activated}. All the \emph{non-activated} dimensions are left as wild-cards. Then, when comparing the current state to the saved instances, the distance is only computed on the \emph{activated} dimensions of the stored instance. The second difference is that each instance saved has a reward assigned to it. For this study, if the teacher selects the action, the \gls{gui} assigns a reward of $+1$, and if the teacher cancels the action (following an incorrect suggestion from the algorithm) the reward is $-1$. When selecting an action, the algorithm looks through all the actions it has been using and for each action selects the closest instance to the current state and computes the expected reward as a multiplication of the distance by the reward. Then the algorithm selects the action with the highest expected reward and proposes it to the teacher if the value is higher than an adaptive threshold (cf. Algorithm~\ref{algo:tuto}). 
+Firstly, instead of being defined on the full state space, instances are defined on a sliced version of the state. The intuition is that states needed to cover complex action policies require large number of dimensions, however for each single action, large parts of the state are irrelevant. For example, if a robot needs to pick-up a cup, the colour of the cup does not impact the optimal motion. In contrast, the colour matters if the robot has to answer the question: ``which cup is on the left? The blue one or the red one?''. Consequently, the colour of the cup should be part of the state space, but should not be considered when selecting some of the actions. 
+
+For this implementation, when selecting actions, the teacher can highlight features of the environment which \emph{activates} specific dimensions of the state space which are used to store the instance in memory. By default, all the generic events (death, feeding, failed interaction) and time since the last child and robot actions are \emph{activated}. All the \emph{non-activated} dimensions are left as wild-cards. Then, when comparing the current state to the saved instances, the distance is only computed on the \emph{activated} dimensions of the stored instance. 
+
+The second difference is that each instance saved has a reward assigned to it. For this study, if the teacher selects the action, the \gls{gui} assigns a reward of $+1$, and if the teacher cancels the action (following an incorrect suggestion from the algorithm) the reward is $-1$. When selecting an action, the algorithm looks through all the actions it has been using and for each action selects the closest instance to the current state and computes the expected reward as a multiplication of the distance by the reward. Then the algorithm selects the action with the highest expected reward and proposes it to the teacher if the value is higher than an adaptive threshold (cf. Algorithm~\ref{algo:tuto}). 
 
 \begin{algorithm}
 	\DontPrintSemicolon
@@ -142,7 +220,26 @@ Firstly, instead of being defined on the full state space, instances are defined
 	\label{algo:tuto}
 \end{algorithm}
 
-The algorithm runs at 2Hz while we would expect actions to be selected every 5 to 20 seconds. So, unlike most of the discrete cases of action selection, in most of the steps no action should be executed. To handle this difference of timescale, a waiting action has been added (through the `Skip' button) and an adaptive threshold limits the propositions to actions with a high expected reward. When receiving an action with a positive reward, if the threshold is higher than the previous maximum similarity between this action's instances and the current state, the threshold would be decreased and this effect is inverted for negative rewards. Selecting an action can reduce the threshold, and cancelling or skipping an action can increase it. This aims to adapt the rate of action proposition to the desires of the teacher. A last mechanism filters propositions from the algorithm not to transfer them to the teacher when an action is already proposed or the robot is currently acting. This filter also rewards negatively impossible actions (such as moving dead animals).
+When selecting an action, the teacher can select a number of items in the screen and the image displaying the focus of the child to inform which feature of the environment were relevant to the action selection. Table \ref{tab:tuto_feature} presents two example of the features activated when some items are selected by the supervisor. When transferred to the algorithm for storing, the instance is composed of the action number (int between 0 and 654), an array of the dimension of the state with all the values and a mask of the same dimension with a value of 1 for the activated dimensions and 0 for the others and the value of the reward. Later, when comparing the instance to the current state to select an action, on the dimensions with a mask value of 1 will be taken into account.
+
+\begin{table}[ht]
+	\centering
+	\ra{2}
+	\caption{Example of dimension activation. By selecting features, the teacher can inform which dimensions of the state are relevant. By default, the progress, generic events and generic last actions, and time since selected action will be activated.}
+	\label{tab:tuto_feature}
+	\begin{tabularx}{\textwidth}{@{}L{1}L{.7}L{2}L{.3}@{}}\toprule
+		Action & Features highlighted & Dimensions activated (number) & Total\\
+		\midrule
+		Move eagle close\linebreak to mouse & eagle and mouse &  distance between eagle and mouse\linebreak eagle's energy\linebreak mouse's energy\linebreak time since robot touched eagle\linebreak time since robot touched mouse\linebreak time since child touched eagle\linebreak time since child touched mouse\linebreak progress\linebreak generic events (3)\linebreak time since last move\linebreak generic last action
+		& 13\\
+		Draw attention\linebreak to frog & frog & frog's energy\linebreak time since robot touched frog\linebreak time since child touched frog\linebreak progress\linebreak generic events (3)\linebreak time since last drawing attention\linebreak generic last actions
+		 & 9\\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+
+In this type of \gls{hri}, actions are expected to be selected every 3 to 10 seconds. To give enough flexibility in the timing of the suggested actions and enough time to compute the distance between the current state and each instance in memory, the algorithm rans at 2Hz (the rate of animals' life update due to hunger). So, unlike most of the discrete cases of action selection, in most of the steps no action should be executed. To handle this difference of timescale, a waiting action has been added (through the `Skip' button) and an adaptive threshold limits the propositions to actions with a high expected reward. When receiving an action with a positive reward, if the threshold is higher than the previous maximum similarity between this action's instances and the current state, the threshold would be decreased of a tenth of the difference as the action should have been selected; and this effect is inverted for negative rewards (the threshold would be increased of a fifth of the difference as the action should not have been selected - factor have been selected from simulations which led to good results). Selecting an action can reduce the threshold, and cancelling or skipping an action can increase it. This aims to adapt the rate of action proposition to the desires of the teacher. A last mechanism filters propositions from the algorithm not to transfer them to the teacher when an action is already proposed or the robot is currently acting. This filter also rewards negatively impossible actions (such as moving dead animals).
 
 \subsection{Study Design}
 
