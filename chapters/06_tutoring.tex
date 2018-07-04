@@ -68,12 +68,11 @@ By interacting with the robot and the sandtray, the child is expected to gain kn
 
 \subsection{Food Chain Game}
 
-The main learning activity to teach the child the food web is a game composed of ten animals and three types of plants (with a total of 11 instances of plant in the game). Animals have energy decreasing over time and they have to eat to stay healthy. Animals are not moving unless the child or the robot moves them and can eat or be eaten when entering in contact with another animal or a plant. The child has to feed the animals by moving them to their food to give them more energy and by feeding the animals, children should learn the animals' diet. Figure~\ref{fig:tutoring_game} presents an example of the game screen in the middle of a session. The children are instructed to keep the animals alive as long as possible
+The main learning activity to teach the child the food web is a game composed of ten animals and three types of plants (with a total of 11 instances of plant in the game: 4 wheat, 4 apples and 3 flowers). Animals have energy decreasing over time and they have to eat to stay healthy. Animals are not moving unless the child or the robot moves them and can eat or be eaten when entering in contact with another animal or a plant. The child has to feed the animals by moving them to their food to give them more energy and by feeding the animals, children should learn the animals' diet. Figure~\ref{fig:tutoring_game} presents an example of the game screen in the middle of a session. The children are instructed to keep the animals alive as long as possible
 
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=1\textwidth]{game.png}
-		\captionsetup{width=.9\linewidth}
 		\caption{Example of the game. Animals have energy in green and have to eat plants or other animals to survive. The child's task is to keep animals alive as long as possible.}
 		\label{fig:tutoring_game}
 \end{figure}
@@ -103,28 +102,32 @@ This \gls{gui} design gives access to the teacher to the full 655 actions withou
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{gui.png}
-	\captionsetup{width=.9\linewidth}
 	\caption{\gls{gui} used by the teacher to control the robot and respond to its suggestions. The game is in the same state as in Figure~\ref{fig:tutoring_game}, and the robot proposes to move the frog close to the fly (text bubble, arrow, moving the \textit{shadow} of the frog and highlight the frog and the fly).}
 	\label{fig:tutoring_gui}
 \end{figure}
 
-
-Finally, the \gls{gui} is also used by the teacher to respond to the robot's propositions. Following the proposition of an action, a bubble describing the action will appear on top of the \gls{gui}, the corresponding items will be highlighted and if the action is a motion, an arrow will show the proposed motion. The teacher can react to the proposed action by pressing the `Do it', `Skip', `Cancel' or `Remove' buttons or let the action be executed. The action will be automatically executed after 2 seconds, during which the bubble will become greener to represent the passive acceptance of the action. The `Do it' button executes the action straight-away, the `Skip' button informs the algorithm that it should wait rather than doing the action, the `Cancel' button assigns a negative reward to this action in that state and finally, the `Remove' button looks for the closest previous instantiation of the action in memory and removes it, preventing this instance to be used in later action selection.
+Finally, the \gls{gui} is also used by the teacher to respond to the robot's propositions. Following the proposition of an action, a bubble describing the action will appear on top of the \gls{gui}, the corresponding items will be highlighted and if the action is a motion, an arrow will show the proposed motion. The teacher can react to the proposed action by pressing the `Do it', `Skip', `Cancel' or `Remove' buttons or let the action be executed. The action will be automatically executed after 2 seconds, during which the bubble will become greener to represent the passive acceptance of the action. The `Do it' button executes the action straight-away, the `Skip' button sends the `wait' action with a reward of 1, the `Cancel' sends the action with a -1 reward and does not execute it, and finally, the `Remove' button looks for the closest previous instantiation of the action in memory and removes it, preventing this instance to be used in later action selection. In each cases, by using buttons or automatic execution, the feature highlighted when the button is pressed (often the same as the one proposed by the algorithm) are sent with the action. Action executed by the robot (through `Do it', automatic execution or selection) are assigned a reward of 1.
 
 \subsection{Control Architecture}
+
+The code used to create the game and control the robot is an adaptation of the Freeplay Sandbox~\citep{lemaignan2017free}. Original sources are available online\footnote{\url{https://github.com/freeplay-sandbox}} as well as the code used for this study\footnote{\url{https://github.com/emmanuel-senft/freeplay-sandbox-qt/tree/food-chain}}\footnote{\url{https://github.com/emmanuel-senft/freeplay-sandbox-ros-sparc/tree/task}}\footnote{\url{https://github.com/emmanuel-senft/freeplay-sandbox-qt-supervisor}}.
+
+The control architecture is adapted from \cite{lemaignan2017free} and a simplified schematic is presented in Figure~\ref{fig:tutoring_arch}. All nodes are communicating through ROS and the communication with the robot is done through NAOQI. The tool rosbag is used to collect data throughout the interaction and the analysis of the child's focus of attention is performed using gazr~\citep{lemaignan2016real}.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{architecture.pdf}
-	\captionsetup{width=.9\linewidth}
 	\caption{Simplified schematics of the architecture used to control the robot. In addition, all the topics related to the actions are recorded using rosbag. (Figure adapted from \cite{lemaignan2017free}).}
 	\label{fig:tutoring_arch}
 \end{figure}
 
+%Two worlds are cohabiting, the continuous world (as perceived by the child and the teacher) and the discrete world (as perceived by the algorithm). In the continuous world, actions are 
+
+\ES{could add something about discrete vs continuous world, transformation of action and feature selection}
 
 \subsection{Learning and Action Selection}
 
-To learn and act autonomously, the robot has access to a representation of the state and a set of actions it can do. An algorithm aims at finding the ideal action to each possible state based on the teacher's commands.
+To learn and act autonomously, the robot has access to a representation of the state and a set of actions it can do and the algorithm aims at finding the ideal action for each possible state based on the teacher's commands.
 
 \subsubsection{State}
 
@@ -151,17 +154,18 @@ Table~\ref{tab:tuto_state_space} presents the different dimensions composing the
 	\end{tabularx}
 \end{table}
 
-All the state values were bounded by [0,1]. Distance between items were normalised with the maximum possible distance (the diagonal of the screen). To include a representation of the temporal aspect of the interaction, some dimensions represent the time since events and two methods have been used to transform the time since an event to a value bounded between 0 and 1:
+All the state values were bounded by [0,1]. Distances between items were normalised with the maximum possible distance (the diagonal of the screen), as there are 21 items (10 animals and 21 plants) this results in a total of 155 possible distances between items. To include a representation of the temporal aspect of the interaction, some dimensions represent the time since events and two methods have been used to transform the time since an event to a value bounded between 0 and 1:
 \begin{itemize}
 	\item Accumulation: for the times since child touches and focus (effect being true or false).
 	\item Decay: for robot actions and touches and generic events (discrete events).
 \end{itemize}
 
-When the effect is true for accumulation, the state value is set to 0.5 and increases each step (by $1-e^{-\frac{1}{10}}$ of the missing value). And when the condition is false, the value is set to 0.5 and decreases (by being multiplied by $e^{-\frac{1}{10}})$. Similarly for the decay, when the event happens the value is set to 1 and then exponentially decreases by being multiplied by $e^{-\frac{1}{10}}$. That way event will have a `half-life' of 7 steps, which corresponds to 3.5 seconds.
+The accumulation corresponds to effect that can be true or not, and aims at representing how long this effect as been true or false. When the effect is true for accumulation, the state value is set to 0.5 and increases each step (by $1-e^{-\frac{1}{10}}$ of the missing value). And when the condition is false, the value is set to 0.5 and decreases (by being multiplied by $e^{-\frac{1}{10}})$ at each step. On the other hand the decay refers to discrete events, so only the time since the happened is relevant. When the event happens the corresponding state value is set to 1 and then exponentially decreases by being multiplied by $e^{-\frac{1}{10}}$. That way event will have a `half-life' of 7 steps, which corresponds to 3.5 seconds.
 
-Parts of the states are hardcoded, such as the the generic events, generic last actions, focus and progress in the game. However, all the state dimensions related to the items (distance, energy and time since touches) are constructed on the fly. At start up, the node responsible for computing the state receives a list of the moving items, a list of the immobile items and create the appropriate state with the corresponding dimensions. During the game, the state values are updated using events related to specific item (through their name) and the values are updated. Additionally, each instance of a plant is considered as a unique element. For example, there are four instances of wheat, however each one is considered uniquely as a non-moving image. It could have been possible to group the instances by categories, but it would require some add-hoc coding, limiting the generalisation of the approach. 
+Parts of the states are hardcoded, such as the the generic events, generic last actions, focus and progress in the game. However, all the state dimensions related to the items (distance, energy and time since touches) are constructed on the fly. At start up, the state analyser node (cf. Figure~\ref{fig:tutoring_arch}), the node responsible for computing the state receives a list of the moving items and one of the immobile items and it creates the appropriate state with the corresponding dimensions. During the game, the state values are updated using events related to specific item (through their name). Additionally, each instance of a plant is considered as a unique element. For example, there are four instances of wheat, however each one is considered uniquely as a non-moving image and its type is not taken into account. It could have been possible to group the instances by categories, but it would require some add-hoc coding, limiting the generalisation of the approach. 
 
-The state dimensions have been selected to be generic to many teaching tasks involving movable items: each item has a value assigned to it (here energy, but this could be changed in other scenario), and some items can be moved (here animals) while other are immobile. Using these generic this state definition, this implementation could be easily re-purposed to another teaching task. New events would have to be defined and the new names for the items would have to be sent to the algorithm.
+The state dimensions have been selected to be generic to many teaching tasks involving movable items: each item has a value assigned to it (here energy, but this could be changed in other scenario), and some items can be moved (here animals) while other are immobile. These dimensions represent both elements that define the state of the game itself, but also events around which a social policy could be constructed. For example, the events: last feeding and last failed interaction could be interpreted as a successful and a failed action from a child and trigger each different social response from the robot. While having a semantic interpretation for humans, the state does not represent them as a positive or a negative event, but only as two dimensions of the state that could be used to select actions. Using these generic this state definition, this implementation could be easily repurposed to another teaching task. New events would have to be defined,but to adapt the control to other items, their names would only have to be communicated, without any change in the code.
+\ES{not clear, but the idea is that all the semantic interpretation of the dimensions and event is inferred from the demonstrations, without being hardcoded}
 
 \subsubsection{Actions}
 
@@ -187,23 +191,24 @@ Table~\ref{tab:tuto_actions_space} present the list of actions used for this act
 	\end{tabularx}
 \end{table}
 
-The total action space available is 655 actions. Each move action is composed of 210 possibilities as we have a total of 10 animals which can be moved in relation to each animal (10) and each plant (11), which resuts in 210 actions for moving close, 210 for moving to and 210 for moving away. It should be noted that technically 30 actions exist but cannot be selected by the teacher (moving animals to/close to/away from themselves). But this does not impact the learning as an instance based algorithm is used. Similarly to the states, each instances of a same category (such the different images of the wheat) is considered as a unique non-moving item to create actions.
+The total action space available is 655 actions. Each move action is composed of 210 possibilities as we have a total of 10 animals which can be moved in relation to each animal (10) and each plant (11), which resuts in 210 actions for moving close, 210 for moving to and 210 for moving away. It should be noted that technically 30 actions exist but cannot be selected by the teacher (moving animals to/close to/away from themselves). But this does not impact the learning as an instance based algorithm is used. Similarly to the states, each instances of a same category (such the different images of the wheat) is considered as a unique non-moving item to create actions without any semantic interpretation.
 
-In the same way as the state definition, this action space has been selected to be general to many activities including movable and immobile images. Some actions are game related and encompass the semantic knowledge of the game (such as which animal should be moved close to which one) and other are more social, such as reminding the rules or encouraging feedback. A specific node selects the precise utterance to join to an action, and this node would have to be modified when adapting to a new activity. However, similarly to the state, the actions related to items are generated at run time, and could be adapted to another activity without having to change the code. 
+In the same way as the state definition, this action space has been selected to be general to many activities including movable and immobile images. The robot has access to a wide range of actions, and the action space not includes little semantic specific to this game. For example, many of actions are available even if they are not relevant in this specific game (such as moving close together two unrelated animals). That way, some actions are game related and encompass the semantic knowledge of the game (such as which animal should be moved close to which one), other are more social, such as reminding the rules or encouraging feedback and some should simply be avoided as they could create confusion for the child. So, without have access to any semantic of the actions, the robot needs to learn which action are relevant to the task and when they should be executed.
+
+The action interpreter node selects the precise utterance to join to an action, and this node would have to be modified when adapting to a new activity. However, similarly to the state, the actions related to items are generated at run time, and could be adapted to another activity with minimal or no change of the code. 
 
 \ES{discuss the fact that limited semantic interpretation is used to define the action space - many not relevant actions, but even without this semantic information the robot can still learn an efficient action policy + if repurposed, no need to add additional semantic knowledge, the algo does it autonomously, and is non sensitive to the number of actions in the state}
 
-By using a generic definition of the action space, for example allowing to move close to each other two animals unrelated, the teacher has access to a large number of actions they would never use. 
+%By using a generic definition of the action space, for example allowing to move close to each other two animals unrelated, the teacher has access to a large number of actions they would never use. 
 
 \subsubsection{Algorithm}
-The learning algorithm aims to reproduce the action policy by mapping an action (or no action) to each possible state. The state used in this study represents the situation of the game in a 210 dimensional vector, with continuous values from 0 to 1. The dimensions include: distance between items, items' energy, progression in the game sessions, child face direction (toward the robot, the screen or away) and time since events (child and robot touching each animal, robot's actions, interaction events: feeding an animal, death of an animal...). As mentioned before, the action space covers moving items in relation to other items, drawing attention to items, providing encouragements, congratulations and reminding the rules. In summary, the algorithm's task is to map an action from the 655 (including a `wait' action) to each possible combination on the 210-dimension state. 
+The learning algorithm aims to reproduce the teacher's action policy by mapping an action (or no action) to each possible state. The state used in this study represents the situation of the game in a 210 dimensional vector, with continuous values from 0 to 1 and the action space is composed of 655 actions. In summary, the algorithm's task is to map an action from the 655 to each possible combination on the 210-dimension state, which without human feedback would be probably not possible to achieve in human environment.
 
 The algorithm used for the learning is an adaptation of the one presented in \cite{senft2017toward}. It is an instance based algorithm similar to the nearest-neighbours algorithm~\citep{cover1967nearest}. However, two differences are notable compared to the initial algorithm. %: instances are defined on a sliced part of the state and each instance instance is associated to a reward defining the interest of the agent to select this action in that state.
-Firstly, instead of being defined on the full state space, instances are defined on a sliced version of the state. The intuition is that states needed to cover complex action policies require large number of dimensions, however for each single action, large parts of the state are irrelevant. For example, if a robot needs to pick-up a cup, the colour of the cup does not impact the optimal motion. In contrast, the colour matters if the robot has to answer the question: ``which cup is on the left? The blue one or the red one?''. Consequently, the colour of the cup should be part of the state space, but should not be considered when selecting some of the actions. 
 
-For this implementation, when selecting actions, the teacher can highlight features of the environment which \emph{activates} specific dimensions of the state space which are used to store the instance in memory. By default, all the generic events (death, feeding, failed interaction) and time since the last child and robot actions are \emph{activated}. All the \emph{non-activated} dimensions are left as wild-cards. Then, when comparing the current state to the saved instances, the distance is only computed on the \emph{activated} dimensions of the stored instance. 
+Firstly, instead of being defined on the full state space, instances are only defined on a sliced version of the state. The intuition is that states needed to cover complex action policies require large number of dimensions, however for each single action, large parts of the state are irrelevant. For example, if a robot needs to pick-up a cup, the colour of the cup does not impact the optimal motion. In contrast, the colour matters if the robot has to answer the question: ``which cup is on the left? The blue one or the red one?''. Consequently, the colour of the cup should be part of the state space, but should not be considered when selecting some of the actions. The teacher can specify features of the environment which are \textit{activating} a limited number of dimensions for this instance. Later, when considering which instance is the closest, the similarity between the current state and the stored instances is only computed on the activated dimensions of the instances stored in memory.
 
-The second difference is that each instance saved has a reward assigned to it. For this study, if the teacher selects the action, the \gls{gui} assigns a reward of $+1$, and if the teacher cancels the action (following an incorrect suggestion from the algorithm) the reward is $-1$. When selecting an action, the algorithm looks through all the actions it has been using and for each action selects the closest instance to the current state and computes the expected reward as a multiplication of the distance by the reward. Then the algorithm selects the action with the highest expected reward and proposes it to the teacher if the value is higher than an adaptive threshold (cf. Algorithm~\ref{algo:tuto}). 
+The second difference is that each instance saved has a reward assigned to it. To select an action, the algorithm looks through all the actions it has been using and for each action selects the closest instance to the current state (by computing the similarity on the activated dimensions of the stored instance) and computes the expected reward as a multiplication of the similarity by the reward. Then the algorithm selects the action with the highest expected reward and proposes it to the teacher if the value is higher than an adaptive threshold (cf. Algorithm~\ref{algo:tuto}). 
 
 \begin{algorithm}
 	\DontPrintSemicolon
@@ -232,31 +237,36 @@ The second difference is that each instance saved has a reward assigned to it. F
 	\label{algo:tuto}
 \end{algorithm}
 
-When selecting an action, the teacher can select a number of items in the screen and the image displaying the focus of the child to inform which feature of the environment were relevant to the action selection. Table \ref{tab:tuto_feature} presents two example of the features activated when some items are selected by the supervisor. When transferred to the algorithm for storing, the instance is composed of the action number (int between 0 and 654), an array of the dimension of the state with all the values and a mask of the same dimension with a value of 1 for the activated dimensions and 0 for the others and the value of the reward. Later, when comparing the instance to the current state to select an action, on the dimensions with a mask value of 1 will be taken into account.
+For this implementation, when selecting actions, the teacher can select a number of items in the screen and the image displaying the focus of the child to highlight the features of the environment which were relevant in her selection. Then, this \emph{activates} specific dimensions of the state space which are used to store the instance in memory. Table \ref{tab:tuto_feature} presents two example of the features activated when some items are selected by the supervisor. When transferred to the algorithm for storing, the instance is composed of three objects: the action number (integer between 0 and 654), an array of the dimension of the state (210 float numbers) and a mask of the same dimension with a value of 1 for the activated dimensions and 0 for the others, and finally, the value of the reward. By default, all the generic events (death, feeding, failed interaction) and time since the last child and robot actions as well as the time since that action was executed are \emph{activated}. Later, when comparing the instance to the current state to select an action, only the dimensions with a mask value of 1 are be taken into account to compute the similarity.
+
+%All the \emph{non-activated} dimensions are left as wild-cards. When comparing the current state to the saved instances, the distance is only computed on the \emph{activated} dimensions of the stored instance. 
+
+%When selecting an action, the teacher can select a number of items in the screen and the image displaying the focus of the child to 
+
+%inform which feature of the environment were relevant to the action selection. Table \ref{tab:tuto_feature} presents two example of the features activated when some items are selected by the supervisor. When transferred to the algorithm for storing, the instance is composed of the action number (integer between 0 and 654), an array of the dimension of the state with all the values and a mask of the same dimension with a value of 1 for the activated dimensions and 0 for the others and the value of the reward. Later, when comparing the instance to the current state to select an action, on the dimensions with a mask value of 1 will be taken into account.
 
 \begin{table}[ht]
 	\centering
 	\ra{2}
-	\caption{Example of dimension activation. By selecting features, the teacher can inform which dimensions of the state are relevant. By default, the progress, generic events and generic last actions, and time since selected action will be activated.}
+	\caption{Example of dimension activation. By selecting features, the teacher can inform which dimensions of the state are relevant. By default, generic events and generic last actions, and time since selected action are activated.}
 	\label{tab:tuto_feature}
 	\begin{tabularx}{\textwidth}{@{}L{1}L{.7}L{2}L{.3}@{}}\toprule
 		Action & Features highlighted & Dimensions activated (number) & Total\\
 		\midrule
-		Move eagle close\linebreak to mouse & eagle and mouse &  distance between eagle and mouse\linebreak eagle's energy\linebreak mouse's energy\linebreak time since robot touched eagle\linebreak time since robot touched mouse\linebreak time since child touched eagle\linebreak time since child touched mouse\linebreak progress\linebreak generic events (3)\linebreak time since last move\linebreak generic last action
+		Move eagle close\linebreak to mouse & eagle and mouse &  distance between eagle and mouse\linebreak eagle's energy\linebreak mouse's energy\linebreak time since robot touched eagle\linebreak time since robot touched mouse\linebreak time since child touched eagle\linebreak time since child touched mouse\linebreak generic events (3)\linebreak time since last move\linebreak generic last action (2)
 		& 13\\
-		Draw attention\linebreak to frog & frog & frog's energy\linebreak time since robot touched frog\linebreak time since child touched frog\linebreak progress\linebreak generic events (3)\linebreak time since last drawing attention\linebreak generic last actions
-		 & 9\\
+		Draw attention\linebreak to frog & frog & frog's energy\linebreak time since robot touched frog\linebreak time since child touched frog\linebreak generic events (3)\linebreak time since last drawing attention\linebreak generic last actions (2)
+		& 9\\
 		\bottomrule
 	\end{tabularx}
 \end{table}
 
-
-In this type of \gls{hri}, actions are expected to be selected every 3 to 10 seconds. To give enough flexibility in the timing of the suggested actions and enough time to compute the distance between the current state and each instance in memory, the algorithm rans at 2Hz (the rate of animals' life update due to hunger). So, unlike most of the discrete cases of action selection, in most of the steps no action should be executed. To handle this difference of timescale, a waiting action has been added (through the `Skip' button) and an adaptive threshold limits the propositions to actions with a high expected reward. When receiving an action with a positive reward, if the threshold is higher than the previous maximum similarity between this action's instances and the current state, the threshold would be decreased of a tenth of the difference as the action should have been selected; and this effect is inverted for negative rewards (the threshold would be increased of a fifth of the difference as the action should not have been selected - factor have been selected from simulations which led to good results). Selecting an action can reduce the threshold, and cancelling or skipping an action can increase it. This aims to adapt the rate of action proposition to the desires of the teacher. A last mechanism filters propositions from the algorithm not to transfer them to the teacher when an action is already proposed or the robot is currently acting. This filter also rewards negatively impossible actions (such as moving dead animals).
+In this type of \gls{hri}, the robot is expected to do an action every 3 to 15 seconds; however, some events might needs a reaction around one second after happening. Consequently, to give enough flexibility in the timing of the suggested actions and enough time to compute the distance between the current state and each instance in memory, the algorithm rans at 2Hz (the rate of animals' life update due to hunger). So, unlike most of the discrete cases of action selection, in most of the steps no action should be executed. To handle this difference of timescale, a waiting action has been added (through the `Skip' button) and an adaptive threshold limits the propositions to actions with a high expected reward. When receiving an action with a positive reward, if the threshold is higher than the previous maximum similarity between this action's instances and the current state, the threshold would be decreased of a tenth of the difference as the action should have been selected; and this effect is inverted for negative rewards (the threshold would be increased of a fifth of the difference as the action should not have been selected). These increase and decrease factors have been selected from simulations which led to good results. This aims to adapt the rate of action proposition to the desires of the teacher. A last mechanism filters propositions from the algorithm not to transfer them to the teacher when an action is already proposed or the robot is currently acting. This filter also rewards negatively impossible actions (such as moving dead animals).
 
 \subsection{Protocol}
 
 %Parents completed a consent form and each child was proposed to withdraw if they appeared not interested to continue the study (children refusing to continue have been replaced to reach the same number in each category). 
-The interaction protocol was as follows. Children were first introduced to the robot and the aim of the interaction and then had a first pre-test to evaluate their initial knowledge. Before starting the teaching game, children had to complete a tutorial where they were introduced to the mechanics of the game: animals have life and have to eat to survive and children can move animals to make them interact with other animals or plants and replenish their energy. After this short tutorial, they completed two sessions of the game where the robot could provide feedback and advices depending on the conditions they were in. Following these initial sessions of the game, children completed a mid-test before playing another 2 sessions of the game and a last post-test to conclude the study. 
+The interaction protocol was as follows. Children were first introduced to the robot and the aim of the interaction and then had a first pre-test to evaluate their initial knowledge. After this test, and before starting the teaching game, children had to complete a tutorial where they were introduced to the mechanics of the game: animals have life and have to eat to survive and children can move animals to make them interact with other animals or plants and replenish their energy. After this short tutorial, they completed two sessions of the game where the robot could provide feedback and advices depending on the conditions they were in. Following these initial sessions of the game, children completed a mid-test before playing another 2 sessions of the game and a last post-test to conclude the study. 
 
 %\begin{figure}[h]
 %	\includegraphics[width=.9\linewidth]{graph.png}
@@ -266,11 +276,11 @@ The interaction protocol was as follows. Children were first introduced to the r
 %\end{figure}
 
 \subsection{Conditions}
-The study evaluated three conditions: the passive condition, supervised condition and autonomous condition. In all the conditions, the robot's behaviour during the introduction, tests, tutorial and conclusion was identical. The only change of behaviour happened during the games sessions. The study design was between participants, so children were each assigned to a condition, and in all the game session, the robot would be passive, supervised or autonomous. %In the passive condition, the robot does not provide support during the game. In the supervised condition, the robot is controlled by a PhD student in psychology acting as the robot's teacher and demonstrating it how to interact. And in the autonomous condition, the robot simply applies the learned policy without supervision.
+The study evaluated three conditions: the passive condition, supervised condition and autonomous condition. In all the conditions, the robot's behaviour during the introduction, tests, tutorial and conclusion was identical. The only change of behaviour happened during the games sessions. The study design was between participants, so children were each assigned to a condition, and in all the game session, the robot would be always the same, passive, supervised or autonomous. %In the passive condition, the robot does not provide support during the game. In the supervised condition, the robot is controlled by a PhD student in psychology acting as the robot's teacher and demonstrating it how to interact. And in the autonomous condition, the robot simply applies the learned policy without supervision.
 
 \subsubsection{Passive Condition}
 
-The \textit{passive} condition served as a control condition. We decided to use a robot even in the control condition to prevent that confound such as novelty in the supervised or autonomous effect alter the results. The goal of the study is not to explore if a robot can be better than a human or than just the sandtray, but to study if by using \gls{sparc}, a human can teach the robot a behaviour having a positive influence on the children in the game. In this passive condition, the robot did not provide any advice nor feedback to the children during the game sessions. It only oscillated slightly to simulate a breathing motion and followed the child's face. 
+The \textit{passive} condition served as a control condition. We decided to use a robot even in the control condition to prevent confounds related to the presence of a robot, such as novelty effect. The goal of the study is not to explore if a robot can be better than a human or than just the sandtray, but to study if by using \gls{sparc}, a human can teach the robot a behaviour having a positive influence on the children in the game. In this passive condition, the robot did not provide any advice nor feedback to the children during the game sessions, it only oscillated slightly to simulate a breathing motion and followed the child's face. 
 
 
 %In the \textit{supervised} condition, the robot was remotely supervised by an operator using \gls{sparc}. Finally, in the \textit{autonomous} condition, the robot applied the learnt policy and provided feedback and guidance to the child without human supervision.
@@ -278,16 +288,16 @@ The \textit{passive} condition served as a control condition. We decided to use 
 
 \subsubsection{Supervised Condition}
 
-The \textit{supervised} condition was the one in which the robot learned, the one where \gls{sparc} is used by a human teacher to teach the robot an efficient action policy. As such, it is not a static condition with an identical behaviour all the way, but a dynamic condition where the robot learns an action policy through the human supervision, while the teacher herself is adapting, getting used to controlling the robot. In theory, throughout the different interactions with the children, the behaviour expressed by the robot with the children should be similar and constantly appropriate. However, during that time, the teaching interaction, between the teacher and the robot should evolve due to the learning component on the robot side. 
+The \textit{supervised} condition was the one in which the robot learned, the one where \gls{sparc} was used by a human teacher to teach the robot an efficient action policy. As such, it is not a static condition with an identical behaviour all the way, but a dynamic condition where the robot learns an action policy through the human supervision, while the teacher herself is evolving, getting used to controlling the robot. In theory, throughout the different interactions with the children, the behaviour expressed by the robot with the children should be similar and constantly appropriate. In contrast, during that time, the teaching interaction, between the teacher and the robot should evolve due to the learning component on the robot side. 
 
-\subsubsection{Autonomous}
+\subsubsection{Autonomous Condition}
 
-The \textit{autonomous} condition corresponded to the robot using the action policy taught in the supervised condition, but without the teacher in the action selection loop. As such, this condition had to be ran after the supervised one, so the teaching was over. The role of this condition is to evaluate if the robot did learn a useful action policy, i.e. explore if after having been taught, the robot can have an autonomous behaviour having a positive impact on the child experience.
+The \textit{autonomous} condition was used to evaluate if the learned behaviour was efficient and if the robot could display a useful social action policy without being supervised. During this condition, the robot used the action policy taught in the supervised condition, but without the teacher in the action selection loop. As such, this condition had to be ran after the supervised one, when the teaching was over. %The role of this condition is to evaluate if the robot did learn a useful action policy, i.e. explore if after having been taught, the robot can have an autonomous behaviour having a positive impact on the child experience.
 
 In the autonomous condition, the robot used the suggestions from the algorithm and executed them with a probabilistic delay between 0 and 1.5 seconds based on the teacher's delay in answering the robot's propositions. This delay aimed to give a pace and synchronisation of actions similar to the ones exhibited by the teacher when reacting to the robot's suggestion.
 
 \subsection{Teacher}
-In the study, the teacher was a psychology PhD student from the university, with limited knowledge in computing and machine learning. She had been instructed how to control the robot using the GUI, the effect of each buttons and how to perform each action. She was knowledgeable of the methodology used to run the study (but not the underlying implementation) and experimented controlling the robot in two interactions with the author interacting with the robot and one with a child before starting to supervise the robot for the supervised condition. No information about the learning algorithm or the representation of the state and no feedback about optimal way of interacting or feedback on her action policy was provided before or during the supervision. As such, this robot teacher represents typical target populations for robotic applications: non-experts in machine learning or computing but with relevant domain knowledge such as teachers or psychologists.
+In the study, the teacher was a psychology PhD student from the university, with limited knowledge in computing and machine learning. She had been instructed how to control the robot using the GUI, the effect of each buttons and how to perform each action. She was knowledgeable of the methodology used to run the study (but not the underlying implementation) and experimented controlling the robot in two interactions with the author interacting with the robot and one with a child before starting to supervise the robot for the supervised condition. No information about the learning algorithm or the representation of the state and no feedback about optimal way of interacting or feedback on her action policy was provided before or during the supervision. As such, this robot teacher represents typical target populations for robotic applications: non-experts in machine learning or computing but with relevant domain knowledge such as teachers, psychologists or more broadly, people from the general population.
 
 % Figure~\ref{fig:tutoring_game} shows an example of the game screen. The child can move 10 animals across the game field and can have them interact with other animals or plants. Animals lose energy over time and by interacting with their food the can regain some. Animals that are eaten lose a chunk of their life. The goal for the children is to keep animals alive as long as possible by feeding them and they earn stars representing how healthy their animals have been during the session. The game stops when 3 or more animals run out of energy and each game session lasted 1.6 minutes in average.
 
@@ -302,11 +312,11 @@ In the study, the teacher was a psychology PhD student from the university, with
 %	\item How the online learning component changed the interaction between the robot and the teacher?
 %\end{itemize}
 
-To address the hypotheses presented in Section~\ref{sec:tutoring_scope}, we collected multiple metrics on both interactions (teaching and application). First, we recorded the actions executed by the robot in the supervised and autonomous conditions to characterise the two action policies. Two groups of metrics have been collected to evaluate the application interaction: the learning metrics (corresponding to children's performance during the test) and the game metrics (corresponding to children's behaviour during the game). And finally, in the supervised condition, we recorded the origin of the action executed by the robot (teacher vs algorithm) and the outcome of the proposed actions (executed vs refused).
+To address the hypotheses presented in Section~\ref{sec:tutoring_scope}, we collected multiple metrics on both interactions (teaching and application). First, we recorded the actions executed by the robot in the supervised and autonomous conditions to characterise the two action policies. Two groups of metrics have been collected to evaluate the application interaction: the learning metrics (corresponding to the children's performance during the test) and the game metrics (corresponding to the children's behaviour during the game). And finally, in the supervised condition, we recorded the origin of the action executed by the robot (teacher vs algorithm) and the outcome of the proposed actions (executed vs refused).
 
 \subsubsection{Policy Characterisation}
 
-During the game, the robot had access to 622 actions, which can be divided in seven categories: drawing attention, moving close, moving away, moving to, congatulation, encouragements and reminding rules. Due to this high number of actions, the largeness of the state space (210 dimension) and the complex interdependence between actions and states, totally defining a policy is impossible. Consequently, we decided to use the number of actions executed for each category per child to characterise the policy executed by the robot in the active conditions (supervised and autonomous). While not perfectly representing the action policy of each condition (e.g. the timing of actions is missing), this metric offers a proxy to compare these policies. 
+During the game, the robot had access to 655 actions, which can be divided in seven categories: drawing attention, moving close, moving away, moving to, congatulation, encouragements and reminding rules. Due to this high number of actions, the largeness of the state space (210 dimension) and the complex interdependence between actions and states, totally defining a policy is impossible. Consequently, we decided to use the number of actions executed for each category per child to characterise the policy executed by the robot in the active conditions (supervised and autonomous). While not perfectly representing the action policy of each condition (e.g. the timing of actions is missing), this metric offers a proxy to compare these policies. 
 
 \subsubsection{Learning Evaluation}
 The learning was evaluated through an open graph where children had to connect animals to their food. Figure~\ref{fig:test} shows two examples of the test, with or without all the correct connections. Children were instructed to connect as many animals as possible. During the pre-test, the experimenter demonstrated how to connect animals by drawing an arrow from the frog to the fly, and then removing the arrow by pressing the \textit{X} button. When children thought they were done, they could press the `Continue' button, showing a screen asking confirmation to quit the test or allowing children to keep connecting animals. Additionally, the robot informed the child if not all the animals were connected to a food or that animals could eat many types of food if no more than one animal was connected to two items. 
@@ -341,7 +351,7 @@ The three tests (pre, mid and post interaction) result in three performance meas
 \subsubsection{Game Metrics}
 Different metrics have been gathered during the game sessions to characterise the children's behaviours:
 \begin{itemize}
-	\item \textbf{Number of different eating interactions}: number of unique feeding action type.
+	\item \textbf{Number of different eating interactions}: number of unique feeding action type [0,25].
 	\item \textbf{Points}: cumulated sum of animals' energy over the game (typical range [550,1100]).
 	\item \textbf{Interaction time}: Duration of game sessions, how long a game lasted until three animals ran out of energy (typical range [.5,3] minutes).
 \end{itemize}
@@ -363,6 +373,61 @@ Some times the teacher cancelled actions and then selected them again, we called
 %Preliminary results (currently in progress, due to be completed before the submission of the full article) show that (1) the robot is able to effectively jointly learn action and social policies (Figure 2), (2) the learning gains of the children supported by the autonomous robot are not significantly different from the gains when the learning is supported by a robot teleoperated by the human expert, which would indicate the utility of the approach.
 
 Similarly to Chapter~\ref{chap:control}, we analysed the results using Bayesian statistics and the JASP software~\citep{jasp2018}. We used a Bayesian mixed ANOVA as omnibus test to explore the impact of conditions or repetition on the metrics. Additional post-hoc tests use a Bayesian mixed ANOVA comparing the conditions one by one and fix the prior probability to 0.5  to correct for multiple testing.
+
+\subsection{Example of a Session}
+\ES{Probably not the best, but I can check}
+
+Table~\ref{tab:tuto_session} presents an example of the first 50 seconds of a session. Propositions from the robot are in blue, and actions from the teacher in orange. It should be noted that in some cases, the teacher did not evaluate actions proposed by robot, but just selected an other action. In that case, the action proposed is not evaluated and the selected action is executed and stored in memory.
+
+\begin{table}[ht]
+	\centering
+	\ra{1}
+	\caption{Example of events during the first 50 seconds of a session.}
+	\label{tab:tuto_session}
+	\begin{tabularx}{\textwidth}{@{}L{.2}L{1.8}|L{.2}L{1.8}@{}}\toprule
+		Time & Event & Time & Event\\
+		\midrule
+4.1 & childtouch frog & 27.7 & childtouch fly\\
+4.3 & failinteraction frog wheat-3 & 28.0 & childrelease fly\\
+4.9 & animaleats frog fly & 28.4 & childtouch dragonfly\\
+5.8 & childrelease frog & 28.6 & failinteraction dragonfly apple-1\\
+6.6 & \textcolor{SkyBlue}{robot proposes congrats} & 29.1 & childrelease dragonfly\\
+7.6 & childtouch fly & 29.4 & failinteraction dragonfly apple-1\\
+7.6 & \textcolor{BurntOrange}{teacher selects wait} & 30.3 & childtouch dragonfly\\
+8.0 & animaleats fly apple-4 & 30.3 & failinteraction dragonfly apple-1\\
+8.3 & childrelease fly & 30.7 & \textcolor{SkyBlue}{robot proposes encouragement}\\
+9.1 & \textcolor{BurntOrange}{teacher selects congrats} & 31.0 & failinteraction dragonfly apple-1\\
+9.1 & childtouch frog & 31.8 & \textcolor{BurntOrange}{teacher selects wait}\\
+10.3 & childrelease frog & 32.5 & childrelease dragonfly\\
+10.8 & childtouch frog & 34.4 & childtouch wolf\\
+11.2 & animaleats frog fly & 34.7 & \textcolor{SkyBlue}{robot proposes remind rules}\\
+12.4 & failinteraction frog apple-2 & 35.0 & animaleats wolf mouse\\
+12.5 & animaleats frog fly & 36.0 & \textcolor{BurntOrange}{teacher selects wait}\\
+13.2 & childrelease frog & 36.0 & animaleats wolf mouse\\
+14.2 & childtouch fly & 37.2 & childrelease wolf\\
+14.5 & animaleats fly apple-2 & 37.7 & childtouch grasshopper\\
+14.6 & \textcolor{SkyBlue}{robot proposes encouragement} & 38.3 & \textcolor{SkyBlue}{robot proposes congrats}\\
+15.0 & childrelease fly & 41.8 & reset\\
+15.4 & animaleats fly apple-3 & 42.1 & failinteraction grasshopper apple-1\\
+16.9 & \textcolor{BurntOrange}{teacher selects encouragement} & 42.7 & childrelease grasshopper\\
+18.2 & childtouch snake & 42.7 & failinteraction grasshopper apple-1\\
+18.4 & failinteraction snake wheat-3 & 44.4 & \textcolor{BurntOrange}{teacher selects mvc mouse wheat-1}\\
+18.7 & animaleats snake bird & 44.6 & robottouch mouse\\
+19.6 & animaleats snake bird & 44.7 & childtouch butterfly\\
+20.5 & childrelease snake & 45.1 & failinteraction butterfly wheat-2\\
+20.6 & failinteraction snake wheat-4 & 45.6 & childrelease wheat-1\\
+20.6 & \textcolor{SkyBlue}{robot proposes congrats} & 45.6 & robotrelease mouse\\
+20.9 & childtouch eagle & 45.7 & robottouch mouse\\
+21.1 & animaleats eagle bird & 48.9 & robotrelease mouse\\
+22.0 & animaleats eagle bird & 49.3 & childtouch butterfly\\
+22.4 & childrelease eagle & 49.3 & failinteraction butterfly wheat-1\\
+23.3 & animaldead bird & 49.6 & childrelease butterfly\\
+23.4 & \textcolor{BurntOrange}{teacher selects mvc dragonfly fly} & 50.0 & childtouch mouse\\
+23.6 & robottouch dragonfly & 50.3 & animaleats mouse wheat-1\\
+26.9 & robotrelease dragonfly & 51.0 & childrelease mouse\\
+		\bottomrule
+	\end{tabularx}
+\end{table}
 
 \subsection{Comparison of Policy}
 
@@ -456,7 +521,7 @@ These game metrics showed that the action policy executed by the autonomous robo
 %However, children learned similarly in the three conditions, so these improvements in the game did not transfer to improvements in the test neither for the supervised robot nor the Autonomous one. This does not support H1 ("The robot support child learning: learning gain in passive condition $<$ learning gain in autonomous condition $<$ learning gain in supervised condition")
 
 \subsection{Teaching the Robot}
-\ES{could detail results more}
+
 Figure~\ref{fig:tutoring_supervision} presents the reaction of the teacher to the robot's suggestions across all the supervised sessions. In average the teacher accepted 22.3\% of all the proposition of the robot, which represented 35\% of all the actions executed by the robot and this effect tended to be stable across the sessions.
 
 \begin{figure}[ht]
@@ -485,11 +550,9 @@ In post-hoc discussion, the teacher reported three phases in her teaching:
 \end{itemize}
 
 %\ES{I should add more about it...}
-Appendix~\ref{app:diary} presents a more detailed diary of the teacher throughout her supervision.
+Appendix~\ref{app:diary} presents a more detailed diary of the teacher throughout her supervision. Additionally, while the buttons cancel and skip has different impact of the learning, and were designed to be used in different cases, the teacher reported that she used them interchangeably.
 
 The teacher did report a decrease of workload as she supervised the robot in more session. This was supported by behaviours such as typing her observations on a laptop, while gazing at the interface in multiple interactions (especially at the start of a session). However this decrease of workload seemed to be due mostly due to the teacher getting used to the interaction, and not to the online learning and the improvement of the suggested proposition, invalidating H3.
-
-\ES{talk about she did not really make differences between cancel and skip, while this would have mattered}
 
 
 %Figure~\ref{fig:tutoring_proposition} presents the reaction of the teacher to the robot's suggestions across all the supervised sessions. In average the teacher accepted 22.3\% of all the proposition of the robot (by enforcing the action, let it be executed or using the `Do it' button), which represents 35\% of the actions executed by the robot. This effect tends to be stable across the sessions. The teacher interaction pattern evolved overtime, such as by using mostly the `Cancel' button in the start then the `Skip' one, but in the end, the teacher used this two buttons mostly interchangeably even if the algorithm underlying reaction is different. Another observation is the evolution from using the auto-execution function to the `Do it' button once the teacher felt more comfortable in the supervision. The teacher reported three phases in her teaching: 
@@ -549,7 +612,11 @@ The active robots' behaviour encouraged children to produce more `useful' behavi
 %\end{itemize}
 
 \subsection{Robot Learning}
-\ES{discuss the stopping point}
+\ES{discuss the stopping point - and complexity of the task: continuous, multimodal... + large space without semantic included}
+
+\ES{Good results could be achieved autonomously only if initial knowledge was hard coded in the state action space}
+
+\ES{make subsubsection}
 
 One of the motivation of \gls{sparc} is that it provides a way to smoothly move away from \gls{woz} to \gls{sa}, potentially leading to pure autonomy. By learning online the action policy, the number of actions selected or corrected by the teacher would decrease and the number of accepted suggestions would increase, hence reducing the teacher's workload. However, this expectation (and by extend H3) was not validated by this study's observations. The number of actions accepted, refused and selected by the teacher stayed roughly the same throughout the interactions. We identified five potential reasons explaining this differences.
 
