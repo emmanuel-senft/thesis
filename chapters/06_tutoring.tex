@@ -36,20 +36,22 @@ This study takes place in the context of robot tutors for children in education.
 
 \section{Scope of the Study} \label{sec:tutoring_scope}
 
-The main goal of this study was to explore the thesis proposed in this work: ``A robot can learn to interact meaningfully with humans in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour''. This thesis can be divided into two parts: ``a robot can learn safely by receiving supervision from a human teacher'' and ``after learning, such a robot would have a meaningful interaction with humans''. To address these two statements, a study comparing three conditions was designed. In the control condition, the `passive' condition, the robot is not interacting with the child during the learning task. This condition provides a benchmark against which the other conditions can be compared to evaluate the `meaningfulness' and efficiency of the robot's behaviour. In the second condition, the `supervised' condition, the robot is being supervised and taught by a human teacher using \gls{sparc}. This condition is the one in which the robot learns, and can be used to evaluate the impacts of the principles underlying \gls{sparc} when teaching a robot to interact with humans. Lastly, in the `autonomous' condition, the robot applies the learnt policy to interact without supervision with the children. This condition aims at exploring how different the autonomous policy is from the supervised one, and evaluating if the teaching from the human was successful.
+The main goal of this study was to explore the thesis proposed in this work: ``A robot can learn to interact meaningfully with humans in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour''. This thesis can be divided into two parts: ``a robot can learn safely by receiving supervision from a human teacher'' and ``after learning, such a robot would have a meaningful interaction with humans''. To address these two statements, a study comparing three conditions was designed. 
 
-These conditions allow us to explore the statements presented above through three hypotheses:
+The focus of the study is on the behaviour of the robot, not its impact compared to another agent or none. As such, to prevent confounds about novelty effect and potential excitements due to the robot, the control condition maintained the robot through all the interaction. In the control condition, the `passive' condition, the robot guide the child in the task as in the other conditions, but is not interacting with the child during the learning game. This condition provides a benchmark against which the other conditions can be compared to evaluate the `meaningfulness' and efficiency of the robot's behaviour. In the second condition, the `supervised' condition, the robot is being supervised and taught by a human teacher using \gls{sparc}. This condition is the one in which the robot learns, and can be used to evaluate the impacts of the principles underlying \gls{sparc} when teaching a robot to interact with humans. Lastly, in the `autonomous' condition, the robot applies the learnt policy to interact without supervision with the children. This condition aims at exploring how different the autonomous policy is from the supervised one, and evaluating if the teaching from the human was successful. And as the robot needed to have completed its learning before interacting alone, this condition was run only after the supervised condition was completed.
+
+These conditions allowed us to explore the statements presented above through three hypotheses:
 \begin{itemize}
 	\item [H1] The autonomous robot is able to interact socially and efficiently during the game sessions and maintain the child's engagement during the learning task.
 	\item [H2] An active robot (supervised or autonomous) supports child learning: learning gain in passive condition $<$ learning gain in autonomous condition $<$ learning gain in supervised condition.
-	\item [H3] Using \gls{sparc}, the workload on the supervisor decreases over time: the number of corrected actions and the number of actions selected  by the teacher decrease with the progress in the sessions, while the number of correct actions increases.
+	\item [H3] Using \gls{sparc}, the workload on the supervisor decreases over time: the number of corrected actions and the number of actions selected  by the teacher decrease with the progress in the sessions, while the number of correct proposed actions increases.
 \end{itemize}
 
 \section{Methodology}
 
 \subsection{Participants}
 
-Children from five classrooms from two different schoold in Plymouth were recruited to take part in the interaction. As both schools have an identical OFSTED evaluation (both school ``require improvement''), all the children were combined into a single pool of participants. Full permission to take part in the study and be recorded on video was acquired for all the participants. In total, 119 children participated in the study, however not all of them have been included in the final analysis. Some participants took part in two pilot versions, with previous versions of the game or the protocol. For other participants, a breach in the protocol have prevented them to be included (such as freezing of the tablet due to an imperfect kernel version or refusing to continue the interaction). Additionally, children with special needs were encouraged to participate but were not included in the results. In the end, 25 participants per condition were included (N=75 in total; age: \textit{M}=9.4, \textit{SD}=0.72; 37F/38M). The remaining children in the classrooms interacted by pairs (and were not included in the evaluation) to accelerate the ending of the study, and free the room used in the school. 
+Children from five classrooms from two different schools in Plymouth were recruited to take part in the study. As both schools have an identical OFSTED evaluation (both school ``require improvement''), so all the children were combined into a single pool of participants. Full permission to take part in the study and be recorded on video was acquired for all the participants. In total, 119 children participated in the study, however not all of them have been included in the final analysis. Some participants took part in two pilot versions, with previous versions of the game or the protocol. For other participants, a breach in the protocol have prevented them to be included (such as freezing of the tablet due to an imperfect kernel version or refusing to continue the interaction). Additionally, children with special needs were encouraged to participate but were not included in the results. In the end, 25 participants per condition were included (N=75 in total; age: \textit{M}=9.4, \textit{SD}=0.72; 37F/38M). The remaining children in the classrooms interacted by pairs (and were not included in the evaluation) to accelerate the ending of the study, and free the room used in the school while giving to each child the opportunity to interact with the robot. 
 
 \subsection{Setup of the study}
 
@@ -66,7 +68,7 @@ By interacting with the robot and the sandtray, the child is expected to gain kn
 
 \subsection{Food Chain Game}
 
-The main learning activity to teach the child the food web is a game composed of ten animals and three types of plants. Animals have energy decreasing over time and they have to eat to stay healthy. Animals are not moving unless the child or the robot moves them and can eat or be eaten when entering in contact with another animal or a plant. The child has to feed the animals by moving them to their food to give them more energy and by feeding the animals, children should learn the animals' diet. Figure~\ref{fig:tutoring_game} presents an example of the game screen in the middle of a session.
+The main learning activity to teach the child the food web is a game composed of ten animals and three types of plants (with a total of 11 instances of plant in the game). Animals have energy decreasing over time and they have to eat to stay healthy. Animals are not moving unless the child or the robot moves them and can eat or be eaten when entering in contact with another animal or a plant. The child has to feed the animals by moving them to their food to give them more energy and by feeding the animals, children should learn the animals' diet. Figure~\ref{fig:tutoring_game} presents an example of the game screen in the middle of a session. The children are instructed to keep the animals alive as long as possible
 
 \begin{figure}[ht]
 	\centering
@@ -80,7 +82,7 @@ The main learning activity to teach the child the food web is a game composed of
  
 During the game, the robot can execute actions to provide hints and support to the child. The robot has access to five types of actions:
 \begin{itemize}
-	\item Movements: moving any animal to, toward or away from any items (animal or plant) - the robot points to an animal and moves it on the game while describing its action (e.g. "The eagle needs help getting close to the mouse").
+	\item Movements: moving any animal to, close to or away from any items (animal or plant) - the robot points to an animal and moves it on the game while describing its action (e.g. "The eagle needs help getting close to the mouse").
 	\item Drawing attention: the robot points an item and says a reminder to the child (e.g. "Don't forget the frog").
 	\item Reminding rules: the robot says one of 5 sentences describing the game's rules (e.g. "Move the animals to feed them" or "Feed animals with a low energy").
 	\item Congratulation: the robot provides congratulations (e.g. "Well done").
@@ -98,7 +100,6 @@ For instance, by clicking on the frog and the `Draw attention' button, the robot
 %Similarly, the moving action require two items: the animal moved and the target of the motion. By selecting a target before moving an animal, the teacher can be sure that the robot interpret the action correctly. 
 This \gls{gui} design gives access to the teacher to the full 655 actions without requiring as many buttons. %Additionally, the selection of items is used by the robot controller to identify the relevant features to transmit to the algorithm for the learning.
 
-
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{gui.png}
@@ -109,6 +110,17 @@ This \gls{gui} design gives access to the teacher to the full 655 actions withou
 
 
 Finally, the \gls{gui} is also used by the teacher to respond to the robot's propositions. Following the proposition of an action, a bubble describing the action will appear on top of the \gls{gui}, the corresponding items will be highlighted and if the action is a motion, an arrow will show the proposed motion. The teacher can react to the proposed action by pressing the `Do it', `Skip', `Cancel' or `Remove' buttons or let the action be executed. The action will be automatically executed after 2 seconds, during which the bubble will become greener to represent the passive acceptance of the action. The `Do it' button executes the action straight-away, the `Skip' button informs the algorithm that it should wait rather than doing the action, the `Cancel' button assigns a negative reward to this action in that state and finally, the `Remove' button looks for the closest previous instantiation of the action in memory and removes it, preventing this instance to be used in later action selection.
+
+\subsection{Control Architecture}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\textwidth]{architecture.pdf}
+	\captionsetup{width=.9\linewidth}
+	\caption{Simplified schematics of the architecture used to control the robot. In addition, all the topics related to the actions are recorded using rosbag. (Figure adapted from \cite{lemaignan2017free}).}
+	\label{fig:tutoring_arch}
+\end{figure}
+
 
 \subsection{Learning and Action Selection}
 
@@ -266,7 +278,7 @@ The \textit{passive} condition served as a control condition. We decided to use 
 
 \subsubsection{Supervised Condition}
 
-The \texit{supervised} condition was the one in which the robot learned, the one where \gls{sparc} is used by a human teacher to teach the robot an efficient action policy. As such, it is not a static condition with an identical behaviour all the way, but a dynamic condition where the robot learns an action policy through the human supervision, while the teacher herself is adapting, getting used to controlling the robot. In theory, throughout the different interactions with the children, the behaviour expressed by the robot with the children should be similar and constantly appropriate. However, during that time, the teaching interaction, between the teacher and the robot should evolve due to the learning component on the robot side. 
+The \textit{supervised} condition was the one in which the robot learned, the one where \gls{sparc} is used by a human teacher to teach the robot an efficient action policy. As such, it is not a static condition with an identical behaviour all the way, but a dynamic condition where the robot learns an action policy through the human supervision, while the teacher herself is adapting, getting used to controlling the robot. In theory, throughout the different interactions with the children, the behaviour expressed by the robot with the children should be similar and constantly appropriate. However, during that time, the teaching interaction, between the teacher and the robot should evolve due to the learning component on the robot side. 
 
 \subsubsection{Autonomous}
 
@@ -458,7 +470,7 @@ Figure~\ref{fig:tutoring_supervision} presents the reaction of the teacher to th
 Figure~\ref{fig:tutoring_actions} presents the accumulated number of different actions in the policy the teacher used. We can observe a sharp increase in the first 5 interactions, when the teacher use the main actions for the first time. Then there is a mixture of small plateau and small increases, indicating that the teacher had phases where she enriched her action policy more. And finally, the number of different actions in the policy seems to converge around 60 toward the last interactions.
 
 \begin{figure}[ht]
-	\includegraphics[width=.7\linewidth]{./number_actions.pdf}
+	\includegraphics[width=.85\linewidth]{./number_actions.pdf}
 	\centering
 	\caption{Number of different actions used by the teacher throughout the interactions with the children.}
 	\label{fig:tutoring_actions}
@@ -476,6 +488,10 @@ In post-hoc discussion, the teacher reported three phases in her teaching:
 Appendix~\ref{app:diary} presents a more detailed diary of the teacher throughout her supervision.
 
 The teacher did report a decrease of workload as she supervised the robot in more session. This was supported by behaviours such as typing her observations on a laptop, while gazing at the interface in multiple interactions (especially at the start of a session). However this decrease of workload seemed to be due mostly due to the teacher getting used to the interaction, and not to the online learning and the improvement of the suggested proposition, invalidating H3.
+
+\ES{talk about she did not really make differences between cancel and skip, while this would have mattered}
+
+
 %Figure~\ref{fig:tutoring_proposition} presents the reaction of the teacher to the robot's suggestions across all the supervised sessions. In average the teacher accepted 22.3\% of all the proposition of the robot (by enforcing the action, let it be executed or using the `Do it' button), which represents 35\% of the actions executed by the robot. This effect tends to be stable across the sessions. The teacher interaction pattern evolved overtime, such as by using mostly the `Cancel' button in the start then the `Skip' one, but in the end, the teacher used this two buttons mostly interchangeably even if the algorithm underlying reaction is different. Another observation is the evolution from using the auto-execution function to the `Do it' button once the teacher felt more comfortable in the supervision. The teacher reported three phases in her teaching: 
 %
 %\begin{itemize}
