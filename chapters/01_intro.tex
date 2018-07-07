@@ -68,7 +68,9 @@ The main thesis this document proposes is the following:
 	%This supervision will lead to an efficient, safe and low human-workload teaching and autonomous behaviour.	
 \end{quote}
 
-Additional research questions are also introduced here. These research questions are used to support and direct the experimental research conducted in pursuit of demonstrating the primary thesis.
+This thesis raises a series of additional research questions; and, in the pursuit of supporting the main thesis, this research work addressed the six research questions presented below.
+
+The first two questions correspond to a theoretical analysis of the field of social \gls{hri} and a proposition of an interaction framework allowing humans to teach robots in high stakes environments such as \gls{hri}.
 
 \begin{itemize}
 	\item [RQ1] \emph{What are the requirements of a robot controller to ensure a behaviour suited to \gls{hri}?} 
@@ -79,18 +81,24 @@ Additional research questions are also introduced here. These research questions
     
     	%While RQ1 provides requirements for a robot controller, the task of designing a interaction framework allowing a human to teach remains. 
     	This research question address what principles could lead to an efficient teaching interaction between a robot and a human whilst validating the requirements from RQ1 for the interaction between the robot and the target. 
-    	
+\end{itemize}    	
+
+Then, questions 3 and 4 are focused on the teaching interaction and evaluate the specific relation between the teacher and the robot. As such these questions correspond to situations where the application interaction is fixed and repeatable. These controlled application interactions help us to characterise the teaching interaction, and analyse if it would be suited to teach a robot to interact with humans.
+\begin{itemize}
     \item [RQ3] \emph{Could a robot decrease its supervisor's workload by learning from their supervision?}
     
         Controlling a robot is a significant workload for the human supervisor. This question explores if including a learning component in the robot behaviour could alleviate the human workload by taking over some of the mental and physical requirements of the robot control. Additionally, this question explores if this learning impacts the performance in the task.
 %        \gls{woz} is an approach widely used in \gls{hri}~\citep{riek2012wizard}, whereby a human teleoperates a robot to have it interact with other humans. However, this method applies a high workload on the operator and is not scalable. Using \gls{ml} to learn from this operator online might decrease the operator's workload without decreasing the quality of the robot behaviour.
     
-    \item [RQ4] \emph{How providing the teacher with control over the learner's actions impacts the teaching process?} 
+    \item [RQ4] \emph{How does providing the teacher with control over the learner's actions impact the teaching process?} 
     
     	Teaching robots has a unique property compared to teaching humans in the fact that the teacher can have total control over the learner's actions. This question explores if this control could lead to a faster and more efficient learning while lightening the process for the teacher.
 	%    In the context of \gls{iml}, a human can provide inputs to an agent to speed up the learning. Other \gls{iml}~\citep{thomaz2008teachable,knox2009interactively} focus on feedback from the human with limited or no control over the agent's actions. However, increasing the control should speed up the learning and reduce the number of errors made by the robot.
+\end{itemize}    	
 
-	\item [RQ5] \emph{How teaching a robot to interact socially impacts the two humans involved in the overall triadic interaction?}
+Finally, questions 5 and 6 evaluate the implications of having a human directly teaching a robot to interact with another human in a real situation, more precisely in the context of child tutoring.
+\begin{itemize}
+	\item [RQ5] \emph{How does teaching a robot to interact socially impact the two humans involved in the overall triadic interaction?}
 %		How an interaction framework validating the requirements from RQ1 impact humans interacting with a robot when it is learning?}
 
 		%RQ2 explores how a teaching framework could in theory validate the requirements from RQ1. 
@@ -177,16 +185,16 @@ This research work contributed both scientifically (by creating and evaluating \
 
 \subsection{Scientific Contributions}
 \begin{itemize}
-	\item Design of \gls{sparc}, a new interaction framework for teaching agents in a safe way (Chapter~\ref{chap:sparc}; \citealt{senft2015human,senft2015sparc}).
-	\item Evaluation of \gls{sparc} in three studies (Chapters~\ref{chap:woz},~\ref{chap:control} and~\ref{chap:tutoring}; \citealt{senft2015sparc,senft2017supervised,senft2018robots}).
-	\item Demonstration of the impact and importance of the teacher's control over the robot's action when teaching a robot (Chapter~\ref{chap:control}; \citealt{senft2016sparc,senft2017supervised}).
-	\item Design of a lightweight algorithm to quickly learn from demonstrations in complex environments (Chapter~\ref{chap:tutoring}; \citealt{senft2017toward}).
-	\item Application of \gls{iml} to safely teach robots social autonomy from in situ human supervision in a real human-robot interaction (Chapter~\ref{chap:tutoring}; \citealt{senft2018robots}). This contribution is the main one as allowing robot to learn to interact with human in situ presents many advantages compared to other types of learning but is seldom used in \gls{hri} due the challenges it presents.
+	\item The first contribution, and the cornerstone of this work is the \textbf{\acrfull{sparc}}, a new interaction framework to \textbf{teach robot to interact in complex and high stakes environments}, whereby a robot progressively gain autonomy while being supervised by a human. (Chapter~\ref{chap:sparc}; \citealt{senft2015human,senft2015sparc}).
+	\item We then evaluate \gls{sparc} in \textbf{three studies} of increasing complexity and culminating to \textbf{teaching a robot to support child learning} in the wild. (Chapters~\ref{chap:woz},~\ref{chap:control} and~\ref{chap:tutoring}; \citealt{senft2015sparc,senft2017supervised,senft2018robots}).
+	\item We demonstrated the impact and importance of the \textbf{teacher's control over the robot's action} when teaching a robot: it makes the \textbf{teaching safer, faster, easier and more efficient} (Chapter~\ref{chap:control}; \citealt{senft2016sparc,senft2017supervised}).
+	\item We designed a lightweight algorithm adapted from \textbf{nearest-neighbours}, but defined on a \textbf{sliced version of the state and using rewards} to quickly \textbf{learn from demonstrations in multidimensional environments} (Chapter~\ref{chap:tutoring}; \citealt{senft2017toward}).
+	\item Application of \acrlong{iml} to \textbf{safely teach robots social autonomy} from in situ human supervision in a \textbf{real human-robot interaction} (Chapter~\ref{chap:tutoring}; \citealt{senft2018robots}). This is one of the \textbf{main contributions} one as allowing robot to learn to interact with human in situ presents many advantages compared to other types of learning but is seldom used in \gls{hri} due the challenges it presents.
 \end{itemize}
 
 \subsection{Technical Contributions}
 \begin{itemize}
-%	\item Development of three different studies to evaluate \gls{sparc} in three different scenarios (supervised robot-robot interaction, virtual robot and real word \gls{hri}).
+	\item Development of three different studies to evaluate \gls{sparc} in three different applications, with dedicated interface for the teacher, and combing \gls{sparc} with a different algorithm each time.
 	\item Partial development of a cognitive architecture and two tools for the \acrshort{dream} project (European FP7 project: 611391) (Appendix~\ref{app:dream}; \citealt{esteban2017build}).
 	\item Development of an autonomous robot controller to support cardiac rehabilitation in the Human-Robot Interaction Strategies for Rehabilitation based on Socially Assistive Robotics project (Royal Academy of Engineering: IAPP\textbackslash1516\textbackslash137)~\citep{lara2017human,casas2018social}.
 	\item Development of a wizard interface for the Freeplay-Sandbox\footnote{\url{https://github.com/freeplay-sandbox}}~\citep{lemaignan2017free}.
@@ -197,11 +205,11 @@ This research work contributed both scientifically (by creating and evaluating \
 \section{Structure}\label{sec:intro_struct}
 %From James, could probably be updated
 
-The structure of this thesis is outlined below to provide an overview of the content and context for each chapter. A summary of key findings and relevant notions are included at the start of each relevant chapter for ease of reference. 
+The structure of this thesis is described below with an overview of the content for each chapter. Chapters~\ref{chap:sparc} to \ref{chap:tutoring} start with a summary of the key elements to clarify their contribution.
 
 \begin{itemize}
 	%From James, could probably be updated
-	\item This chapter provided an introduction to the general field of this research (robots learning to interact with and from humans), the research questions including the central \emph{thesis}, the scope and the contributions of the work presented in later chapters.  
+	\item This chapter introduced to the general scope and context of this research (robots learning to interact with and from humans), presented the main thesis put forward by this work as well as the technical and scientific contributions and the additional research questions addressed throughout the thesis .
 
 	\item Chapter~\ref{chap:background} provides a description of the different fields of social \gls{hri} and draws requirements for controllers of robots interacting with humans. In a second part, it analyses the current robot controllers used in \gls{hri} identifying that no current controller fits these requirements. Finally, it introduces \gls{iml} and proposes to apply it to \gls{hri} as a way to validate the previously defined requirements.
 	
@@ -215,6 +223,6 @@ The structure of this thesis is outlined below to provide an overview of the con
 	
 	\item Chapter~\ref{chap:discussion} presents a discussion of the main findings from the previous chapters in relation to the research questions introduced in this chapter, discusses the limitations and future directions of research for \gls{sparc} as well as its potential impact on \gls{hri} and other fields.
 
-	\item Chapter~\ref{chap:conclusion} concludes the thesis and presents a summary of the main contributions.
+	\item Chapter~\ref{chap:conclusion} concludes the thesis by presenting a summary and stating the main contributions.
 	
 \end{itemize}
