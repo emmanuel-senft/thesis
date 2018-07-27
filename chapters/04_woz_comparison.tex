@@ -13,9 +13,9 @@
 	\end{itemize}
 \end{framed}
 
-Parts of the work presented in this chapter have been published in \cite{senft2015sparc}. The final publication is available from Springer via:
+Parts of the work presented in this chapter have been published in \cite{senft2015sparc}. The final publication is available from Springer:
 \begin{itemize}
-	\item \url{http://dx.doi.org/10.1007/978-3-319-25554-5_60}.
+	\item SPARC: Supervised	Progressively Autonomous Robot Competencies. In International Conference on	Social Robotics\footnote{\url{http://dx.doi.org/10.1007/978-3-319-25554-5_60}}.
 \end{itemize} 
 
 Technical contribution in this chapter: the author used software from the \acrshort{dream} project for the touchscreen and the robot functionalities. The author contributed to the material used within the robot control and the Graphical User Interface. Algorithm used from the OPENCV neural network library.
@@ -28,9 +28,9 @@ The \gls{sparc} has been designed to enable end-users without expertise in compu
 
 \gls{sparc}, as a principle, allows to start a robotic application in a \gls{woz} fashion and then move away from it as the robot gains autonomy. The aim of \gls{sparc} is twofold: maintaining a high level of performance in the target application while reducing the workload of the teacher over time. As the robot learns, the action policy is refined until reaching a point where the robot is autonomous or only necessitates minimal supervision to interact successfully. 
 
-As explained in Chapter~\ref{chap:sparc}, \gls{sparc} involves two interactions: the teaching interaction and the application one. As such, when the goal of the teaching is interacting with humans, the robot interacts simultaneously with at least two humans (the target(s) and the teacher). These two dependent interactions add complexity to the evaluation of the approach, especially as both humans are impacting each other. 
+As explained in Chapter~\ref{chap:sparc}, \gls{sparc} involves two interactions: the teaching interaction and the application one (see Figure~\ref{fig:woz_setup_diag}). As such, when the goal of the teaching is interacting with humans, the robot interacts simultaneously with at least two humans (the target(s) and the teacher). These two dependent interactions add complexity to the evaluation of the approach, especially as both humans are impacting each other. 
 
-The first step to evaluate \gls{sparc} was to focus on the teaching interaction, the relation between the robot and its teacher. To evaluate this aspect of the interaction, we decided use the context of \gls{rat} for children with \gls{asd}. However, as the presence of two humans decrease the repeatability of the test bench, we replaced the child involved in the therapy by a robot running a model of a child. The setup ends up with two robots interacting together: the \emph{child-robot} completing a therapeutical task and the \emph{wizarded-robot}, controlled by a participant, supporting the child-robot in its task completion (cf. Figure~\ref{fig:woz_setup_diag}). Actions from the wizarded-robot impact the child-robot's behaviour and to achieve a high performance in the task, the child-robot needs to receive an efficient supporting policy from the wizarded-robot. As such, the child-robot's performance is used as a proxy to evaluate the performance of the participant in the supervision. This environment with a single human-robot interaction allows us to observe and evaluate the impact of \gls{sparc} on the teaching interaction.
+The first step to evaluate \gls{sparc} was to focus on the teaching interaction, the relation between the robot and its teacher. To evaluate this aspect of the interaction, we decided use the context of \gls{rat} for children with \gls{asd}. However, as the presence of two humans decrease the repeatability of the test benchmark, we replaced the child involved in the therapy by a robot running a model of a child. The setup ends up with two robots interacting together: the \emph{child-robot} completing a therapeutic task and the \emph{wizarded-robot}, controlled by a participant (taking the role of the teacher), supporting the child-robot in its task completion (cf. Figure~\ref{fig:woz_setup_diag}). Actions from the wizarded-robot impact the child-robot's behaviour and to achieve a high performance in the task, the child-robot needs to receive an efficient supporting policy from the wizarded-robot. As such, the child-robot's performance is used as a proxy to evaluate the performance of the participant in the supervision. This environment with a single human-robot interaction allows us to observe and evaluate the impact of \gls{sparc} on the teaching interaction, while controlling for variable interactions with the target.
 
 \begin{figure}[ht]
 	\centering
@@ -41,17 +41,17 @@ The first step to evaluate \gls{sparc} was to focus on the teaching interaction,
 
 \section{Scope of the Study}
 %\ES{mention the RQ?}
-The study presented in this chapter intends to evaluate if the learning component of \gls{sparc} could allow participants to teach an efficient action policy for a robot interacting with humans. For repeatability concerns, the human-robot interaction target of the learning has been modelled by two robots interacting together. The control condition is a variation of \gls{woz}, where participant still control a robot but without the learning component. By combining learning and \gls{sa}, \gls{sparc} aims to allow the teacher to maintain a high performance during the interaction while reducing the workload on the teacher over time.
+The study presented in this chapter intends to evaluate if the learning component of \gls{sparc} could allow participants to teach an efficient action policy for a robot interacting with humans. For repeatability concerns, the human-robot interaction target of the learning has been modelled by another robot with a complex but repeatable behaviour. The control condition is a variation of \gls{woz}, where participant still control a robot but without the learning component. By combining learning and \gls{sa}, \gls{sparc} aims to allow the teacher to maintain a high performance during the interaction while reducing the workload on the teacher over time.
 
 To evaluate the validity of \gls{sparc} and the influence of such an approach, four hypotheses were devised:
 \begin{enumerate}
-	\item [H1] The child-robot's performance is a good proxy for the teacher's performance.
-	\item [H2] When interacting with a new system, humans progressively build a personal strategy that they will use in subsequent interactions.
+	\item [H1] The child-robot's performance is a good proxy for the teacher's performance (there is high correlation between the child-robot performance and the teacher performance - maintaining the child-robot internal states high).
+	\item [H2] When interacting with a new system, humans progressively build a personal strategy that they will use in subsequent interactions (resulting in variable teacher's outputs and improving their performance in successive interactions).
 	\item [H3] Reducing the number of interventions required from a teacher reduces their perceived workload.
 	\item [H4] Using \gls{sparc} allows the teacher to achieve similar performance than \gls{woz} but with a lower workload.
 \end{enumerate}
 
-H1 represents a validation of the model, ensuring that the child-robot performance represents the efficiency of the action policy applied by the teacher. H2 tests that human teachers are not static entities, they adapt their teaching target and their interaction strategy. H3 tests one of the motivations behind \gls{sparc}: does reducing the number of physical actions from a human to control a robot while requiring the teacher to monitor the robot suggestions lead to a lower workload. Finally, H4 is the main hypothesis, does \gls{sparc} enables a robot to learn a useful action policy: reducing the teacher's workload while maintaining a high performance.
+H1 represents a validation of the model, ensuring that the child-robot performance represents the efficiency of the action policy applied by the teacher. H2 tests that human teachers are not static entities, they adapt their teaching target and their interaction strategy based on their knowledge and understanding of the task. H3 tests one of the motivations behind \gls{sparc}: does reducing the number of physical actions from a human to control a robot while requiring the teacher to monitor the robot suggestions lead to a lower perceived workload. Finally, H4 is the main hypothesis, does \gls{sparc} enables a robot to learn a useful action policy: reducing the teacher's workload while maintaining a high performance.
 
 \section{Methodology}
 
@@ -76,7 +76,7 @@ This study explores if \gls{sparc} can be used to teach the robot a correct acti
 %the policy used by the teacher based on observations of the child and the oversight from the teacher, with the teacher still maintaining overall control if necessary.
 
 This study compares two conditions: \gls{sparc}, where the robot learns from the human selections and the \gls{woz} condition where the robot is simply controlled by the participant. As mentioned before, in both conditions, actions can only be executed in predefined time windows dictated by the dynamics of the interaction. Additionally, a `wait' action is present in the \gls{sparc} condition and presents an active choice for the participants. 
-In a real \gls{woz} scenario, participants would have to enforce every single action made by the robot, however, a `wait' action in that context does not make sense. As such, in the \gls{woz} condition, the robot proposes random actions, thus increasing the probability of having the teacher correcting the suggestion leading up to a setup similar to a real \gls{woz}.
+In a real \gls{woz} scenario, participants would have to enforce every single action made by the robot, however, a `wait' action in that context does not make sense. As such, in the \gls{woz} condition, the robot proposes random actions, thus increasing the probability of having the teacher correcting the suggestion leading up to a setup similar to a real \gls{woz}. This random behaviour is also the starting point of the \gls{sparc} condition.
 
 As mentioned earlier, the focus of the study being on the teaching interaction (the relation between the teacher and the robot), the second interaction (the application) has been kept constant by replacing the child by a robot. A minimal model of child behaviour is therefore used to stand in for a real child. A second robot is employed in the interaction to embody this child model: we term this robot the \textit{child-robot} while the robot being directly supervised by the human teacher is the \textit{wizarded-robot} (cf. Figure~\ref{fig:woz_setup}).
 
@@ -106,7 +106,7 @@ The wizarded-robot is controlled through a \gls{gui} (shown in Figure~\ref{fig:w
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.9\textwidth]{GUI-woz.png}
+	\includegraphics[width=1\textwidth]{GUI-woz.png}
 	\caption{Screenshot of the interface used by the participants, the \gls{gui} on the left allows to control the robot and a summary of the actions' impact is displayed on the right.}
 	\label{fig:woz_gui}
 \end{figure}
@@ -132,16 +132,16 @@ The wizarded-robot has a set of four actions it can execute, each represented by
 
 The impact of actions on the child-robot depends on the internal state and the type of the last child-robot move: good, bad, or done (meaning that feedback has already been given for the last move and supplementary feedback is not necessary). A \textit{prompt} increases the engagement, a \textit{wait} has no effect on the child-robot's state, and the impact of positive and negative feedback depends on the previous child-robot move. Congruous feedback (positive feedback for correct moves; negative feedback for incorrect moves) results in an increase in motivation, but incongruous feedback can decrease both the motivation and the engagement of the child-robot. The teacher therefore has to use congruous feedback and prompts.
 
-However, as mentioned in Section~\ref{ssec:woz_child}, if the engagement or the motivation exceeds a threshold, their value can decrease abruptly to simulate the child-robot being frustrated. This implies that the optimal action policy consist on providing congruous feedback and prompts, but also requires wait actions to prevent the child-robot from becoming frustrated and maintain its state-values close to the threshold without exceeding it. A `good' strategy keeping the engagement and motivation high leads to an increase in performance of the child-robot in the categorisation task.
+However, as mentioned in Section~\ref{ssec:woz_child}, if the engagement or the motivation exceeds a threshold, their value can decrease abruptly to simulate the child-robot being frustrated. This implies that the optimal action policy consist on providing congruous feedback and prompts, but also requires wait actions to prevent the child-robot from becoming frustrated and maintain its state-values close to the threshold without exceeding it. However, as the participants do not know the parameters of the models running on the child-robot and do not have access to the exact state values, this optimal policy is not available to participants. A `good' strategy keeping the engagement and motivation high leads to an increase in performance of the child-robot in the categorisation task.
 
 As introduced previously, to simplify the algorithm part, the interaction has been discretised, the teacher cannot select actions for the wizarded-robot at any time. Actions can only be executed at specific times triggered by the wizarded-robot: two seconds after each child-robot categorisation or if nothing happened for five seconds since the last wizarded-robot's action. When these selection windows are hit, the wizarded-robot proposes an action to the teacher by displaying the action's name and a countdown before execution. The teacher can only select an action in reaction to a proposition from the wizarded-robot; alternatively, if the teacher does nothing in the three seconds following the suggestion, the action proposed by the wizarded-robot is executed. This mechanism allows the teacher to passively accept a suggestion or actively intervene by selecting a different action and forcing the wizarded-robot to execute it.
 
 \subsection{Learning Algorithm}
 
-In the \gls{sparc} condition, the robot learns to reproduce the action policy displayed by the teacher. For this study, the algorithm used for learning is a Multi-Layer Perceptron (MLP): with five input nodes: one for the observed motivation, one for the observed engagement and three binary (+1/-1) inputs for the type of the previous move: good, bad, or done. The hidden layer had six nodes and the output layer four: one for each action. The suggested action is selected applying a Winner-Take-All strategy on the value of the output node and then displayed on the \gls{gui} before execution. The network is trained with back propagation: after each new decision from the teacher a new training point is added with the selected action node having +1 while the others are set to -1. The network is fully retrained with all the previous state-action pairs and the new one between each selection step. 
+In the \gls{sparc} condition, the robot learns to reproduce the action policy displayed by the teacher. For this study, the algorithm is of incidental importance, any algorithm could have been used, but as only supervised learning is required, we used a Multi-Layer Perceptron (MLP) with five input nodes: one for the observed motivation, one for the observed engagement and three binary (+1/-1) inputs for the type of the previous move: good, bad, or done. The hidden layer had six nodes and the output layer four: one for each action. The suggested action is selected applying a Winner-Take-All strategy on the value of the output node and then displayed on the \gls{gui} before execution. The network is trained with back propagation: after each new decision from the teacher a new training point is added with the selected action node having +1 while the others are set to -1. The network is fully retrained with all the previous state-action pairs and the new one between each selection step. 
 %The network was using sigmoid activation function and a learning rate of 0.6 (probably).
 
-This learning algorithm, MLP, is not optimal for online learning for real time interactions as the learning should happen quickly between learning iterations. However, as the length of interaction (and so the number of datapoints) is limited, the network can be retrained between two consecutive uses. Finally, the desired learning behaviour being purely supervised learning, this type of algorithm has been deemed suitable for this study.
+This learning algorithm, MLP, is not optimal for online learning for real time interactions as the learning should happen quickly between learning iterations. However, as the length of interaction (and so the number of datapoints) is limited, the network can be retrained between consecutive uses. Finally, the desired learning behaviour being purely supervised learning, this type of algorithm has been deemed suitable for this study.
 %On the other side, the random controller proposed random actions to the teacher.
 
 \subsection{Interaction Protocol}
@@ -160,9 +160,9 @@ Two types of metrics have been recorded for this study: interaction data represe
 
 The state of the child-robot and the interaction values were logged at each step of the interaction (at 5Hz). At each selection step, all of the human actions were recorded: acceptance of the wizarded-robot's suggestion, auto-execution and selection of another action (intervention) as well as the current state of the child-robot (motivation, engagement and performance). 
 
-The first metric is the performance achieved by participants in each interaction. As the policy applied by the participants cannot be evaluated directly, the performance of the child-robot in the task (number of correct categorisations minus number of incorrect categorisations ) is used as a proxy for the participant performance. H1 evaluates if this approximation is valid by analysing the relation between the performance of the child-robot and the value of its inner states. If a correlation is found, it would demonstrate that a good supervision policy (managing to keep the engagement and the motivation of the child-robot high) leads to a high performance. As such, this child-robot performance represents how efficient the action policy executed by the wizarded-robot was when controlled by a participant.
+The first metric is the performance achieved by participants in each interaction. As the policy applied by the participants cannot be evaluated directly, the performance of the child-robot in the task (number of correct categorisations minus number of incorrect categorisations) is used as a proxy for the participant performance. H1 evaluates if this approximation is valid by analysing the relation between the performance of the child-robot and the value of its inner states. If a strong correlation is found, it would demonstrate that a good supervision policy (managing to keep the engagement and the motivation of the child-robot high) leads to a high performance. As such, this child-robot performance represents how efficient the action policy executed by the wizarded-robot was when controlled by a participant.
 
-The second important metric is the intervention ratio: the number of times a user chooses a different action than the one proposed by the wizarded-robot, divided by the total number of executed actions. This metric represents how often in average a user had to correct the robot and could be related to the workload the user had to face to control the robot.
+The second important metric is the intervention ratio: the number of times a user chooses a different action than the one proposed by the wizarded-robot, divided by the total number of executed actions. This metric represents how often on average a user had to correct the robot and could be related to the workload the user had to face to control the robot.
 
 \subsubsection{Questionnaire Data}
  
@@ -170,18 +170,18 @@ Participants answered four questionnaires: a demographic one before the interact
 
 Post-Interaction questions:
 \begin{itemize}
-	\item The child-robot learned during the interaction.
-	\item The performance of the child-robot improved in response to the teacher-robot's actions.
-	\item The teacher-robot is capable of making appropriate action decisions in future interactions without supervision.
-	\item The teacher-robot always suggested an incorrect or inappropriate actions.
-	\item By the end of the interaction, my workload was very light.
+	\item The child-robot learned during the interaction (Likert scale 1 to 7).
+	\item The performance of the child-robot improved in response to the teacher-robot's actions (Likert scale 1 to 7).
+	\item The teacher-robot is capable of making appropriate action decisions in future interactions without supervision (Likert scale 1 to 7).
+	\item The teacher-robot always suggested an incorrect or inappropriate actions (Likert scale 1 to 7).
+	\item By the end of the interaction, my workload was very light (Likert scale 1 to 7).
 	\item What did you pay most attention during the interaction? (child-robot, touchscreen, \gls{gui}, other).
 \end{itemize}
 
 Post-experiment questions:
 \begin{itemize}
-	\item There was a clear difference in behaviour between the two teacher-robots.
-	\item There was a clear difference in behaviour between the two child-robots.
+	\item There was a clear difference in behaviour between the two teacher-robots (Likert scale 1 to 7).
+	\item There was a clear difference in behaviour between the two child-robots (Likert scale 1 to 7).
 	\item Which teacher-robot was better able to perform the task? (first, second).
 	\item Which teacher-robot did you prefer supervising? (first, second).
 \end{itemize}
@@ -190,7 +190,7 @@ Post-experiment questions:
 
 \subsection{Interaction Data}
 
-Figure~\ref{fig:woz_comp} presents the aggregated results (collapsed between orders) for the performance and the final intervention ratio for both conditions. While the number of participants is not sufficient to perform statistical comparison, overall interaction results seemed to show that both conditions lead to similar performance (\gls{sparc}: 32.6 (95\% CI [27.89,37.31]) - \gls{woz}: 31.4 (95\% CI [25.9,36.9])). As supported by the absence of overlap between the 95\% CI, the \gls{sparc} condition tended to require less interventions (intervention ratio: \gls{sparc}: 0.38 (95\% CI [0.29,0.47]) - \gls{woz}: 0.59 (95\% CI [0.52,0.67])). 
+Figure~\ref{fig:woz_comp} presents the aggregated results (collapsed between orders) for the performance and the final intervention ratio for both conditions. While the number of participants is not sufficient to compute descriptive statistics, overall interaction results seemed to show that both conditions lead to similar performance (\gls{sparc}: 32.6 (95\% CI [27.89,37.31]) - \gls{woz}: 31.4 (95\% CI [25.9,36.9])). As supported by the absence of overlap between the 95\% CI, the \gls{sparc} condition tended to require less interventions (intervention ratio: \gls{sparc}: 0.38 (95\% CI [0.29,0.47]) - \gls{woz}: 0.59 (95\% CI [0.52,0.67])). 
 
 \begin{figure*}[ht]
 	\centering
@@ -209,12 +209,12 @@ Figure~\ref{fig:woz_comp} presents the aggregated results (collapsed between ord
 	\label{fig:woz_comp}
 \end{figure*}
 
-Figure~\ref{fig:woz_ratio_time} presents the evolution of intervention ratio for each condition and orders. During the first interaction, participants discovered the interface and how to interact with it, which resulted in a high variation of the intervention ratio in the first 20 steps (with one step corresponding to one proposition of action from the wizarded-robot). However in the second phase of the interaction, when participants had developed their teaching policy, there was a tendency for \gls{sparc} to require a lower number of intervention than \gls{woz}. This effect was higher in the second interaction, where as soon as 5 steps, the two conditions differentiated without overlap of the 95\% CI of the mean. This would indicate that the two conditions differ in term of required interventions.
+Figure~\ref{fig:woz_ratio_time} presents the evolution of intervention ratio for each condition, and their order. During the first interaction, participants discovered the interface and how to interact with it, which resulted in a high variation of the intervention ratio in the first 20 steps (with one step corresponding to one proposition of action from the wizarded-robot). However in the second phase of the interaction, when participants had developed their teaching policy, there was a tendency for \gls{sparc} to require a lower number of intervention than \gls{woz}. This effect was higher in the second interaction, where as soon as 5 steps, the two conditions differentiated without overlap of the 95\% CI of the mean. This would indicate that the two conditions differ in term of required interventions.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1.\textwidth]{ratio_time.pdf}
-	\caption{Evolution of intervention ratio over time for both conditions and both orders. Shaded area represents the 95\% CI.}
+	\caption{Evolution of intervention ratio over time for both conditions and both orders. Shaded area represents the 95\% CI (N=5 for each plot).}
 	\label{fig:woz_ratio_time}
 \end{figure}
 
@@ -320,7 +320,7 @@ Participants rated the wizarded-robot as more suited to operate unsupervised wit
 
 Similarly, a trend was found showing that the wizarded-robot with \gls{sparc} is perceived as making fewer errors than with \gls{woz} (\gls{cidm} for S-W ordering [1.3, 3.4], \gls{cidm} for the W-S ordering [0.1, 1.1]). 
 
-The also participants tended to rate the workload as lighter when interacting with \gls{sparc}, and this effect is much more prominent when the participants interacted with the \gls{woz} first (\gls{cidm} for S-W ordering [-0.6, 2.6], \gls{cidm} for the W-S ordering [0.7, 2.5]).
+Also participants tended to rate the workload as lighter when interacting with \gls{sparc}, and this effect is much more prominent when the participants interacted with the \gls{woz} first (\gls{cidm} for S-W ordering [-0.6, 2.6], \gls{cidm} for the W-S ordering [0.7, 2.5]).
 
 Most of the difference of mean interval exclude 0 or include it marginally, which would indicate tendency of difference, but due to the low number of participants, no statistical tests are applicable and as such no significance can be demonstrated. 
 
@@ -330,7 +330,7 @@ Most of the difference of mean interval exclude 0 or include it marginally, whic
 
 Strong support for H1 (a good teacher leads to a better child performance) was found, a correlation between the average value of states (engagement and motivation) and the final performance for all of the 10 participants was observed (\textit{r}=0.79). This validity check confirms that the performance of the child robot reflects the performance of the teacher in this task: supervising the wizarded-robot to execute an efficient action policy maximising the inner state of the child-robot. Additionally, the model of the child robot exhibited the desired behaviour: allowing a wide range of performances without one obvious optimal action policy.
 
-The results also provided support for H2 (teachers create personal strategies): all the participants performed better in the second interaction than in the first one. This suggests that participants developed a strategy when interacting with the system in the first interaction, and were able to use it to increase their performance in the second interaction. Looking in more detail at the interaction logs, different strategies for the wizarded-robot can be observed. For instance, the ratio of waiting action compared to other supportive actions varied between participants.
+The results also provided support for H2 (teachers create personal strategies): all the participants performed better in the second interaction than in the first one. This suggests that participants developed a strategy when interacting with the system in the first interaction, and were able to use it to increase their performance in the second interaction. Looking in more detail at the interaction logs, different strategies for the wizarded-robot can be observed. For instance, the ratio of waiting action compared to other supportive actions varied between participants (from 4.7\% to 56\%). This variation demonstrates that despite the repeatability of the environment, different participants applied different strategies when controlling and teaching a robot.
 
 H3 (reducing the number of interventions reduces the perceived workload) is partially supported: the results show a trend for participants to rate the workload as lighter when interacting with the \gls{sparc}, and another trend between using \gls{sparc} and the intervention ratio. However, when computing the correlation between the intervention ratio and the reported workload, a strong effect can only be observed in the second interaction ($\rho = -.622$). In the first interaction, the main cause of the workload is probably the discovery of the system and how to interact with it rather than the requirement to manually select actions for the robot. Nevertheless, regardless of the order of the interactions, \gls{sparc} tended to receive higher ratings for lightness of workload and required fewer interventions to be controlled which indicates that using \gls{sparc} could decrease workload on robot's supervisor compared to \gls{woz}.
 

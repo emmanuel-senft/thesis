@@ -1,6 +1,7 @@
-\chapter{Supervised Progressive Autonomous Robot \newline Competencies}\label{chap:sparc}
+\chapter{Supervised Progressive Autonomous Robot \newline Competencies SPARC}\label{chap:sparc}
 \glsresetall
 \graphicspath{{images/sparc/}}
+
 
 \begin{framed}
 	\textbf{Key points:}
@@ -18,13 +19,12 @@
 
 Parts of the work presented in this chapter have been published in \cite{senft2015sparc} and \cite{senft2017supervised}. The final publications are available from Springer and Elsevier:
 \begin{itemize}
-	\item \url{http://dx.doi.org/10.1007/978-3-319-25554-5_60}.
-	\item \url{https://doi.org/10.1016/j.patrec.2017.03.015}.
+	\item SPARC: Supervised	Progressively Autonomous Robot Competencies. In International Conference on	Social Robotics\footnote{\url{http://dx.doi.org/10.1007/978-3-319-25554-5_60}}.
+	\item Supervised Autonomy for Online Learning in Human-Robot Interaction. Pattern Recognition Letters\footnote{\url{https://doi.org/10.1016/j.patrec.2017.03.015}}.
 \end{itemize}
-
 \newpage
 \section{Motivation}
-As presented in Chapter~\ref{chap:background}, robots would profit from being able to learn from human teachers how to interact with other humans. We propose to use \gls{iml} to achieve this transfer of social and task knowledge from the human domain-expert to the robot. This would result in a faster and safer learning than slow iterative update of behaviours by engineering the action policy, learning from large quantities of data or learning by trials and errors as with \gls{rl}.
+As presented in Chapter~\ref{chap:background}, robots would profit from being able to learn from human teachers how to interact with other humans. We propose to use the general \gls{iml} methodology to achieve this transfer of social and task knowledge from the human domain-expert to the robot. This would result in a faster and safer learning than slow iterative update of behaviours by engineering the action policy, learning from large quantities of data or learning by trials and errors as with \gls{rl}.
 
 However, as stated in this Section~\ref{sec:back_iml}, \gls{iml} has never been applied to teach robots to interact with humans. No current system provides the teacher with enough control over the robot's actions to validate the first principle presented in Section~\ref{ssec:back_constraints} (`Only execute appropriate actions'). Techniques relying solely on feedback from the teacher cannot prevent the robot to execute an incorrect action, but only reduce the chances of future errors by rewarding negatively incorrect actions after their execution~\citep{senft2017supervised}. And, with current techniques based on \gls{lfd} the teacher relinquishes its control over the robot when not demonstrating, only reacting in hindsight after the learner makes mistakes and its erroneous actions have impacted the real world~\citep{chernova2009interactive}.
 
@@ -32,9 +32,9 @@ The problem tackled in this research is to provide a robot with an appropriate a
 
 %Whilst \gls{sparc} has been developed to allow robots to learn how to interact socially with humans, it could also be applied to any type of agent learning to interact in an environment. Similarly, the terms `supervisor' and `teacher' are exchangeable as the teacher teaches the robot how to behave while supervising its behaviour.
 
-\section{Frame}
+\section{Context}
 
-Similarly to other applications of \gls{iml}, \gls{sparc} requires inputs from a teacher to learn an action policy to interact with the world. As framed in the introduction, in this framework, the robot interacts with two entities: the target and the teacher (as shown in Figure~\ref{fig:frame}). This results into two intertwined interactions: the application interaction (task the robot learns to achieve) and the teaching interaction (relation with the teacher). In the generic case, the overall interaction is a triadic interaction (Teacher - Robot - Human target or Teacher - Robot - Environment); for instance, a teacher could teach a tutor robot to support child learning in an education task (as implemented in Chapter~\ref{chap:tutoring}). But in specific cases, the application target is not a human but only part of the environment, such as a robot at home learning from its user how to support them better.
+Similarly to other applications of \gls{iml}, \gls{sparc} requires inputs from a teacher to learn an action policy to interact with the world. As framed in the introduction, in this framework, the robot interacts with two entities: the target and the teacher (as shown in Figure~\ref{fig:frame}). This results into two intertwined interactions: the application interaction (task the robot learns to achieve) and the teaching interaction (relation with the teacher). In the generic case, the overall interaction is a triadic interaction (Teacher - Robot - Human target or Teacher - Robot - Environment); for instance, a teacher could teach a tutor robot to support child learning in an education task (as implemented in Chapter~\ref{chap:tutoring}). But in specific cases, the application target is not a human but only part of the environment, such as a robot at home learning from its user how to support them better (i.e. the teacher and the target are the same).
 
 \begin{figure}[ht]
 	\includegraphics[width=.6\linewidth]{setup.pdf}
@@ -45,18 +45,18 @@ Similarly to other applications of \gls{iml}, \gls{sparc} requires inputs from a
 
 \section{Principles} \label{sec:sparc_principles}
 
-\gls{sparc} defines an interaction between a learner (virtual agent or robot) and a teacher following these principles:
+\gls{sparc} defines an interaction between a robot (physical or virtual agent) and a teacher following these principles:
 \begin{itemize}
-	\item The learner has access to a representation of the state of the world and a set of actions.
+	\item The robot has access to a representation of the state of the world and a set of actions.
 	\item The teacher can select actions for the robot to execute.
 	\item The learner can propose actions to the teacher before executing them (informing them about its intentions).
-	\item The teacher can enforce or cancel actions proposed by the learner and actions non evaluated are implicitly validated and executed after a short delay.
-	\item The learner uses \gls{ml} to improve its action policy using the teacher's commands and feedback on propositions.
+	\item The teacher can enforce or cancel actions proposed by the robot and actions non evaluated are implicitly validated and executed after a short delay.
+	\item The robot uses \gls{ml} to improve its action policy using the teacher's commands and feedback on propositions.
 \end{itemize} 
 
-This type of interaction between the learner and the teacher is similar to the level 6 on the Sheridan scale of autonomy: "computer selects action, informs human in plenty of time to stop it"~\citep{sheridan1978human}; with the addition that the human has also the opportunity to select actions for the agent to execute. In this thesis, we will refer to this interaction as `\gls{sa}': the robot interacts autonomously under the supervision of a human who can ensure that the robot's behaviour is constantly appropriate.
+This type of interaction between the robot and the teacher is similar to the level 6 on the Sheridan scale of autonomy: "computer selects action, informs human in plenty of time to stop it"~\citep{sheridan1978human}; with the addition that the human has also the opportunity to select actions for the agent to execute. In this thesis, we will refer to this interaction as `\gls{sa}': the robot interacts autonomously under the supervision of a human who can ensure that the robot's behaviour is constantly appropriate.
 
-This way of keeping a human in the learning loop, with the opportunity to override the agent actions, and the robot learning from these demonstrations is similar to Dogged Learning~\citep{grollman2007dogged}. However, with \gls{sparc}, this ability to provide demonstrations is combined with the \gls{sa}. This results in a mixed control system where the teacher can select actions and have the robot execute them while the robot only proposes actions to the teacher. In response to this suggestion, the teacher has the choice between preempting the action or let it be executed. A learning algorithm on the robot's side uses the feedback and commands from the teacher to improve the correctness of the suggested actions until reaching an efficient action policy. This learning mechanism coupled with auto-execution of actions aims to decrease the requirement of interventions from the teacher over time, thus reducing the workload on the teacher as the robot learns. Additionally, keeping the human in the loop also gives them the opportunity to provide additional information to the algorithm speeding up the learning and to create a mental model of the learner. The diagram in Figure~\ref{fig:sparc_diagram} and the flowchart in Figure~\ref{fig:sparc_flowchart} represent in a graphical way this interaction between the learner and the teacher.
+This way of keeping a human in the learning loop, with the opportunity to override the agent actions, and the robot learning from these demonstrations is similar to Dogged Learning~\citep{grollman2007dogged}. However, with \gls{sparc}, this ability to provide demonstrations is combined with the \gls{sa}. This results in a mixed control system where the teacher can select actions and have the robot execute them while the robot only proposes actions to the teacher. In response to this suggestion, the teacher has the choice between preempting the action or let it be executed. A learning algorithm on the robot's side uses the feedback and commands from the teacher to improve the correctness of the suggested actions until reaching an efficient action policy. This learning mechanism coupled with auto-execution of actions aims to decrease the requirement of interventions from the teacher over time, thus reducing the workload on the teacher as the robot learns. Additionally, keeping the human in the loop also gives them the opportunity to provide additional information to the algorithm speeding up the learning and to create a mental model of the robot. The diagram in Figure~\ref{fig:sparc_diagram} and the flowchart in Figure~\ref{fig:sparc_flowchart} represent in a graphical way this interaction between the robot and the teacher.
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{diagram.pdf}
@@ -84,7 +84,7 @@ Alternatively, \gls{sparc} can be seen as a way to provide proactivity to an age
 \begin{itemize}
 	\item Be usable by people without expertise in computer science.
 	\item Allow fast policy learning from \textit{in situ} guidance.
-	\item Require few or no human input for the robot to act in the world.
+	\item Require little or no human input for the robot to act in the world.
 	\item Constantly ensure an appropriate robot behaviour.
 \end{itemize}
 
@@ -109,9 +109,11 @@ Similarly to other \gls{iml} approaches, the requirement of a human in the actio
 
 Depending of the application, actions might have to be executed in a time critical environment (such as driving) or less critical ones (such as an assistant robot at home). While being easily applicable to slow interactions, \gls{sparc} could still be applied to these time critical ones. For instance, if applied to autonomous driving, \gls{sparc} could display to the driver the planned trajectory with augmented reality and let the driver correct this trajectory if not appropriate. However, more critical elements, such as emergency breaking, would probably have to be done with a much shorter correction window so the car can break in time. 
 
+Similarly, there is a trade-off between the the granularity of the action and the control provided to the teacher. To provide the teacher with enough time to react to incorrect propositions, only high level actions can go through the approval process. Low level actions require finer control and are more sensitive to time, thus they might be obsolete or inefficient if executed after the time delay required to allow the teacher to review them.
+
 Additionally, the presence of this correction window reduces the rate of actions selection to 0.5 Hz or below, which might reduce the applicability of \gls{sparc} compared to other \gls{iml} methods. However, this limitation of application is the price to pay to ensure the appropriateness of actions, and this effect can be mitigated by using higher level actions or by focusing on applications less critical in term of time. 
 
-Finally, the rate of selection of high level actions will be much lower than the rate of the robot's action selection loop. At a human level, actions will be executed at a rate of few actions per minutes, while the robot's processing runs at multiple hertz. This indicates that unlike classical \gls{rl} methods, in most of the steps, the robot should not select any action. When interacting with humans, the learning algorithm and the state representation needs to take into account these differences of time scales to ensure that the robot's behaviour is coherent and useful.
+Finally, as the actions are high level ones, their rate of selection will be much lower than the rate of the robot's action selection loop. At a human level, actions will be executed at a rate of few actions per minutes, while the robot's processing runs at multiple hertz. This indicates that unlike classical \gls{rl} methods, in most of the steps, the robot should not select any action. When interacting with humans, the learning algorithm and the state representation needs to take into account these differences of time scales to ensure that the robot's behaviour is coherent and useful.
 
 \subsection{Difference with \gls{lfd}}
 
