@@ -352,37 +352,43 @@ To give enough flexibility in the timing of the suggested actions (to react in t
 
 \subsection{Wizard of Oz Interface} \label{sec:tuto_woz}
 
-In this study, the communication between the teacher and the robot occurs through the \gls{woz} application, a \gls{gui} running on a tablet and allowing the teacher and the robot to communicate. This \gls{gui} displays the state of the game as the child sees it, with additional buttons to communicate both ways with the robot (see Figure~\ref{fig:tutoring_gui}). The teacher can use the buttons and moving animals on the tablet to have the robot execute any possible action. For example, to move animals close to another item the teacher can drag and release the animal's image to a position on the tablet to request the robot to execute this movement on the touchscreen. As mentioned in Section~\ref{sec:tuto_arch}, the action analyser determines which action has been selected by the teacher by evaluating how the distances between animals change with this motion. Similarly, the teacher can select an animal and press the `Draw attention' button to have the robot point at the select animal and remind the child to use it.
+In this study, the communication between the teacher and the robot occurs through the \gls{woz} application, a \gls{gui} running on a tablet and allowing the teacher and the robot to communicate. This \gls{gui} displays the state of the game as the child sees it, with additional buttons to communicate both ways with the robot (see Figure~\ref{fig:tutoring_gui}). The teacher can use the buttons and moving animals on the tablet to have the robot execute any possible action. For example, to move animals close to another item the teacher can press on an animal on the tablet, which create a draggable ghost of the animal the teacher can move to the desired position. On release of the ghost, a request is sent to the robot to make a moving pointing gesture synchronised with the image moving on the touchscreen.
+%drag and release the animal's image to a position on the tablet to request the robot to execute this movement on the touchscreen. 
+As mentioned in Section~\ref{sec:tuto_arch}, the action analyser determines which action has been selected by the teacher by evaluating how the distances between animals change with this motion. Similarly, the teacher can select an animal and press the `Draw attention' button to have the robot point at the select animal and remind the child to use it.
 %The main aim of the study being testing \gls{sparc} in a real \gls{hri}, the teacher needs an interface to communicate with the robot. To allow this interaction between the teacher and the robot, a \gls{gui} running on a tablet has been developed representing the current state of the game exactly as the child sees it on the touchscreen (see in Figure~\ref{fig:tutoring_gui}). This \gls{gui} runs on a tablet as it allow the robot's teacher to supervise and teach the robot while monitoring the application interaction (i.e. the interaction between the child and the robot). Buttons for the actions (excluding movements) allow the teacher to select which action the want the robot to execute. The teacher can also have the robot move animals simply by dragging and releasing animals' images on the tablet. The teacher can also select animals or plants to specify which action they intend to do. 
 %For instance, by clicking on the frog and the `Draw attention' button, the robot will execute the \textit{drawing attention to the frog} action. 
-Additionally, the teacher can highlight the features they used to select the action to speed up the teaching process and clarify otherwise ambiguous actions. This feature highlighting is done my selecting the items relevant to action or by pressing on the icon in top-right corner to highlight what the child is looking at.
+Additionally, the teacher can highlight the features they used to select the action to speed up the teaching process and clarify otherwise ambiguous actions. This feature highlighting is done by selecting the items relevant to action or by pressing on the icon in top-right corner to highlight what the child is looking at (the icon indicates where the child is currently facing: the robot, the touchscreen or something else).
 %Similarly, the moving action require two items: the animal moved and the target of the motion. By selecting a target before moving an animal, the teacher can be sure that the robot interpret the action correctly. 
-This \gls{gui} has been designed to be as intuitive as possible, giving the teacher access to more than 600 actions without requiring as many buttons. %Additionally, the selection of items is used by the robot controller to identify the relevant features to transmit to the algorithm for the learning.
+Our \gls{gui} design intended to be intuitive and simple to use, giving the teacher access to more than 600 actions without requiring as many buttons. %Additionally, the selection of items is used by the robot controller to identify the relevant features to transmit to the algorithm for the learning.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{gui.png}
-	\caption{\gls{gui} used by the teacher to control the robot and respond to its suggestions. The game is in the same state as in Figure~\ref{fig:tutoring_game}, and the robot proposes to move the frog close to the fly (text bubble, arrow, moving the \textit{shadow} of the frog and highlight the frog and the fly).}
+	\caption{\gls{gui} used by the teacher to control the robot and respond to its suggestions. The game is in the same state as in Figure~\ref{fig:tutoring_game}, and the robot proposes to move the frog close to the fly (text bubble, arrow, moving the \textit{ghost} of the frog - a partially transparent image of animal used to determine the position of a move action - and highlight the frog and the fly).}
 	\label{fig:tutoring_gui}
 \end{figure}
 
-Finally, the \gls{gui} also allows the teacher to respond to the robot's propositions. Following the proposition of an action, a bubble describing the action appears on top of the \gls{gui}, the corresponding items are highlighted and if the action is a motion, an arrow shows the proposed motion (Figure~\ref{fig:tutoring_gui}). The teacher can react to the proposed action by pressing the `Do it', `Skip', `Cancel' or `Remove' buttons or let the action be automatically executed after 2 seconds during which the bubble will become lighter to represent the passive acceptance of the action. The `Do it' button executes the action straight-away, the `Skip' button sends a `wait' action with a reward of 1 (indicating the robot should wait in this situation), the `Cancel' sends the proposed action with a reward of -1 and does not execute it (indicating that this action is not appropriate in this situation), and finally, the `Remove' button looks for the closest previous instance of the action in memory and removes it, preventing this instance to be used in later action selection. Actions executed by the robot are assigned a reward of 1. In each case, any item highlighted are associated to the action. 
+Finally, the \gls{gui} also allows the teacher to respond to the robot's propositions. Following the proposition of an action, a bubble describing the action appears on top of the \gls{gui}, the corresponding items are highlighted and if the action is a motion, an arrow shows the proposed motion (Figure~\ref{fig:tutoring_gui}). The teacher can respond to the proposed action by pressing the `Do it', `Skip', `Cancel' or `Remove' buttons or let the action be automatically executed after 2 seconds during which the bubble will become lighter to represent the passive acceptance of the action. The `Do it' button executes the action straight-away, the `Skip' button sends a `wait' action with a reward of 1 (indicating the robot should not do any action at this moment but should suggest other actions later), the `Cancel' sends the proposed action with a reward of -1 and does not execute it (indicating that this action is not appropriate in this situation), and finally, the `Remove' button looks for the closest previous instance of the action in memory and removes it, preventing this instance to be used in later action selection. Actions executed by the robot are assigned a reward of 1. In each case, any item highlighted are associated to the action. 
+
+For example, if an incorrect action is proposed by the robot, and the teacher would have preferred another one, they can cancel the proposed action and select another one. If the robot proposes an totally incorrect action (following a error in demonstration), such as moving the wolf close to the wheat, the teacher can press the remove button, to erase the instance in memory and prevent this action to be re proposed. Alternatively, if the robot proposes an action when it should not do anything, the teacher can use the `skip' button to tell the robot to skip this action and wait, but to keep proposing actions later.
+
+These two mechanisms: selection of action and reacting to proposition run in parallel. The teacher is expected both to evaluate actions from the robot and to select correct actions to execute at the same time.
 
 \subsection{Teacher}
-The teacher was a psychology PhD student from the University of Plymouth, with limited knowledge of computing and machine learning but with an understanding of human cognition. She had been instructed on how to control the robot using the GUI and the effect of each buttons. She was aware of the methodology used in the study but not the underlying implementation, she experimented controlling the robot in two interactions: one with the author interacting with the robot and one with a child before starting to supervise the robot for the supervised condition. No information about the learning algorithm or the representation of the state and no feedback about optimal way of interacting or on her action policy was provided before or during the supervision. As such, this study also demonstrates that novices and naive users are able to use this system to train personalised robot behaviour.
+The teacher was a psychology PhD student from the University of Plymouth, with limited knowledge of machine learning but with an understanding of human cognition. She had been instructed on how to control the robot using the GUI and the effect of each buttons. She was aware of the methodology used in the study but not the underlying implementation, she experimented controlling the robot in two interactions: one with the author interacting with the robot and a pilot interaction with a child (not included in the result analysis) to get used to the interface and controlling the robot. After these two interactions, the algorithm was reset and the teacher started to supervise the robot for the supervised condition. No information about the learning algorithm or the representation of the state and no feedback about optimal way of interacting or on her action policy was provided before or during the supervision. As such, this study also demonstrates that novices and naive users are able to use this system to train personalised robot behaviour.
 
 %the robot teacher represented typical target populations for robotic applications: non-experts in machine learning or computing but with relevant domain knowledge such as teachers, psychologists or more broadly, people from the general population.
 
 % Figure~\ref{fig:tutoring_game} shows an example of the game screen. The child can move 10 animals across the game field and can have them interact with other animals or plants. Animals lose energy over time and by interacting with their food the can regain some. Animals that are eaten lose a chunk of their life. The goal for the children is to keep animals alive as long as possible by feeding them and they earn stars representing how healthy their animals have been during the round. The game stops when 3 or more animals run out of energy and each game round lasted 1.6 minutes in average.
 
 \subsection{Conditions}
-The study evaluated three conditions: the passive condition, supervised condition and autonomous condition. The conditions only impact the robot's behaviour during the game rounds. In each other part of the study, the robot's behaviour was identical between conditions.
+The study evaluated three conditions: the passive condition, supervised condition and autonomous condition. The conditions only impact the robot's behaviour during the game. In each other part of the study (introduction, tutorial, tests and results), the robot's behaviour was identical between conditions.
 %In all the conditions, the robot's behaviour during the introduction, tests, tutorial and conclusion was identical. The only change of behaviour happened during the games rounds. 
-The study design was between participants, in all the game rounds, the robot was operated in the same way: either passive, supervised or autonomous.  %In the passive condition, the robot does not provide support during the game. In the supervised condition, the robot is controlled by a PhD student in psychology acting as the robot's teacher and demonstrating it how to interact. And in the autonomous condition, the robot simply applies the learned policy without supervision.
+The study design was between participants, so each participants played four rounds of the game with the same condition (passive, supervised or autonomous).  %In the passive condition, the robot does not provide support during the game. In the supervised condition, the robot is controlled by a PhD student in psychology acting as the robot's teacher and demonstrating it how to interact. And in the autonomous condition, the robot simply applies the learned policy without supervision.
 
 \subsubsection{Passive Condition}
 
-The \textit{passive} condition served as a control condition. We decided to use a robot even in the control condition to prevent confounds related to the presence of a robot, such as novelty effect. The goal of the study was not to explore if a robot can be better than a human or than just the sandtray, but to study if by using \gls{sparc}, a human could teach the robot a behaviour which has a positive influence on the children in the game. Consequently, in this passive condition, the robot did not provide any advice or feedback to the children during the game rounds, it simply read the instructions and swayed. This condition was used as a baseline to compare to other ones.
+The \textit{passive} condition served as a control condition. We decided to use a robot even in the control condition to prevent confounds related to the presence of a robot, such as novelty effect. The goal of the study was not to explore if a robot can be better than a human or than only an interactive touchscreen, but to study if by using \gls{sparc}, a human could teach the robot a behaviour which has a positive influence on the children in the game. Consequently, in this passive condition, the robot did not provide any advice or feedback to the children during the game rounds, it simply read the instructions and swayed. This condition was used as a baseline to compare to other ones.
 
 
 %In the \textit{supervised} condition, the robot was remotely supervised by an operator using \gls{sparc}. Finally, in the \textit{autonomous} condition, the robot applied the learnt policy and provided feedback and guidance to the child without human supervision.
@@ -390,18 +396,18 @@ The \textit{passive} condition served as a control condition. We decided to use 
 
 \subsubsection{Supervised Condition}
 
-The \textit{supervised} condition was the one in which the robot `learned', where \gls{sparc} was used by a human to teach the robot an efficient action policy. As such, it was a dynamic condition where the robot interacted with the child and learned an action policy through the human's instructions, while the teacher herself was getting used to controlling the robot. In theory, throughout the different interactions with the children, the behaviour expressed by the robot should have been similar and constantly appropriate. In contrast, the teaching interaction between the teacher and the robot, should have evolved due to the learning component on the robot side. 
+The \textit{supervised} condition was the one in which the robot `learned', where \gls{sparc} was used by a human to teach the robot an efficient action policy. As such, it was a dynamic condition where the robot interacted with the child and learned an action policy through the human's instructions, while the teacher herself was getting used to controlling the robot. In theory, throughout the different interactions with the children, the behaviour expressed by the robot should have been similar and constantly appropriate. In contrast, the teaching interaction between the teacher and the robot should have evolved due to the learning component on the robot side. As the robot learned, its propositions should be more and more appropriate reducing the requirements on the teacher to select new actions or prevent the  robot to execute undesired actions.
 
 \subsubsection{Autonomous Condition}
 
-The \textit{autonomous} condition was used to evaluate if the learned behaviour was efficient and if the robot could display a useful social action policy without being supervised. During this condition, the robot used the action policy taught in the supervised condition, but without the teacher in the loop. As such, this condition had to be run after the supervised one, when the teaching was over. %The role of this condition is to evaluate if the robot did learn a useful action policy, i.e. explore if after having been taught, the robot can have an autonomous behaviour having a positive impact on the child experience.
+The \textit{autonomous} condition was used to evaluate if the learned behaviour was efficient and if the robot could display a useful social action policy without being supervised. During this condition, the robot used the action policy taught in the supervised condition, but without the teacher in the loop. As such, this condition had to be run after the supervised one, when the teaching was completed. %The role of this condition is to evaluate if the robot did learn a useful action policy, i.e. explore if after having been taught, the robot can have an autonomous behaviour having a positive impact on the child experience.
 
 In the autonomous condition, the robot directly used the suggestions from the algorithm and executed them with a probabilistic delay between 0 and 1.5 seconds based on the teacher's delay in answering the robot's propositions. This delay aimed to give a pace and synchronisation of actions similar to the ones exhibited by the teacher when reacting to the robot's suggestion.
 
 \subsection{Protocol}
 
 %Parents completed a consent form and each child was proposed to withdraw if they appeared not interested to continue the study (children refusing to continue have been replaced to reach the same number in each category). 
-At the start of the interaction, children were first introduced to the robot and were told they would play a game about food chains with the robot. Then, they completed a quick demographic questionnaire and a first pre-test to evaluate their baseline knowledge (cf. Figures~\ref{fig:tuto_pretest} to \ref{fig:tuto_test_results}). After this test, and before starting the teaching game, children had to complete a tutorial where they were introduced to the mechanics of the game: animals have life and have to eat to survive and children can move animals to make them interact with other animals or plants and replenish their energy (cf. Figures~\ref{fig:tuto_tuto_intro} and \ref{fig:tuto_tuto}). After this short tutorial, they completed two rounds of the game where the robot could provide feedback and advice depending on the condition they were in (cf. Figure~\ref{fig:tuto_game_intro} to \ref{fig:tuto_result_game}). Following these initial rounds of the game, children completed a mid-test before playing another two rounds of the game and completing a last post-test to conclude the study. Figure~\ref{fig:tuto_sequence} presents examples of screenshot of the Sandtray throughout the interaction.
+At the start of the interaction, children were first introduced to the robot and were told they would play a game about food chains with the robot. Then, they completed a quick demographic questionnaire and a first pre-test to evaluate their baseline knowledge (cf. Figures~\ref{fig:tuto_pretest} to \ref{fig:tuto_test_results} and Section~\ref{sec:tuto_test}). After this test, and before starting the teaching game, children had to complete a tutorial where they were introduced to the mechanics of the game: animals have life and have to eat to survive and children can move animals to make them interact with other animals or plants and replenish their energy (cf. Figures~\ref{fig:tuto_tuto_intro} and \ref{fig:tuto_tuto}). After this short tutorial, they completed two rounds of the game where the robot could provide feedback and advice depending on the condition they were in (cf. Figure~\ref{fig:tuto_game_intro} to \ref{fig:tuto_result_game}). Following these initial rounds of the game, children completed a mid-test before playing another two rounds of the game and completing a last post-test to conclude the study. Figure~\ref{fig:tuto_sequence} presents examples of screenshot of the Sandtray throughout the interaction.
 
 
 \begin{figure}[ht]
@@ -500,7 +506,7 @@ At the start of the interaction, children were first introduced to the robot and
 %	\label{fig:method}
 %\end{figure}
 
-\subsection{Metrics}
+\subsection{Metrics} \label{sec:tuto_metric}
 
 %Redundant with hypothese?
 %This study aimed mostly at evaluating if \gls{sparc} allows a human non-expert in computing to teach a robot from \textit{in situ} supervision. 
@@ -511,13 +517,13 @@ At the start of the interaction, children were first introduced to the robot and
 %	\item How the online learning component changed the interaction between the robot and the teacher?
 %\end{itemize}
 
-To address the hypotheses presented in Section~\ref{sec:tutoring_scope}, we collected multiple metrics on both interactions (teacher-robot and robot-child). First, we recorded the actions executed by the robot in the supervised and autonomous conditions to characterise the two action policies. Additionally, two groups of metrics have been collected to evaluate the application interaction: the learning metrics (corresponding to the child's performance during the test) and the game metrics (corresponding to the child's behaviour within the game). And finally, in the supervised condition, we recorded the origin of the action executed by the robot (teacher vs algorithm) and the outcome of the proposed actions (executed vs refused).
+To address the hypotheses presented in Section~\ref{sec:tutoring_scope}, we collected multiple metrics on both interactions (teacher-robot and robot-child). First, we recorded the actions executed by the robot in the supervised and autonomous conditions to characterise the two action policies. Additionally, two groups of metrics were collected to evaluate the application interaction: the learning metrics (corresponding to the child's performance during the test) and the game metrics (corresponding to the child's behaviour within the game). And finally, in the supervised condition, we recorded the origin of the action executed by the robot (teacher vs algorithm) and the outcome of the proposed actions (executed vs refused).
 
 \subsubsection{Policy Characterisation}
 
-During the game, the robot had access to 655 actions, which can be divided into seven categories: drawing attention, moving close, moving away, moving to, congratulation, encouragement and reminding rules. Due to this high number of actions, the largeness of the state space (210 dimension) and the complex interdependence between actions and states, totally defining a policy is impossible. Consequently, we decided to use the number of actions executed for each category per child to characterise the policy executed by the robot in the active conditions (supervised and autonomous). While not perfectly representing the action policy of each condition (e.g. the timing of actions is missing), this metric offers a proxy to compare these policies. 
+During the game, the robot had access to 655 actions, which can be divided into seven categories: drawing attention, moving close, moving away, moving to, congratulation, encouragement and reminding rules. Due to this high number of actions, the breadth of the state space (210 dimension) and the complex interdependence between actions and states, precisely characterising a whole policy is non-tractable. Consequently, we decided to use the number of actions executed for each category per child to characterise the policy executed by the robot in the active conditions (supervised and autonomous). While not perfectly representing the action policy of each condition (e.g. the timing of actions is missing), this metric offers a proxy to compare these policies. 
 
-\subsubsection{Learning Evaluation}
+\subsubsection{Learning Evaluation} \label{sec:tuto_test}
 The learning was evaluated through an open graph where children had to connect animals to their food. Figure~\ref{fig:test} shows two examples of the test, with or without all the correct connections. Children were instructed to connect as many animals as possible. During the pre-test, the experimenter demonstrated how to connect animals by drawing an arrow from the frog to the fly, and then removing the arrow by pressing the X button in the middle of the arrow. When children thought they were done, they could press the `Continue' button, showing a screen asking confirmation to quit the test or allowing children to keep connecting animals. Additionally, the robot informed the child if not all the animals were connected to a food or that animals could eat many types of food if no more than one animal was connected to two items. 
 
 \begin{figure*}[ht]
@@ -546,16 +552,21 @@ P=\frac{\#good-(\#good+\#bad) \cdot \frac{total good}{total}}{total good - total
 \end{equation}
 			
 The three tests (pre, mid and post interaction) resulted in three performance measures. To account with initial differences of knowledge and the progressive difficulty to gain additional knowledge, we computed the learning gain as the difference between the final and initial knowledge divided by the `progression margin': the difference between the maximum achievable performance and the initial performance. This learning gain indicates how much of the missing knowledge the child managed to gain from the game.
+
+It should be noted that due to the imbalance between the number of correct and incorrect connection, more 
 			
 \subsubsection{Game Metrics}
-Different metrics have been gathered during the game rounds to characterise the children's behaviours:
+Different metrics were gathered during the game rounds to characterise the children's behaviours:
 \begin{itemize}
-	\item \textbf{Number of different eating interactions}: number of unique feeding action type ([0,25]).
+	\item \textbf{Number of different eating interactions}: number of unique eating interaction between two items ([0,25]).
 	\item \textbf{Points}: cumulated sum of animals' energy over the game (typical range [550,1100]).
 	\item \textbf{Interaction time}: Duration of game rounds, how long a game lasted until three animals ran out of energy (typical range [.5,3] minutes).
 \end{itemize}
 
-The number of different eating interactions informs on how many learning items the children have encountered in the games. A feeding interaction happens when an animal is moved to its food (or to a predator); and the number of different feeding interaction represents how many different unique correct connections the child has been exposed to during the game (multiple feeding actions between the same animals would count only once). A game with a high number of different feeding represents a game where the child had the opportunity to learn many correct connections between animals. Consequently, by increasing this number, the children would be exposed to more learning items which should help them to perform better on the tests. Both the interaction time and the number of points reached in the game inform on the children's success in the task: keeping the animals alive as long as possible and their engagement. 
+
+As mentioned in the previous section, the children had to explore a food net with 25 good connections and 95 incorrect connections. Due to the imbalance of these numbers, more knowledge is acquired by discovering one of these 25 good connections rather than disproving one of 95 incorrect one. As such, we defined our first game metric as the number of different eating interactions children encountered during each game. An eating interaction happens when an animal is moved to its food (or to a predator); and the number of different feeding interaction represents how many different unique correct connections the child has been exposed to during the game (multiple feeding actions between the same animals would count only once). A game with a high number of different feeding represents a game where the child had the opportunity to learn many correct connections between animals. Consequently, by increasing this number, the children would be exposed to more learning items which should help them to perform better on the tests. In later graphs, for simplicity, we termed this metric `exposure to learning items' as it encompass how much knowledge to child could have accumulated in one game. We would expect that an active robot would be able to guide the child toward these correct connections, allowing the gain more from the game and learn better.
+
+On the other hand, both the interaction time and the number of points reached in the game inform on the children's success in the task: keeping the animals alive as long as possible and their engagement. We would expect that an active robot would help the child in the learning game and allow them to reach better scores in both these engagement and performance metrics.
 
 %Maybe talk about compliance
 
@@ -563,7 +574,7 @@ The number of different eating interactions informs on how many learning items t
 
 In the supervised condition, the robot executed actions selected or validated by the teacher, and by using \gls{sparc}, the robot could propose actions to the teacher. Faced with a proposition, the teacher had multiple ways to react. They could accept the action (by waiting for it to be executed, pressing `Do it' or selecting the same action manually) or refuse it (by pressing the `Cancel', `Skip' or `Remove' buttons). As such, actions going through this pipeline can be divided in three categories: actions selected by the supervisor, robot's good propositions and robot's bad propositions. And the evolution of these categories represents how much the online component of the learning improved the quality of the robot's suggestions and reduced the workload on the teacher. 
 
-Some times the teacher cancelled actions and then selected them again, we called this effect the `reselection'. To obtain the final numbers of accepted and refused actions, we removed these reselection from the bad propositions and we added them to the good propositions as it represents cases where the teacher refused an action by accident.
+Sometimes the teacher cancelled actions and then selected them again, we called this effect the `reselection'. To obtain the final numbers of accepted and refused actions, we removed these reselections from the bad propositions and we added them to the good propositions as it represented cases where the teacher refused an action by accident.
 
 \section{Results}
 
@@ -577,62 +588,64 @@ Similarly to Chapter~\ref{chap:control}, we analysed the results using Bayesian 
 	%	\thispagestyle{empty}% empty page style (?)
 	\begin{table}[ht]
 		\centering
-		\ra{1}
-		\caption{Example of events during the first minute of a round.}
+		\vspace{-.05cm}
+		\ra{.97}
+		\caption{Example of events during the first minute of the first round of the interaction with the \nth{23} child in the supervised condition. Lines in blue represent propositions from and the robot and orange the reaction from the teacher. (`mvc' is the abbreviation of the move close action)}
 		\label{tab:tuto_round}
-		\begin{tabularx}{\textwidth}{@{}L{.2}L{1.8}|L{.2}L{1.8}@{}}\toprule
+		\vspace{-.05cm}
+		\begin{tabularx}{\textwidth}{@{}L{.2}L{1.7}|L{.2}L{1.9}@{}}\toprule
 			Time & Event & Time & Event\\
 			\midrule
-			4.1 & childtouch frog & 34.4 & childtouch wolf\\
-			4.3 & failinteraction frog wheat-3 & 34.7 & \textcolor{SkyBlue}{robot proposes remind rules}\\
-			4.9 & animaleats frog fly & 35.0 & animaleats wolf mouse\\
-			5.8 & childrelease frog & 36.0 & \textcolor{BurntOrange}{teacher selects wait}\\
-			6.6 & \textcolor{SkyBlue}{robot proposes congrats} & 36.0 & animaleats wolf mouse\\
-			7.6 & childtouch fly & 37.2 & childrelease wolf\\
-			7.6 & \textcolor{BurntOrange}{teacher selects wait} & 37.7 & childtouch grasshopper\\
-			8.0 & animaleats fly apple-4 & 38.3 & \textcolor{SkyBlue}{robot proposes congrats}\\
-			8.3 & childrelease fly & 41.8 & reset\\
-			9.1 & \textcolor{BurntOrange}{teacher selects congrats} & 42.1 & failinteraction grasshopper apple-1\\
-			9.1 & childtouch frog & 42.7 & childrelease grasshopper\\
-			10.3 & childrelease frog & 42.7 & failinteraction grasshopper apple-1\\
-			10.8 & childtouch frog & 44.4 & \textcolor{BurntOrange}{teacher selects mvc mouse wheat-1}\\
-			11.2 & animaleats frog fly & 44.6 & robottouch mouse\\
-			12.4 & failinteraction frog apple-2 & 44.7 & childtouch butterfly\\
-			12.5 & animaleats frog fly & 45.1 & failinteraction butterfly wheat-2\\
-			13.2 & childrelease frog & 45.6 & childrelease wheat-1\\
-			14.2 & childtouch fly & 45.6 & robotrelease mouse\\
-			14.5 & animaleats fly apple-2 & 45.7 & robottouch mouse\\
-			14.6 & \textcolor{SkyBlue}{robot proposes encouragement} & 48.9 & robotrelease mouse\\
-			15.0 & childrelease fly & 49.3 & childtouch butterfly\\
-			15.4 & animaleats fly apple-3 & 49.3 & failinteraction butterfly wheat-1\\
-			16.9 & \textcolor{BurntOrange}{teacher selects encouragement} & 49.6 & childrelease butterfly\\
-			18.2 & childtouch snake & 50.0 & childtouch mouse\\
-			18.4 & failinteraction snake wheat-3 & 50.3 & animaleats mouse wheat-1\\
-			18.7 & animaleats snake bird & 51.0 & childrelease mouse\\
-			19.6 & animaleats snake bird & 51.1 & animaleats mouse wheat-2\\
-			20.5 & childrelease snake & 51.4 & \textcolor{SkyBlue}{robot proposes congrats}\\
-			20.6 & failinteraction snake wheat-4 & 52.3 & \textcolor{BurntOrange}{teacher selects congrats}\\
-			20.6 & \textcolor{SkyBlue}{robot proposes congrats} & 52.9 & childtouch snake\\
-			20.9 & childtouch eagle & 52.9 & failinteraction snake wheat-3\\
-			21.1 & animaleats eagle bird & 53.2 & childrelease snake\\
-			22.0 & animaleats eagle bird & 53.5 & childtouch mouse\\
-			22.4 & childrelease eagle & 53.6 & animaleats mouse wheat-3\\
-			23.3 & animaldead bird & 54.4 & \textcolor{SkyBlue}{robot proposes congrats}\\
-			23.4 & \textcolor{BurntOrange}{teacher selects mvc dragonfly fly} & 54.5 & animaleats mouse wheat-4\\
-			23.6 & robottouch dragonfly & 55.0 & childrelease mouse\\
-			26.9 & robotrelease dragonfly & 55.6 & childtouch dragonfly\\
-			27.7 & childtouch fly & 56.1 & \textcolor{BurntOrange}{teacher selects wait}\\
-			28.0 & childrelease fly & 56.8 & failinteraction dragonfly apple-1\\
-			28.4 & childtouch dragonfly & 57.3 & childrelease dragonfly\\
-			28.6 & failinteraction dragonfly apple-1 & 57.5 & failinteraction dragonfly apple-1\\
-			29.1 & childrelease dragonfly & 58.6 & childtouch grasshopper\\
-			29.4 & failinteraction dragonfly apple-1 & 58.6 & failinteraction grasshopper apple-1\\
-			30.3 & childtouch dragonfly & 58.8 & childrelease undefined\\
-			30.3 & failinteraction dragonfly apple-1 & 59.1 & childtouch dragonfly\\
-			30.7 & \textcolor{SkyBlue}{robot proposes encouragement} & 59.1 & failinteraction dragonfly apple-1\\
-			31.0 & failinteraction dragonfly apple-1 & 59.2 & failinteraction grasshopper apple-1\\
-			31.8 & \textcolor{BurntOrange}{teacher selects wait} & 59.9 & failinteraction dragonfly apple-1\\
-			32.5 & childrelease dragonfly & 60.3 & childrelease dragonfly\\
+4.1 & childtouch \emph{frog} & 34.4 & childtouch \emph{wolf}\\
+4.3 & failinteraction \emph{frog} \emph{wheat-3} & 34.7 & \textcolor{SkyBlue}{robot proposes remind rules}\\
+4.9 & animaleats \emph{frog} \emph{fly} & 35.0 & animaleats \emph{wolf} \emph{mouse}\\
+5.8 & childrelease \emph{frog} & 36.0 & \textcolor{BurntOrange}{teacher selects wait}\\
+6.6 & \textcolor{SkyBlue}{robot proposes congrats} & 36.0 & animaleats \emph{wolf} \emph{mouse}\\
+7.6 & childtouch \emph{fly} & 37.2 & childrelease \emph{wolf}\\
+7.6 & \textcolor{BurntOrange}{teacher selects wait} & 37.7 & childtouch \emph{grasshopper}\\
+8.0 & animaleats \emph{fly} \emph{apple-4} & 38.3 & \textcolor{SkyBlue}{robot proposes congrats}\\
+8.3 & childrelease \emph{fly} & 41.8 & reset\\
+9.1 & \textcolor{BurntOrange}{teacher selects congrats} & 42.1 & failinteraction \emph{grasshopper} \emph{apple-1}\\
+9.1 & childtouch \emph{frog} & 42.7 & childrelease \emph{grasshopper}\\
+10.3 & childrelease \emph{frog} & 42.7 & failinteraction \emph{grasshopper} \emph{apple-1}\\
+10.8 & childtouch \emph{frog} & 44.4 & \textcolor{BurntOrange}{teacher selects mvc \emph{mouse} \emph{wheat-1}}\\
+11.2 & animaleats \emph{frog} \emph{fly} & 44.6 & robottouch \emph{mouse}\\
+12.4 & failinteraction \emph{frog} \emph{apple-2} & 44.7 & childtouch \emph{butterfly}\\
+12.5 & animaleats \emph{frog} \emph{fly} & 45.1 & failinteraction \emph{butterfly} \emph{wheat-2}\\
+13.2 & childrelease \emph{frog} & 45.6 & childrelease \emph{wheat-1}\\
+14.2 & childtouch \emph{fly} & 45.6 & robotrelease \emph{mouse}\\
+14.5 & animaleats \emph{fly} \emph{apple-2} & 45.7 & robottouch \emph{mouse}\\
+14.6 & \textcolor{SkyBlue}{robot proposes encouragement} & 48.9 & robotrelease \emph{mouse}\\
+15.0 & childrelease \emph{fly} & 49.3 & childtouch \emph{butterfly}\\
+15.4 & animaleats \emph{fly} \emph{apple-3} & 49.3 & failinteraction \emph{butterfly} \emph{wheat-1}\\
+16.9 & \textcolor{BurntOrange}{teacher selects encouragement} & 49.6 & childrelease \emph{butterfly}\\
+18.2 & childtouch \emph{snake} & 50.0 & childtouch \emph{mouse}\\
+18.4 & failinteraction \emph{snake} \emph{wheat-3} & 50.3 & animaleats \emph{mouse} \emph{wheat-1}\\
+18.7 & animaleats \emph{snake} \emph{bird} & 51.0 & childrelease \emph{mouse}\\
+19.6 & animaleats \emph{snake} \emph{bird} & 51.1 & animaleats \emph{mouse} \emph{wheat-2}\\
+20.5 & childrelease \emph{snake} & 51.4 & \textcolor{SkyBlue}{robot proposes congrats}\\
+20.6 & failinteraction \emph{snake} \emph{wheat-4} & 52.3 & \textcolor{BurntOrange}{teacher selects congrats}\\
+20.6 & \textcolor{SkyBlue}{robot proposes congrats} & 52.9 & childtouch \emph{snake}\\
+20.9 & childtouch \emph{eagle} & 52.9 & failinteraction \emph{snake} \emph{wheat-3}\\
+21.1 & animaleats \emph{eagle} \emph{bird} & 53.2 & childrelease \emph{snake}\\
+22.0 & animaleats \emph{eagle} \emph{bird} & 53.5 & childtouch \emph{mouse}\\
+22.4 & childrelease \emph{eagle} & 53.6 & animaleats \emph{mouse} \emph{wheat-3}\\
+23.3 & animaldead \emph{bird} & 54.4 & \textcolor{SkyBlue}{robot proposes congrats}\\
+23.4 & \textcolor{BurntOrange}{teacher selects mvc \emph{dragonfly} \emph{fly}} & 54.5 & animaleats \emph{mouse} \emph{wheat-4}\\
+23.6 & robottouch \emph{dragonfly} & 55.0 & childrelease \emph{mouse}\\
+26.9 & robotrelease \emph{dragonfly} & 55.6 & childtouch \emph{dragonfly}\\
+27.7 & childtouch \emph{fly} & 56.1 & \textcolor{BurntOrange}{teacher selects wait}\\
+28.0 & childrelease \emph{fly} & 56.8 & failinteraction \emph{dragonfly} \emph{apple-1}\\
+28.4 & childtouch \emph{dragonfly} & 57.3 & childrelease \emph{dragonfly}\\
+28.6 & failinteraction \emph{dragonfly} \emph{apple-1} & 57.5 & failinteraction \emph{dragonfly} \emph{apple-1}\\
+29.1 & childrelease \emph{dragonfly} & 58.6 & childtouch \emph{grasshopper}\\
+29.4 & failinteraction \emph{dragonfly} \emph{apple-1} & 58.6 & failinteraction \emph{grasshopper} \emph{apple-1}\\
+30.3 & childtouch \emph{dragonfly} & 58.8 & childrelease undefined\\
+30.3 & failinteraction \emph{dragonfly} \emph{apple-1} & 59.1 & childtouch \emph{dragonfly}\\
+30.7 & \textcolor{SkyBlue}{robot proposes encouragement} & 59.1 & failinteraction \emph{dragonfly} \emph{apple-1}\\
+31.0 & failinteraction \emph{dragonfly} \emph{apple-1} & 59.2 & failinteraction \emph{grasshopper} \emph{apple-1}\\
+31.8 & \textcolor{BurntOrange}{teacher selects wait} & 59.9 & failinteraction \emph{dragonfly} \emph{apple-1}\\
+32.5 & childrelease \emph{dragonfly} & 60.3 & childrelease \emph{dragonfly}\\
 			\bottomrule
 		\end{tabularx}
 	\end{table}
@@ -641,7 +654,7 @@ Similarly to Chapter~\ref{chap:control}, we analysed the results using Bayesian 
 
 \subsection{Example of a Session}
 
-Table~\ref{tab:tuto_round} presents an example of the first 50 seconds of a round. Propositions from the robot are in blue, and actions from the teacher in orange. For example, at t=16.9, the teacher accepted the proposition from the robot. Alternatively, in some cases, such as the suggestion at t=20.6, the teacher did not evaluate actions proposed by robot, but just selected another action. In that case, the action proposed is not evaluated and only the selected action is executed and used for learning. In other cases, such as at t=6.6, the algorithm suggested an action, the teacher decided to wait, before selecting it again after a short delay. This is an example of `reselection' as mentioned before. Finally, at t=44.4 seconds, the teacher selected the action to move the mouse closer to the wheat, and after the robot moved the mouse, the child tried other animals and then fed the mouse with the wheat, demonstrating how the actions from the robot could help the children to discover new connections between animals.
+Table~\ref{tab:tuto_round} presents an example of the first minute of a round. Propositions from the robot are in blue, and actions from the teacher in orange. For example, at t=16.9, the teacher accepted the proposition from the robot. Alternatively, in some cases, such as the suggestion at t=20.6, the teacher did not evaluate actions proposed by robot, but just selected another action. In that case, the action proposed is not evaluated and only the selected action is executed and used for learning. In other cases, such as at t=6.6, the algorithm suggested an action, the teacher decided to wait, before selecting it again after a short delay. This is an example of `reselection' as mentioned before. Finally, at t=44.4 seconds, the teacher selected the action to move the mouse closer to the wheat, and after the robot moved the mouse, the child tried other animals and then fed the mouse with the wheat, demonstrating how the actions from the robot could help the children to discover new connections between animals.
 
 %\ES{to remove}
 
@@ -710,7 +723,9 @@ Figure~\ref{fig:tutoring_d_eat} shows the evolution of the number of different e
 
 \paragraph{Points}
 
-Figure~\ref{fig:tutoring_points} shows the evolution of the number of points achieved by the children across the four game rounds. A Bayesian mixed-ANOVA showed an impact of the condition on the number of points achieved by the children in the game ($B=10.2$). Post-hoc tests showed a strong difference between the passive and the supervised conditions ($B=5.1$x$10^4$) and differences between the supervised and the autonomous conditions ($B=5.2$) and the autonomous and the passive condition ($B=5.9$). This indicates that when the robot was supervised, it allowed children to achieve more points than a  passive robot. And a similar effect was observed when the robot was autonomous, however the autonomous robot did not manage to reach the same efficiency as the supervised robot in helping the children to achieve a high score in the game.
+Figure~\ref{fig:tutoring_points} shows the evolution of the number of points achieved by the children across the four game rounds. A Bayesian mixed-ANOVA showed an impact of the condition on the number of points achieved by the children in the game ($B=10.0$). Post-hoc tests showed a strong difference between the passive and the supervised conditions ($B=5.1$x$10^4$) and differences between the supervised and the autonomous conditions ($B=5.2$) and the autonomous and the passive condition ($B=5.9$). This indicates that when the robot was supervised, it allowed children to achieve more points than a  passive robot. And a similar effect was observed when the robot was autonomous, however the autonomous robot did not manage to reach the same efficiency as the supervised robot in helping the children to achieve a high score in the game.
+
+The repetitions tended to have an impact on the children's score in the game ($B=2.4$) with differences in the post-hoc test only between the rounds 1 and 2 ($B=3.2$) and the rounds 1 and 4 ($B=5.0$). This shows that by practising children achieved a better score in the last round that in the first one.
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{points.pdf}
@@ -721,12 +736,14 @@ Figure~\ref{fig:tutoring_points} shows the evolution of the number of points ach
 
 \paragraph{Time}
 
-Figure~\ref{fig:tutoring_time} shows the evolution of interaction time across the four game rounds. A Bayesian mixed-ANOVA showed inconclusive results on the impact of the condition on the interaction time in the game ($B=1.1$). However, post-hoc tests showed the absence of difference between the supervised and the autonomous conditions ($B=0.287$), whilst differences are observed between the supervised and the passive condition ($B=118$) and a tendency of difference between the autonomous and the passive conditions ($B=2.9$). This indicates that the supervised robot allowed children to be better at the game, allowing them to maintain animal alive longer than a passive robot. And the autonomous robot learned and applied a policy tending to replicate this effect and without exhibiting differences with the supervised one.
+Figure~\ref{fig:tutoring_time} shows the evolution of interaction time across the four game rounds. A Bayesian mixed-ANOVA showed inconclusive results on the impact of the condition on the interaction time in the game ($B=1.05$). However, post-hoc tests showed the absence of difference between the supervised and the autonomous conditions ($B=0.287$), whilst differences are observed between the supervised and the passive condition ($B=118$) and a tendency of difference between the autonomous and the passive conditions ($B=2.9$). This indicates that the supervised robot allowed children to be better at the game, allowing them to maintain animal alive longer than a passive robot. And the autonomous robot learned and applied a policy tending to replicate this effect and without exhibiting differences with the supervised one.
+
+However, the analysis showed no effect of the repetitions on the interaction time ($B=0.023$). The children did not manage to keep the animals alive longer as they interacted more often with the game. One of the reason was a tendency of ceiling effect at 2.25 minutes (see the red line on Figure~\ref{fig:tutoring_time}). When not fed, animals would run out of energy at 2.25 minutes, so if children did not manage to feed each animals at least once before that time, the game would stop. 
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{time.pdf}
 	\centering
-	\caption{Interaction time for the four games for the three conditions.}
+	\caption{Interaction time for the four games for the three conditions. The dashed red line represents 2.25 minutes, the time at which unfed animals died alone, leading to an end of the game if the child did not feed animals enough time.}
 	\label{fig:tutoring_time}
 \end{figure}
 
@@ -738,7 +755,7 @@ These game metrics showed that the action policy executed by the autonomous robo
 
 \subsection{Teaching the Robot}
 
-Figure~\ref{fig:tutoring_supervision} presents the reaction of the teacher to the robot's suggestions across all the supervised interactions. Unlike our expectations, the number of correct and bad suggestions as well as teacher selections stayed roughly constant through the interactions with the children. In average, the robot proposed 17.2 (SD=4.0) actions accepted by the teacher and 41.7 (SD=11.1) refused by the teacher per interaction. And the teacher selected manually 25.8 (SD=5.8) actions per interaction. These unexpected results are discussed in details in Section~\ref{sec:tutoring_disc_learning}.
+Figure~\ref{fig:tutoring_supervision} presents the reaction of the teacher to the robot's suggestions across all the supervised interactions. Unlike our expectations, the number of correct and bad suggestions as well as teacher selections stayed roughly constant through the interactions with the children. In average, the robot proposed 17.2 (SD=4.0) actions accepted by the teacher (including selections of proposed actions and resections - cf. Section~\ref{sec:tuto_metric}) and 41.7 (SD=11.1) refused by the teacher per interaction. And the teacher selected manually 25.8 (SD=5.8) actions per interaction. In average, 29.2\% of the robot suggestions have been accepted, while 70.8\% have been rejected. These unexpected results are discussed in details in Section~\ref{sec:tutoring_disc_learning}.
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{./summary_supervision.pdf}
@@ -748,7 +765,7 @@ Figure~\ref{fig:tutoring_supervision} presents the reaction of the teacher to th
 \end{figure}
 
 
-Figure~\ref{fig:tutoring_actions} presents the accumulated number of different actions in the policy the teacher used. We can observe a sharp increase in the first 5 interactions, when the teacher used the main actions for the first time. Then there is a mixture of small plateaus and small increases, indicating that the teacher alternated phases where she enriched her action policy and phases where she maintained her policy. And finally, the number of different actions in the policy seems to converge around 60 toward the last interactions.
+Figure~\ref{fig:tutoring_actions} presents the accumulated number of different actions in the policy the teacher used. This number represents the complexity of the policy used by the teacher and shows that with the progress of the interaction, the teacher tended to demonstrate all the useful actions, reaching a final plateay toward the end of the last interaction. We can observe a sharp increase in the first 5 interactions, when the teacher used the main actions for the first time. Then there is a mixture of small plateaus and small increases, indicating that the teacher alternated phases where she enriched her action policy and phases where she maintained her policy. And finally, the number of different actions in the policy seems to converge around 60 toward the last interactions. This indicate that as intended, the action space is general: only a subset of it (60 actions out 655) is relevant to this task, for another task, another subset of the action space could have been useful. By using human demonstrations, the robot can learn which actions are important for the current task without having to explore the whole action space. This non reliance on exploration allows the robot to learn an action policy without being impacted by the dimension of the general action space. While this Figure only presents the number of different actions used by the teacher, Figure~\ref{fig:tutoring_actions_distribution} present their distribution in the various categories.
 
 \begin{figure}[ht]
 	\includegraphics[width=.85\linewidth]{./number_actions.pdf}
