@@ -44,13 +44,13 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="1.233334"
-     inkscape:cx="542.31949"
-     inkscape:cy="337.89738"
+     inkscape:zoom="1.7441977"
+     inkscape:cx="486.57868"
+     inkscape:cy="385.60118"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2"
+     inkscape:current-layer="g6039"
      showguides="true"
      inkscape:guide-bbox="true">
     <sodipodi:guide
@@ -87,7 +87,7 @@
      style="font-style:normal;font-weight:400;font-size:medium;font-family:sans-serif;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.29007804;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
      inkscape:connector-curvature="0"
      id="path7719-9"
-     d="m 257.32016,196.45871 c 50.74326,26.59459 13.11111,49.32585 59.75523,51.2835" />
+     d="m 257.32016,196.45871 c 50.74326,26.59459 13.5976,56.78531 60.24172,58.74296" />
   <path
      d="M 490.09429,43.597754 C 521.13798,64.421361 456.00941,77.536111 374.63176,83.643162 285.05929,90.365197 234.90019,148.7574 318.39129,144.19259"
      id="path7844-6-5"
@@ -6672,7 +6672,7 @@
      font-size="11"
      transform="translate(-386.43889,-144.38015)" />
   <g
-     transform="translate(-894.69491,-50.214986)"
+     transform="translate(-894.69491,-49.291231)"
      id="g6443">
     <path
        sodipodi:nodetypes="cc"
@@ -6826,7 +6826,7 @@
        transform="translate(0,2.999999)"
        id="g6619" />
     <g
-       transform="matrix(0.645039,0,0,0.645039,299.04198,124.72061)"
+       transform="matrix(0.645039,0,0,0.645039,299.04198,125.79859)"
        font-size="11"
        font-weight="400"
        font-style="normal"
@@ -6839,7 +6839,7 @@
          id="circle832" />
     </g>
     <g
-       transform="matrix(0.645039,0,0,0.645039,208.18998,115.80261)"
+       transform="matrix(0.645039,0,0,0.645039,208.18998,116.85718)"
        font-size="11"
        font-weight="400"
        font-style="normal"
@@ -7039,7 +7039,13 @@
      style="font-style:normal;font-weight:400;font-size:medium;font-family:sans-serif;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.29007804;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
      inkscape:connector-curvature="0"
      id="path7719-9-4"
-     d="m 256.60037,337.55207 c 60.79731,-18.16216 12.46246,-56.40386 61.05253,-72.28405" />
+     d="m 256.6002,337.55285 c 62.73512,-20.76984 9.61644,-64.34003 59.75523,-82.50027" />
+  <path
+     sodipodi:nodetypes="cssc"
+     style="font-style:normal;font-weight:400;font-size:medium;font-family:sans-serif;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.29007804;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
+     inkscape:connector-curvature="0"
+     id="path7719-9-4-8"
+     d="m 257.69905,337.19424 c 19.49837,-3.49419 25.26475,-77.84638 31.07348,-128.88029 2.44101,-21.44599 6.40575,-46.94881 -12.43735,-68.59276 -17.15051,-19.69976 -24.77863,-99.635713 -0.61931,-101.516523" />
   <g
      id="g5448"
      transform="translate(0,25.599917)">
@@ -7145,7 +7151,7 @@
              font-weight="400"
              font-size="11"
              y="41.254333"
-             x="-0.7241255"
+             x="-10.523931"
              xml:space="preserve">audio stream</text>
           <g
              id="g6269"
@@ -7170,9 +7176,9 @@
                font-weight="400"
                font-size="11"
                y="20.417507"
-               x="-0.65088332"
+               x="-59.054203"
                xml:space="preserve"
-               sodipodi:linespacing="0%">child focus</text>
+               sodipodi:linespacing="0%">events (child focus)</text>
           </g>
         </g>
       </g>
@@ -7338,6 +7344,12 @@
      inkscape:connector-curvature="0"
      style="font-style:normal;font-weight:400;font-size:medium;font-family:sans-serif;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.29007804;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
      sodipodi:nodetypes="csc" />
+  <path
+     d="m 530.01448,245.99461 c 27.26873,72.54339 -78.98827,44.76063 -156.70429,40.0228 -32.29503,-1.96881 -59.46028,-0.42771 -70.3874,14.69288 -8.84373,12.23765 -2.21257,100.73944 56.02547,130.7869"
+     id="path7844-4-0-94"
+     inkscape:connector-curvature="0"
+     style="font-style:normal;font-weight:400;font-size:medium;font-family:sans-serif;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.29007804;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
+     sodipodi:nodetypes="cssc" />
   <rect
      style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.50000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.00000179, 9.00000179;stroke-dashoffset:0;stroke-opacity:1"
      id="rect7615"
@@ -7912,12 +7924,6 @@
            sodipodi:role="line">7</tspan></text>
     </g>
   </g>
-  <path
-     d="m 530.01448,245.99461 c 27.26873,72.54339 -78.98827,44.76063 -156.70429,40.0228 -32.29503,-1.96881 -59.46028,-0.42771 -70.3874,14.69288 -8.84373,12.23765 -2.21257,100.73944 56.02547,130.7869"
-     id="path7844-4-0-94"
-     inkscape:connector-curvature="0"
-     style="font-style:normal;font-weight:400;font-size:medium;font-family:sans-serif;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.29007804;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
-     sodipodi:nodetypes="cssc" />
   <g
      id="g5918"
      transform="translate(-2.5145039,16.907681)">
@@ -7925,15 +7931,15 @@
        transform="translate(-257.89552,67.252738)"
        id="g5996">
       <g
-         style="font-style:normal;font-weight:400;font-size:15px;font-family:sans-serif;fill:#e4f3d5;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:0.49803904"
+         style="font-style:normal;font-weight:400;font-size:15px;font-family:sans-serif;fill:#e4f3d5;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.04846942;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:0.49803904"
          id="g1056"
          font-style="normal"
          font-weight="400"
          font-size="11"
-         transform="matrix(0.645039,0,0,0.645039,577.79498,118.65261)">
+         transform="matrix(0.645039,0,0,0.58677878,577.79498,118.65322)">
         <path
            sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccc"
-           style="fill:#e4f3d5;fill-opacity:1;fill-rule:evenodd"
+           style="fill:#e4f3d5;fill-opacity:1;fill-rule:evenodd;stroke-width:1.04846942"
            inkscape:connector-curvature="0"
            id="path1058"
            d="M 0,10 0.161113,8.20249 0.625625,6.51068 1.36529,4.95281 2.35187,3.55713 3.55713,2.35187 4.95281,1.36529 6.51068,0.625625 8.20249,0.161113 10,0 l 309,0 1.798,0.161113 1.691,0.464512 1.558,0.739665 1.396,0.98658 1.205,1.20526 0.987,1.39568 0.739,1.55787 0.465,1.69181 L 329,10 l 0,102.49118 -0.161,1.798 -0.465,1.691 -0.739,1.558 -0.987,1.396 -1.205,1.205 -1.396,0.987 -1.558,0.739 -1.691,0.465 -1.798,0.161 -309,0 -1.79751,-0.161 -1.69181,-0.465 -1.55787,-0.739 -1.39568,-0.987 -1.20526,-1.205 -0.98658,-1.396 -0.739665,-1.558 -0.464512,-1.691 L 0,112.49118 0,10" />
@@ -7995,7 +8001,7 @@
       </g>
       <g
          id="g6635"
-         transform="translate(0,51.852527)">
+         transform="translate(0,58.252531)">
         <g
            transform="matrix(0.645039,0,0,0.645039,577.79498,112.78961)"
            font-size="11"
@@ -8030,7 +8036,7 @@
       </g>
       <g
          id="g5538"
-         transform="translate(0,-20.800011)">
+         transform="translate(0,-14.400007)">
         <g
            id="g5871"
            transform="translate(0,80.135542)">
@@ -8098,41 +8104,6 @@
              id="text1160"
              style="font-style:normal;font-weight:400;font-size:15px;line-height:0%;font-family:sans-serif;fill:#555555;fill-opacity:1;stroke:none"
              sodipodi:linespacing="0%">robot + gaze + items poses</text>
-        </g>
-      </g>
-      <g
-         id="g6635-1"
-         transform="translate(0,67.030665)">
-        <g
-           transform="matrix(0.645039,0,0,0.645039,577.79498,112.78961)"
-           font-size="11"
-           font-weight="400"
-           font-style="normal"
-           id="g1116-3"
-           style="font-style:normal;font-weight:400;font-size:15px;font-family:sans-serif;fill:#0077ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">
-          <circle
-             cx="0"
-             cy="0"
-             r="6"
-             id="circle1118-4" />
-        </g>
-        <g
-           transform="matrix(0.645039,0,0,0.645039,583.60098,104.72661)"
-           font-size="11"
-           font-weight="400"
-           font-style="normal"
-           id="g1128-9"
-           style="font-style:normal;font-weight:400;font-size:15px;font-family:sans-serif;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">
-          <text
-             xml:space="preserve"
-             x="4"
-             y="18"
-             font-size="11"
-             font-weight="400"
-             font-style="normal"
-             id="text1130-4"
-             style="font-style:normal;font-weight:400;font-size:15px;line-height:0%;font-family:sans-serif;fill:#555555;fill-opacity:1;stroke:none"
-             sodipodi:linespacing="0%">child focus</text>
         </g>
       </g>
     </g>
@@ -8203,20 +8174,11 @@
          style="font-style:normal;font-weight:400;font-size:15px;line-height:0%;font-family:sans-serif;fill:#555555;fill-opacity:1;stroke:none"
          sodipodi:linespacing="0%"><tspan
            id="tspan6035"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.60353088px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000">Wizard interface</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.60353088px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000">Teacher interface</tspan></text>
     </g>
     <g
        id="g7548"
        transform="translate(-0.29487113,1.3235104)">
-      <rect
-         ry="8.7415543"
-         rx="8.7415543"
-         y="241.27933"
-         x="927.3656"
-         height="32.989849"
-         width="31.013508"
-         id="rect7542"
-         style="opacity:0.31799999;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.27500033;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <text
          id="text7546"
          y="267.01819"
