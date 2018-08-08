@@ -664,7 +664,7 @@ Table~\ref{tab:tuto_round} presents an example of the first minute of a round. P
 
 \subsection{Comparison of Policy}
 
-Figure~\ref{fig:tutoring_actions_distribution} presents the number of actions of each type executed by the teacher (in the supervised condition) and by the autonomous robot. Both action policies presented similarities: the action `Move away' was almost never used, `Move to' was never used, and the supportive feedback (`Congratulation' and `Encouragement') were used more often than `Remind rules' or `Drawing attention'. However, some dissimilarities were also present, for instance, the autonomous robot used more encouragements than congratulations while the teacher did the opposite. The autonomous robot also reminded the child of the rules more often and used the `Move close' action less than the supervisor. These differences of actions are probably linked to the type of machine learning used; with instance-based learning, some datapoints will be used in the action selection much more often than others, which might explain these biases. But these results show that the robot managed to learn a social and technical action policy presenting similarities with the one displayed by the teacher, providing partial support for H2.
+Figure~\ref{fig:tutoring_actions_distribution} and Table~\ref{tab:tuto_results_actions} present the number of actions of each type executed by the teacher (in the supervised condition) and by the autonomous robot. Both action policies presented similarities: the action `Move away' was almost never used, `Move to' was never used, and the supportive feedback (`Congratulation' and `Encouragement') were used more often than `Remind rules' or `Drawing attention'. However, some dissimilarities were also present, for instance, the autonomous robot used more encouragements than congratulations while the teacher did the opposite. The autonomous robot also reminded the child of the rules more often and used the `Move close' action less than the supervisor. These differences of actions are probably linked to the type of machine learning used; with instance-based learning, some datapoints will be used in the action selection much more often than others, which might explain these biases. But these results show that the robot managed to learn a social and technical action policy presenting similarities with the one displayed by the teacher, providing partial support for H2.
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{actions.pdf}
@@ -673,7 +673,33 @@ Figure~\ref{fig:tutoring_actions_distribution} presents the number of actions of
 	\label{fig:tutoring_actions_distribution}
 \end{figure}
 
+\begin{table}[ht]
+	\centering
+	\caption{Means (SD) of the number of actions executed per child for the active conditions.}
+	\label{tab:tuto_results_actions}
+	\begin{tabularx}{\textwidth}{@{}L{1.3}L{1.1}L{.7}L{.7}L{.7}L{1.}L{1}L{.8}@{}}\toprule
+ & Drawing attention & Move close & Move away & Move to & Congratu-lations & Encoura-gements & Remind rules\\ 
+\midrule 
+Supervised & 3.6 \hspace{.5cm} (3.7) & 9.6 (2.6) & 0.0 (0.2) & 0.0 (0.0) & 19.6 (5.1) & 11.4 (4.4) & 4.7 (5.0)\\ 
+Autonomous & 4.8 \hspace{.5cm}(2.6) & 6.7 (3.4) & 0.1 (0.3) & 0.0 (0.0) & 14.3 (5.4) & 19.8 (5.4) & 10.6 (3.3)\\ 
 
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+%\begin{table}[ht]
+%	\centering
+%	\ra{1.4}
+%	\caption{Comparison of the number of actions executed per child for the active conditions.}
+%	\label{tab:tuto_results_actions}
+%	\begin{tabularx}{\textwidth}{@{}L{.65}L{1.05}L{.15}L{2.15}@{}}\toprule
+%		& Drawing attention & Move close & Move away & Move to & Congratulations & Encouragements & Remind rules\\ 
+%		\midrule
+%		Supervised & 3.6 (3.7) & 9.6 (2.6) & 0.0 (0.2) & 0.0 (0.0) & 19.6 (5.1) & 11.4 (4.4) & 4.7 (5.0)\\ 
+%		Autonomous & 4.8 (2.6) & 6.7 (3.4) & 0.1 (0.3) & 0.0 (0.0) & 14.3 (5.4) & 19.8 (5.4) & 10.6 (3.3)\\ 
+%		\bottomrule
+%	\end{tabularx}
+%\end{table}
 %\begin{figure}[ht]
 %	\includegraphics[width=1\linewidth]{autonomous_actions.pdf}
 %	\centering
@@ -697,7 +723,7 @@ Figure~\ref{fig:tutoring_actions_distribution} presents the number of actions of
 
 \subsection{Test Performance}
 
-Figure~\ref{fig:tutoring_performance} shows the evolution of children's performance across the three tests. A Bayesian mixed-ANOVA showed that in all conditions, children's performance increased across the tests ($B=1.5$x$10^{12}$). However the impact of the condition on learning was inconclusive with a tendency to show no impact ($B=0.539$). This indicates that by being involved in the task, every children learned and improved their performances on the test (by gaining on average 13\% of the missing knowledge), but the robot behaviour during the game did not have an meaningful impact on the children's learning gain (see Figure~\ref{fig:tutoring_learning}), failing to support H3. %\ES{should I discuss the inhomogeneity of the population, wide variation of P1}
+Figure~\ref{fig:tutoring_performance} and Table~\ref{tab:tuto_results_perf} show the evolution of children's performance across the three tests. A Bayesian mixed-ANOVA showed that in all conditions, children's performance increased across the tests ($B=1.5$x$10^{12}$). However the impact of the condition on learning was inconclusive with a tendency to show no impact ($B=0.539$). This indicates that by being involved in the task, every children learned and improved their performances on the test (by gaining on average 13\% of the missing knowledge), but the robot behaviour during the game did not have an meaningful impact on the children's learning gain (see Figure~\ref{fig:tutoring_learning}), failing to support H3. %\ES{should I discuss the inhomogeneity of the population, wide variation of P1}
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{perf.pdf}
@@ -705,6 +731,21 @@ Figure~\ref{fig:tutoring_performance} shows the evolution of children's performa
 	\caption{Children's performance for the three tests: pretest, midtest and posttest for the three conditions.}
 	\label{fig:tutoring_performance}
 \end{figure}
+
+\begin{table}[ht]
+	\centering
+	\caption{Means (SD) of the children's performance in each test.}
+	\label{tab:tuto_results_perf}
+	\begin{tabularx}{\textwidth}{@{}L{1.}L{1}L{1}L{1}@{}}\toprule
+		& Test 1 & Test 2 & Test 3\\ 
+		\midrule 
+		Passive & 0.17 (0.11) & 0.22 (0.09) & 0.27 (0.13)\\ 
+		Supervised & 0.2 (0.11) & 0.28 (0.12) & 0.29 (0.15)\\ 
+		Autonomous & 0.24 (0.11) & 0.26 (0.13) & 0.34 (0.14)\\ 
+		
+		\bottomrule
+	\end{tabularx}
+\end{table}
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{learning.pdf}
@@ -716,41 +757,85 @@ Figure~\ref{fig:tutoring_performance} shows the evolution of children's performa
 \subsection{Game Metrics}
 
 \paragraph{Different eating behaviours}
-Figure~\ref{fig:tutoring_d_eat} shows the evolution of the number of different eating interactions exhibited by the children across the four game rounds. A Bayesian mixed-ANOVA showed an impact of the condition on the number of different eating interactions produced by the children in the game ($B=6.1$). Post-hoc tests showed the absence of difference between the supervised and the autonomous conditions ($B=0.154$), whilst differences were observed between the supervised and the passive condition ($B=512$) and between the autonomous and the passive conditions ($B=246$). This indicates that, compared to the passive robot, the supervised robot provided additional knowledge to the child during the game, allowing them to create more useful interactions between animals and their food, receiving more information from the game potentially helping them to learn. The autonomous robot managed to recreate this effect without the presence of a human in the action selection loop.
+Figure~\ref{fig:tutoring_d_eat} and Table~\ref{tab:tuto_results_deat} show the evolution of the number of different eating interactions exhibited by the children across the four game rounds. A Bayesian mixed-ANOVA showed an impact of the condition on the number of different eating interactions produced by the children in the game ($B=6.1$). Post-hoc tests showed the absence of difference between the supervised and the autonomous conditions ($B=0.154$), whilst differences were observed between the supervised and the passive condition ($B=512$) and between the autonomous and the passive conditions ($B=246$). This indicates that, compared to the passive robot, the supervised robot provided additional knowledge to the child during the game, allowing them to create more useful interactions between animals and their food, receiving more information from the game potentially helping them to learn. The autonomous robot managed to recreate this effect without the presence of a human in the action selection loop.
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{d_eat.pdf}
 	\centering
-	\caption{Number of different eating interactions produced by the children (corresponding to the exposure to learning items) for the four games for the three conditions.}
+	\caption{Number of different eating interactions produced by the children (corresponding to the exposure to learning items) for the four rounds of the game for the three conditions.}
 	\label{fig:tutoring_d_eat}
 \end{figure}
 
+\begin{table}[ht]
+	\centering
+	\caption{Means (SD) of the number of different eating interaction produced by the children in each round of the game.}
+	\label{tab:tuto_results_deat}
+	\begin{tabularx}{\textwidth}{@{}L{1.}L{1}L{1}L{1}L{1}@{}}\toprule
+ & Round 1 & Round 2 & Round 3 & Round 4\\ 
+\midrule 
+Passive & 7.7 (3.0) & 8.4 (2.9) & 10.0 (3.3) & 9.8 (3.0)\\ 
+Supervised & 10.1 (2.5) & 10.8 (2.6) & 10.8 (2.5) & 11.2 (2.8)\\ 
+Autonomous & 10.2 (2.7) & 10.6 (2.9) & 11.0 (2.9) & 10.9 (2.9)\\ 
+		
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
 \paragraph{Points}
 
-Figure~\ref{fig:tutoring_points} shows the evolution of the number of points achieved by the children across the four game rounds. A Bayesian mixed-ANOVA showed an impact of the condition on the number of points achieved by the children in the game ($B=10.0$). Post-hoc tests showed a strong difference between the passive and the supervised conditions ($B=5.1$x$10^4$) and differences between the supervised and the autonomous conditions ($B=5.2$) and the autonomous and the passive condition ($B=5.9$). This indicates that when the robot was supervised, it allowed children to achieve more points than a  passive robot. A similar effect was observed when the robot was autonomous, however the autonomous robot was less efficient than the supervised robot in helping the children to achieve a high score in the game.
+Figure~\ref{fig:tutoring_points} and Table~\ref{tab:tuto_results_points} show the evolution of the number of points achieved by the children across the four game rounds. A Bayesian mixed-ANOVA showed an impact of the condition on the number of points achieved by the children in the game ($B=10.0$). Post-hoc tests showed a strong difference between the passive and the supervised conditions ($B=5.1$x$10^4$) and differences between the supervised and the autonomous conditions ($B=5.2$) and the autonomous and the passive condition ($B=5.9$). This indicates that when the robot was supervised, it allowed children to achieve more points than a  passive robot. A similar effect was observed when the robot was autonomous, however the autonomous robot was less efficient than the supervised robot in helping the children to achieve a high score in the game.
 
 The repetitions (i.e. the number of rounds complete before) tended to have an impact on the children's score in the game ($B=2.4$) with differences in the post-hoc test only between the rounds 1 and 2 ($B=3.2$) and the rounds 1 and 4 ($B=5.0$). This demonstrates a practice effect where children achieved a better score in the last round than in the first.
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{points.pdf}
 	\centering
-	\caption{Points achieved by the children in each game round for the three conditions.}
+	\caption{Points achieved by the children in each round of the game for the three conditions.}
 	\label{fig:tutoring_points}
 \end{figure}
 
+\begin{table}[ht]
+	\centering
+	\caption{Means (SD) of the number of points achieved by the children in each round of the game.}
+	\label{tab:tuto_results_points}
+	\begin{tabularx}{\textwidth}{@{}L{1.}L{1}L{1}L{1}L{1}@{}}\toprule
+		& Round 1 & Round 2 & Round 3 & Round 4\\ 
+		\midrule 
+		Passive & 767.8 (105.3) & 834.1 (127.0) & 810.8 (133.1) & 816.0 (132.6)\\ 
+		Supervised & 870.8 (75.3) & 886.3 (81.6) & 893.4 (104.7) & 917.4 (120.0)\\ 
+		Autonomous & 840.6 (101.3) & 844.6 (103.3) & 856.7 (99.7) & 869.6 (111.9)\\ 
+		
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
 \paragraph{Time}
 
-Figure~\ref{fig:tutoring_time} shows the evolution of interaction time across the four game rounds. A Bayesian mixed-ANOVA showed inconclusive results on the impact of the condition on the interaction time in the game ($B=1.05$). Post-hoc tests showed no difference between the supervised and the autonomous conditions ($B=0.287$), differences were observed between the supervised and the passive condition ($B=118$) and a trend towards a difference between the autonomous and the passive conditions ($B=2.9$). This indicates that children were better at the game in the supervised condition whereby animals were alive longer than in the passive condition. The autonomous robot learned and applied a policy tending to replicate this effect and without exhibiting differences with the supervised one.
+Figure~\ref{fig:tutoring_time} and Table~\ref{tab:tuto_results_time} show the evolution of interaction time across the four game rounds. A Bayesian mixed-ANOVA showed inconclusive results on the impact of the condition on the interaction time in the game ($B=1.05$). Post-hoc tests showed no difference between the supervised and the autonomous conditions ($B=0.287$), differences were observed between the supervised and the passive condition ($B=118$) and a trend towards a difference between the autonomous and the passive conditions ($B=2.9$). This indicates that children were better at the game in the supervised condition whereby animals were alive longer than in the passive condition. The autonomous robot learned and applied a policy tending to replicate this effect and without exhibiting differences with the supervised one.
 
 However, the analysis showed no effect of the repetitions on the interaction time ($B=0.023$). The children did not manage to keep the animals alive longer with more practice at the game. One of the reasons was a partial ceiling effect at 2.25 minutes (see the red line on Figure~\ref{fig:tutoring_time}). When not fed, animals would run out of energy at 2.25 minutes, so if children did not manage to feed most of the animals at least once before that time, the game would stop. 
 
 \begin{figure}[ht]
 	\includegraphics[width=1\linewidth]{time.pdf}
 	\centering
-	\caption{Interaction time for the four games for the three conditions. The dashed red line represents 2.25 minutes, the time at which unfed animals died without intervention, leading to an end of the game if the child did not feed animals enough.}
+	\caption{Interaction time for the four rounds of the game for the three conditions. The dashed red line represents 2.25 minutes, the time at which unfed animals died without intervention, leading to an end of the game if the child did not feed animals enough.}
 	\label{fig:tutoring_time}
 \end{figure}
 
+\begin{table}[ht]
+	\centering
+	\caption{Means (SD) of the duration of each round of the game.}
+	\label{tab:tuto_results_time}
+	\begin{tabularx}{\textwidth}{@{}L{1.}L{1}L{1}L{1}L{1}@{}}\toprule
+		& Round 1 & Round 2 & Round 3 & Round 4\\ 
+		\midrule 
+		Passive & 1.6 (0.5) & 1.68 (0.54) & 1.66 (0.6) & 1.69 (0.63)\\ 
+		Supervised & 1.91 (0.42) & 1.94 (0.39) & 1.88 (0.48) & 1.98 (0.49)\\ 
+		Autonomous & 1.83 (0.46) & 1.84 (0.55) & 1.92 (0.52) & 1.81 (0.58)\\ 
+		
+		\bottomrule
+	\end{tabularx}
+\end{table}
 
 \paragraph{Summary}
 
