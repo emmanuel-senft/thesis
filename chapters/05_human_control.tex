@@ -2,10 +2,10 @@
 \glsresetall
 \graphicspath{{images/control/}}
 
-\newcommand{\nosemic}{\SetEndCharOfAlgoLine{\relax}}% Drop semi-colon ;
-\newcommand{\dosemic}{\SetEndCharOfAlgoLine{\string;}}% Reinstate
-\newcommand{\pushline}{\Indp}% Indent
-\newcommand{\popline}{\Indm\dosemic}% Undent
+\newcommand{\nosemic}{\SetEndCharOfAlgoLine{\relax}}
+\newcommand{\dosemic}{\SetEndCharOfAlgoLine{\string;}}
+\newcommand{\pushline}{\Indp}
+\newcommand{\popline}{\Indm\dosemic}
 
 \begin{framed}
 	\textbf{Key points:}
@@ -15,7 +15,6 @@
 		\item The application domain is a replication of the world used in early studies evaluating \acrshort{irl}.
 		\item \acrshort{irl} uses partial guidance to the robot and explicit rewarding of the robot's action to teach it a policy.
 		\item \acrshort{sparc} uses full control over the robot's action, implicit rewards and evaluation of intentions rather than actions.
-%		\item \acrshort{sparc} was combined with \acrlong{rl}.
 		\item Results from a mixed design study involving 40 naive participants show that \acrshort{sparc} achieves a better performance and an easier and faster teaching than \acrshort{irl}.
 	\end{itemize}
 \end{framed}
@@ -28,14 +27,15 @@ Parts of the work presented in this chapter have been published verbatim in \cit
 Technical contribution in this chapter: the author reimplemented every part of the original system using Qt.
 
 \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
 
 As described in Chapter~\ref{chap:background}, previous work in \gls{iml} showed that humans want to teach robots not only with feedback on their actions but also by communicating the robots what they should do~\citep{thomaz2008teachable,amershi2014power}. However, in most research where agents are taught policies using human guidance, the teacher is given little or no control over the agent's actions and has to observe the agent executing an action even when knowing that this action is incorrect (cf. Section~\ref{ssec:back_feedback}). This chapter explores how these \gls{iml} approaches could be improved by applying the principles of the \gls{sparc} defined in Chapter~\ref{chap:sparc}. This chapter also presents experimental results demonstrating how these principles influence the learning process, the agent performance and the user experience and how these results compare to other traditional \gls{iml} approaches.
 
-The study presented in Chapter~\ref{chap:woz} explored how \gls{sparc} could be used with \acrlong{sl}, to replicate a teacher's policy. However, some of the most promising features of \gls{iml} arise when combined with \gls{rl} as it might allow an agent to learn beyond the demonstrations~\citep{abbeel2004apprenticeship}. As such, this chapter proposes a way to apply the principles underlying \gls{sparc} to classical feedback based \gls{rl} and evaluates how this human control over the robot's actions impacts the learning. This chapter presents results from a study involving 40 participants comparing the teaching efficiency and user experience of \gls{sparc} to \gls{irl}, another \gls{iml} approach offering less control but having been validated in previous studies~\citep{thomaz2008teachable}. %The testing environment of \acrshort{irl} has been reimplemented to stay as close as possible to the online version of the task.
+The study presented in Chapter~\ref{chap:woz} explored how \gls{sparc} could be used with \acrlong{sl}, to replicate a teacher's policy. However, some of the most promising features of \gls{iml} arise when combined with \gls{rl} as it might allow an agent to learn beyond the demonstrations~\citep{abbeel2004apprenticeship}. As such, this chapter proposes a way to apply the principles underlying \gls{sparc} to classical feedback based \gls{rl} and evaluates how this human control over the robot's actions impacts the learning. This chapter presents results from a study involving 40 participants comparing the teaching efficiency and user experience of \gls{sparc} to \gls{irl}, another \gls{iml} approach offering less control but having been validated in previous studies~\citep{thomaz2008teachable}. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scope of the Study}
-
 
 \subsection{Interactive Reinforcement Learning}
 
@@ -64,17 +64,18 @@ Another noticeable difference is the type of information the robot communicates 
 Three hypotheses have been tested in the study:
 
 \begin{enumerate}
-	\item [H1] \textit{Effectiveness and efficiency with non-experts.} \gls{sparc} will lead to better learning than \gls{irl} when used by non-experts (higher performance, faster learning, lower number of inputs used, lower mental effort on the teacher and lower number of errors during the teaching phase). %We predict that for each metric, \gls{sparc} will lead to better results. \ES{could probably rephrase to keep style consistent}
+	\item [H1] \textit{Effectiveness and efficiency with non-experts.} \gls{sparc} will lead to better learning than \gls{irl} when used by non-experts (higher performance, faster learning, lower number of inputs used, lower mental effort on the teacher and lower number of errors during the teaching phase). 
 	\item [H2] \textit{Safety with experts.} \gls{sparc} can be used by expert users (knowledgeable in the interaction process) to teach a policy safely, quickly and efficiently, achieving better results than other \gls{iml} methods lacking control.
 	\item [H3] \textit{Control.} Teachers prefer a method in which they can have more control over the robot's actions.
 \end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Methodology}
+
 \subsection{Participants}
 
 A total of 40 participants (age \textit{M}=25.6, \textit{SD}=10.09; 24F/16M) were recruited using a tool provided by the University of Plymouth to reach a mixed population of students and non-student members of the local community\footnote{\url{https://uopsop.sona-systems.com/Default.aspx?ReturnUrl=\%2f}}. At the start of the experiment, all participants gave written informed consent, were told of the option to withdraw at any point and completed a demographic questionnaire. Participants were mostly not knowledgeable in machine learning and robotics (familiarity with machine learning \textit{M}=1.8, \textit{SD}=1.14; familiarity with social robots \textit{M}=1.45, \textit{SD}=0.75 - Likert scale ranging from 1: not at all familiar to 5: extremely familiar). The study lasted around one hour and followed a 2x2x3 mixed design where participants interacted with both conditions three times. To avoid ordering effects, the order of interaction was counterbalanced between two groups: group 1 interacting with \gls{irl} for three sessions then with \gls{sparc} for another three sessions and the interaction order is inverted for group 2 (see also Figure~\ref{fig:control_design}). Participants were distributed randomly between the two groups whilst balancing gender and age. All participants received remuneration at the standard U.K. living wage rate, pro rata. 
 
 In addition to naive non-expert users, an expert user (the author) interacted five times with each system following a strictly optimal strategy for both conditions. These results from the expert are used to evaluate H2 and show the optimal characteristics of each system (\gls{irl} and \gls{sparc}) when used by trained experts in robot interaction, such as therapists in the context of assistive robotics.
-
 
 \subsection{Task} \label{ssec:control_task}
 
@@ -116,7 +117,6 @@ The environment is a deterministic \gls{mdp}, defined by a state (the position a
 		\label{fig:control_ingredients}
 	\end{subfigure}
 	
-	
 	\centering
 	\begin{subfigure}[b]{0.325\textwidth}
 		\centering
@@ -147,7 +147,7 @@ The environment is a deterministic \gls{mdp}, defined by a state (the position a
 
 Two conditions were constructed to compare the \gls{irl} and \gls{sparc} approaches to this task. The underlying learning mechanism is identical in both conditions. The only differences lie in the manner of interaction (inputs to and from the algorithm) and the amount of control over the robot's actions. With \gls{irl} teachers have to explicitly provide rewards and have a partial control over the action selection, while with \gls{sparc} rewards are implicit and the teacher's control over actions is total. 
 
-The learning algorithm (see Algorithm~\ref{algo:control_sparc} and~\ref{algo:control_irl}) is a variation on Q-learning, without reward propagation\footnote{In Q learning the update function is $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t+1},a))-Q(s_{t},a_{t}))$}. This guarantees that any learning by the robot is due to the human's teaching, and as such provides a lower bound for the robot's performance. %By using Q-learning, the robot's testing performance would be higher. 
+The learning algorithm (see Algorithm~\ref{algo:control_sparc} and~\ref{algo:control_irl}) is a variation on Q-learning, without reward propagation\footnote{In Q learning the update function is $Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha (r_{t}+\gamma (\underset{a}{max} Q(s_{t+1},a))-Q(s_{t},a_{t}))$}. This guarantees that any learning by the robot is due to the human's teaching, and as such provides a lower bound for the robot's performance. 
 Similarly to the original study, the algorithm uses a learning rate $\alpha = 0.3$ and a discount factor $\gamma = 0.75$.
 
 \begin{table}
@@ -166,7 +166,6 @@ Similarly to the original study, the algorithm uses a learning rate $\alpha = 0.
 			 	
 			 	look at object or location used in $a_{t}$
 			 
-			 	
 			 	\While{waiting for command (2 seconds)}{
 			 		\eIf{received command}{
 			 			$a_{t}$ = received command
@@ -200,8 +199,6 @@ Similarly to the original study, the algorithm uses a learning rate $\alpha = 0.
 			\hspace{-20pt} \While{learning}{
 			$A_{t+1}=[a^{1}...a^n]$, $n$ actions with high $Q[s_{t+1},a^{i}]$
 					
-%			\vspace{5.5pt}
-			
 			\While{waiting for guidance and reward on $a_{t}$ (2 seconds)}{
 				\If{$n>1$}{
 					indicate confusion 
@@ -283,15 +280,12 @@ Workload is an important factor when teaching robots. As roboticists, our task i
 
 Finally, the participants' perception of the robot was also evaluated in the post-interaction and post-experiment questionnaires using rating questions (measured on a 5 item Likert scale), binary questions (where participants had to select one of the two system), and open questions on the preference of system and the naturalness of the interaction. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
 Most of the results collected in the study were non-normally distributed. Both ceiling and floor effects could be observed depending on the conditions and the metrics. For instance, for the teaching time, some participants preferred to interact much longer than others, resulting in skewed data. Likewise for the testing performance: often participants either reached a successful end state or did not hit any of the sub-goals of the task in the testing phase ending often in two clusters of participants: one at a performance of 6 and one at 0.  Similarly, some participants who interacted a long time with the system did not complete any step, while others could achieve good results in a limited time. Due to the data being not normally distributed and the absence of possible transformation making them normal, Bayesian statistics were conducted using the JASP software~\citep{jasp2018}. Three types of test have been used: mixed ANOVA for omnibus comparisons between conditions for the first and the second interaction (between participants), independent t-test for post-hoc comparisons between participants and paired samples t-test for post-hoc comparisons within participants. All tests have been performed using their Bayesian counterpart, which also removed the need for doing a correction on post-hoc tests such as Bonferroni. As such, no p-value is reported, but a B factor representing how much of the variance on the metric is explained by a parameter (if $B < 1/3$ there is no impact, if $B > 3$ the impact is strong, and if $1/3<B<3$ the results are inconclusive; \citealt{jeffreys1998theory,dienes2011bayesian}).
 
 For each interaction metric, two mixed ANOVA between participants were calculated to explore the impact of the conditions on the metric. The first ANOVA was applied to the first interaction (session 1,2 and 3) and compared participants in group 1 interacting with \gls{irl} and participants in group 2 interacting with \gls{sparc}. The second ANOVA was applied on the second interaction (sessions 4, 5 and 6) and compared participants in group 1 interacting with \gls{sparc} and those in group 2 interacting with \gls{irl}. If required, additional post-hoc tests were made within participants for the three sessions corresponding to each interaction to measure if successive interactions with a same system impacted the metric.
-
-%%Initial results of the first interaction of the participants have been reported in \cite{senft2016providing}.
-
-%\subsection{Interpreting results}
 
 \subsection{Interaction Data}
 
@@ -331,11 +325,7 @@ than \gls{irl} when used by non-experts'.
 
 Figure~\ref{fig:control_perf} presents the performance of the system during the testing phase, and represents how successful was the participants' teaching. The bayesian mixed ANOVA showed an effect of condition on the performance for both interactions ($B_1=8.8$x$10^5$ and $B_2 = 7340$). The median performance scores in Table~\ref{tab:control_perf} show that a higher test performance was achieved when participants used \gls{sparc} compared to when they used \gls{irl}. The session number had no impact on the performance in the first interaction, but results were inconclusive for the impact of the session number during the second interaction ($B_1=0.084$ and $B_2=0.80$).
 
- %There is a significant difference of performance between systems; a Friedman test shows a significant difference between systems during the first three sessions ($\chi^{2} = 50.8$, $p <.001$) and during the next three sessions ($\chi^{2} = 36$, $p <.001$). Similarly, a significant difference in performance is noted within participants (Order 1: $\chi^{2} = 37.9$, $p <.001$ - Order 2: $\chi^{2} = 55.3$, $p <.001$). 
- %In all the cases, participants interacting with \gls{sparc} achieved a significantly higher performance than those interacting with \gls{irl}, regardless of the order in which they interacted ($p<.05$ for all pairwise comparison). No difference of performance has been observed when using Wilcoxon signed rank test on the three repetitions between participants when interacting with the same system, so interacting for a second or third session with the same system does not have a significant impact on participants' performance.
-
 As shown in Table~\ref{tab:control_perf} and Figure~\ref{fig:control_perf}, only a limited number of participants succeeded in teaching the robot to complete the task using \gls{irl}, this finding will be discussed in more details in section~\ref{sec:control_discussion}.
-
 
 \begin{figure}[ht]
 	\includegraphics[width=\textwidth]{performance.pdf}
@@ -388,7 +378,7 @@ Figure~\ref{fig:control_time} presents the time participants spent teaching. The
 Combined with the consistent high performance of \gls{sparc}, this decrease of teaching time indicates that participants managed to learn an efficient way to use \gls{sparc} to teach the robot a successful policy. On the other hand, this similar decrease of teaching time and the lower performance with \gls{irl} could indicate that participants lost motivation to interact with \gls{irl}. As they did not find an efficient way to teach the robot with \gls{irl}, participant might have dedicated less efforts to try in successive session. These interpretations provide partial support to H1 and its prediction.
 
 \subsubsection{Number of Inputs}
-%To write
+
 Figure~\ref{fig:control_inputs} presents the number of inputs the participants provided while teaching. The bayesian mixed ANOVA showed that in both interactions, the condition had an impact on the number of inputs provided ($B_1=27.4$ and $B_2 = 34.1$). On the other hand,  the session number only had a clear impact for the first interaction, the results were inconclusive for the second interaction ($B_1=4.1$x$10^5$ and $B_2 = 1.5$). Table~\ref{tab:control_inputs} and additional post-hoc comparisons between sessions indicated that in the first interaction, the number of inputs used decreased between the first and second sessions and then tended to stabilise between the second and the third sessions($B_{12}=2707$, $B_{13}=4.7$x$10^4$ and $B_{23}=0.410$). Similarly, for the second interaction, a difference tended to be observed between session 4 and 5 and session 4 and 6 while the number of inputs was similar between session 5 and 6 ($B_{45}=2.6$, $B_{46}=2.7$ and $B_{56}=0.17$).
 
 \begin{figure}[ht]
@@ -479,11 +469,12 @@ Additionally, when using \gls{irl}, even an expert cannot prevent the robot from
 Similar results to these were observed with our non-expert participants: in their last session with \gls{sparc}, both groups had a median of 0 failures and a performance of 6. This indicates that more than half of the participants successfully taught the robot the task without ever hitting a failure state after gaining understanding of \gls{sparc} in their first and second interactions with it.
 
 The absence of failures, the lower number of inputs and the shorter time required to teach with \gls{sparc} compared to \gls{irl} when used by an expert user provide support for H2.
-%\section{Discussion}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Validation of the Hypotheses}
 
 \subsection{Effectiveness and Efficiency with Non-Experts}
+
 Results from the interaction data showed that despite spending a shorter time interacting with \gls{sparc} and using fewer inputs, participants reached a higher performance than with \gls{irl} and faced fewer failures during teaching. Additionally, when interacting with \gls{sparc}, the time participants took to teach the robot decreased to reach a plateau in the second and third sessions, without negatively affecting the performance. This indicates that after the first session, participants understood the interaction mechanism of \gls{sparc} and consistently managed to achieve a high performance whilst requiring less effort to teach the robot the task. On the other hand, when interacting with \gls{irl}, participants' performance remained low over the sessions, while their teaching time decreased between session 1 and 2 but not further between session 2 and 3. This decrease of effort invested in the teaching combined with the low performance might be due to a loss of motivation after session 1 where often participants did not succeed to teach the robot, reducing the desire to further interact in successive sessions. Overall, these results suggest that teaching the robot using \gls{sparc} allows the robot to achieve a higher performance than with \gls{irl}, in a shorter time, while requiring fewer inputs and making fewer errors when teaching. This conclusion is supported by subjective measures: the workload on the teacher was lower when using \gls{sparc} than when using \gls{irl}. 
 
 For these reasons, H1 and its prediction ( `\gls{sparc} will lead to better learning than \gls{irl} when used by non-experts') is supported.
@@ -497,6 +488,7 @@ However, when interacting with \gls{irl}, even the expert applying a strictly op
 This difference shows support for H2 (`\gls{sparc} can be used by expert users to teach a policy safely, quickly and efficiently, achieving better results than other \gls{iml} methods lacking control'). This also demonstrates how the principles presented in Chapter~\ref{chap:sparc} provide the teacher with control over the robot's actions and by extend improve the teaching. Consequently, the principles underlying \gls{sparc} ensure that even in the early stages of teaching (when the robot's policy is not mature enough to correctly select actions without supervision), the robot's behaviour is already appropriate, which is not the case of most other \gls{iml} methods (as demonstrated by the number of failures when teaching with \gls{irl}).
 
 \subsection{Control}
+
 \label{ssec:control_control}
 
 One of the main differences between the two methods is the way in which the concept of teaching is approached. With \gls{irl} an exploratory individual learning approach is followed: the robot has the freedom to explore, whilst receiving feedback on its actions and limited guidance about what action to pursue next from a teacher. While not every member of the population is knowledgeable about \gls{ml}, people are experienced with social learning and teaching~\citep{thomaz2008teachable}. This social aspect of the teaching: with hints and guidance, partial control over the robot actions and bidirectional communication is inspired by the way humans teach and should be natural for most of the people. This similarity between how humans teach robots and other humans has also been supported by behaviours displayed by participants in the original study. Participants gave motivational rewards to the robot, just as one would do to keep a child motivated during learning, despite the absence of effect or use in classical \gls{rl}~\citep{thomaz2008teachable}.
@@ -507,14 +499,14 @@ The post-experiment questionnaire included the open question: `which robot did y
 
 To the question `which interaction was more natural?', 10 participants rated \gls{irl} as being more natural, using justifications such as: `The robot thinks for itself', `Some confusion in the [\gls{irl}] robot was obvious making it more natural', `More like real learning', `Because it was hard to control the robot' or `People learn from their mistakes faster'. But despite these participants acknowledging that \gls{irl} is more `natural', closer to human teaching, they still preferred teaching using \gls{sparc}. This suggests that when humans teach robots, they are focused on the outcome of the teaching, on the learner's proficiency in the task. As mentioned previously, this might relate to the role of robots, they often interact in human-centred scenarios where they have to complete a task for their users. And, due to the absence of life-long learning for robots today, it is not worth investing time and energy to allow the robot to improve its learning process or explore on its own. These evaluations and comments from the participants show support for H3 (`Teachers prefer a method in which they can have more control over the robot's actions').
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
+
 \label{sec:control_discussion}
 
 Despite not being originally designed for use in combination with \acrlong{rl}, \gls{sparc} achieved good results in this study. This shows that the principles presented in Chapter~\ref{chap:sparc} are agnostic to the learning algorithm and promote an efficient teaching interaction. Furthermore, \gls{sparc} achieved a higher performance, in a shorter time and facing less failures than \gls{irl}, whilst requiring a lower workload from the human teacher. And finally, when used by experts (designer or trained participants), \gls{sparc} demonstrated that teaching can be safe and quick. Providing the teacher full control over the robot's actions ensured that only desired actions will be executed. These results showed an important feature of teaching robots to interact in human environments. As robots interact in task oriented, human-centred environments, human teachers need approaches with direct control and more focused on commands rather than letting the robots explore on their own and only evaluate their actions.
 
 \subsection{Comparison with Original Interactive Reinforcement Learning Study}
-
-%Mention that regardless of the learning algorithm, participants had issues to guide the robot to the right parts of the environement due to the limited guidance
 
 Unlike the original experiments evaluating \gls{irl}~\citep{thomaz2008teachable}, in this study, most of the participants did not succeed in teaching the robot the full cake baking sequence using feedback and guidance (the \gls{irl} condition). In Thomaz and Breazeal's study, the participants were knowledgeable in machine learning: when asked to rate their expertise in \gls{ml} software and system (1=none, 7=very experienced), they reported an above average score (M=3.7, SD=2.3), but the population in the study presented in this chapter was drawn from a more general public having little to no knowledge of machine learning (M=1.8, SD=1.13 - on a 5-item Likert scale). This can explain why a much larger number of participants did not achieve success with \gls{irl} in this study whereas Thomaz and Breazeal only reported 1 participant out of 13 failing the task. In our study, only 12.5\% of the participants and the expert did manage to teach the robot using \gls{irl}. 
 
@@ -536,12 +528,6 @@ Additionally, the participants were also biased. By using the tool provided by t
 
 Some limitations of this study (simulated deterministic world, limited number of states, discretisation of time and absence of interaction with humans in the target application) were addressed in Chapter~\ref{chap:tutoring}. In the study presented in that chapter, \gls{sparc} was applied to a real-world social interaction with humans, possessing all the challenges typical to these interactions: complex non-deterministic world, with continuous time, real impact of actions and importance of the social factors in the interaction.
 
-%The second study, presented in Chapter~\ref{chap:control} aimed to address some limitations of the first one by using a larger sample (N=40) and drawing participants from a more general population non-expert in robotics or \gls{ml}. However by using the tool provided by the university, a majority of the participants were students from the university;  as such it produced another bias on the participants. However, as robots are by essence technological tools, they will probably be mostly used by people familiar with technology. Thus, a university student might also be a good representation of the more general population expected to use robots. Another limit of the study was that it did not exactly replicate the study presented in \cite{thomaz2008teachable}, due to the absence of access to the source code, the experiment had to be reimplemented, leading to differences in the experimental setup between the original study and ours. Additionally, this study compared \gls{sparc} only to a single other method used in \gls{iml}, other methods exist and would have been interesting to compare with \gls{sparc}. However, while \gls{sparc} has only be compared with one approach and differences remained between our implementation and the original one, the results obtained by that study still provide us with useful insight about how \gls{sparc} could be combined with \gls{rl} and how the amount of control provided to the teacher impacts the teaching process.
-
-%PRobably not required
-%Nevertheless, we argue that \gls{sparc} allows for easy and safe teaching due to the presence and control by the teacher. And the suggestion/correction mechanism with automatic execution of actions allows for a smooth teaching process where the workload on the teacher can decrease over time as shown in \cite{senft2015sparc}. The workload of the teacher when starting is relatively high, when the robot has no information on which actions to take yet, and decreases over time requiring only limited intervention by the teacher.
-
-%MIght be put in the final discussion
 \subsection{Lessons Learned on Designing Interactive Machine Learning for HRI}
 
 From observing participants interacting with both systems, we derived four recommendations for future designs of interactive learning robot that we also used to develop the study presented in Chapter~\ref{chap:tutoring}. 
@@ -564,10 +550,7 @@ Most of the scenarios where a robot has to learn how to interact with humans are
 
 However, this control does not mean that the robot cannot learn and become autonomous. We take a stronger inspiration from \gls{lfd}, using human input more efficiently to guide the learning, speeding it up and making it safer, especially in the early stages of the learning. With \gls{sparc} the human is in control during all  the interaction, but has to be especially attentive when the robot is prone to making exploratory mistakes, so they can prevent these errors before they occur. However, once the policy is appropriate enough, the teacher can leave the robot to interact mostly on its own, providing only limited supervision to refine the policy and correct its last imperfections.
 
-%\subsection{Future work}
-%\label{ssec:future}
-%We are currently working on a new experiment in which people interacting with a robot in a continuous time and non-deterministic environment. In this experiment, the teacher is able to send commands to the robot, provide rewards and identify features in the environment they consider important. The learning algorithm will take these inputs into account and combine them with interaction metrics to learn. An approach could be to use the actor-critic paradigm: the critic being an objective evaluation of the action results (environmental rewards), and the actor using results from the critic and teacher's guidance to update the policy.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary}
 
 As presented in Chapter~\ref{chap:sparc}, \gls{sparc} has been designed to allow naive humans to teach a policy to a robot while maintaining an appropriate behaviour. This chapter presented a study where \gls{sparc} was combined with \gls{rl} to teach a simulated robot to complete a baking task. \gls{sparc} used intentions communicated by the robot, teacher full control over the robot's behaviour and an implicit rewarding mechanism to allows participants teach the robot a policy. A study involving 40 participants compared this approach with \gls{irl}, another \gls{iml} approach using communication of uncertainty, partial control and explicit rewarding to teach the robot. When interacting with \gls{sparc}, participants took less time and fewer inputs to reach more successes, whilst facing fewer failures. Participants also reported a lighter workload when using \gls{sparc} than when interacting with \gls{irl}. Results from this study demonstrated that \gls{sparc} is usable by naive participants to successfully teach a robot a policy quickly and safely.
@@ -575,5 +558,4 @@ As presented in Chapter~\ref{chap:sparc}, \gls{sparc} has been designed to allow
 Based on these results and our observations of the participants, we proposed four guidelines to designing interactive learning robots: (1) the interface to control the robot should be intuitive, (2) the limits of human adaptability have to be taken into account (robots should detect deadlocks in human behaviours and adapt the way they are controlled or inform the human about these incorrect behaviours), (3) the operator should be kept in the learning loop and (4) teachers should stay in control of the robot's behaviour when interacting in a sensitive environment (such as \acrlong{rat}). The first two points can be seen to apply to all robot teaching methods, and should be addressed at the time of designing the interface. And, by definition, \gls{sparc} aims to address these last two points: maintaining the performance of an adaptive system by remaining under progressively decreasing supervision.
 
 In summary, this chapter extended \gls{sparc} and compared it to other methods from the \gls{iml} field. \gls{sparc} succeeded in its goal, allowing participants to teach easily and safely a policy to a robot. Finally, insights from this study have been used to guide the design of study presented in Chapter~\ref{chap:tutoring}, the final study of this research, which addressed some of the limitations of this study by exploring how a human could teach a robot to interact with people in real-world \gls{hri}.
-
 

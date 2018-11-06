@@ -10,7 +10,6 @@
 		\item Design and use of a new learning algorithm adapted from Nearest Neighbours to teach quickly and efficiently in an online fashion.
 		\item Between participants study involving 75 children comparing 3 conditions: a passive robot, a supervised robot and an autonomous robot.
 		\item Psychology PhD student teaching the supervised robot using \acrshort{sparc}.
-%		\item No significant differences of child learning between conditions.
 		\item Children behaved similarly with the autonomous and supervised robot, and differently with the passive robot.
 		\item Demonstrate  the application of \acrshort{sparc} to teach a robot a policy online to interact with humans in a social environment which is complex, indeterministic, high dimensional and multimodal.
 	\end{itemize}
@@ -22,28 +21,23 @@ Parts of the work presented in this chapter have been published verbatim in \cit
 	Reinforcement Learning With Partial States for Social HRI. In Proceedings of the Artificial Intelligence for Human-Robot Interaction Symposium, at AAAI Fall Symposium Series\footnote{\url{https://aaai.org/ocs/index.php/FSS/FSS17/paper/view/16011}}.
 	\item Robots in the Classroom: Learning to Be a Good Tutor. In 4th Workshop on Robots for Learning (R4L) at HRI\footnote{\url{https://r4l.epfl.ch/files/content/sites/r4l/files/HRI2018/proceedings_2018/paper4.pdf}}.
 \end{itemize} 
-%Technical contribution in this chapter: the author extended code the freeplay sandbox, see \url{https://github.com/freeplay-sandbox/} and forks.
 
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
 
-Chapters~\ref{chap:woz} and~\ref{chap:control} tested the \gls{sparc} in interactions between robots or in a virtual world but not for \gls{hri} as it was intended to be used. As such, this chapter addresses the thesis of this research and evaluates whether \gls{sparc} can be used to efficiently teach a robot an interactive behaviour for real human-robot interactions. \gls{hri} in the wild typically occurs in constrained but underspecified environments where social behaviours play an important role. Teaching a robot in such an environment is a challenge as the state and action spaces are high-dimensional, the environment is not deterministic and the interaction takes place in continuous time and is multimodal. Additionally, the social aspect of the interaction is fundamental as it impacts the flow and the success of the interaction and makes \gls{hri} a high-stakes environment.%~\citep{belpaeme2012multimodal}. %This would be one of the first times humans have been used to teach online a robot to interact with humans.
+Chapters~\ref{chap:woz} and~\ref{chap:control} tested the \gls{sparc} in interactions between robots or in a virtual world but not for \gls{hri} as it was intended to be used. As such, this chapter addresses the thesis of this research and evaluates whether \gls{sparc} can be used to efficiently teach a robot an interactive behaviour for real human-robot interactions. \gls{hri} in the wild typically occurs in constrained but underspecified environments where social behaviours play an important role. Teaching a robot in such an environment is a challenge as the state and action spaces are high-dimensional, the environment is not deterministic and the interaction takes place in continuous time and is multimodal. Additionally, the social aspect of the interaction is fundamental as it impacts the flow and the success of the interaction and makes \gls{hri} a high-stakes environment.
 
 This study took place in the context of robot tutors for children in education, more precisely in the context of teaching about food chains. Child tutoring has been selected as this framework is widely used in \gls{hri}, and provides opportunities for a rich and complex interaction between a child and a robot~\citep{leyzberg2012physical,kennedy2015robot}. This scenario, the code used to control the robot and the educational software are based on \cite{lemaignan2017free} but have been adapted to provide a new teaching task (teaching game and protocol), knowledge test, robot controller, learning algorithm and interface with the teacher supporting \gls{sparc}.
 
-%This study aims to explore if \gls{sparc} can be used to teach a robot an efficient policy. As such, three conditions have been compared: a passive robot (not providing any support), a supervised robot (learning from a human teacher and supporting the child) and an autonomous robot (applying the learned behaviour). These three conditions, with the passive robot as a control condition, allow us to study both the teaching process and the efficiency of the taught behaviour when being executed without supervision.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scope of the Study} \label{sec:tutoring_scope}
 
 The main goal of this study was to directly explore the thesis proposed in this research work: ``A robot can learn to interact meaningfully with people in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour''. This thesis can be divided into two parts: ``a robot can learn safely by receiving supervision from a human teacher'' and ``after learning, such a robot would have a meaningful interaction with humans autonomously''. To address these two statements, a study comparing three conditions was designed (passive robot vs supervised robot vs autonomous robot). The study was composed of two main elements: four rounds of an educational game children played with the robot where they could gain knowledge about food chains, and three tests outside of the game to evaluate the knowledge children gained while playing. Depending on the condition, the robot could provide feedback, hints and supporting messages to the child participating during the game. 
 
 The objective of the study was to explore whether the robot could be taught to provide an efficient tutoring support to the children during this game, 
-%For this study, the goal of the interaction is learning about food chains by exploring a specific food web (interconnections between multiple food chains) in an educational game. The child plays a game on the Sandtray where they can move animals to discover the interactions between them. Learning is evaluated by a test before, between and after the rounds; and the robot leads the child through the study and can, depending of the condition, support them during the game.
-%This study was focused on providing a robot with an efficient tutoring behaviour, 
 and examining how autonomous behaviour would compare to no behaviour (passive) and to human-controlled behaviour. As such, three conditions were required: a control condition (with a passive robot), a supervised condition (where the robot was controlled and taught by a human) and an autonomous condition (to evaluate the learned behaviour). In both the supervised and the autonomous conditions, the robot was actively participating during the game and provided support to the child.
-
-%to prevent confounds about novelty effect and potential excitements due to the presence of the robot, the control condition maintained the robot present through all the interaction. In this control, `passive', condition, the robot led the child through the study as in the other conditions, but was not interacting with the child during the educational game. This condition provided a benchmark against which the other conditions were compared to evaluate the `meaningfulness' and efficiency of the robot's behaviours. In the second condition, the `supervised' condition, the robot was supervised and taught by a human teacher using \gls{sparc}. This condition was the one in which the robot learned, and was used to evaluate the impacts of the principles underlying \gls{sparc} when teaching a robot to interact with humans. Lastly, in the `autonomous' condition, the robot applied the learnt policy to interact without supervision with the children. This condition aimed at exploring the similarity between the autonomous policy and the supervised one, and evaluating if the teaching from the human was successful. And, as the robot needed to have completed its learning before interacting alone, this condition was run only after the supervised condition was completed.
 
 As such, there were four experimental hypotheses:
 \begin{itemize}
@@ -55,11 +49,10 @@ As such, there were four experimental hypotheses:
 
 H3 is motivated by the idea that the humans possess knowledge which should help the child to learn more from the game. By learning this knowledge, the autonomous robot should be able to partially replicate this effect, but without being able to match it due to the limits of the algorithm and teaching time.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Apparatus}
 
 Similarly to the study presented in Chapter~\ref{chap:woz}, this study is based on the Sandtray paradigm~\citep{baxter2012touchscreen}: a child interacts with a robot via a large touchscreen located between them (hereafter `Sandtray' or touchscreen). By interacting with the touchscreen and the robot, the child is expected to gain knowledge or improve some skills. Additionally, a teacher can control and teach the robot in the `supervised' condition using a tablet (cf. Figure~\ref{fig:tutoring_setup}). This type of triadic interaction is typical of the interactions we considered when framing this research (cf. Figure~\ref{fig:intro_setup}): a human knows how the robot should behave and can supervise it and teach it how to interact with another human \textit{in situ} by using \gls{sparc}.
-
-%We desire an efficient behaviour for the robot in the application interaction (i.e. child tutoring) and a human teacher has knowledge about how the robot should behave and can transfer it to the robot .
 
 \begin{figure}[ht]
 	\centering
@@ -80,6 +73,7 @@ The main learning activity used to teach the child about food chains is a game c
 \end{figure}
 
 \subsection{Test} \label{sec:tuto_test}
+
 The test is the second activity of the study and is used to evaluate children's knowledge about the food web used in the game. This test is an open graph where children have to connect animals to their food. Figure~\ref{fig:test} shows two examples of the test, with or without all the correct connections. Children are instructed to connect as many animals to their food as possible. During the first test (the pre-test), the teacher demonstrates how to connect animals by drawing an arrow from the frog to the fly, and then removing the arrow by pressing the X button in the middle of the arrow. When children think they are done, they can press the `Continue' button, showing a screen confirming that they want to quit the test or allowing them to go back and keep connecting animals. Additionally, the robot informs the child if there are animals not connected to a food or that animals can eat many types of food if no more than one animal is connected to multiple items. In total, they are 25 correct connections and 95 possible incorrect ones.
 
 \begin{figure*}[ht]
@@ -100,7 +94,6 @@ The test is the second activity of the study and is used to evaluate children's 
 	\caption{Test screen to evaluate children's knowledge, empty starting screen (a) and fully connected and correct test (b).}
 	\label{fig:test}
 \end{figure*}
-%\ES{tense?}
 
 \subsection{Robot Behaviour} \label{sec:tuto_robot}
 
@@ -114,9 +107,10 @@ In each condition, the robot verbally leads the child through the interaction by
 \end{itemize}
 Considering all the possible combinations of actions and items, the total number of actions equals 655. Additionally, to prevent the robot's behaviour from being repetitive, each action has multiple possible utterances, and a random one, not used recently, is spoken by the robot when an action is executed. When the robot is not acting, it simply sways slightly to simulate a `breathing' motion and moves its head to follow the child's face. 
 
-This set of actions was designed to be multimodal: involving verbal utterances, pointing gestures and movements about the game and to cover different ranges of tutoring behaviours. Some actions, such as encouragement and congratulations, are mostly social and do not provide much information on the game. Others are only hints such as drawing attention. And finally the last ones: motions and reminding rules, provide game content, and their timing is related to game events or social norms (such as turn taking). In summary, this action set aims to allow the robot to express different types of tutoring behaviour: from providing motivation and general information about the game's goal to giving hints regarding which animals the child should focus on or information about what an animal eats. %This set of actions constitutes a substantial range of tutoring behaviours a human teacher would employ.
+This set of actions was designed to be multimodal: involving verbal utterances, pointing gestures and movements about the game and to cover different ranges of tutoring behaviours. Some actions, such as encouragement and congratulations, are mostly social and do not provide much information on the game. Others are only hints such as drawing attention. And finally the last ones: motions and reminding rules, provide game content, and their timing is related to game events or social norms (such as turn taking). In summary, this action set aims to allow the robot to express different types of tutoring behaviour: from providing motivation and general information about the game's goal to giving hints regarding which animals the child should focus on or information about what an animal eats. 
 
 The goal of the interaction is to have the child, not the robot, play the game. Therefore, the robot can only move the animals to locations on the game, and these motions do not trigger eating events. Only the child can feed the animals by putting them in contact with a food source, hence, all the events and real changes in the game are created by the child. 
+
 \subsection{Control Architecture}\label{sec:tuto_arch}
 
 The code used to create the game and control the robot is an adaptation of the Freeplay Sandbox~\citep{lemaignan2017free}. Original sources are available online\footnote{\url{https://github.com/freeplay-sandbox}}, as is the code used for this study\footnote{\url{https://github.com/emmanuel-senft/freeplay-sandbox-qt/tree/food-chain}
@@ -133,8 +127,6 @@ The control architecture is also adapted from \cite{lemaignan2017free} and a sim
 	\caption{Simplified schematics of the architecture used to control the robot. In addition, all the topics related to the actions are recorded using rosbag. (Figure adapted from \citealt{lemaignan2017free}).}
 	\label{fig:tutoring_arch}
 \end{figure}
-
-%Two worlds are cohabiting, the continuous world (as perceived by the child and the teacher) and the discrete world (as perceived by the algorithm). In the continuous world, actions are 
 
 The control architecture can be divided into 7 main parts.
 
@@ -157,7 +149,6 @@ In the autonomous condition, the teacher interface is replaced by a node running
 
 \paragraph{7) The Learner}
  is the algorithm responsible for learning a behaviour and selecting actions to propose to the teacher. It takes as input the state space at each time step and actions selected by the teacher (action number, state mask and reward) and stores corresponding instances in memory. Each time the learner receives a state, it compares this state to its instances in memory and proposes an action if appropriate (cf. Section~\ref{sec:tuto_algo}).
-%It should be noted that in order to learn actions the algorithm used a discrete actions space consisting of the 655 actions defined in Section~\ref{sec:tuto_robot}. On the other hand, for the teacher, movement actions are continuous, they can be selected by choosing an animal and a moving to a destination while highlighting relevant features to clarify the action if needed or help the learning. The action analyser has the task of converting the actions from one world to another: interpreting movements from the teacher as discrete actions for the algorithm and transforming the discrete actions from the algorithm to continuous action for the teacher and the game.
 
 \subsection{Environment Model}
 
@@ -178,24 +169,19 @@ Table~\ref{tab:tuto_state_space} presents the different dimensions composing the
 		Game State & Distance Between Items & 155 & Normalised distance between the animals and each other animal and the plants\\
 		& Items' Energy & 21 & Energy of the 21 items (10 animals and 11 plants)\\
 		& Progress in the Game & 1 & 0.25 for first game to 1 for the last game\\ 
-		Temporality & Robot Touches & 10 & Time since the robot touched each animal\\ %decay
-		& Child Touches & 10 & Time since the child touched each animal\\ %accumulation
-		& Task-Specific Events & 3 & Time since last feeding, failed interaction and death of any animal\\ %decay
-		& Robot Actions & 5 & Time since last robot action of each type\\ %decay
-		& Generic Last Actions & 2 & Time since last child touch and last robot action of any type\\ %decay\accumulation
-		Child state & Focus & 3 & Time of last head facing the robot, the screen and outside\\ %accumulation
+		Temporality & Robot Touches & 10 & Time since the robot touched each animal\\ 
+		& Child Touches & 10 & Time since the child touched each animal\\ 
+		& Task-Specific Events & 3 & Time since last feeding, failed interaction and death of any animal\\ 
+		& Robot Actions & 5 & Time since last robot action of each type\\ 
+		& Generic Last Actions & 2 & Time since last child touch and last robot action of any type\\ 
+		Child state & Focus & 3 & Time of last head facing the robot, the screen and outside\\ 
 		\bottomrule
 	\end{tabularx}
 \end{table}
 
 All the state values in Table~\ref{tab:tuto_state_space} are bounded by [0,1]. Distances between items are normalised with the maximum possible distance (the diagonal of the screen), and as there are 10 animals and 11 plants this results in a total of 155 possible distances between animals and other items. To include a representation of the temporal aspects of the interaction, some dimensions of the state represent the time since events and two methods have been used to transform the time since an event to a value bounded between 0 and 1: the accumulation and the decay.
-%\begin{itemize}
-%	\item Accumulation.%: for the effect that can be true or false (such as child touches and focus).
-%	\item Decay.%: for temporally discrete events (robot actions and touches, and task-specific events).
-%\end{itemize}
 
 The accumulation corresponds to effects that can be true or not and where the duration since a change matters (for instance how long the child has been touching an animal, or when was the last time the child looked at the robot). The accumulation aims at representing how long this effect as been true or false. When the effect becomes true for accumulation, the state value is set to 0.5 and then increases at each step. When the condition becomes false, the value is set to 0.5 and then decreases at each step (cf. Algorithm~\ref{algo:tuto_acc} and Figure~\ref{fig:tuto_acc}). On the other hand, the decay refers to temporally discrete events, so only the time since the event is relevant. When the event happens the corresponding state value is set to 1 and then exponentially decreases by being multiplied by $e^{-\frac{1}{10}}$. That way events will have a `half-life' of 7 steps, which corresponds to 3.5 seconds, this aims to allow both short term reactions to an event (less than three seconds) and inform when an event did not happen in the last 10 or 20 seconds.
-
 
 \begin{minipage}[t]{0.53\textwidth}
 \begin{algorithm}[H]
@@ -231,8 +217,6 @@ The accumulation corresponds to effects that can be true or not and where the du
 
 Parts of the states are hardcoded, such as the task-specific events, generic last actions, focus and progress in the game. However, all the state dimensions related to the items (distance, energy and time since touches) are constructed on the fly. At start up, the state analyser node (responsible for computing the state, cf. Figure~\ref{fig:tutoring_arch}), receives a list of the interactive items and one of the static ones and creates the appropriate state with the corresponding dimensions. During the game, the state values are updated using events related to specific items (through their name) and hardcoded relations between task-specific events and state dimensions. 
 
-%In summary, the state defines a generic way to represent the state of the interaction without any semantic hardcoded in it. All the dimensions are treated as equal and the algorithm has to infer the relation between state dimensions and action from the demonstrations.
-
 \subsubsection{Actions}
 
 Table~\ref{tab:tuto_actions_space} present the list of actions used in the game activity.
@@ -259,12 +243,6 @@ Table~\ref{tab:tuto_actions_space} present the list of actions used in the game 
 
 The total action space available is 655 actions. Each \emph{Move} action is composed of 200 possible actions the robot can execute, as we have a total of 10 animals which can be moved in relation to each other animal (9) and each plant (11), which results in 200 actions for moving close to, 200 for moving to and 200 for moving away. It should be noted that technically 10 additional actions are available to the action analyser for each type of move (resulting in 210 actions per type of motion shown in Table~\ref{tab:tuto_actions_space}), but cannot be selected by the teacher (moving animals to/close to/away from themselves). However, as the learning algorithm is instance-based and only uses the demonstration from the teacher, this does not impact the learning. 
 
-%In the same way as the state definition, this action space has been selected to be general to many activities including movable and immobile images. 
-%The action interpreter node selects the precise utterance to join to an action, and this node would have to be modified when adapting to a new activity. However, similarly to the state, the actions related to items are generated at run time, and could be adapted to another activity with minimal or no change of the code. 
-
-%\ES{discuss the fact that limited semantic interpretation is used to define the action space - many not relevant actions, but even without this semantic information the robot can still learn an efficient policy + if repurposed, no need to add additional semantic knowledge, the algo does it autonomously, and is non sensitive to the number of actions in the state}
-
-%By using a generic definition of the action space, for example allowing to move close to each other two animals unrelated, the teacher has access to a large number of actions they would never use. 
 \subsubsection{Generalisability of the State and Action Spaces} \label{sec:tuto_general}
 
 The state and action spaces have been designed to be adaptable for many tasks involving movable items on a touchscreen and not constrained to this game. 
@@ -277,13 +255,11 @@ Finally, both for the state and the action spaces, each instance of a plant is c
 
 In summary, without having access to any semantics about the actions, state dimensions or rules of the game, the robot needs to learn a policy relevant to the task which includes important actions and their timing. By using this generic state definition and agnostic way of considering state values, different types of policy could be taught to the robot: for example a supporting policy (providing support and help to the child), an adversarial one (trying to prevent the child from feeding animals) or a cheeky one (trying to trick the child in a playful way, moving animals just after the child or sometimes providing misleading information). Additionally, it should be possible for this implementation to be repurposed for another teaching task with limited effort. The task-specific events and utterances for the actions would have to be changed, but to adapt the state or action definition to another set of items, only the new names would have to be communicated at start-up, without any change in the code. If the robot manages to learn an appropriate behaviour for this specific interaction, we would have demonstrated that \gls{sparc} allows a human to teach a robot an efficient and precise policy from a generic state and action space \emph{in-situ}. This approach could be applied to another task, defining a different appropriate robot behaviour with limited changes to the code.
 
-%Additionally, both the action and state spaces consider each image of a same category (interactive or static) in the same way. This implies that new game elements could be added easily or current items could be changed. 
-
-
 \subsection{Learning Algorithm} \label{sec:tuto_algo}
+
 The learning algorithm aims to reproduce the teacher's policy by mapping an action (or no action) to each possible state. The state used in this study represents the situation of the game in a 210 dimensional vector, with continuous values from 0 to 1 and the action space is composed of 655 discete actions. In summary, the algorithm's task is to map one action from the 655 to each possible combination on the 210-dimension state. Learning in such a high-dimensional space with limited datapoints would be difficult to achieve without human feedback or initial knowledge.
 
-The algorithm used for the learning is an adaptation of the one presented in \cite{senft2017toward}. It is an instance-based algorithm similar to the Nearest Neighbours algorithm~\citep{cover1967nearest}. However, two differences are notable compared to the original algorithm: %: instances are defined on a sliced part of the state and each instance instance is associated to a reward defining the interest of the agent to select this action in that state.
+The algorithm used for the learning is an adaptation of the one presented in \cite{senft2017toward}. It is an instance-based algorithm similar to the Nearest Neighbours algorithm~\citep{cover1967nearest}. However, two differences are notable compared to the original algorithm: 
 
 \paragraph{Slicing of the state space.}
 Instead of being defined on the full state space, instances are only defined on a sliced version of the state. The intuition is that states needed to cover complex policies require large numbers of dimensions, however for each single action, large parts of the state are irrelevant. For example, if a robot needs to pick-up a cup, the colour of the cup does not impact the optimal motion. In contrast, the colour matters if the robot has to answer the question: ``which cup is on the left? The blue one or the red one?''. Consequently, the colour of the cup should be part of the state space, but should not be considered when selecting some actions. To implement this dimension reduction, when selecting an action with \gls{sparc}, the teacher has the opportunity to specify the features of the environment relevant to the selected action. Then these features \textit{activate} a limited number of the state dimensions related to the selection of this action in that state (through a mask informing which dimensions should be taken into account). Later, when selecting an action, the algorithm seeks for the instance in memory closest to the current state. In this evaluation, the similarity between the current state and the stored instances is only computed on the activated dimensions of the instances stored in memory. With this way of providing dimension reduction, the algorithm can have access to a large state, potentially covering different complex policies, but can still learn fast as if it were in a smaller state. Thus, by ignoring irrelevant dimensions, the algorithm can learn quickly. This opportunity to slice the state to reduce the number of dimensions and learn quickly in large environments is only possible with the human's supervision. The features of the environment used by the human to decide which action to select are a key part of the human's knowledge, and associating each action to the related features allows the algorithm to encode the human expertise more precisely, thus leading to a more potent learning.
@@ -320,15 +296,8 @@ The second difference between this algorithm and the original one~\citep{cover19
 	\label{algo:tuto_select}
 \end{algorithm}
 
-For this implementation, when the teacher highlights items relevant to the desired action, the corresponding dimensions of the state space are activated (see Table~\ref{tab:tuto_feature}) and the current state values on these activated dimensions are stored in memory as an instance. %Each item is considered independently, only taking into account if the item is interactive or static.
-%when selecting actions, the teacher can touch a number of items in the screen and the image displaying the focus of the child to highlight the features of the environment which were relevant in her selection. Then, this \emph{activates} the related dimensions of the state space which are used to store the instance in memory. Table~\ref{tab:tuto_feature} presents two example of the dimensions activated when some items are selected by the supervisor. 
+For this implementation, when the teacher highlights items relevant to the desired action, the corresponding dimensions of the state space are activated (see Table~\ref{tab:tuto_feature}) and the current state values on these activated dimensions are stored in memory as an instance. 
 When transferred to the algorithm for storing, the instance is composed of three objects: the action number (integer between 0 and 654), a mask of the state's dimension (210 boolean values) with a value of 1 for the activated dimensions and 0 for the others (this mask is used to create the sliced state corresponding to the instance), and finally, the value of the reward. The state mask is created by the action analyser by activating the dimensions corresponding to the features selected by the teacher. By default, all the task-specific events (death, feeding, failed interaction), the times since the last child and robot actions as well as the time since the prospective action was executed are activated. Later, when comparing the instance in memory to the current state to select an action, only the dimensions with a mask value of 1 are taken into account to compute the similarity.
-
-%All the \emph{non-activated} dimensions are left as wild-cards. When comparing the current state to the saved instances, the distance is only computed on the \emph{activated} dimensions of the stored instance. 
-
-%When selecting an action, the teacher can select a number of items in the screen and the image displaying the focus of the child to 
-
-%inform which feature of the environment were relevant to the action selection. Table~\ref{tab:tuto_feature} presents two example of the features activated when some items are selected by the supervisor. When transferred to the algorithm for storing, the instance is composed of the action number (integer between 0 and 654), an array of the dimension of the state with all the values and a mask of the same dimension with a value of 1 for the activated dimensions and 0 for the others and the value of the reward. Later, when comparing the instance to the current state to select an action, on the dimensions with a mask value of 1 will be taken into account.
 
 \begin{table}[ht]
 	\centering
@@ -387,23 +356,18 @@ In this study, the communication between the teacher and the robot occurs throug
 
 \paragraph{Action selection.} 
 The teacher can use the buttons and movable animals on the tablet to have the robot execute any possible action in a fashion similar to \gls{woz}. For example, to move animals close to another item the teacher can press on an animal on the tablet, which create a draggable `ghost' of the animal the teacher can move to the desired position. On release of the ghost, a request is sent to the robot to make a moving pointing gesture synchronised with the animal's image being moved by the image of a robotic hand on the touchscreen.
-%drag and release the animal's image to a position on the tablet to request the robot to execute this movement on the touchscreen. 
 As mentioned in Section~\ref{sec:tuto_arch}, the action analyser determines which action has been selected by the teacher by evaluating how the distances between animals change with this motion. Other actions such as `Remind rules', `Encouragements' and  `Congratulations' can be selected by simply pressing the associated button.
-%The main aim of the study being testing \gls{sparc} in a real \gls{hri}, the teacher needs an interface to communicate with the robot. To allow this interaction between the teacher and the robot, a \gls{gui} running on a tablet has been developed representing the current state of the game exactly as the child sees it on the touchscreen (see in Figure~\ref{fig:tutoring_gui}). This \gls{gui} runs on a tablet as it allow the robot's teacher to supervise and teach the robot while monitoring the application interaction (i.e. the interaction between the child and the robot). Buttons for the actions (excluding movements) allow the teacher to select which action the want the robot to execute. The teacher can also have the robot move animals simply by dragging and releasing animals' images on the tablet. The teacher can also select animals or plants to specify which action they intend to do. 
-%For instance, by clicking on the frog and the `Draw attention' button, the robot will execute the \textit{drawing attention to the frog} action. 
 Additionally, the teacher can highlight the features they used to select the action to speed up the teaching process and clarify otherwise ambiguous actions. This feature highlighting is done by selecting the items relevant to action or by pressing on the icon in top-right corner (this icon indicates where the child is currently facing: the robot, the touchscreen or `away' - for instance this could be use to have actions executed when the child is looking away, thus helping them to refocus on the game).
-%Similarly, the moving action require two items: the animal moved and the target of the motion. By selecting a target before moving an animal, the teacher can be sure that the robot interpret the action correctly. 
 The teacher can also use this feature highlighting to select an animal and press the `Draw attention' button to have the robot point at the selected animal and remind the child to interact with it.
-Our \gls{gui} design is intended to be intuitive and simple to use, giving the teacher access to more than 600 actions without requiring as many buttons. %Additionally, the selection of items is used by the robot controller to identify the relevant features to transmit to the algorithm for the learning.
+Our \gls{gui} design is intended to be intuitive and simple to use, giving the teacher access to more than 600 actions without requiring as many buttons. 
 
 \paragraph{Evaluation of propositions.} 
-Secondly, the \gls{gui} allows the teacher to respond to the robot's propositions. An action is proposed in a bubble at the top of the \gls{gui} describing the action, the corresponding items are highlighted and if the action is a motion, an arrow shows the proposed motion (Figure~\ref{fig:tutoring_gui}). The teacher can respond to the proposed action by pressing the `Do it', `Skip', `Cancel' or `Remove' buttons or let the action be automatically executed after 2 seconds during which the bubble will become more translucent to represent the passive acceptance of the action. The `Do it' button executes the action straight-away, the `Skip' button sends a `wait' action with a reward of 1 (indicating the robot should not do any action at this moment but should keep suggesting actions later), the `Cancel' sends the proposed action with a reward of -1 and does not execute it (indicating that this action is not appropriate in this situation but other actions might be), and finally, the `Remove' button looks for the closest previous instance of the action in memory and removes it, preventing this instance from being used later. %In each case, any item highlighted are associated to the action. 
+Secondly, the \gls{gui} allows the teacher to respond to the robot's propositions. An action is proposed in a bubble at the top of the \gls{gui} describing the action, the corresponding items are highlighted and if the action is a motion, an arrow shows the proposed motion (Figure~\ref{fig:tutoring_gui}). The teacher can respond to the proposed action by pressing the `Do it', `Skip', `Cancel' or `Remove' buttons or let the action be automatically executed after 2 seconds during which the bubble will become more translucent to represent the passive acceptance of the action. The `Do it' button executes the action straight-away, the `Skip' button sends a `wait' action with a reward of 1 (indicating the robot should not do any action at this moment but should keep suggesting actions later), the `Cancel' sends the proposed action with a reward of -1 and does not execute it (indicating that this action is not appropriate in this situation but other actions might be), and finally, the `Remove' button looks for the closest previous instance of the action in memory and removes it, preventing this instance from being used later. 
 All the actions executed by the robot (through manual selection or automatic execution) are assigned a reward of 1. 
-
-%For example, if the robot proposes an action when it should simply have been passive, not doing anything, the teacher can use the `skip' button to tell the robot to skip this action and wait, but to keep proposing actions later. Alternatively, if an incorrect action is proposed by the robot, and the teacher would have preferred another one, they can cancel the proposed action and select another one. If the robot proposes a totally incorrect action (following a error in demonstration for example), such as moving the wolf close to the wheat, the teacher can press the remove button, to erase the instance in memory and prevent this action to be reproposed later.  
 
 These two mechanisms (selection of actions and reaction to propositions) run in parallel. The teacher is expected to both evaluate actions from the robot and select correct actions to execute and the teacher interface aims to make this feasible and as easy as possible.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Methodology}
 
 \subsection{Participants}
@@ -411,24 +375,17 @@ These two mechanisms (selection of actions and reaction to propositions) run in 
 Children from five classrooms across two different primary schools in Plymouth were recruited to take part in the study. As both schools have an identical OFSTED evaluation (indicating that they provide similar educational environments), all the children were combined into a single pool of participants. Full permission to take part in the study and be recorded on video was acquired for all the participants via informed consent from parents. In total, 119 children participated in the study: 75 children were included in the final analysis. 14 participants took part in two pilot versions, with previous versions of the game or protocol. 9 participants were excluded due to a breach in protocol or technical error (such as freezing of the tablet due to an imperfect kernel version or children refusing to continue the interaction). Additionally, children with special needs were encouraged to participate but were not included in the analysis (N=8). In the end, 25 participants per condition were included (N=75; age: \textit{M}=9.4, \textit{SD}=0.72; 37 female). The remaining 13 children who had consent to participate interacted in pairs or alone as we wanted to ensure that all children were able to interact with the robot within the time-frame the school provided and keep a balanced number of participants per condition. 
 
 \subsection{Teacher}
+
 The teacher was a psychology PhD student from the University of Plymouth, with limited knowledge of machine learning but with an understanding of human cognition. She had been instructed on how to control the robot using the GUI and the effects of each button. She was aware of the methodology used in the study but not the underlying implementation. She experimented controlling the robot in two interactions: one with the author interacting with the robot and one pilot interaction with a child (not included in the results analysis) to get used to the interface and controlling the robot. After these two interactions, the algorithm was reset and the teacher started to supervise the robot for the supervised condition. No information about the learning algorithm or the representation of the state and no feedback about the optimal way of interacting or on her policy was provided before or during the study. As such, this study involved, as teacher, a naive user not expert in \gls{ml} and more similar to the general population of expected robot users than an expert in computing.
 
-%the robot teacher represented typical target populations for robotic applications: non-experts in machine learning or computing but with relevant domain knowledge such as teachers, psychologists or more broadly, people from the general population.
-
-% Figure~\ref{fig:tutoring_game} shows an example of the game screen. The child can move 10 animals across the game field and can have them interact with other animals or plants. Animals lose energy over time and by interacting with their food the can regain some. Animals that are eaten lose a chunk of their life. The goal for the children is to keep animals alive as long as possible by feeding them and they earn stars representing how healthy their animals have been during the round. The game stops when 3 or more animals run out of energy and each game round lasted 1.6 minutes in average.
-
 \subsection{Conditions}
+
 The study evaluated three conditions: the passive condition, supervised condition and autonomous condition. The conditions only impact the robot's behaviour during the game. In each other part of the study (introduction, tutorial, tests and results), the robot's behaviour was identical between conditions.
-%In all the conditions, the robot's behaviour during the introduction, tests, tutorial and conclusion was identical. The only change of behaviour happened during the games rounds. 
-The study design was between participants, so each participant played four rounds of the game with the same condition (passive, supervised or autonomous).  %In the passive condition, the robot does not provide support during the game. In the supervised condition, the robot is controlled by a PhD student in psychology acting as the robot's teacher and demonstrating it how to interact. And in the autonomous condition, the robot simply applies the learned policy without supervision.
+The study design was between participants, so each participant played four rounds of the game with the same condition (passive, supervised or autonomous).  
 
 \subsubsection{Passive Condition}
 
 The \textit{passive} condition served as a control condition. We decided to use a robot even in the control condition to prevent confounds related to the presence of a robot, such as the novelty effect. The goal of the study was not to explore whether a robot can be better than a human or than an interactive touchscreen on its own, but to study whether \gls{sparc} can be used by a human to teach the robot a behaviour which has a positive influence on the child learning. Consequently, in this passive condition, the robot did not provide any advice or feedback to the children during the game, it simply read the instructions and swayed. This condition was used as a baseline for comparison.
-
-
-%In the \textit{supervised} condition, the robot was remotely supervised by an operator using \gls{sparc}. Finally, in the \textit{autonomous} condition, the robot applied the learnt policy and provided feedback and guidance to the child without human supervision.
-
 
 \subsubsection{Supervised Condition}
 
@@ -436,15 +393,13 @@ The \textit{supervised} condition was the one in which the robot `learned', wher
 
 \subsubsection{Autonomous Condition}
 
-The \textit{autonomous} condition was used to evaluate whether the learned behaviour was efficient and if the robot could display a useful social policy without being supervised. During this condition, the robot used the policy taught in the supervised condition, but without the teacher in the loop. As such, this condition had to be run after the supervised one, when the teaching was completed. %The role of this condition is to evaluate if the robot did learn a useful policy, i.e. explore if after having been taught, the robot can have an autonomous behaviour having a positive impact on the child experience.
+The \textit{autonomous} condition was used to evaluate whether the learned behaviour was efficient and if the robot could display a useful social policy without being supervised. During this condition, the robot used the policy taught in the supervised condition, but without the teacher in the loop. As such, this condition had to be run after the supervised one, when the teaching was completed. 
 
 In the autonomous condition, the robot directly used the suggestions from the algorithm and executed them with a probabilistic delay between 0 and 1.5 seconds based on the teacher's delay in answering the robot's propositions. This delay aimed to give a pace and synchronisation of actions similar to the ones exhibited by the teacher when reacting to the robot's suggestions.
 
 \subsection{Protocol}
 
-%Parents completed a consent form and each child was proposed to withdraw if they appeared not interested to continue the study (children refusing to continue have been replaced to reach the same number in each category). 
 At the start of the interaction, a child was first introduced to the robot and told that they would play a game about food chains with the robot. Then, they completed a quick demographic questionnaire and a first pre-test to evaluate their baseline knowledge (cf. Figures~\ref{fig:tuto_pretest} to~\ref{fig:tuto_test_results} and Section~\ref{sec:tuto_test}). After this test, and before starting the teaching game, the child had to complete a tutorial where they were introduced to the mechanics of the game: animals have life and have to eat to survive and the child can move animals to make them interact with other animals or plants and replenish their energy (cf. Figures~\ref{fig:tuto_tuto_intro} and~\ref{fig:tuto_tuto}). The teacher sat with the child through these steps to provide clarification if needed. After this short tutorial, the teacher sat away from the child to supervise the robot if required while the child completed two rounds of the game where the robot could provide feedback and advice depending on the condition they were in (cf. Figure~\ref{fig:tuto_game_intro} to~\ref{fig:tuto_result_game}). Following these initial rounds of the game, the child completed a mid-test before playing another two rounds of the game and completing a last post-test to conclude the study. Figure~\ref{fig:tuto_sequence} presents examples of screenshot of the Sandtray throughout the interaction.
-
 
 \begin{figure}[ht]
 	\centering
@@ -535,23 +490,7 @@ At the start of the interaction, a child was first introduced to the robot and t
 	\label{fig:tuto_sequence}
 \end{figure}
 
-%\begin{figure}[h]
-%	\includegraphics[width=.9\linewidth]{graph.png}
-%	\centering
-%	\caption{Methodology used for the study.}
-%	\label{fig:method}
-%\end{figure}
-
 \subsection{Metrics} \label{sec:tuto_metric}
-
-%Redundant with hypothese?
-%This study aimed mostly at evaluating if \gls{sparc} allows a human non-expert in computing to teach a robot from \textit{in situ} supervision. 
-%This teaching capability is divided into three parts: 
-%\begin{itemize}
-%	\item How similar the teacher's and autonomous robot's policies are? 
-%	\item What are the impacts of the active robot on the child behaviour? \\(And what are the differences between the autonomous and supervised robots?)
-%	\item How the online learning component changed the interaction between the robot and the teacher?
-%\end{itemize}
 
 To address the hypotheses presented in Section~\ref{sec:tutoring_scope}, we collected multiple metrics on both interactions (teacher-robot and robot-child). First, we recorded the actions executed by the robot in the supervised and autonomous conditions to characterise the two policies. Second, we collected two groups of metrics to evaluate the application interaction: the learning metrics (corresponding to the child's performance during the test) and the game metrics (corresponding to the child's behaviour within the game). And finally, in the supervised condition, we recorded the origin of the action executed by the robot (teacher vs algorithm) and the outcome of the proposed actions (executed vs refused).
 
@@ -570,6 +509,7 @@ P=\frac{\#good-(\#good+\#bad) \cdot \frac{total good}{total}}{total good - total
 The three tests (pre, mid and post interaction) resulted in three performance measures. To account for initial differences in knowledge and the progressive difficulty to gain additional knowledge, we computed the learning gain as the difference between the final and initial knowledge divided by the `progression margin': the difference between the maximum achievable performance and the initial performance. This learning gain indicates how much of the missing knowledge the child managed to gain from the game.
 			
 \subsubsection{Game Metrics}
+
 Different metrics were gathered during the rounds of the game to characterise the children's behaviours:
 \begin{itemize}
 	\item \textbf{Number of different eating interactions}: number of unique eating interactions between two items ([0,25]).
@@ -577,12 +517,9 @@ Different metrics were gathered during the rounds of the game to characterise th
 	\item \textbf{Interaction time}: Duration of game rounds, how long a round lasted until three animals ran out of energy (typical range 0.5 to 3 minutes).
 \end{itemize}
 
-
 As mentioned in the previous section, the children had to explore a food net with 25 good connections and 95 incorrect connections. Due to the imbalance between these numbers, more knowledge is acquired by discovering one of these 25 good connections rather than disproving one of the 95 incorrect ones. As such, we defined our first game metric as the number of different eating interactions children encountered during each game. An eating interaction happens when an animal is moved to its food (or to a predator); and the number of different eating interactions represents how many different unique correct connections the child has been exposed to during the game (multiple eating actions between the same animals would count only once). A game with a high number of different eating represents a game where the child had the opportunity to learn many correct connections between animals. Consequently, by increasing this number, the children would be exposed to more learning items which should help them perform better on the tests. For simplicity, we termed this metric `exposure to learning items' as it encompass how much knowledge a child has been exposed to in one round of the game. We would expect that an active robot would be able to guide the child towards these correct connections, allowing the child to reach a higher exposure, which would lead to more gain from the game and better overall learning.
 
 On the other hand, both the interaction time and the number of points reached in the game provide information about the children's performance in the task (keeping the animals alive as long as possible) and their engagement. A child disengaged with the game would not play seriously and would reach a lower number of points and a shorter interaction time. We expect that an active robot would encourage and support the child in the learning game and allow them to reach better scores in these engagement and performance metrics.
-
-%Maybe talk about compliance
 
 \subsubsection{Robot Learning}
 
@@ -590,16 +527,12 @@ In the supervised condition, the robot executed actions selected or validated by
 
 Sometimes the teacher cancelled or skipped actions and then selected them again, we called this effect the `reselection'. To obtain the final numbers of accepted and refused actions, we removed these reselections from the refused propositions and we added them to the accepted propositions as it represented cases where the teacher refused an action by accident.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
-
-% and right graphs present the 
-
-%Preliminary results (currently in progress, due to be completed before the submission of the full article) show that (1) the robot is able to effectively jointly learn action and social policies (Figure 2), (2) the learning gains of the children supported by the autonomous robot are not significantly different from the gains when the learning is supported by a robot teleoperated by the human expert, which would indicate the utility of the approach.
 
 Similarly to Chapter~\ref{chap:control}, we analysed the results using Bayesian statistics and the JASP software~\citep{jasp2018}. We used a Bayesian mixed ANOVA as an omnibus test to explore the impact of conditions or repetition on the metrics. Additional post-hoc tests used a Bayesian mixed ANOVA comparing the conditions one by one and fixing the prior probability to 0.5  to correct for multiple testing.
 \afterpage{%
-	\clearpage% Flush earlier floats (otherwise order might not be correct)
-	%	\thispagestyle{empty}% empty page style (?)
+	\clearpage
 	\begin{table}[ht]
 		\centering
 		\vspace{-.05cm}
@@ -663,14 +596,12 @@ Similarly to Chapter~\ref{chap:control}, we analysed the results using Bayesian 
 			\bottomrule
 		\end{tabularx}
 	\end{table}
-	\clearpage% Flush earlier floats (otherwise order might not be correct)
+	\clearpage
 }
 
 \subsection{Example of a Session}
 
 Table~\ref{tab:tuto_round} presents an example of the first minute of a round. Propositions from the robot are in blue, and actions from the teacher in orange. For example, at t=16.9, the teacher accepted the proposition from the robot. Alternatively, in some cases, such as the suggestion at t=20.6, the teacher did not evaluate actions proposed by robot, but just selected another action. In that case, the action proposed is not evaluated and only the selected action is executed and used for learning. In other cases, such as at t=6.6, the algorithm suggested an action, the teacher decided to wait, before selecting it again after a short delay. This is an example of `reselection' as mentioned before. Finally, at t=44.4 seconds, the teacher selected the action to move the mouse closer to the wheat, and after the robot moved the mouse, the child tried other animals and then fed the mouse with the wheat, demonstrating how the actions from the robot could help the children to discover new connections between animals.
-
-%\ES{to remove}
 
 \subsection{Comparison of Policy}
 
@@ -696,40 +627,6 @@ Autonomous & 4.8 \hspace{.5cm}(2.6) & 6.7 (3.4) & 0.1 (0.3) & 0.0 (0.0) & 14.3 (
 		\bottomrule
 	\end{tabularx}
 \end{table}
-
-%\begin{table}[ht]
-%	\centering
-%	\ra{1.4}
-%	\caption{Comparison of the number of actions executed per child for the active conditions.}
-%	\label{tab:tuto_results_actions}
-%	\begin{tabularx}{\textwidth}{@{}L{.65}L{1.05}L{.15}L{2.15}@{}}\toprule
-%		& Drawing attention & Move close & Move away & Move to & Congratulations & Encouragements & Remind rules\\ 
-%		\midrule
-%		Supervised & 3.6 (3.7) & 9.6 (2.6) & 0.0 (0.2) & 0.0 (0.0) & 19.6 (5.1) & 11.4 (4.4) & 4.7 (5.0)\\ 
-%		Autonomous & 4.8 (2.6) & 6.7 (3.4) & 0.1 (0.3) & 0.0 (0.0) & 14.3 (5.4) & 19.8 (5.4) & 10.6 (3.3)\\ 
-%		\bottomrule
-%	\end{tabularx}
-%\end{table}
-%\begin{figure}[ht]
-%	\includegraphics[width=1\linewidth]{autonomous_actions.pdf}
-%	\centering
-%	\caption{Repartition of actions across the participants in the autonomous condition.}
-%	\label{fig:tutoring_autonomous_actions}
-%\end{figure}
-%
-%\begin{table}[ht]
-%	\centering
-%	\caption{Repartition of action in the policy for both conditions (in \%).}
-%	\label{tab:tutoring_policies}
-%	\begin{tabularx}{\textwidth}{@{}lYYYccY}\toprule
-%		& Draw \newline Attention & Move \newline close & Move \newline away & Congratulation & Encouragements & Remind \newline rules \\
-%		\midrule
-%		Supervised & 6.6  & 22.2 & 0.1 & 43.1 & 22.7 & 5.3 \\
-%		Autonomous & 8.5 & 11.8 & 0.1 & 25.4 & 35.2 & 18.9\\
-%		\bottomrule
-%	\end{tabularx}
-%\end{table}
-
 
 \subsection{Test Performance}
 
@@ -792,7 +689,6 @@ Autonomous & 10.2 (2.7) & 10.6 (2.9) & 11.0 (2.9) & 10.9 (2.9)\\
 \end{table}
 
 \paragraph{Points}
-
 Figure~\ref{fig:tutoring_points} and Table~\ref{tab:tuto_results_points} show the evolution of the number of points achieved by the children across the four game rounds. A Bayesian mixed-ANOVA showed an impact of the condition on the number of points achieved by the children in the game ($B=10.0$). Post-hoc tests showed a strong difference between the passive and the supervised conditions ($B=5.1$x$10^4$) and differences between the supervised and the autonomous conditions ($B=5.2$) and the autonomous and the passive condition ($B=5.9$). This indicates that when the robot was supervised, it allowed children to achieve more points than a  passive robot. A similar effect was observed when the robot was autonomous, however the autonomous robot was less efficient than the supervised robot in helping the children to achieve a high score in the game.
 
 The repetitions (i.e. the number of rounds complete before) tended to have an impact on the children's score in the game ($B=2.4$) with differences in the post-hoc test only between the rounds 1 and 2 ($B=3.2$) and the rounds 1 and 4 ($B=5.0$). This demonstrates a practice effect where children achieved a better score in the last round than in the first.
@@ -820,7 +716,6 @@ The repetitions (i.e. the number of rounds complete before) tended to have an im
 \end{table}
 
 \paragraph{Time}
-
 Figure~\ref{fig:tutoring_time} and Table~\ref{tab:tuto_results_time} show the evolution of interaction time across the four game rounds. A Bayesian mixed-ANOVA showed inconclusive results on the impact of the condition on the interaction time in the game ($B=1.05$). Post-hoc tests showed no difference between the supervised and the autonomous conditions ($B=0.287$), differences were observed between the supervised and the passive condition ($B=118$) and a trend towards a difference between the autonomous and the passive conditions ($B=2.9$). This indicates that children were better at the game in the supervised condition whereby animals were alive longer than in the passive condition. The autonomous robot learned and applied a policy tending to replicate this effect and without exhibiting differences with the supervised one.
 
 However, the analysis showed no effect of the repetitions on the interaction time ($B=0.023$). The children did not manage to keep the animals alive longer with more practice at the game. One of the reasons was a partial ceiling effect at 2.25 minutes (see the red line on Figure~\ref{fig:tutoring_time}). When not fed, animals would run out of energy at 2.25 minutes, so if children did not manage to feed most of the animals at least once before that time, the game would stop. 
@@ -848,9 +743,7 @@ However, the analysis showed no effect of the repetitions on the interaction tim
 \end{table}
 
 \paragraph{Summary}
-
 These game metrics suggest that the policy executed by the autonomous robot allowed children to achieve similar results in the game to the supervised robot, and better results than when interacting with a passive robot. This provides support for H2 (`The autonomous robot will be able to interact socially and efficiently during the game and maintain the child's engagement during the learning task.'). 
-%However, children learned similarly in the three conditions, so these improvements in the game did not transfer to improvements in the test neither for the supervised robot nor the Autonomous one. This does not support H1 ("The robot support child learning: learning gain in passive condition $<$ learning gain in autonomous condition $<$ learning gain in supervised condition")
 
 \subsection{Teaching the Robot}
 
@@ -863,9 +756,7 @@ Figure~\ref{fig:tutoring_supervision} presents the reaction of the teacher to th
 	\label{fig:tutoring_supervision}
 \end{figure}
 
-
 Figure~\ref{fig:tutoring_actions} presents the accumulated number of different actions the teacher used. This number represents the complexity of the policy used by the teacher and shows that across all of the the interaction, the teacher tended to demonstrate all the useful actions, reaching a final plateau towards the end of the last interaction. We can observe a sharp increase in the first 5 interactions, when the teacher used the main actions for the first time. Then there is a mixture of small plateaus and small increases, indicating that the teacher alternated phases where she enriched her policy and phases where she maintained her policy. And finally, the number of different actions in the policy seems to converge around 56 towards the last interactions. This indicate that as intended, the action space is general: only a subset of it (56 actions out 655) is relevant to this task, for another task or another desired robot behaviour, a different subset of the action space could have been useful. By using human demonstrations, the robot can learn which actions are important for the current task without having to explore the whole action space. This non reliance on exploration allows the robot to learn a policy without being impacted by the dimension of the general action space. We precise that this figure represents only the number of different actions used by the teacher, see Figure~\ref{fig:tutoring_actions_distribution} to have information about the number of actions used for each type.
-%While this Figure only presents the number of different actions used by the teacher, Figure~\ref{fig:tutoring_actions_distribution} present their distribution in the various categories.
 
 \begin{figure}[ht]
 	\includegraphics[width=.85\linewidth]{./number_actions.pdf}
@@ -874,7 +765,6 @@ Figure~\ref{fig:tutoring_actions} presents the accumulated number of different a
 	\label{fig:tutoring_actions}
 \end{figure}
 
-
 In post-hoc discussion, the teacher reported three phases in her teaching: 
 \begin{itemize}
 	\item First sessions: she was not paying much attention to the suggestions, mostly focusing on having the robot executing a correct policy.
@@ -882,52 +772,11 @@ In post-hoc discussion, the teacher reported three phases in her teaching:
 	\item Last sessions: she started to trust the robot more but without ever trusting it totally.
 \end{itemize}
 
-%\ES{I should add more about it...}
 Appendix~\ref{app:diary} presents a more detailed diary of the teacher throughout her supervision. Additionally, while the buttons cancel and skip had different impact of the learning, and were designed to be used in different cases, the teacher reported that she used them interchangeably.
 
 The teacher did report a decrease of workload as she she progressed in the sessions number. This was supported by behaviours such as typing her observations on a laptop, while gazing at the interface in multiple interactions (especially at the start of a round). However, as shown by the evolution of curves in Figure~\ref{fig:tutoring_actions}, this decrease of workload seemed to be due mostly to the teacher getting used to the interaction, and not to the online learning and the improvement of the suggested propositions, invalidating H4.
 
-%Figure~\ref{fig:tutoring_proposition} presents the reaction of the teacher to the robot's suggestions across all the supervised sessions. In average the teacher accepted 22.3\% of all the proposition of the robot (by enforcing the action, let it be executed or using the `Do it' button), which represents 35\% of the actions executed by the robot. This effect tends to be stable across the sessions. The teacher interaction pattern evolved overtime, such as by using mostly the `Cancel' button in the start then the `Skip' one, but in the end, the teacher used this two buttons mostly interchangeably even if the algorithm underlying reaction is different. Another observation is the evolution from using the auto-execution function to the `Do it' button once the teacher felt more comfortable in the supervision. The teacher reported three phases in her teaching: 
-%
-%\begin{itemize}
-%	\item First sessions: she was not paying much attention to the suggestions, mostly trying to have the robot executing a correct policy.
-%	\item Session 20 to around 65: she was paying more attention to the suggestions without giving them much credit.
-%	\item Last sessions: she started to trust the robot more but without ever trusting it totally.
-%\end{itemize}
-%
-%\begin{figure}[ht]
-%	\includegraphics[width=1\linewidth]{propositions.pdf}
-%	\centering
-%	\caption{Teacher's reaction to the robot's propositions along the sessions.}
-%	\label{fig:tutoring_proposition}
-%\end{figure}
-%
-%
-%\begin{figure}[ht]
-%	\includegraphics[width=1\linewidth]{selections.pdf}
-%	\centering
-%	\caption{Origin of the actions executed by the robot. Re-enforced actions indicates that an action has been selected after having been cancelled or skipped by the teacher.}
-%	\label{fig:tutoring_selection}
-%\end{figure}
-%
-%Additional comments:
-%\begin{itemize}
-%	\item The robot proposed in average 58\% more actions than the number of actions selected by the teacher.
-%	\item As the time is continue and not discrete, the concept of correct actions is shifted, and actions selected by the teacher might have been proposed by the robot a fraction of second later without being counted as good proposition.
-%	\item The teacher often cancelled/skip actions directly as they arrived without taking time to analyse them (limitation of this implementation of SPARC).
-%	\item Evolution of teaching policy limits the potential of learning (not one single policy applied by the teacher, but an evolving one).
-%	\item Children are different, so the teacher tried to apply different policy for each child.
-%\end{itemize}
-%
-%
-%\begin{figure}[ht]
-%	\includegraphics[width=.6\linewidth]{number_actions.pdf}
-%	\centering
-%	\caption{Accumulation of the number of different actions used by the teacher across the  participants.}
-%	\label{fig:tutoring_actions}
-%\end{figure}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion} \label{sec:tutoring_discussion}
 
 This study explored whether a human could teach a robot a policy to support a child in an educational game. This was divided into two parts: ``a robot can learn safely by receiving supervision from a human teacher'' and ``after learning, such a robot would have a meaningful interaction with humans autonomously''. These two statements were addressed by comparing three conditions in a study involving 75 children. The passive condition, corresponded to a robot not providing any feedback during the game and was used as the baseline. In the supervised condition, a human taught the robot to interact with children using \gls{sparc}; and in the autonomous condition, the robot applied the policy learned in the supervised condition to interact with children without supervision.
@@ -938,26 +787,16 @@ This section will first discuss the impacts of this work, the advantages of \gls
 
 \subsection{Impacts} \label{sec:tuto_impacts}
 
-%Despite the limitations of this implementation of \gls{sparc}, 
-
-%\ES{clarify achievements and amazing!}
-
 This study demonstrated the first application of \gls{sparc} to real-world \gls{hri}. Despite the complexity of real-world interaction (multimodality, sociality, high stakes and unpredictability), a robot was successfully taught to interact efficiently with humans in a complex and rich social environment from \textit{in situ} supervision. During her supervision, the teacher applied a social policy taking into account a large amount cues partially available to the robot and social norms, such as turn-taking, when selecting actions. However, due to the complexity to measure such effects, no analysis of the sociability of the autonomous robot has been done. But the autonomous robot's policy and the one demonstrated by the teacher during the supervision presented similarities. Both policies generated comparable distributions of actions and produced similar impacts on the children (better performance in the game and higher exposure to learning items). 
 This supports H2 (`The autonomous robot will be able to interact socially and efficiently during the game and maintain the child's engagement during the learning task.'). 
-%It should be noted that the environment itself, education, is by essence social and the teacher applied a social policy taking into account cues the autonomous robot did not have access too. However,the teacher considered social norms such as turn-taking when selecting action. But due to the complexity to measure such effects, no analyse of the sociality of the autonomous robot has been done. %, the autonomous robot was able to interact socially with children and sustained engagement during the task (as demonstrated by the higher number of points and interaction time compared to the passive condition). 
-This is an important contribution as the robot learned to interact efficiently in a complex, multimodal and social environment in the real world, including large state and action spaces and where errors could have an important cost to the interaction (for instance having a child refusing to continue the interaction). As discussed in the next sections, such a capability would allow robots to be deployed more easily, in more environments and with policies tailored to each situation.%As demonstrated in Section~\ref{sec:tuto_control}, \gls{sparc} allowed the teacher to ensure the appropriateness of the robot behaviour (validating H1).
-
-%\ES{child centric - in situ supervisions: robot learns without perturbing its environment (child learning) and while completing a useful role}
-%\ES{clarify differences between the two first sessions}
+This is an important contribution as the robot learned to interact efficiently in a complex, multimodal and social environment in the real world, including large state and action spaces and where errors could have an important cost to the interaction (for instance having a child refusing to continue the interaction). As discussed in the next sections, such a capability would allow robots to be deployed more easily, in more environments and with policies tailored to each situation.
 
 \subsubsection{Human Control} \label{sec:tuto_control}
+
 By analysing the exact actions executed by the robot in both the supervised and the autonomous conditions, we observed that the robot only executed actions relevant to the current game. For example, the robot only move animals close together if they were related (only moving an animal to appropriate food items and not towards the other items). Similarly, as demonstrated by Figure~\ref{fig:tutoring_actions_distribution}, the actions `move away' and `move to' were rarely or never used, possibly because they could be confusing for the child. Figure~\ref{fig:tutoring_supervision} also indicates that the teacher did use the `Skip' and `Cancel' buttons to prevent undesired actions being executed by the robot. Consequently, H1 (`In the supervised condition, the teacher will be able to ensure an appropriate robot behaviour whilst teaching.') is supported. By having the robot submitting actions to its teacher before executing them, \gls{sparc} allows teachers to ensure that the robot's behaviour is appropriate even during the learning phase, thus enabling robots to learn \emph{in situ} in complex and sensitive environments.
 
 Furthermore, in her diary (cf. Appendix~\ref{app:diary}), the teacher identified herself as the agent making the decisions concerning the robot's actions (and not as someone having to deal with the consequences of an uncontrollable agent's decisions) and used verbs related to control to express her behaviour: ``I used'', ``I allowed'', ``[I] let the robot carry out'', ``I gave'', ``[I] chose'' or ``[I] added''. She further mention that ``It’s now fairly easy to control the robot'' or ``Controlling the robot is really easy now, although I still tend not to let it carry out its suggested actions even when they are valid.'' 
-%This indicates that the teacher felt she had power over the robot and was in control of the robot's behaviour. 
 Not only is H1 supported, but the teacher diary also shows that the teacher felt in control and that control got easier with experience. Whilst we cannot conclude about user experience, this does at least show promise for future use and research.
-
-
 
 \subsubsection{Learning \emph{in situ}}
 
@@ -968,25 +807,13 @@ This positive impact of the robot behaviour even in the teaching phase is a cent
 \subsubsection{Teaching a Robot to Interact} \label{sec:tuto_disc_teaching}
 
 Even though the online learning did not reduce the teacher's workload much during the interactions, \gls{sparc} still possesses two advantages compared to offline learning from \gls{woz}~\citep{sequeira2016discovering} or from pure human demonstrations~\citep{liu2014train}. Firstly, the learning algorithm has access to more datapoints: the teacher's selections and their reactions to the algorithm's propositions. Classical \gls{lfd} only has access to demonstrations, thus \gls{sparc} provides more datapoints to the learning and enables progressive refinement if the robot's policy. Secondly and more importantly, the learning process is more transparent. By receiving and evaluating the robot's propositions, the teacher can estimate the robot's knowledge and create a mental model of the robot's policy. This continuous communication between the teacher and the robot increases the transparency of the learning process, and might allow the teachers to build trust grounded by their experience with the robot, knowing its strengths and weaknesses. This transparency can ease the decision of deploying the robot to interact autonomously as the teacher has experienced the policy and knows what to expect from the robot.
-%\ES{insist on transparency!}
 
 \subsubsection{Ease of Access}
 
 This study also used a teacher with limited knowledge in robotics and \gls{ml} and unaware of the state representation or the algorithm involved in the robot learning. Despite this limited technical knowledge, by following simple guidelines this teacher succeeded in controlling the robot and providing it with an efficient policy.
 This supports the argument that \gls{sparc} is more accessible to the general population and by extension might allow more people to teach robots complex behaviours in the real world. This has major benefits in that if people do not need to know robotics or how to code in order to teach a robot a social behaviour, methods such as \gls{sparc} may help to democratise the use of robots. Robot designers would only have to prepare teachable robots and the users would be able to craft a policy fulfilling their specific needs, thus both reducing the workload on the engineers designing robots and improving robots' usefulness for the general public.
 
-%By using online learning from intuitive interfaces, anyone would be able to design a useful robot behaviour tailored to their needs. This 
-
 \subsubsection{Generalisation}
-
-%1 study used large state action space (210 continuous states and 655 actions) but work
-%2 being able to do is important
-%3 HRI needs large space
-%4 curse of dimensionality
-%5 sparc in a solution
-%6 here state action space general
-%7 could have been taught != policy
-%8 easy to repurpose
 
 This study demonstrated that \gls{sparc} can be used to teach a robot a precise and rich policy in a complex environment. The state spaces contained 210 continuous dimensions and the action space 655 discrete actions and both of them were multimodal. But despite the complexity of this world representation, the algorithm reached a policy which had similar effects on children as a human teleoperating the robot. 
 
@@ -998,82 +825,28 @@ Unlike feature engineering~\citep{domingos2012few} where an engineer manually se
 
 Being able to learn in generic spaces has multiple advantages. First it means that from a single state representation many different behaviours can be taught. For example, instead of creating a supportive robot, the teacher should be able to create an adversarial or a playful robot behaviour. Additionally, as argued in Section~\ref{sec:tuto_general}, it allows for the world representation to be repurposed more easily than static, simple representations tailored to a specific task and goal. For instance, we would expect that only a limited amount of work would be required to change the setup for another task involving moving images (such as maths or language in the context of education), and the robot could be taught a new policy adapted to this new environment with the same algorithm and a similar state and action space. 
 
-%The state and action spaces used in this study were generic to tasks including movable images and events on a screen. The interface was specialised for this type of tasks, but there was a limited number of add-hoc features in the state and action definition: only two categories of images, the mobile and the static ones, but without any semantic relations between them. The learning algorithm treated both the actions and the state dimensions as numbers, in a fashion agnostic to the semantic humans could associate to these variable. And from this definition of the world, the robot learned a policy tailored to this task, exhibiting actions socially acceptable, making sense in this context and with an appropriated timing. 
-
-%Furthermore, both the state and the action spaces were large and multimodal. The representation of the world was not limited to this single task but could have been used to learn a wide range of robot behaviours (supportive, adversarial, playful or passive). And from this generic representation of the world, the robot learned a precise policy from a limited number of demonstration. 
-
-
-
-%This has real world implications as it demonstrates the possibility to learn policies specific to different contexts while having only generic description of the state. 
-%\ES{task centric talk about the 10\% of useful actions}
-
-
-%\ES{talk about the generality of the action/state space (limited add hoc specifications for this study) and how a precise policy can emerge - justification to use sparc to create specific policies from general action-state descriptions - easy to repurpose the setup to another task using moving images - math or language (moving translation of words close to each other)}
-%\ES{careful with overlap between this discussion and the final one}
-
-%\begin{itemize}
-%	\item Complexity of the task
-%	\item discuss the supervision: not expert in machine learning, limited training
-%	\item potential to extend robot teaching to a larger part of the population
-%	\item potential to allow a same robot with the same algorithm to develop a policy specific to its teacher: people can personalise their robot by teaching it how they desire it interacts
-%	\item Way to support that the autonomous robot was also able to sustain the engagement through the learning task
-%	\item Difference from offline learning from WoZ: possibility to gather more datapoints: teacher's selections and reactions to the robot's proposition => more points for learning
-%\end{itemize}
-
 \subsection{Limitations of the Study}
 
 Despite showing positive results, this study also suffered from some limitations. The next two sections describe potential reasons for the unexpected results: the absence of differences between conditions in learning gain and the lack of increase in the number of actions proposed by the robot accepted by the teacher. The last part highlight the limitations of the protocol: the impacts of the teacher and the stopping criteria on the results observed in this study.
 
 \subsubsection{Children's Behaviours and Learning Gain}
 
-%\ES{Discuss spread + should be replicated/continued with more children}
-%
-%\ES{See adults scores - in progress - game could be hard, even for some adults - maybe a game easier but more complex would demonstrate higher improvements and variations in the conditions}
-%
-%\ES{Learning potential - learning engagement?
-%%	
-%	s'engage activement dans l'apprentissage
-%	actions utiles -> needs to be clarified in metric section
-%	ratio action utile
-%%	
-%	engagement dans l'apprentissage
-%%	
-%	trouver un terme et l'utiliser partout}
-%
-%\ES{mettre hypotheses partout}
-
 The active robots' behaviour encouraged children to produce more `useful' behaviours during the interaction. When interacting with the supervised or autonomous robot, children were engaged more actively in the learning activity (as demonstrated by better performance in the game and higher numbers of different eating interactions exhibited by children in these conditions compared to the passive one). However, this higher engagement in the activity and exposure to learning items did not translate into an increase in learning gain in the test. In the three conditions, the children had similar test scores; thereby not supporting H3 (`An active robot (supervised or autonomous) supports child learning: the learning gain in the passive condition will be inferior to the learning gain in the autonomous condition, which will be inferior to the learning gain in the supervised condition'). We identified two possible causes for this absence of transfer between game behaviours and test performance. 
 
-%\ES{define useful child actions?}
 \paragraph{Limitations of the game.} 
 One potential explanation is that the game by itself, without the robot, encouraged the children to explore, and interacting independently with it was sufficient to promote learning. As such, in the active conditions, the robot's behaviour might have distracted children from their exploration or encouraged them to rely on or to attend to the robot rather than their own exploration. In that case two effects might have cancelled each other out: on one hand the behaviour of an active robot provided additional knowledge to the children, but on the other hand the same behaviour might have perturbed children's independent exploration of the game, potentially reducing their learning. This might explain the absence of any effect of the robot's behaviour on the children's learning gain. Additionally, as demonstrated by the low improvement in children's performance in the game, the game might have been too difficult for this age range (in pilot studies, adults focused on the game easily reached high scores both in the games and the tests, but even some adults have been seen to achieve limited performance). A simpler game but with a longer and shallower learning curve would probably have led to clearer results and potentially greater differences between the conditions. The game was not validated to show it allows for substantial learning.
 
 \paragraph{Limitations of the test.} 
-The second possible explanation is that the test itself might not have been able to capture the children's knowledge accurately. The test only asked children to connect as many animals to their food as possible. However it might have been too open-ended, and might not have encouraged children to make all the connections they knew to be correct, but simply to make an arbitrary number of connections. %In that case, the test would not represent the real knowledge of children, but only be a lower bound. 
+The second possible explanation is that the test itself might not have been able to capture the children's knowledge accurately. The test only asked children to connect as many animals to their food as possible. However it might have been too open-ended, and might not have encouraged children to make all the connections they knew to be correct, but simply to make an arbitrary number of connections. 
 Having forced-choice questions, for instance randomly selecting 20 connections and asking children if they are correct, might have provided a better evaluation of the children's knowledge. It should also be noted that as the test aimed at estimating the children's knowledge and not improve it. The test did not include feedback on the correctness of the children's answer, thereby the children were not given immediate reinforcement for correct connections. In applications where the knowledge gain is more important than its evaluation, the test could also provide additional information to the children, not only evaluating their knowledge, but also supporting their learning. The test was not validated to show it allow for substantial capture of the children's knowledge.
 
-%\ES{should probably be extended}
 Finally, both for the games and the tests, a large disparity was observed within conditions. As the effects of the condition might not be large, it would be important to improve them and replicate the study with other children or with more participants.
 
-%By only asking children to connect the animals they know, we do not force them to make a choice. They have the opportunity to stop the test at any time. This might limit the efficiency of the comparison as some children might continue further than other, and we might miss some knowledge about the children. It might have been better to select randomly 20 connections between the animals and ask the children if one animal can eat the other.
-
-%\begin{itemize}
-%	\item Game self-exploratory, robot behaviour might distract the children
-%	\item no correlation between exposure to learning items and learning gains
-%	\item Limits of the knowledge test: too open-ended, might have been better to have 10 random animals selected and ask the child to say yes/no?
-%	\item Limit of the performance calculation: the test was probably not able to capture the exact knowledge of children - Learning is about discovering interactions
-%\end{itemize}
-
 \subsubsection{Robot Learning} \label{sec:tutoring_disc_learning}
-%
-%\ES{first sentence not clear - check \%ages of accepted/refused actions and evolution, should not bring much info, but could be interesting}
-%
-%\ES{mention that the percentage of action accepted does not increase through the interactions with more children}
 
 As presented in Chapter~\ref{chap:sparc}, one of the motivations for \gls{sparc} is to provide a way to smoothly move away from \gls{woz} to \gls{sa}, potentially leading to pure autonomy. By learning the policy online, the number of actions selected or corrected by the teacher should decrease and the number of accepted suggestions should increase, hence reducing the teacher's workload. However, this expectation (and by extension H4 - `Using \gls{sparc}, the supervisor's workload decreases over time: the number of corrected actions and the number of actions selected  by the teacher decrease with practice, while the number of accepted proposed actions increases') was not validated by this study's observations. The number (and ratio) of actions accepted, refused and selected by the teacher remained stable throughout the interactions. We identified five potential explanations for this effect.
 
 \paragraph{Suggestion rate too high.} \label{sec:tuto_rate}
-%\ES{discuss additional cognitive load?}
 The first possible explanation is that the robot proposed actions too often (58\% more than the total number of executed actions). This indicates that the adaptive threshold restricting actions from being proposed was consistently too low. This high number of proposed actions partially explains the high number of actions refused by the teacher. Unstructured interviews with the teacher after the study revealed that as the robot tended to propose actions at a high frequency, the teacher reached a point in her supervision where she often preferred refusing the robot's propositions even in cases where they were correct rather than taking the time to evaluate them and risking having undesired actions executed. This is also supported by notes in the teacher's diary in Appendix~\ref{app:diary}:
 \begin{itemize}
 	\item ``I skipped/cancelled a lot of the robot’s suggestions, including ones which I wanted to approve''.
@@ -1082,38 +855,18 @@ The first possible explanation is that the robot proposed actions too often (58\
 \end{itemize}
 
 This issue could be tackled by fine-tuning the algorithm, for example by adapting the factors driving the increase or decrease of the threshold selecting actions to propose. Additionally, the rule updating the threshold might not have been optimal: the threshold might have been decreased in cases where it should not have been and vice versa. Consequently, the conditions to increase or decrease the threshold could be modified by taking into account which action was the closest to the current state not only the distance with the current one (cf. Section~\ref{sec:tuto_algo}).
-% so that the threshold only decrease if the closest instance in memory is the executed action,  the threshold could be decreased if and only if the closest instance in memory was the one selected by the teacher. In that it would indicate that the non-selection of the action was due to a threshold too high. 
-%\ES{the adaptive threshold should have considered the absolute closest actions and update the threshold accordingly}
-%For example when the datapoint covers a region of the space not encountered before. 
 Alternatively, the filter transferring actions to the teacher could also be adapted to force a minimum time between two suggestions to reduce the load on the teacher. But, as this might limit the range of policies available to the learning algorithm, this would need to be seriously considered before being implemented.
-%\ES{discuss improvement of algorithm: decrease threshold if and only if the selected action was already the closest one - discuss UI/UX: interface ways to mitigate it - charge cognitive... (not measured, but statements from the teacher could be interesting)}
 
 \paragraph{Human adaptation.}
-%\ES{odd}
 A second effect which may have limited the correctness of the propositions is the evolution of the teacher's policy. As the teacher progressed in the interactions, she used a wider range of actions (as shown by Figure~\ref{fig:tutoring_actions}). As the algorithm only proposed actions already used at least once, this led to a requirement for the teacher to first demonstrate each action before having the algorithm propose them. This limited the visibility of the learning before the policy was demonstrated in sufficient detail. However, the convergence of the number of actions used by the teacher towards the final interactions indicates that the algorithm might have been better at predicting the teacher's actions if the teaching phase had been extended.
 
-%Having this kind of moving target for learning limited the maximal performance achievable by the algorithm. 
-
 \paragraph{Continuous time.}
-
 This study also stood out from classic evaluation of \gls{ml} because instead of existing only in a discrete time (as generally used for an \gls{rl} agent), here the robot interacted in real-time. In classical \gls{mdp} frameworks, an action has to be selected at each step, actions last one step, and optimal strategies might exist. However, when interacting in the real world, actions take many steps and in most time steps no action should be selected. Additionally, due to the continuous aspect of time, actions are not uniquely valid at a specific step, but around that step. This implies that to reduce the teacher's number of selected actions, the algorithm does not have to select the same action as the teacher at each step, but needs to anticipate the teacher's actions, so that the teacher does not select them first. For example, if the algorithm selects a correct action one step after the teacher's selection, this action would simply be filtered out by the action analyser and as such would not be considered as a good proposition. This might contribute to the limited visibility of the results (absence of increase in number of propositions accepted by the teacher), while the actual policy of the autonomous robot had a positive impact on the children.
 
-%\ES{clarify actions proposed during an execution not even processed - filtered out}
-
 \paragraph{Algorithm.}
-
 Another element potentially explaining the low approval rate of the online learning is related to the algorithm itself. In its simplest form (and as used in this study), Nearest Neighbours considers only one neighbour, making it highly sensitive to outliers. Consequently, some instances in memory could be used too often, leading to an imbalance of policy compared to the demonstrated one. For example, as shown by Figure~\ref{fig:tutoring_actions_distribution}, the action `Remind Rules' is used more often by the autonomous robot than the teacher. This could be due to a few instances of this action in locations of the space visited more often than other actions. Additionally, the structure of the space, and especially the partial continuity of some states (such as time since events) might increase this effect of an instance's location, resulting in some of them being visited more often than others. One way to tackle this issue could be to use k Nearest Neighbours instead, this might lead to a more robust learning algorithm matching the teacher's policy more closely.
 
-%\ES{relate to figure 6.6 and examples of points in states visited more often - continuous of time since event + impact of the number of dimensions}
-
-%\ES{clarify: especially temporal relations to the other part}
 \paragraph{Difference of state representation between human and robot.} \label{sec:differences_representation}
-
-%\ES{Hidden state for the teacher - POMDP: using pre-post test and vocalisation“I don’t
-%know what xx eats”
-%%
-%``Seemed quite scared when the robot moved so kept demonstrations to a minimum.''
-%}
 As mentioned in Section~\ref{ssec:back_lfd}, \cite{knox2014learning} and \cite{sequeira2016discovering} stress the fact that a human teacher (or demonstrator) should have access to the same features as the algorithm to increase transferability. However, even when this recommendation is met, the teacher can create temporal structures which may not be available to the algorithm. This would lead to the presence of \emph{hidden states} the teacher uses for their selections that the robot does not have access to. This presence of hidden states moves the problem closer to a \gls{pomdp} than a classical \gls{mdp}. If the algorithm is poor at taking into account the partial observability of the state (such as simple nearest neighbour - \citealt{mccallum1995instance}), its performance in learning an efficient policy might be limited in the presence of such hidden states.
 
 In this study, for methodological reasons, we did not remove the teacher from the room when the child interacted with the robot. Consequently, this allowed the teacher to have access to features of the interaction absent from the state representation used by the algorithm. For example, the teacher reported the following statements in her diary: 
@@ -1125,97 +878,34 @@ In this study, for methodological reasons, we did not remove the teacher from th
 
 These differences between the state of the world used by the teacher and the one available to the algorithm could partially explain some of the limits of the learning. A way to tackle this issue could be to have a larger state, including more dimensions and relying on the teacher to indicate more precisely which dimension they used. However, this approach is also limited. For example, in this study, the teacher did not use `complex' feature selection, she mostly used the minimum number of features required for an action to be unambiguous even if she might have used other features for her decision. One example of a complex action would be to indicate to the child the food of the animal they are currently touching. To inform the algorithm that the animal being touched by the child matters, the teacher would need to select the animal touched by child while selecting the `drawing attention' action on its food. Whilst being possible, this feature of the teaching was a bit complex to use on the interface, and was not used by the teacher in this study, potentially preventing the algorithm from having access to the exact set of features used by the teacher when selecting an action. This issue might be addressed by changing the interface used by the teacher or improving the learning algorithm.
 
-%Additionally, some of the feature used by the teacher to decide which type of policy to apply might not be available to the algorithm (for instance temporality or verbal utterance in our case). This implies that the algorithm might receive different demonstrations (outputs to match) for the same inputs, complexifying further the learning process.
-
-%\ES{with more training data, and an algorithm addressing the fixable issues, the autonomous policy and the supervised ones should become closer and the workload on the teacher might decrease as the robot learns}
-
-
 \paragraph{Summary}
-
 While the autonomous behaviour was different from the supervised behaviour, both policies still presented many similarities in the distribution of actions executed by the robot and the children's reactions to the robot's behaviours. Additionally, the challenge of learning a suitable policy for the robot should be highlighted: the state space was large (210 dimensions), continuous and the action space contained a large number of possibilities. The interaction was also social and multimodal, happened in the real world and involved real humans with a wide range of behaviours, initial knowledge, preferences and abilities. Finally, the algorithm was not provided with any `innate' knowledge, all the dimensions of the state or the actions were treated the same way, the semantics of the interaction were inferred from the demonstrations and feedback. With more training data and an improved algorithm and interface, the robot learning could have been more efficient and might have led to a decrease in the teacher's workload and an increased similarity between the teacher's policy and that of the autonomous robot. 
-%\ES{discuss the stopping point - and complexity of the task: continuous, multimodal... + large space without semantic included}
 
-%\ES{Good results could be achieved autonomously only if initial knowledge was hard coded in the state action space}
 \subsubsection{Protocol Limitations}
 
 \paragraph{Teacher.}
 \gls{sparc} includes two distinct but simultaneous human-robot interactions. Evaluating such interconnected interactions is a complex task as each human's behaviours impacts the other's. To explore in a repeatable and comparable manner one of the interactions, the other one needs to be as consistent as possible. However, humans are not consistent and, consequently, evaluating these two interactions simultaneously is a challenge. By deciding to keep the same teacher for all the interactions, we only have a sample of one participant as a robot teacher. As a result, this study is in essence a case study of one participant teaching a robot to interact with children; and this could have created some biases in the supervision. As seen in previous chapters, different humans would teach the robot differently. It would have been interesting to explore this axis, by introducing distinct teachers and observing how their different behaviours impacted the learning process and the final policy. We would expect that the resulting autonomous behaviours should match each teacher's policy. However, due to the variability of children, a large number of participants would be required to evaluate a robot learning from several teachers. As such, we did not evaluate more than one teacher in this study.
-%to the number of children required to train and test the robot, we could not do it. 
-%\ES{develop more children's variability}
-%
-%As such, this could create some biases in the supervision, but as the teacher was not aware of the learning mechanism used for the robot and was not provided feedback on how to interact with the robot, these biases were limited. 
-%\begin{itemize}
-%	\item evolve their policy
-%	\item we had to fix her, so another teacher would have behaved differently
-%\end{itemize}
-
-
-%\begin{itemize}
-%	\item The robot proposed in average 58\% more actions than the number of actions executed by the robot (approved and selected by the teacher): the threshold to select actions was probably too low, leading to too many propositions and the adaptivity of the threshold not good enough
-%	\item As the time is continuous and not discrete, the concept of correct actions is biased, there is no `correct' policy associating an action to each time steps. Additionally the timing of the proposition was key as actions proposed just after a selection would have been discarded.
-%	\item To reduce the number of teacher selection, the robot would need to \emph{anticipate} every single teacher's action: not only knowing what action to do, but suggesting it the teacher before she started executing the action.
-%	\item The teacher often cancelled/skip actions directly as they arrived without taking time to analyse them (limitation of this implementation of SPARC).
-%	\item Evolution of teaching policy limits the potential of learning (not one single policy applied by the teacher, but an evolving one, including more actions as the teacher is more comfortable with the system).
-%\end{itemize}
 
 \paragraph{Stopping Criteria.}
-
 During this study, each condition consisted of 25 children. This number was selected in order to have a balanced number of participants in each condition considering the number of  children available in the classes visited. This means that the robot learning was terminated at some point without possibility to refine its policy further, and this impacted all the results observed in the autonomous condition. By involving more children in the supervised condition, the teacher's policy might have converged more, the learning algorithm might have increased its performance by suggesting more appropriate actions to the teacher and potentially reducing her workload. This relatively arbitrary cut-off of the learning phase had important effects on both the supervised and autonomous conditions, and continuing with more children or stopping earlier would have probably led to dramatically different results. For example, additional interaction with children might have modified the value for the threshold limiting the number of proposed actions, potentially leading to the autonomous robot executing more or less actions, which would probably also have impacted the children reactions in the autonomous condition.
-
-%\ES{expliquer pourquoi ça a été choisi: 25 children per condition,  achievable number with the classes we had and allowed to have a balanced number of children per condition}
-
-%\ES{described how and impact on results: example different threshold would have lead to more or less actions executed by the robot in the autonomous condition: open question, but arbitrary decision lead important changes/effects}
 
 \subsection{Considerations When Applying SPARC}
 
 \subsubsection{Human in the Loop}\label{sec:tuto_loop}
-%\ES{justify the role of the teacher and what to give them}
-%
-%\ES{discuss more about the place of the teacher, why they are useful, but why they are a challenge for interaction}
-%
-%\ES{maybe the statements should be put more in the results section?}
-%
-%\ES{what to gain, challenges, how was it tackled, how could be better}
-%
-%\ES{tentative}
 
 With \gls{sparc}, the human teacher is fundamental, they are the key to both providing the safety and allowing the robot to learn quickly. By having control over the robot, they can ensure that the robot only executes desired actions in the interaction. This has two positive effects on the learning process. First, it provides correct labels for states, thus reducing the need for exploration. Second, by guaranteeing the interaction to follow a normal and efficient flow, it ensures that the robot only interacts in relevant parts of the state. If the robot was learning on its own, it might spend time and effort exploring undesired parts of the environment, which would be detrimental both to the learning and to the interaction partners.
 
 However, by being the cornerstone of \gls{sparc}, the human teacher also puts constraint on the interaction. To be able to maximise their efficiency and impact on the learning and the interaction, humans have to stay constantly in control. As introduced in Section~\ref{ssec:sparc_time} they need to be provided with time to correct all the actions intended by the robot before its automatic execution. Additionally, they need to be able to constantly select a correct action for the robot to execute. To be a successful teacher, the human needs both to have access to the tools to control the robot, and to use them efficiently.
 
-%As discussed in Section~\ref{sec:tuto_impacts}, \gls{sparc} allows the human to teacher to be in control of the robot's behaviour and guide the learning to reach quickly an efficient behaviour in a complex environment. 
-In this study, while the interface technically allowed the teacher to control precisely the robot's behaviour, this human control was not perfect throughout this study. %One of the assumptions made in this research was violated
-%It should be noted that while the teacher was in control of the robot, this human supervision was not perfect: 
+In this study, while the interface technically allowed the teacher to control precisely the robot's behaviour, this human control was not perfect throughout this study. 
 The teacher reported once that ``[she] Ended up accidentally making a mistake in my demonstration'' and ``[she] kept missing the skip button so a few erroneous behaviours slipped through''. This demonstrates that humans are not perfect, thereby one of the assumptions we made when proposing \gls{sparc} (a human teacher in control of the robot behaviour can prevent it to do any undesired actions) was violated. Even when being focused on the task, if the interaction lasts for a sufficient amount of time, no human will be able to behave perfectly, which will lead to errors in supervision. These errors being unavoidable, as argued by \cite{rasmussen1989coping}, interactive systems should be transparent for their users and allow error recovery. The next section will describe more in details how error recovery was provided in the study and will offer other alternatives.
-
-%\ES{Finally, as showed by some of the statements made by the teacher and the relatively low number of actions accepted, this human control might happen to the detriment of the robot autonomy.}
 
 To be successful when using \gls{sparc}, the teacher needs to be provided with an environment where they can reliably exert control over the robot. If this teaching environment is not carefully controlled (e.g. by having a robot suggesting too many actions or by having a correction window too short), the teacher's behaviour will be suboptimal. As such when creating an application for \gls{sparc}, designers need to seriously consider the teaching environment provided to the teacher and anticipate potential limitations of the system being evaluated. If the system is correctly designed or at least these limitations are kept to a minimum, the robot learning can be improved, leading to robot behaviour which might have taken a prohibitive amount of time to hand code or be learned autonomously. This highlights the importance of the interface between the teacher and the robot and ways to recover gracefully from errors and ensure that the teacher can teach efficiently. 
 
-%In summary, as reported by the teacher in her diary and as visible in the types of actions executed in the supervised condition, the teacher was mostly in control of the robot	's behaviour. This a key point of \gls{sparc} as by keeping a domain-expert in control of the robot's behaviour in the learning phase, the robot's error can be drastically reduced to a point where the robot's behaviour can be useful as soon as it starts interacting with the world. 
-%
-%\ES{smoother transition to interface}
-%
-%\ES{discuss this more as a consideration when deploying sparc - should be more positive/guidelines}
-%\ES{finer control, more transparent and more information about the impact of action and state of learner - importance of the interface!}
-%\ES{
-%	Teacher used verbs related to control: "I used", "I allowed", "[I] let the robot carry out", "I gave","[I] Chose", "[I] added"
-%	``It’s now fairly easy to control the robot.''
-%	``allowing more robot suggestions''
-%	``have a good balance between demonstrations and vocalisations.''
-%	many ``I used''
-%	``Ended up accidentally making a mistake in my demonstration'' (only once)
-%	``I moved it to its food''
 	%
-%	``It’s often frustrating that I can’t pick exactly what the robot says, but at
-%	the same time, if I could there would definitely be too many buttons on the screen. The current layout
-%	is already difficult to get to grips with so there’s not much that can be done about this.''
-%	``Controlling the robot is really easy now, although I still tend not to let it carry out its suggested actions even when they are valid.''
 	%
-%	teacher in control, but often to the detriment of the robot autonomy
-%}
+
 \subsubsection{Interface} \label{sec:tuto_interface}
-%\ES{how to give the teacher the tools they require to control/teach robot}
 
 As pointed out in the section above, when applying \gls{sparc} to a situation, the interface used by the teacher to communicate with the robot is key. This interface defines how the teacher can interact with the robot, how much control the teacher possesses, how much information the teacher has about the learning progress, how much workload will be required to supervise and teach the robot and how the teacher can recover from errors.
 
@@ -1228,8 +918,7 @@ With \gls{sparc}, the interface needs to allow the teacher to:
 	\item Recover from errors.
 \end{itemize}
 
-\paragraph{Select actions.} % \ES{what to gain, challenges, how was it tackled, how could be better}
-
+\paragraph{Select actions.} 
 The teacher needs to have access to every required action and be able to select them and have the robot execute them in a timely fashion. However, as seen in this study, the action space can be large (here, around 56 different actions were used and more than 600 were available), consequently, each action might not be representable with an individual button. As such, intuitive ways need to be found to both make actions available to the teacher but also make the interface easy to use (requiring limited training time beforehand and keeping the workload low during the supervision). 
 
 In this study, instead of directly having the teacher select one of the 655 actions, the action analyser inferred the desired action by analysing the type of action selected, the relevant animals provided and how the action would impact the distance between animals. While giving access to all the possible actions without requiring a button for each, indirect action selection through inference might lead to interpretations errors, or add special requirements on the way the teacher selects actions to ensure unambiguous interpretation. 
@@ -1238,22 +927,18 @@ Additionally, as some actions would have to be repeated multiple times in the sa
 
 In summary, to allow the teacher to create a policy with a wide range of actions, there is a trade-off between the granularity of the actions available to the teacher (and consequently the precision of the policy) and the usability of the interface (additional actions/buttons might reduce the interface's clarity and usability). When designing an application for \gls{sparc}, the level of actions (high versus low-level), the quantity of actions and the way the teacher can select them needs to be carefully considered.
 
-\paragraph{Specify relevant features.} % \ES{what to gain, challenges, how was it tackled, how could be better}
-
+\paragraph{Specify relevant features.} 
 As argued throughout this work, when teaching a robot, the human should also provide additional information to the learning algorithm to help it learn faster. Providing an interface between human-world features and ones making sense for the algorithm can be a challenge. 
-%The task evaluated in this study was well suited to use a \gls{gui} as the application happened on a touchscreen: the child interacting on a touchscreen by moving objects and in the same way, the teacher could use the \gls{gui} to have the robot perform similar actions. 
 In this study, the teacher's interface replicated the game, and the teacher could see images of animals with some energy and the child moving them around, while the algorithm only had access to a vector of 210 dimensions. The teacher could select features of the environments relevant to the action and the action analyser would infer the dimensions of the state which were related to this list of features and use only these dimension for learning. This implementation proved successful in this experiment, but still required a sort of hand-coded human mapping and might be limited in its use (the designer had to create a mapping between human features and the ones used by the learning algorithm). Additionally, as mentioned in Section~\ref{sec:differences_representation}, the teacher mostly used simple feature selections as well as some elements that were not available to the algorithm. This might signify that this way of providing information to the learning algorithm is not ideal even for this type of interaction.
 
 Other ways to help the robot learn by augmenting the demonstrations should be explored in future work. For example, when selecting an action, the teacher could specify the rule they used and that the algorithm should replicate. Alternatively, the interface could more transparently display the state space to the teacher who would be able to see the evolution of the values and manually highlight the relevant dimensions.
 
-\paragraph{React to and evaluate propositions.} % \ES{what to gain, challenges, how was it tackled, how could be better}
-
+\paragraph{React to and evaluate propositions.} 
 \gls{sparc} aims to reduce the workload on the teacher by having the robot proposing its actions to the teacher before executing them. This implies that the teacher needs a way to react to the propositions: preventing incorrect actions from being executed and ensuring correct actions are executed on time. To achieve this, first the proposed action needs to be displayed in a way that is quickly recognisable by the teacher. Then, the teacher needs to be able to prevent the action (through a button for example), enforce it or let be executed. Finally, the action needs to be rewarded by the human so the algorithm can learn. If the action is correct, its acceptance or execution could be enough for the learning algorithm. However, an action can be incorrect for many reasons, and specifying the reason might help the learning algorithm to learn a better policy faster. For example, in this study the `Skip' and `Cancel' buttons had different semantics for the learning algorithm (one informing that this specific action was wrong, while the other indicated the robot was not supposed to act for the time being). However, while having different semantics for the learning algorithm, these reactions appeared the same for the teacher: the robot did not execute the proposed action; consequently, the teacher used them interchangeably. Future work would benefit from designing better ways of feeding back why an action is wrong to the algorithm.
 
 As mentioned previously, having a limited time for reacting to propositions also put pressure on the teacher to act quickly, potentially leading to errors or misuse of the interface. It might have been interesting to give control to the teacher over the correction window's duration or the adaptive threshold limiting the suggestions. Providing the teacher with a way to mediate this time pressure (through additional control means on these parameters) might lead to a lower workload and potentially a better use of the interface. 
 
 \paragraph{Monitor the learner.}
-
 When learning in the real world, the state of the learner might be hard to evaluate. General \gls{ml} techniques for example have limited transparency: firstly, the state representation is probably not intuitive (such as a simple vector of 210 floating numbers between 0 and 1) and secondly, the learning process might be opaque, closer to a black box than a transparent process. Furthermore, unlike simulation where a performance can be average over many runs, evaluating a policy for interacting with humans can take an extortionate amount of time. Consequently, teachers need to estimate online how accurate the robot's policy is. 
 
 In this study, this estimation could only be done through the robot's suggestions, the teacher did not have access to the robot's state or to the learning process. While being limited, this monitoring still provided more information than offline learning: the teacher was able observe the learner's state through its propositions and potentially see the impact of their actions through the evolution of these propositions.
@@ -1263,55 +948,20 @@ Future work could also adapt the interface. In this study, the choice for the te
 Regardless of the interface's type, providing the teacher with a way to estimate to the learner's state is an important consideration when designing an application for \gls{sparc}. Providing the teacher with a transparent way to evaluate the robot's policy might help to create trust between the teacher and robot, potentially easing its autonomous deployment and increasing the chances that the autonomous robot will express a correct behaviour.
 
 \paragraph{Recover from errors.}
-
 A last functionality of the interface is recovering from errors. As mentioned previously, even a focused teacher will be prone to making errors, and the interface needs to provide a way to mitigate their effect. One type of error for this study was erroneous demonstration. The possibility of having incorrect instances in memory motivated the presence of the `Remove' button, whose effect was to delete the closest instance of the last proposed action, thus preventing incorrect demonstration to impact future robot behaviour. However, the teacher did not have the opportunity to use it in the study, and as such its efficiency was not evaluated. Other types of errors happened, such as not correcting an action in time. However, in that case, no recovery was provided. The interface could provide a way to have the robot apologise, thus preventing incorrect actions from impacting the trust between the child and the robot. In summary, as humans are not perfect teachers, the interface should allow them to compensate for errors and maintain both an efficient learning and a safe and useful interaction with the target of the application (such as children in this study).
 
 \subsubsection{HRI is Human Centred}
 
 A last consideration when applying \gls{sparc} to an \gls{hri} application is that \gls{hri} is human centred. When a robot is supervised in an interaction with a human, and especially with a child, the main goal of the teacher is to ensure that the experience for the child is optimal. Consequently, the teacher will be more focused on the child's behaviour than the robot's learning. For instance, if an action would help the child but hinder the learning for any reason (for example a child with special needs requiring a more proactive robot), the teacher would most certainly `damage' the robot's learning to improve the child's experience. Except specific cases (for instance when using actors or informed participants), teaching a robot to interact with humans will always be a secondary activity or a by-product of the interaction. 
 
-%Furthermore, in \gls{hri} the robot partners are usually different persons; and, as of today humans have access to a much richer representation of the world and knowledge of social interaction than a robot. As a consequence 
 Furthermore, when interacting sequentially with different users, the teachers will tailor their policy to the specific person involved in the interaction. Thus the human will not apply one homogeneous policy to all the interaction partners but potentially one per person. 
-%As humans have access today to a much richer representation of the world and more knowledge about social norms, this adaptation might not be matchable by a robot.
 This is a challenge for \gls{ml} as it further increases the complexity of the learning task. The algorithm has to either learn a much larger policy (covering all the different types of human partners) or learn a multitude of policies and be able to switch between them. Another method for reaching a personalised interaction could be to start with an initial general policy and then use \gls{sparc} with a teacher to refine and adapt it to the specific context of each interaction. That way, the robot would only have to learn to adapt its policy to each user, and the teacher might help to make this adaptation easier.
-%This provides additional support to \gls{sparc} as a method to help humans to use robot, but keeping them in control of the robot's policy to ensure that imperfection of the robot's knowledge would not impact negatively its interaction partners.
-%\begin{itemize}
-%	\item Children are different, so the teacher tried to apply different policy for each child.
-%	\item Human centred interaction, the teacher was more focused on applying the best policy for the child rather than teaching the robot.
-%	\item Application will always be human-centered, so the teaching of the robot will always be a side activity: actions that can hinder the robot learning will be taken if the child would profit for them.
-%	\item task complex
-%\end{itemize}
 
-
-%\subsection{Future work}
-%\ES{probably irrelevant for this chapter}
-
-%The work presented in this chapter could be extended and improve in a number of ways. First all the issues identified in Section~\ref{sec:tutoring_discussion} could be addressed, by using a more aggressive threshold, another way to test children's knowledge or using multiple neighbours to estimate the expected reward of an action. \ES{could extend} The learning game could also be modified to cover other teaching activities including moving images (potential application to language, maths).
-
-
-%\begin{itemize}
-%	\item Potential for other applications?
-%	\item Ways to improve the study / How could the results have been better
-%\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary}
-
-%\ES{clarify achievements and amazing!}
-%
-%\ES{most import part of the thesis: demontrer les elements clef: dimensionality, real humans, autonomous robot, it worked! and teaching process did not impact negatively the learning! really important, as exploratory robot could not have done it}
-%
-%\ES{talk about transparency, acceptance, safety ethics}
-%
-%\ES{reconnect to sparc}
-%
-%\ES{technique d'AI giving to the human an essential role: efficient encodage of human expertise (actions and features) - l'human is a stakeholder is in fine l'agent keeping the respoinsability of the robot
-%	%
-%	as the domain expert progressivvely: trust and transparency: plus facile d'accepter: ethic safe...}
 
 To conclude, this study demonstrated the applicability of \gls{sparc} to \gls{hri}. A robot was taught to interact efficiently with children in the real world. The teaching process led to a successful autonomous policy without perturbing the children (which would not have been possible with methods such as \gls{rl}). In fact, the children even improved their performance in the game while the robot was learning to interact with them. This study demonstrated that \gls{sparc} can be applied to real-world environment to teach robots to interact with humans, even if such environments are multimodal, with high dimensional action and state spaces, and highly sensitive to errors. Furthermore, \gls{sparc} provides stakeholders, such as teachers, a way to transfer their domain expertise to the robot while keeping control over the robot's behaviour. This progressive and transparent encoding of the human expertise (actions and relevant features of the state space) has the opportunity to create a stronger trust between the robot and its user, making an autonomous robot's deployment more acceptable and ethically safer.
 
-%\ES{should the following parts be simply removed?? - staying on really high level summary?}
-
-%This study also proposed a new task for robot tutoring: a learning game to teach children about food webs, and most children involved in the study learned and improved their knowledge through the interaction. 
 Additionally, for the first time in this research \gls{sparc} has been applied to teach a robot to interact with humans in a complex and social environment. By using a novel algorithm adapted from Nearest Neighbours and designed to learn quickly in multidimensional states, the robot learned to produce a behaviour similar to the teacher's. Furthermore, this teaching was performed by a user who was not an expert in \gls{ml} or robotics. While not leading to improvements in the children's learning gain, the behaviours from both the supervised and the autonomous robot led to improvements in the children's behaviours during the game. 
 
 This study provided partial support for the main thesis of this research: ``A robot can learn to interact meaningfully with people in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour''. Whilst the current implementation demonstrated limitations (for instance not reducing the teacher's workload over time), \gls{sparc} succeeded in its goal of allowing a user with limited knowledge of robotics to safely teach a robot to interact with humans in the real world in a multidimensional continuous social environment. 
