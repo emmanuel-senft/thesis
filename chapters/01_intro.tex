@@ -2,12 +2,12 @@
 \graphicspath{{images/intro/}}
 \glsresetall
 
-\gls{hri} explores the challenges of developing robots that interact in human environments and studies how human beings react to such robots. While not being present in most homes yet, robots are quickly penetrating society and entering people's life. 
+\gls{hri} explores the challenges of developing robots that interact in human environments, and studies how human beings react to such robots. While not being present in most homes yet, robots are quickly penetrating society and entering people's life. 
 To interact in human environments and take up their role in society, social robots require a way to interpret their sensory inputs and act on the social world; in other words, they need to be sociable~\citep{breazeal2004designing}. However, interacting socially with humans is a complex task: the social interaction happens on multiple levels and combines elements from various fields~\citep{fong2003survey}. Furthermore, by interacting with humans, robots are subjects to social norms and have to take them into account when behaving around people~\citep{bartneck2004design}. 
 
 Providing robots with such a complex policy is a challenge, and no static controller programmed manually would cover all the possible situations they could face. To interact meaningfully with humans, robots need to learn, constantly expanding and refining their policy. As such, it stands to reason to use the experts in humans interactions, which are the humans themselves, to teach robots to interact socially. 
 
-By providing control over the robot's actions to a human teacher, a robot could learn efficient policies for social interactions from \textit{in situ} human tutelage and supervision. Interactively learning from humans presents a change of paradigm compared to traditional machine learning, as the human possesses knowledge they can interactively transfer to the robot, allowing for online and adaptive teaching and learning~\citep{fails2003interactive,amershi2014power}. Finally, framing this work in the context of \gls{hri} we added to the interaction a large set of constraints (a high-stakes environment, a complex state and action space, relatively low number of datapoints, and real time interaction). Consequently, by exploring how to learn in such a complex environment this research work has applications beyond \gls{hri}, e.g. in general robotics, \gls{ml} and \gls{ai}.
+By providing control over the robot's actions to a human teacher, a robot could learn efficient policies for social interactions from \textit{in situ} human tutelage and supervision. Interactively learning from humans presents a change of paradigm compared to traditional machine learning, as the human possesses knowledge they can interactively transfer to the robot, allowing for online and adaptive teaching and learning~\citep{fails2003interactive,amershi2014power}. Finally, by framing this work in the context of \gls{hri} we added to the interaction numerous challenges: high-stakes environment (an environment where incorrect actions can have serious consequences), large state and action spaces, relatively low number of datapoints, and real time interaction. Consequently, by exploring how to learn in such a complex environment this research work has applications beyond \gls{hri}, e.g. in general robotics, \gls{ml} and \gls{ai}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scope}\label{sec:intro_scope}
@@ -18,12 +18,13 @@ However, enabling a robot to interact socially with humans is a complex task. Th
 
 \subsection{Frame}
 
-The context of the research conducted here is finding a way for robots to interact efficiently with humans. It has been argued by many researchers ~\citep{dautenhahn2004robots,billard2008robot} that robots need to adapt to their users and be able to learn from them. Social robots cannot simply apply a one-size-fits-all policy programmed in advance by engineers and suited to every possible interaction partner. Robots need the capability to learn interactive behaviours, improving their skills as they inhabit the world and personalising their policy to their users. This thesis aims to tackle this challenge and provide a framework enabling robots to learn to interact with people.
+The context of the research conducted here is finding a way for robots to interact efficiently with humans. It has been argued by many researchers ~\citep{dautenhahn2004robots,billard2008robot} that robots need to adapt to their users and be able to learn from them. Social robots cannot simply apply a one-size-fits-all policy programmed in advance by engineers and suited to every possible interaction partner. Robots need the capability to learn interactive behaviours, improving their skills as they inhabit the world and personalising their policy to their users. This thesis aims to tackle this challenge and to provide a framework enabling robots to learn to interact with people.
 
-Throughout this thesis we make the assumption that people knows how the robot should interact. A person, generally not the engineers who have developed the robot, possesses some expertise which should be transferred to a robot. This expertise is not related to theoretical knowledge in \gls{ml}, robotics or other scientific fields but instead is about how the robot should behave. For instance,  it could take the form of the steps of a therapeutical intervention a robot should deliver to the child (known to a therapist) or more simply a senior's preferences and desires concerning a robot companion's behaviour. As a consequence, robots' users should be able to teach their robot 
- without requiring technical expertise.
+Throughout this thesis we make the assumption that people knows how robots should interact. A person, generally not the engineers who have developed the robot, possesses some expertise which should be transferred to a robot. This expertise is not related to theoretical knowledge in \gls{ml}, robotics or other scientific fields but instead is about how the robot should behave. For instance,  it could take the form of the steps of a therapeutical intervention a robot should deliver to a child (known to a therapist) or more simply a senior's preferences and desires concerning a robot companion's behaviour. As a consequence, robots' users should be able to teach their robot without requiring technical expertise.
 
-The ultimate goal of this research is to explore how robots could learn to interact socially and efficiently with humans. But, by making the assumption that the interaction knowledge should be provided by a human, the resulting question of this thesis is: \emph{`How can humans teach robots to interact?'}. As such, this research work aims to provide a convenient and efficient way for domain experts to inculcate robots with their interaction knowledge. To do so, this research explores the requirements on an interaction framework allowing humans to teach robots to interact socially in human environments and studies the impacts such a framework would have on the interaction.
+The ultimate goal of this research is to explore how robots could learn to interact socially and efficiently with humans. This work addresses the problem of action selection, assuming a perception of the world and a finite set of predefined actions, the robot has to find the best action for each situation. The problems of defining actions (how to execute a high level action), extending the number of actions available to the robot and refining the perception are not covered by this work, but would be interesting future or complementary work. For example, a robot companion at home would learn when to do actions (such as setting the table or cleaning the dishes) but not the motor commands required to complete such actions (we assume the robot has access to an implementation of each available actions).
+
+By making the assumption that the interaction knowledge should be provided by a human, the resulting question of this thesis is: \emph{`How can humans teach robots to interact?'}. As such, this research work aims to provide a convenient and efficient way for domain experts to inculcate robots with their interaction knowledge. To do so, this research explores the requirements on an interaction framework allowing humans to teach robots to interact socially in human environments and studies the impacts such a framework would have on the interaction.
 
 \subsection{Type of Interaction}
 
@@ -36,22 +37,24 @@ In \gls{hri}, as in other robot applications, a robot has to solve a task with o
 	\label{fig:intro_setup}
 \end{figure}
 
-The applications presented in this work focus on \gls{hri} as the application domain. However, the methods and algorithms presented in this thesis are applicable to the broader domain in which a robot, or more generally an agent, is taught a behaviour. However, interacting with a human is a high stake scenario, where wrong decisions can be costly, where datapoints for learning can be costly to acquire, and with a high diversity between different partners. Other types of interaction could be less constrained, less complex or with lower stakes. Consequently, by addressing the challenging task of teaching a robot to interact socially with humans, the methods and algorithms developed in this work are expected to also be suitable for a wide range of other tasks (such as manipulation, classification or navigation). In the more general case, we consider scenarios where a user has a task they would like an artificial agent to complete and they have useful knowledge they want to transfer to this agent. Through the teaching interaction, the human can supervise the agent, demonstrating what it should do and teaching it an efficient policy in the application interaction with the target. 
+The applications presented in this work focus on social \gls{hri} as the application domain. However, the methods and algorithms presented in this thesis are applicable to the broader domain in which a robot, or more generally an agent, learns a behaviour, more precisely what action (or label) it should select from a finite subset. However, interacting with a human is a high stake scenario, where wrong decisions can have serious consequences, where datapoints for learning can be costly to acquire, and with a high diversity between different partners. Other types of interaction could be less constrained, less complex or with lower stakes. Consequently, by addressing the challenging task of teaching a robot to interact socially with humans, the methods and algorithms developed in this work are expected to also be suitable for a wide range of other tasks (such as manipulation, classification or navigation). In the more general case, we consider scenarios where a user has a task they would like an artificial agent to complete and they have useful knowledge they want to transfer to this agent. Through the teaching interaction, the human can supervise the agent, demonstrating what it should do and teaching it an efficient policy in the application interaction with the target. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Thesis}\label{sec:intro_thesis}
 
 The main thesis this document proposes is the following:
 \begin{quote}
-	\textbf{A robot can learn to interact meaningfully with people in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour.}
+	\textbf{A robot can progressively learn to interact with people in an efficient and safe way by receiving supervision from a human teacher in control of the robot's behaviour.}
 \end{quote}
+
+By receiving demonstration form a human in control of the robot, the robot could progressively build up a policy and as the robot becomes autonomous, the requirement of demonstrations from the human decreases until the robot can let interact autonomously.
 
 This thesis raises a series of additional research questions; and, in the pursuit of supporting the main thesis, this research work addressed the six research questions presented below.
 
 The first two questions correspond to a theoretical analysis of the field of social \gls{hri} and a proposition of an interaction framework allowing humans to teach robots in high stakes environments such as \gls{hri}.
 
 \begin{itemize}
-	\item [RQ1] \emph{What are the requirements of a robot controller to ensure a behaviour suited to \gls{hri}?} 
+	\item [RQ1] \emph{What are the requirements of a robot controller to ensure a behaviour suited to social \gls{hri}?} 
 	
 		By interacting with humans, robots enter the social world and have to conform to human expectations while ensuring they can reach their goal. This research question studies the constraints put on the robot's controller by interacting in the human world. 
 		
@@ -62,20 +65,21 @@ The first two questions correspond to a theoretical analysis of the field of soc
 
 Then, questions 3 and 4 are focused on the teaching interaction and evaluate the specific relation between the teacher and the robot. As such, these questions correspond to situations where the application interaction is fixed and repeatable. These controlled application interactions help us to characterise the teaching interaction, and analyse if it would be suited to teach a robot to interact with humans.
 \begin{itemize}
-    \item [RQ3] \emph{Could a robot decrease its supervisor's workload by learning from their supervision?}
+    \item [RQ3] \emph{Could a robot decrease its supervisor's workload by proposing actions informed from previous human decisions?}
     
-        Controlling a robot is a significant burden for the human supervisor. This question explores whether including a learning component in the robot behaviour could relieve or alleviate the human workload by taking over some of the mental and physical requirements of the robot control. Additionally, this question explores whether this learning impacts the performance in the task.
+        Controlling a robot can be a significant burden for the human supervisor. This question explores whether including a learning component in the robot behaviour and proposing actions to the human could relieve or alleviate their workload by taking over some of the mental and physical requirements of the robot control. Additionally, this question explores whether this learning impacts the performance in the task.
     
-    \item [RQ4] \emph{How does providing the teacher with control over the learner's actions impact the teaching process?} 
+    \item [RQ4] \emph{When teaching a robot, how does the control over the robot's actions provided to the teachers impact the teaching process in term of performance, effort and time required?} 
     
     	Teaching robots has a unique property compared to teaching humans in the fact that the teacher can have total control over the learner's actions. This question explores whether this control could lead to a faster and more efficient learning while lightening the process for the teacher.
 \end{itemize}    	
 
-Finally, questions 5 and 6 evaluate the implications of having a human directly teaching a robot to interact with another human in a real situation, more precisely in the context of child tutoring.
-\begin{itemize}
-	\item [RQ5] \emph{How does teaching a robot to interact socially impact the two human parties involved in the triadic interaction?}
+Finally, questions 5 and 6 evaluate the implications of having a human directly teaching a robot to interact with another human in a real situation, more precisely in the context of child tutoring. In this context, teaching the robot to interact with humans create a triadic interaction where three agents (the teacher, the robot and child) are learning and changing their behaviour over time.
 
-		Using humans to teach robots to interact with other humans results in two linked interactions. This question studies the impact of the teaching process on these two interactions: are the requirements from RQ1 validated in the application interaction? Is the teaching interaction efficient and convenient for the teacher?
+\begin{itemize}
+	\item [RQ5] \emph{When are robot is taught to interact with humans, what are the impacts in term of performance in the target application, comfort for the teacher and robot learning?}
+
+		Using humans to teach robots to interact with other humans results in two linked interactions. This question studies the impact of the teaching process on these two interactions: are the requirements from RQ1 validated in the application interaction? Is the teaching interaction efficient and convenient for the teacher? How can the robot learn quickly an efficient policy?
 		
     \item [RQ6] \emph{After receiving supervision from a person, could a robot behave autonomously in a social context?}
 
