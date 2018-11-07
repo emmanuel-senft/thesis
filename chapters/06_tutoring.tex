@@ -269,7 +269,7 @@ The second difference between this algorithm and the original one~\citep{cover19
 
 \begin{algorithm}
 	\DontPrintSemicolon
-	\SetKwInOut{Input}{inputs}\SetKwInOut{Output}{output}
+	\SetKwInOut{Input}{inputs}\SetKwInOut{Output}{outputs}
 	\Input{
 		$s$: current state\\
 	    $C$: collection of instances $c = (a,s',r)$\\
@@ -319,7 +319,7 @@ To give enough flexibility in the timing of the suggested actions (to react in t
 
 \begin{algorithm}
 	\DontPrintSemicolon
-	\SetKwInOut{Input}{inputs}\SetKwInOut{Output}{output}
+	\SetKwInOut{Input}{inputs}\SetKwInOut{Output}{outputs}
 	\Input{\\
 		$s$: current state\\
 		$C$: collection of instances $c=(a,s',r)$\\
@@ -756,7 +756,7 @@ Figure~\ref{fig:tutoring_supervision} presents the reaction of the teacher to th
 	\label{fig:tutoring_supervision}
 \end{figure}
 
-Figure~\ref{fig:tutoring_actions} presents the accumulated number of different actions the teacher used. This number represents the complexity of the policy used by the teacher and shows that across all of the the interaction, the teacher tended to demonstrate all the useful actions, reaching a final plateau towards the end of the last interaction. We can observe a sharp increase in the first 5 interactions, when the teacher used the main actions for the first time. Then there is a mixture of small plateaus and small increases, indicating that the teacher alternated phases where she enriched her policy and phases where she maintained her policy. And finally, the number of different actions in the policy seems to converge around 56 towards the last interactions. This indicate that as intended, the action space is general: only a subset of it (56 actions out 655) is relevant to this task, for another task or another desired robot behaviour, a different subset of the action space could have been useful. By using human demonstrations, the robot can learn which actions are important for the current task without having to explore the whole action space. This non reliance on exploration allows the robot to learn a policy without being impacted by the dimension of the general action space. We precise that this figure represents only the number of different actions used by the teacher, see Figure~\ref{fig:tutoring_actions_distribution} to have information about the number of actions used for each type.
+Figure~\ref{fig:tutoring_actions} presents the accumulated number of different actions the teacher used. This number represents the complexity of the policy used by the teacher and shows that across all of the interaction, the teacher tended to demonstrate all the useful actions, reaching a final plateau towards the end of the last interaction. We can observe a sharp increase in the first 5 interactions, when the teacher used the main actions for the first time. Then there is a mixture of small plateaus and small increases, indicating that the teacher alternated phases where she enriched her policy and phases where she maintained her policy. And finally, the number of different actions in the policy seems to converge around 56 towards the last interactions. This indicate that as intended, the action space is general: only a subset of it (56 actions out 655) is relevant to this task, for another task or another desired robot behaviour, a different subset of the action space could have been useful. By using human demonstrations, the robot can learn which actions are important for the current task without having to explore the whole action space. This non reliance on exploration allows the robot to learn a policy without being impacted by the dimension of the general action space. We precise that this figure represents only the number of different actions used by the teacher, see Figure~\ref{fig:tutoring_actions_distribution} to have information about the number of actions used for each type.
 
 \begin{figure}[ht]
 	\includegraphics[width=.85\linewidth]{./number_actions.pdf}
