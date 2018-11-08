@@ -74,19 +74,19 @@ This way of keeping a human in the learning loop, with the opportunity to overri
 	\Output{$a$: evaluated action\\
 			$r$: reward associated to $a$\\
 			$\pi$: robot's policy}
-	\If{Teacher selects action $a$}{
+	\eIf{Teacher selects action $a$}{
 		Robot executes $a$\\
 		$r$ > 0 \\
 		$\pi$ is updated with $s$-$a$-$r$
 	}
-	\Else{
+	{
 		\If{Learning Algorithm selects $a$}{
 			Robot proposes $a$ to teacher\\
-			\If{Teacher cancels $a$ before $t$}{
+			\eIf{Teacher cancels $a$ before $t$}{
 				Robot does not execute $a$\\
 				$r$ < 0 \\
 			}
-			\Else{
+			{
 				Robot executes $a$\\
 				$r$ > 0\\
 			}
