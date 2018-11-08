@@ -46,6 +46,22 @@
 		#2\relax
 	}%
 }
+
+\newcommand*{\addpdf}[1]{%
+	\foreachpage{#1}{%
+		\newpage   
+		\begingroup 
+		\centering
+		\includegraphics[
+		page=\value{imagepage},
+		width=\textwidth,  
+		height=\textheight,
+		keepaspectratio,
+		]{#1}%
+		\newpage
+		\endgroup
+	}
+}
 \makeatother
 
 \makeatletter

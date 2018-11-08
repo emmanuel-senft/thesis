@@ -27,21 +27,7 @@ The second tool provided a graphical way to read and edit the xml files describi
 \cleartooddpage
 \chapter{yarpGenerator Technical Report} \label{app:yarpgenerator}
 This appendix section presents the technical report corresponding to the yarpgenerator tool created for the DREAM project.
-
-\foreachpage{appendices/yarpgenerator-guidelines.pdf}{%
-	\newpage   
-	\begingroup 
-	\centering
-	\includegraphics[
-	page=\value{imagepage},
-	width=\textwidth,  
-	height=\textheight,
-	keepaspectratio,
-	]{appendices/yarpgenerator-guidelines.pdf}%
-	\newpage
-	\endgroup
-}
-
+\addpdf{appendices/yarpgenerator-guidelines.pdf}
 
 \cleartooddpage
 \chapter{Social Assistive Robot for Cardiac Rehabilitation} \label{app:Colombia}
@@ -51,20 +37,15 @@ A  second project I was involved in during this work was a collaboration with th
 During that project, my role was to design the robot's controller. The robot guided the patients through the therapy, provided encouragements or feedback on their postures, monitored their vital signs (blood pressure, heart rate and pain level) and alerted the therapists if the patients were in a bad situation. We used a combination of preprocessed inputs and image processing with rules from the therapists to define a robot behaviour suited to this therapy. So far this collaboration contributed to two publications~\citep{lara2017human,casas2018social}, but more are being written.
 
 \cleartooddpage
+\chapter{Questionnaires for the First Study} \label{app:woz_questionnaires}
+This appendix section presents the questionnaires used in the first study. Participants were first asked to complete a demographic questionnaires, then they were given an information sheet describing the task and the interacted with two systems. After each interaction they completed a post-interaction questionnaire and at the end of the experiment, they also completed a post experiment questionnaire comparing the two condition. An instructional video demonstrating the interface can be found at  \url{https://emmanuel-senft.github.io/experiment-woz.html}.
+\addpdf{appendices/woz_demographics.pdf}
+\addpdf{appendices/woz_information.pdf}
+\addpdf{appendices/woz_post-interaction.pdf}
+\addpdf{appendices/woz_post-experiment.pdf}
+
+\cleartooddpage
 \chapter{Teacher's Diary} \label{app:diary}
 This appendix section presents the daily report of the teacher's impressions and feeling when teaching the robot in the study in Chapter\ref{chap:tutoring}. It should be noted that among all the children supervised, many were special needs and as such have been removed from the result analysis. This also explains the difference of number between the children in the supervised condition (n=25) and in this diary (n=34).
 
-%\includepdf[pages=1-14,pagecommand={},linktodoc=true]{appendices/research-diary.pdf}
-\foreachpage{appendices/research-diary.pdf}{%
-	\newpage   
-	\begingroup 
-	\centering
-	\includegraphics[
-	page=\value{imagepage},
-	width=\textwidth,  
-	height=\textheight,
-	keepaspectratio,
-	]{appendices/research-diary.pdf}%
-	\newpage
-	\endgroup
-}
+\addpdf{appendices/research-diary.pdf}
