@@ -65,11 +65,11 @@ The first two questions correspond to a theoretical analysis of the field of soc
 
 Then, questions 3 and 4 are focused on the teaching interaction and evaluate the specific relation between the teacher and the robot. As such, these questions correspond to situations where the application interaction is fixed and repeatable. These controlled application interactions help us to characterise the teaching interaction, and analyse if it would be suited to teach a robot to interact with humans.
 \begin{itemize}
-    \item [RQ3] \emph{Could a robot decrease its supervisor's workload by proposing actions informed from previous human decisions?}
+    \item [RQ3] \emph{Could a robot decrease its supervisor's workload by proposing actions informed by previous human decisions?}
     
         Controlling a robot can be a significant burden for the human supervisor. This question explores whether including a learning component in the robot behaviour and proposing actions to the human could relieve or alleviate their workload by taking over some of the mental and physical requirements of the robot control. Additionally, this question explores whether this learning impacts the performance in the task.
     
-    \item [RQ4] \emph{When teaching a robot, how does the control over the robot's actions provided to the teachers impact the teaching process in term of performance, effort and time required?} 
+    \item [RQ4] \emph{When teaching a robot, how does the control over the robot's actions provided to the teachers impact the teaching process in term of performance, effort and teaching time?} 
     
     	Teaching robots has a unique property compared to teaching humans in the fact that the teacher can have total control over the learner's actions. This question explores whether this control could lead to a faster and more efficient learning while lightening the process for the teacher.
 \end{itemize}    	
@@ -77,13 +77,13 @@ Then, questions 3 and 4 are focused on the teaching interaction and evaluate the
 Finally, questions 5 and 6 evaluate the implications of having a human directly teaching a robot to interact with another human in a real situation, more precisely in the context of child tutoring. In this context, teaching the robot to interact with humans create a triadic interaction where three agents (the teacher, the robot and child) are learning and changing their behaviour over time.
 
 \begin{itemize}
-	\item [RQ5] \emph{When a human teaches a robot to interact with other humans, what are the impacts in term of performance in the target application, comfort for the teacher and robot learning?}
+	\item [RQ5] \emph{What are the impacts in term of performance in the target application, comfort for the teacher and robot learning, when using \gls{sparc} to teach a robot to interact with humans?}
 
 		Using humans to teach robots to interact with other humans results in two linked interactions. This question studies the impact of the teaching process on these two interactions: are the requirements from RQ1 validated in the application interaction? Is the teaching interaction efficient and convenient for the teacher? How can the robot learn quickly an efficient policy?
 		
-    \item [RQ6] \emph{After receiving supervision from a person, could a robot behave autonomously in a social context?}
+    \item [RQ6] \emph{After having been taught using \gls{sparc}, could a robot behave autonomously in a social context?}
 
-	 	Having been taught, a robot could be deployed to interact autonomously in the real world. This question analyses the robot's behaviour when interacting autonomously and explores the efficiency of a teacher \textit{in situ} providing the robot an autonomous behaviour validating principles from RQ1.
+	 	With \gls{sparc}, a robot could be deployed after a teaching phase to interact autonomously in the real world. This question analyses the robot's behaviour when interacting autonomously and explores the efficiency of a teacher \textit{in situ} providing the robot an autonomous behaviour validating principles from RQ1.
 	 
 \end{itemize}
 
@@ -134,10 +134,10 @@ This research work contributed both scientifically (by creating and evaluating \
 \begin{itemize}
 	\item The first contribution, and the cornerstone of this work is the \textbf{\acrfull{sparc}}, a new interaction framework to \textbf{teach a robot to interact in complex and high stakes environments}, whereby the robot progressively gains autonomy while being supervised by a human. (Chapter~\ref{chap:sparc}; \citealt{senft2015human,senft2015sparc}).
 	\item We then \textbf{evaluated \gls{sparc} in three studies} of increasing complexity, culminating into a final experiment in which we \textbf{taught a robot to support child learning} in the wild. (Chapters~\ref{chap:woz},~\ref{chap:control} and~\ref{chap:tutoring}; \citealt{senft2015sparc,senft2017supervised,senft2018robots}).
-	\item We showed that by \textbf{learning from a human commands}, a robot can reduce the need for the human to manually select actions for the robot, and this further \textbf{reduces the workload on this human operator}. (Chapter~\ref{chap:woz}; \citealt{senft2015sparc})	
+	\item We showed that by \textbf{learning from a human's commands}, a robot can reduce the need for the human to manually select actions for the robot, and this further \textbf{reduce the workload on this human operator}. (Chapter~\ref{chap:woz}; \citealt{senft2015sparc})	
 	\item We demonstrated the impact and importance of the \textbf{teacher's control over the robot's action} when teaching a robot: it \textbf{makes the teaching safer, faster, easier and more efficient} (Chapter~\ref{chap:control}; \citealt{senft2016sparc,senft2017supervised}).
 	\item We designed a lightweight algorithm \textbf{adapted from Nearest Neighbours}, but defined on a \textbf{sliced version of the state and using rewards} to quickly \textbf{learn from demonstrations in multidimensional environments} (Chapter~\ref{chap:tutoring}; \citealt{senft2017toward}).
-	\item We applied \acrlong{iml} to \textbf{safely teach robots social autonomy} from \textit{in situ} human supervision in a \textbf{real human-robot interaction} (Chapter~\ref{chap:tutoring}; \citealt{senft2018robots}). This is one of the main contributions as allowing a robot to learn to interact with people \textit{in situ} presents many advantages compared to other types of learning (e.g. constant appropriate behaviour in the learning phase, fast learning and transparency). However, this learning \emph{in situ} is seldomly used in \gls{hri} due the challenges it presents.
+	\item We used \gls{sparc} to \textbf{safely teach robots social autonomy}  from \textit{in situ} human supervision in a \textbf{real human-robot interaction} (Chapter~\ref{chap:tutoring}; \citealt{senft2018robots}). This is one of the main contributions as allowing a robot to learn to interact with people \textit{in situ} presents many advantages compared to other types of learning (e.g. \textbf{constant appropriate behaviour in the learning phase, fast learning and transparency}) and can lead to an \textbf{autonomous behaviour similar to the demonstrated one}. However, this learning \emph{in situ} is seldomly used in \gls{hri} due the challenges it presents.
 \end{itemize}
 
 \subsection{Technical Contributions}
